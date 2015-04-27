@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- actionbar color -->
+    <color name="actionbar_title">#ffffff</color>
+    <color name="actionbar_title_shadow">#333333</color>
+    <color name="actionbar_background">#C4000000</color>
+    <color name="actionbar_item">#00000000</color>
+    <color name="actionbar_item_pressed">#66000000</color>
+    <color name="actionbar_item_text">#ffffff</color>
+    <color name="actionbar_popup_background">#C4000000</color>
+    <color name="actionbar_popup_text">#FFFFFF</color>
+    <color name="actionbar_popup_item">#C4000000</color>
+    <color name="actionbar_popup_item_pressed">#E2000000</color>
+	<color name="actionbar_popup_item_driver">#C4F1F1F1</color>
+	
+	<color name="actionbar_search_background">#555555</color>
+	<color name="actionbar_mode_line">#33B5E5</color>
+	<color name="actionbar_mode_bg">#ffffff</color>
+	
+</resources>

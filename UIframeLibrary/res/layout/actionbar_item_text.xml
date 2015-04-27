@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_item"
+    style="@style/ActionBarTextItem"
+    android:layout_centerVertical="true"
+    android:gravity="center"
+    android:singleLine="true"
+    android:visibility="visible"
+    android:textColor="@color/actionbar_item_text"
+    />

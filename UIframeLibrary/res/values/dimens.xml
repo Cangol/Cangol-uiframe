@@ -1,0 +1,6 @@
+<resources>
+
+	<dimen name="actionbar_height">48dip</dimen>
+    <dimen name="actionbar_item_height">48dip</dimen>
+    <dimen name="actionbar_item_min_width">48dip</dimen>
+</resources>

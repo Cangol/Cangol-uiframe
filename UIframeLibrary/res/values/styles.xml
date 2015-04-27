@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- ActionBar -->
+	<style name="ActionBar">
+        <item name="android:background">@color/actionbar_background</item>
+    </style>
+    
+    <style name="ActionBarTitle">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/actionbar_title</item>
+        <item name="android:shadowColor">@color/actionbar_title_shadow</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1.5</item>
+    </style>
+	<style name="ActionBarItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/actionbar_height</item>
+        <item name="android:minWidth">@dimen/actionbar_item_min_width</item>
+        <item name="android:background">@drawable/actionbar_item_bg</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="ActionBarTextItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/actionbar_height</item>
+        <item name="android:minWidth">@dimen/actionbar_item_min_width</item>
+         <item name="android:textSize">16.0sp</item>
+         <item name="android:textColor">@color/actionbar_item_text</item>
+         <item name="android:background">@drawable/actionbar_item_bg</item>
+        <item name="android:padding">8dp</item>
+    </style>
+	<style name="ActionBarIconItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/actionbar_height</item>
+        <item name="android:minWidth">@dimen/actionbar_item_min_width</item>
+        <item name="android:background">@drawable/actionbar_item_bg</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="ActionBarPopupItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/actionbar_height</item>
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textColor">@color/actionbar_popup_text</item>
+    </style>
+   <style name="ActionBarProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/actionbar_progress_horizontal</item>
+        <item name="android:minHeight">7dip</item>
+		<item name="android:maxHeight">7dip</item>
+    </style>
+</resources>

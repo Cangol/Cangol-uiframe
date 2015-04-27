@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/actionbar_item_bg"
+    android:layout_marginRight="1dp"
+    android:layout_marginLeft="1dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/actionbar_popup_item"
+        style="@style/ActionBarPopupItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scaleType="fitCenter" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/actionbar_popup_item_driver" />
+
+</LinearLayout>
