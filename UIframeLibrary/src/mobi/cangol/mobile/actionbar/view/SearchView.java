@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,8 +30,7 @@ public class SearchView extends LinearLayout {
 	public final static int VOICE_REQUEST_CODE=701;
 	private ClearableEditText mSearchText;
 	private ImageView mVoiceButton;
-	private ImageView mLogoButton;
-	private View mHomeLayout;
+	private ImageView mIndicatoButton;
 	private OnSearchTextListener mOnSearchTextListener;
 	private OnVoiceClickListener mOnVoiceClickListener;
 	public SearchView(Context context, AttributeSet attrs) {
@@ -54,9 +52,7 @@ public class SearchView extends LinearLayout {
         }
 	}
 	private void initViews(){
-		mHomeLayout=this.findViewById(R.id.actionbar_search_home);
-		mLogoButton=(ImageView) this.findViewById(R.id.actionbar_search_logo);
-		mLogoButton.setImageResource(this.getContext().getApplicationInfo().icon);
+		mIndicatoButton=(ImageView) this.findViewById(R.id.actionbar_search_indicator);
 		mSearchText=(ClearableEditText) this.findViewById(R.id.actionbar_search_text);
 		mVoiceButton=(ImageView) this.findViewById(R.id.actionbar_search_voice);
 		mSearchText.setOnEditorActionListener(new OnEditorActionListener() {
@@ -79,7 +75,7 @@ public class SearchView extends LinearLayout {
 			}
 		
 		});
-		mHomeLayout.setOnClickListener(new OnClickListener(){
+		mIndicatoButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -95,10 +91,6 @@ public class SearchView extends LinearLayout {
 	public void setOnVoiceClickListener(OnVoiceClickListener mOnVoiceClickListener) {
 		this.mOnVoiceClickListener = mOnVoiceClickListener;
 	}
-	public void setLogo(int resId){
-		mLogoButton.setImageResource(resId);
-	}
-	
 	public void setSearchText(String keywords){
 		mSearchText.setText(keywords);
 	}

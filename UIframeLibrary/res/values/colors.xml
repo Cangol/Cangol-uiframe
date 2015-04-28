@@ -8,13 +8,15 @@
     <color name="actionbar_item_pressed">#66000000</color>
     <color name="actionbar_item_text">#ffffff</color>
     <color name="actionbar_popup_background">#C4000000</color>
-    <color name="actionbar_popup_text">#FFFFFF</color>
+    <color name="actionbar_popup_text">#F5F5F5</color>
     <color name="actionbar_popup_item">#C4000000</color>
     <color name="actionbar_popup_item_pressed">#E2000000</color>
-	<color name="actionbar_popup_item_driver">#C4F1F1F1</color>
+	<color name="actionbar_popup_item_driver">#1FFFFFFF</color>
 	
 	<color name="actionbar_search_background">#555555</color>
-	<color name="actionbar_mode_line">#33B5E5</color>
-	<color name="actionbar_mode_bg">#ffffff</color>
+	<color name="actionbar_mode_bottom_line">#33B5E5</color>
+	<color name="actionbar_mode_split">#aaa</color>
+	<color name="actionbar_mode_bg">#F2F2F2</color>
+	<color name="actionbar_mode_text">#333333</color>
 	
 </resources>

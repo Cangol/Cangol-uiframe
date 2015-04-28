@@ -5,31 +5,13 @@
     android:background="@color/actionbar_search_background"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
-
-    <LinearLayout
-        android:id="@+id/actionbar_search_home"
-        style="@style/ActionBarItem"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/actionbar_height"
-        android:layout_marginLeft="-8dp"
-        android:orientation="horizontal" >
-
-        <ImageView
+	<ImageView
+	    	android:id="@+id/actionbar_search_indicator"
+	    	style="@style/ActionBarItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|left"
             android:contentDescription="@string/app_name"
             android:src="@drawable/actionbar_up_indicator" />
-
-        <ImageView
-            android:id="@+id/actionbar_search_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitCenter" />
-    </LinearLayout>
 
     <mobi.cangol.mobile.actionbar.view.ClearableEditText
         android:id="@+id/actionbar_search_text"

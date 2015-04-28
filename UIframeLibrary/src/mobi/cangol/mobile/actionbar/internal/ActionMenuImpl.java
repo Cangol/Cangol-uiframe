@@ -23,20 +23,22 @@ public class ActionMenuImpl implements ActionMenu{
 
 	@Override
 	public void add(ActionMenuItem action) {
-		mActionMenuView.addAction(action);
 		mActions.add(action);
+		mActionMenuView.addAction(action);
 	}
 
 	@Override
 	public void addActions(ArrayList<ActionMenuItem> actions) {
-		mActionMenuView.addActions(actions);
 		mActions.addAll(actions);
+		mActionMenuView.addActions(actions);
+		
 	}
 
 	@Override
 	public void clear() {
-		mActionMenuView.removeAllActions();
 		mActions.clear();
+		mActionMenuView.removeAllActions();
+		
 	}
 
 	@Override

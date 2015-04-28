@@ -44,6 +44,13 @@ public class ActionBarActivity extends FragmentActivity{
 		// TODO Auto-generated method stub
 		mDelegate.setTitle(titleId);
 	}
+	public void setBackgroundColor(int color){
+		mDelegate.setBackgroundColor(color);
+	}
+	
+	public void setBackgroundResource(int resId){
+		mDelegate.setBackgroundResource(resId);
+	}
 	@TargetApi(19) 
 	public void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
@@ -84,17 +91,15 @@ public class ActionBarActivity extends FragmentActivity{
 		this.mDelegate.setActionbarShow(show);
 		
 	}
-	public void setBackground(int resId){
-		mDelegate.setBackground(resId);
-	}	
+
 	public ActionMenuInflater getActionMenuInflater() {
         return mDelegate.getActionMenuInflater();
 	}
-	protected void onMenuActionCreated(ActionMenu actionMenu) {
+	public void onMenuActionCreated(ActionMenu actionMenu) {
 		
 	}
 	
-	protected boolean onMenuActionSelected(ActionMenuItem actionMenu) {
+	public boolean onMenuActionSelected(ActionMenuItem actionMenu) {
 		return false;
 	}
 	protected boolean dispatchActionSelected(ActionMenuItem actionMenu) {
@@ -127,5 +132,14 @@ public class ActionBarActivity extends FragmentActivity{
 		boolean b = mDelegate.onKeyUp(keyCode, event);
 		if (b) return b;
 		return super.onKeyUp(keyCode, event);
+	}
+	public void setFullScreen(boolean fullscreen) {
+		if(fullscreen){
+			this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}else{
+			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
+		
 	}
 }

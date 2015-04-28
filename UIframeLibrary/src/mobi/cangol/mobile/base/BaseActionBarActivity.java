@@ -88,7 +88,16 @@ public abstract  class BaseActionBarActivity extends ActionBarActivity implement
 	public Session getSession() {
 		return app.getSession();
 	}
-	
+	@Override
+	public void setFullScreen(boolean fullscreen) {
+		if(fullscreen){
+			this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}else{
+			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
+		
+	}
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -150,7 +159,7 @@ public abstract  class BaseActionBarActivity extends ActionBarActivity implement
 	public boolean onSupportNavigateUp() {
 		if(LIFECYCLE)
 			Log.v(TAG, "onSupportNavigateUp ");
-		if (stack.size() <= 1) {
+		if (stack==null||stack.size() <= 1) {
 			return true;
 		} else {
 			if (stack.peek().onSupportNavigateUp()) {

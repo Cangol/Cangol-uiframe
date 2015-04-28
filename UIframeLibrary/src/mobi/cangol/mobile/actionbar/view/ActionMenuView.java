@@ -157,12 +157,13 @@ public class ActionMenuView extends LinearLayout implements OnClickListener, OnL
     
     private View inflateMenuAction(ActionMenuItem action) {
         View view = mInflater.inflate(R.layout.actionbar_popup_item, mPopupActionsView, false);
-        TextView labelView =(TextView) view.findViewById(R.id.actionbar_popup_item);
+        TextView labelView =(TextView) view.findViewById(R.id.actionbar_popup_item_text);
+        /**
         if(action.getDrawable()>0){
         	Drawable img=getResources().getDrawable(action.getDrawable());
         	img.setBounds(0, 0, img.getIntrinsicWidth(), img.getIntrinsicHeight());
         	labelView.setCompoundDrawables(img, null, null, null);
-        }
+        }**/
         labelView.setText(action.getText());
         view.setId(action.getId());
         view.setTag(action);

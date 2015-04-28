@@ -31,7 +31,7 @@ import android.widget.Toast;
  * @version $Revision: 1.0 $
  * @author Cangol
  */
-public abstract class BaseActivity extends Activity {
+public  abstract class BaseActivity extends Activity implements BaseActivityDelegate{
 	protected String TAG = Utils.makeLogTag(BaseActivity.class);
 	private static final boolean LIFECYCLE=Utils.LIFECYCLE;
 	public CoreApplication app;
@@ -49,11 +49,11 @@ public abstract class BaseActivity extends Activity {
 		app.addActivityToManager(this);
 	}
 
-	protected abstract void findViews();
+	public abstract void findViews();
 
-	protected abstract void initViews(Bundle savedInstanceState);
+	public abstract void initViews(Bundle savedInstanceState);
 
-	protected abstract void initData(Bundle savedInstanceState);
+	public abstract void initData(Bundle savedInstanceState);
 
 	public  void showToast(int resId){
 		Toast.makeText(this,resId,Toast.LENGTH_SHORT).show();
@@ -134,6 +134,20 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		if(LIFECYCLE)Log.v(TAG, "onBackPressed");
+		super.onBackPressed();
+	}
+	@Override
+	public void setFullScreen(boolean fullscreen) {
+		if(fullscreen){
+			this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}else{
+			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
+		
+	}
+	@Override
+	public void onBack() {
 		super.onBackPressed();
 	}
 }

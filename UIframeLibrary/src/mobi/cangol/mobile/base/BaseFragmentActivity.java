@@ -130,7 +130,16 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 		super.onConfigurationChanged(newConfig);
 		if(LIFECYCLE)Log.v(TAG, "onConfigurationChanged");
 	}
-	
+	@Override
+	public void setFullScreen(boolean fullscreen) {
+		if(fullscreen){
+			this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}else{
+			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
+		
+	}
 	@Override
 	final public void onBackPressed() {
 		Log.e( "onBackPressed ");

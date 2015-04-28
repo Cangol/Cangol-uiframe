@@ -11,10 +11,10 @@
         android:layout_marginTop="@dimen/actionbar_height">
     </FrameLayout>
     
-	<mobi.cangol.mobile.actionbar.ActionBar
+	<mobi.cangol.mobile.actionbar.view.ActionBarView
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
-    </mobi.cangol.mobile.actionbar.ActionBar>
+    </mobi.cangol.mobile.actionbar.view.ActionBarView>
 </RelativeLayout>

@@ -105,16 +105,6 @@ public abstract class BaseFragment extends Fragment{
 			abActivity.setNavigationBarTintColor(color);
 		}
 	}
-	public void setFullScreen(boolean fullscreen){
-		if(this.getActivity()==null)return;
-		if(fullscreen){
-			this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-		            WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		}else{
-			this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		}
-		 
-	}
 	public void startProgress(){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){

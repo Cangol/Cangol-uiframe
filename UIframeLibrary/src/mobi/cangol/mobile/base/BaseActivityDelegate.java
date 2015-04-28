@@ -6,6 +6,8 @@ import mobi.cangol.mobile.service.AppService;
 
 public interface BaseActivityDelegate {
 	
+	public void setFullScreen(boolean fullscreen);
+	
 	public  void findViews();
 
 	public  void initViews(Bundle savedInstanceState);

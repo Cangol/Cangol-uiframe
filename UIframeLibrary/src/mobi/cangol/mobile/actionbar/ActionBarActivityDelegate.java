@@ -3,6 +3,9 @@ package mobi.cangol.mobile.actionbar;
 import java.util.ArrayList;
 
 import mobi.cangol.mobile.R;
+import mobi.cangol.mobile.actionbar.internal.ActionBarImpl;
+import mobi.cangol.mobile.actionbar.view.ActionBarView;
+import mobi.cangol.mobile.logging.Log;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -18,7 +21,7 @@ import android.widget.RelativeLayout;
 public class ActionBarActivityDelegate {
 	
 	private ActionBarActivity mActivity;
-	private View mContainerView;
+	private ViewGroup mContainerView;
 	private ActionBar mActionBar;
 	private FrameLayout	mContentView;
 	private ActionMenuInflater mActionMenuInflater;
@@ -29,9 +32,10 @@ public class ActionBarActivityDelegate {
 	}
 	
 	protected void onCreate(Bundle savedInstanceState){
-		mContainerView =  LayoutInflater.from(mActivity).inflate(R.layout.actionbar_activity_main, null);
-		mContentView=(FrameLayout) findViewById(R.id.contentView);
-		mActionBar= (ActionBar) findViewById(R.id.actionBar);
+		Log.d("onCreate");
+		mContainerView =  (ViewGroup) LayoutInflater.from(mActivity).inflate(R.layout.actionbar_activity_main, null);
+		mContentView=(FrameLayout) mContainerView.findViewById(R.id.contentView);
+		mActionBar= new ActionBarImpl((ActionBarView) mContainerView.findViewById(R.id.actionBar));
 	}
 	
 	public ActionMenuInflater getActionMenuInflater() {
@@ -59,15 +63,20 @@ public class ActionBarActivityDelegate {
 		this.mActionbarOverlay = mActionbarOverlay;
 	}
 	public void setActionbarShow(boolean show) {
-		mActionBar.setVisibility(show?View.VISIBLE:View.GONE);
+		mActionBar.setShow(show);
 	}
 	public ActionBar getCustomActionBar() {
 		return mActionBar;
 	}
-	public void setBackground(int resId) {
+	public void setBackgroundColor(int color){
+		mContainerView.setBackgroundColor(color);
+	}
+	
+	public void setBackgroundResource(int resId){
 		mContainerView.setBackgroundResource(resId);
 	}
 	protected void onPostCreate(Bundle savedInstanceState){
+		Log.d("onPostCreate");
 		attachToActivity(mActivity,mContainerView);
 		if(savedInstanceState!=null){
 			String title=savedInstanceState.getString("ActionBar.title");
@@ -85,11 +94,14 @@ public class ActionBarActivityDelegate {
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
 		int background = a.getResourceId(0, 0);
 		a.recycle();	
+		//如果已设置过颜色 则不继承theme颜色
+		if(mContainerView.getBackground()==null){
+			mContainerView.setBackgroundResource(background);
+		}
 		
 		ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
 		ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
-		if(decorChild.getBackground()==null)
-			decorChild.setBackgroundResource(background);
+		
 		decor.removeView(decorChild);
 		decor.addView(layout);
 		setContent(decorChild);
