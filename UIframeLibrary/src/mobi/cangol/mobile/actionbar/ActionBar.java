@@ -61,6 +61,8 @@ import android.widget.BaseAdapter;
 
 	abstract public void setShow(boolean show);
 	
+	abstract public boolean isShow();
+	
 	abstract public void setBackgroundColor(int color);
 	
 	abstract public void setBackgroundResource(int resId);

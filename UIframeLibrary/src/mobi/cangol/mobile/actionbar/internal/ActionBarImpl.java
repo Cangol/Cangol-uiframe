@@ -158,4 +158,9 @@ public class ActionBarImpl extends ActionBar{
 	public void setBackgroundResource(int resId){
 		mActionBarView.setBackgroundResource(resId);
 	}
+
+	@Override
+	public boolean isShow() {
+		return mActionBarView.getVisibility()==View.VISIBLE;
+	}
 }
