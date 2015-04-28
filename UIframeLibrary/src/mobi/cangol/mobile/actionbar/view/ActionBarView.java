@@ -57,7 +57,7 @@ public class ActionBarView extends RelativeLayout {
         mActionMenu=new ActionMenuImpl((ActionMenuView) this.findViewById(R.id.actionbar_main_menu));
         mActionMode=new ActionModeImpl(mActionBarActivity,(ActionModeView) this.findViewById(R.id.actionbar_main_mode));
         setTitle(context.getApplicationInfo().name);
-        setActionBarUpIndicator(context.getApplicationInfo().icon);
+        setActionBarUpIndicator(R.drawable.actionbar_up_indicator);
         initListeners();
     }
     public void setBackgroundColor(int color){

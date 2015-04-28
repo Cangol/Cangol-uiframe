@@ -160,7 +160,7 @@ public abstract  class BaseActionBarActivity extends ActionBarActivity implement
 		if(LIFECYCLE)
 			Log.v(TAG, "onSupportNavigateUp ");
 		if (stack==null||stack.size() <= 1) {
-			return true;
+			return super.onSupportNavigateUp();
 		} else {
 			if (stack.peek().onSupportNavigateUp()) {
 				return true;

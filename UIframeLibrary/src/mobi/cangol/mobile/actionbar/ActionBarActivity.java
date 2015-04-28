@@ -125,7 +125,8 @@ public class ActionBarActivity extends FragmentActivity{
 		return getCustomActionBar().startActionMode(callback);
 	}
 	public boolean onSupportNavigateUp() {
-		return false;
+		this.onBackPressed();
+		return true;
 	}
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
