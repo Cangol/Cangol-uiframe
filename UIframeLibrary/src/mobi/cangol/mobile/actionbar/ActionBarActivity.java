@@ -21,18 +21,26 @@ public class ActionBarActivity extends FragmentActivity{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mDelegate = new ActionBarActivityDelegate(this);
 		mDelegate.onCreate(savedInstanceState);
-		mTintManager = new SystemBarTintManager(this);
 		mDelegate.setActionBarIndicator(R.drawable.actionbar_home_indicator,R.drawable.actionbar_up_indicator);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+		}
+		mTintManager = new SystemBarTintManager(this);
+		mTintManager.setStatusBarTintEnabled(true);
+		mTintManager.setNavigationBarTintEnabled(true);
+		
+	}
+	public void setWindowBackground(int resId){
+		//替换背景
+		this.getWindow().setBackgroundDrawableResource(resId);
 	}
 	@TargetApi(19) 
 	public void setStatusBarTintColor(int colorId){
-		mTintManager.setStatusBarTintEnabled(true);
 		mTintManager.setStatusBarTintResource(colorId);
 	}
 	@TargetApi(19) 
 	public void setNavigationBarTintColor(int colorId){
-		mTintManager.setNavigationBarTintEnabled(true);
-		mTintManager.setNavigationBarTintColor(colorId);
+		mTintManager.setNavigationBarTintResource(colorId);
 	}
 	
 	@Override
@@ -52,7 +60,7 @@ public class ActionBarActivity extends FragmentActivity{
 		mDelegate.setBackgroundResource(resId);
 	}
 	@TargetApi(19) 
-	public void setTranslucentStatus(boolean on) {
+	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
 		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;

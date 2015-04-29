@@ -34,8 +34,8 @@ public class ActionBarActivityDelegate {
 	protected void onCreate(Bundle savedInstanceState){
 		Log.d("onCreate");
 		mContainerView =  (ViewGroup) LayoutInflater.from(mActivity).inflate(R.layout.actionbar_activity_main, null);
-		mContentView=(FrameLayout) mContainerView.findViewById(R.id.contentView);
-		mActionBar= new ActionBarImpl((ActionBarView) mContainerView.findViewById(R.id.actionBar));
+		mContentView=(FrameLayout) mContainerView.findViewById(R.id.content_view);
+		mActionBar= new ActionBarImpl((ActionBarView) mContainerView.findViewById(R.id.actionbar));
 	}
 	
 	public ActionMenuInflater getActionMenuInflater() {
@@ -94,9 +94,10 @@ public class ActionBarActivityDelegate {
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
 		int background = a.getResourceId(0, 0);
 		a.recycle();	
+		
 		//如果已设置过颜色 则不继承theme颜色
-		if(mContainerView.getBackground()==null){
-			mContainerView.setBackgroundResource(background);
+		if(mContentView.getBackground()==null){
+			mContentView.setBackgroundResource(background);
 		}
 		
 		ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();

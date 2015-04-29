@@ -36,20 +36,4 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/actionbar_height" />
-    
-    <mobi.cangol.mobile.actionbar.view.SearchView
-        android:id="@+id/actionbar_main_search"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_height"
-        android:visibility="gone" />
-    <mobi.cangol.mobile.actionbar.view.ActionModeView
-        android:id="@+id/actionbar_main_mode"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_height"
-        android:visibility="gone" />
-    <mobi.cangol.mobile.actionbar.view.ProgressView
-        android:id="@+id/actionbar_main_progress"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_height"
-        android:visibility="gone" />
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package mobi.cangol.mobile.navigation;
 
+import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+import mobi.cangol.mobile.logging.Log;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -68,10 +70,15 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
 		int background = a.getResourceId(0, 0);
 		a.recycle();
+		
+		ViewGroup contentView = (ViewGroup)getActivity().findViewById(R.id.content_view);
+		Log.d("contentView "+contentView.getBackground());
+		if (contentView.getBackground() == null)
+			contentView.setBackgroundResource(background);
+		
 		ViewGroup contentParent = (ViewGroup)getActivity().findViewById(android.R.id.content);
-		View content = contentParent.getChildAt(0);
-		if (content.getBackground() != null)
-			content.setBackgroundResource(background);
+		ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
+		
 		contentParent.removeView(content);
 		contentParent.addView(layout);
 		getContentView().addView(content);
