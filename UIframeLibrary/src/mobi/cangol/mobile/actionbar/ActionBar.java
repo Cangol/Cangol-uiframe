@@ -17,15 +17,12 @@ import android.widget.BaseAdapter;
 
 	abstract public void setDisplayHomeAsUpEnabled(boolean show);
 
-	abstract public void setActionBarIndicator(int homeIndicator, int upIndicator);
 
 	abstract public void displayHomeIndicator();
 
 	abstract public void displayUpIndicator();
 
-	abstract public void setActionBarUpIndicator(int resId);
-
-	abstract public void setActionBarUpIndicator(Drawable drawable);
+	abstract public void displayIndicator(boolean flip,float slideOffset);
 
 	abstract public String getTitle();
 

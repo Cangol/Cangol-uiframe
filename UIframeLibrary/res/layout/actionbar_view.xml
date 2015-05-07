@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/actionbar_main_indicator"
         style="@style/ActionBarIconItem"
-        android:src="@drawable/actionbar_up_indicator"
+        android:scaleType="centerInside"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"/>
         

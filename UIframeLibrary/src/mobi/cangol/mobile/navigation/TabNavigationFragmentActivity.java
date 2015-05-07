@@ -21,7 +21,7 @@ public abstract class TabNavigationFragmentActivity extends
 				this));
 		super.onCreate(savedInstanceState);
 		this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
-		this.getCustomActionBar().setActionBarIndicator(-1, R.drawable.actionbar_up_indicator);
+		this.getCustomActionBar().setDisplayHomeAsUpEnabled(false);
 	}
 
 	@Override

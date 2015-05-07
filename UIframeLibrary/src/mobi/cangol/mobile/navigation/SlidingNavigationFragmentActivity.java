@@ -1,9 +1,11 @@
 package mobi.cangol.mobile.navigation;
 
 import mobi.cangol.mobile.R;
+import mobi.cangol.mobile.actionbar.view.DrawerArrowDrawable;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.view.KeyEvent;
@@ -42,7 +44,6 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 		AbstractNavigationFragmentActivityDelegate {
 	private BaseNavigationFragmentActivity mActivity;
 	private SlidingMenuLayout mSlidingMenuLayout;
-	
 	@Override
 	public BaseNavigationFragmentActivity getActivity() {
 		return mActivity;
@@ -56,24 +57,31 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 	public void onCreate(Bundle savedInstanceState) {
 		mSlidingMenuLayout = (SlidingMenuLayout) LayoutInflater.from(mActivity).inflate(R.layout.navigation_sliding_main, null);
 		mSlidingMenuLayout.setPanelSlideListener(new PanelSlideListener(){
-
 			@Override
-			public void onPanelClosed(View arg0) {
+			public void onPanelClosed(View view) {
 				mActivity.getCustomActionBar().displayHomeIndicator();
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
+				mActivity.getCustomActionBar().displayHomeIndicator();
 			}
 
 			@Override
-			public void onPanelOpened(View arg0) {
+			public void onPanelOpened(View view) {
 				mActivity.getCustomActionBar().displayUpIndicator();
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
+				mActivity.getCustomActionBar().displayUpIndicator();
 			}
 
 			@Override
-			public void onPanelSlide(View arg0, float arg1) {
-				
+			public void onPanelSlide(View view, float slideOffset) {
+				boolean flip=false;
+				if(slideOffset >= .995) {
+					flip=true;
+		        }else if (slideOffset <= .005) {
+		        	flip=false;
+		        }
+			    mActivity.getCustomActionBar().displayIndicator(flip,slideOffset);
 			}
 			
 		});

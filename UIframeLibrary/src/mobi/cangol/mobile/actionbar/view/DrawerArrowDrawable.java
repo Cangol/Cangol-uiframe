@@ -119,7 +119,7 @@ public class DrawerArrowDrawable extends Drawable {
   }
 
   /** Paths were generated at a 3px/dp density; this is the scale factor for different densities. */
-  private final static float PATH_GEN_DENSITY = 3.0f;
+  private final static float PATH_GEN_DENSITY = 3;
 
   /** Paths were generated with at this size for {@link DrawerArrowDrawable#PATH_GEN_DENSITY}. */
   private final static float DIMEN_DP = 23.5f;

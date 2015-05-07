@@ -47,9 +47,6 @@ public class ActionBarActivityDelegate {
         }
         return mActionMenuInflater;
     }
-	public void setActionBarUpIndicator(int resId){
-		mActionBar.setActionBarUpIndicator(resId);
-	}
 	public boolean isActionbarOverlay() {
 		return mActionbarOverlay;
 	}
@@ -152,11 +149,6 @@ public class ActionBarActivityDelegate {
 
 	public void setTitle(CharSequence title) {
 		mActionBar.setTitle(title);
-	}
-
-	public void setActionBarIndicator(int actionbar_home_indicator,
-			int actionbar_up_indicator) {
-		mActionBar.setActionBarIndicator(actionbar_home_indicator,actionbar_up_indicator);
 	}
 	
 }

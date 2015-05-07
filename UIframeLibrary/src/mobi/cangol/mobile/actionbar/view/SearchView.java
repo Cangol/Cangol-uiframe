@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.speech.RecognizerIntent;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -52,7 +53,11 @@ public class SearchView extends LinearLayout {
         }
 	}
 	private void initViews(){
+		DrawerArrowDrawable arror=new DrawerArrowDrawable(this.getResources(),true);
+		arror.setStrokeColor(Color.LTGRAY);
+		arror.setParameter(1);
 		mIndicatoButton=(ImageView) this.findViewById(R.id.actionbar_search_indicator);
+		mIndicatoButton.setImageDrawable(arror);
 		mSearchText=(ClearableEditText) this.findViewById(R.id.actionbar_search_text);
 		mVoiceButton=(ImageView) this.findViewById(R.id.actionbar_search_voice);
 		mSearchText.setOnEditorActionListener(new OnEditorActionListener() {

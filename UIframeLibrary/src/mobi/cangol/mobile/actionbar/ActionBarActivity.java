@@ -1,6 +1,5 @@
 package mobi.cangol.mobile.actionbar;
 
-import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.actionbar.ActionMode.Callback;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -21,7 +20,6 @@ public class ActionBarActivity extends FragmentActivity{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mDelegate = new ActionBarActivityDelegate(this);
 		mDelegate.onCreate(savedInstanceState);
-		mDelegate.setActionBarIndicator(R.drawable.actionbar_home_indicator,R.drawable.actionbar_up_indicator);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true);
 		}

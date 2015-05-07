@@ -39,8 +39,8 @@ public class ActionBarImpl extends ActionBar{
 	}
 
 	@Override
-	public void setActionBarIndicator(int homeIndicator, int upIndicator) {
-		mActionBarView.setActionBarIndicator(homeIndicator,upIndicator);
+	public void displayIndicator(boolean flip,float slideOffset){
+		mActionBarView.displayIndicator(flip,slideOffset);
 	}
 
 	@Override
@@ -51,16 +51,6 @@ public class ActionBarImpl extends ActionBar{
 	@Override
 	public void displayUpIndicator() {
 		mActionBarView.displayUpIndicator();
-	}
-
-	@Override
-	public void setActionBarUpIndicator(int resId) {
-		mActionBarView.setActionBarUpIndicator(resId);
-	}
-
-	@Override
-	public void setActionBarUpIndicator(Drawable drawable) {
-		mActionBarView.setActionBarUpIndicator(drawable);
 	}
 
 	@Override

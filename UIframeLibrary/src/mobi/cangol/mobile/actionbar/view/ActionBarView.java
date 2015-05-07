@@ -13,6 +13,7 @@ import mobi.cangol.mobile.actionbar.internal.ActionMenuImpl;
 import mobi.cangol.mobile.actionbar.internal.ActionModeImpl;
 import mobi.cangol.mobile.actionbar.view.ActionMenuView.OnActionClickListener;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -40,14 +41,16 @@ public class ActionBarView extends RelativeLayout {
     private ActionMode  mActionMode;
     private ActionBarActivity mActionBarActivity;
     private boolean mIsSearchMode;
-    private int mHomeIndicator;
-   	private int mUpIndicator;
+   	private DrawerArrowDrawable mDrawerArrowDrawable;
    	
     public ActionBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mActionBarActivity=(ActionBarActivity) context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        
+        mDrawerArrowDrawable=new DrawerArrowDrawable(context.getResources(),false);
+        mDrawerArrowDrawable.setStrokeColor(Color.WHITE);
+        
         mInflater.inflate(R.layout.actionbar_layout, this);
         mRootView=this.findViewById(R.id.actionbar_main_layout);
         mIndicator = (ImageView) this.findViewById(R.id.actionbar_main_indicator);
@@ -57,7 +60,6 @@ public class ActionBarView extends RelativeLayout {
         mActionMenu=new ActionMenuImpl((ActionMenuView) this.findViewById(R.id.actionbar_main_menu));
         mActionMode=new ActionModeImpl(mActionBarActivity,(ActionModeView) this.findViewById(R.id.actionbar_main_mode));
         setTitle(context.getApplicationInfo().name);
-        setActionBarUpIndicator(R.drawable.actionbar_up_indicator);
         initListeners();
     }
     public void setBackgroundColor(int color){
@@ -134,48 +136,19 @@ public class ActionBarView extends RelativeLayout {
     public void setDisplayHomeAsUpEnabled(boolean show) {
     	mIndicator.setVisibility(show? View.VISIBLE : View.INVISIBLE);
     }
-    public void  setActionBarIndicator(int homeIndicator,int upIndicator){
-    	this.mHomeIndicator=homeIndicator;
-    	this.mUpIndicator=upIndicator;
-    }
     public void displayHomeIndicator() {
-    	if(mHomeIndicator>0){
-    		mIndicator.setImageResource(mHomeIndicator);
-    		mIndicator.setVisibility(View.VISIBLE);
-    	}else{
-    		mIndicator.setImageDrawable(null);
-    		mIndicator.setVisibility(View.INVISIBLE);
-    	}
+    	mDrawerArrowDrawable.setParameter(0);
+    	mIndicator.setImageDrawable(mDrawerArrowDrawable);
 	}
 	public void displayUpIndicator() {
-		if(mUpIndicator>0){
-    		mIndicator.setImageResource(mUpIndicator);
-    		mIndicator.setVisibility(View.VISIBLE);
-    	}else{
-    		mIndicator.setImageDrawable(null);
-    		mIndicator.setVisibility(View.INVISIBLE);
-    	}
-		
+		mDrawerArrowDrawable.setParameter(1);
+		mIndicator.setImageDrawable(mDrawerArrowDrawable);
 	}
-    public void setActionBarUpIndicator(int resId){
-    	if(resId>0){
-    		mIndicator.setImageResource(resId);
-    		mIndicator.setVisibility(View.VISIBLE);
-    	}else{
-    		mIndicator.setImageDrawable(null);
-    		mIndicator.setVisibility(View.INVISIBLE);
-    	}
-    }
-    public void setActionBarUpIndicator(Drawable drawable){
-    	if(drawable!=null){
-    		mIndicator.setImageDrawable(drawable);
-    		mIndicator.setVisibility(View.VISIBLE);
-    	}else{
-    		mIndicator.setImageDrawable(null);
-    		mIndicator.setVisibility(View.INVISIBLE);
-    	}
-    }
-
+	public void displayIndicator(boolean flip,float slideOffset) {
+		mDrawerArrowDrawable.setFlip(flip);
+		mDrawerArrowDrawable.setParameter(slideOffset);
+		mIndicator.setImageDrawable(mDrawerArrowDrawable);
+	}
 	public String getTitle(){
     	return (String) mTitleView.getText()	;
     }

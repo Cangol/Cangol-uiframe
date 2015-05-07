@@ -1,13 +1,13 @@
 package mobi.cangol.mobile.navigation;
 
 import mobi.cangol.mobile.R;
-import mobi.cangol.mobile.actionbar.ActionBarDrawerToggle;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import mobi.cangol.mobile.logging.Log;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -46,12 +46,12 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 		AbstractNavigationFragmentActivityDelegate {
 	
 	private BaseNavigationFragmentActivity mActivity;
-	
 	private DrawerMenuLayout mDrawerMenuLayout;
-
+	
 	public DrawerMenuNavigationFragmentActivityDelegate(
 			BaseNavigationFragmentActivity activity) {
 		mActivity = activity;
+		
 	}
 	@Override
 	public BaseNavigationFragmentActivity getActivity() {
@@ -60,12 +60,10 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		mDrawerMenuLayout = (DrawerMenuLayout) LayoutInflater.from(mActivity).inflate(R.layout.navigation_drawer_main, null);
-		mDrawerMenuLayout.setDrawerListener(new ActionBarDrawerToggle(mActivity,
-				mDrawerMenuLayout,R.drawable.actionbar_home_indicator) {
-
+		mDrawerMenuLayout.setDrawerListener(new DrawerListener() {
+			
 			@Override
 			public void onDrawerClosed(View view) {
-				super.onDrawerClosed(view);
 				Log.d("onDrawerClosed");
 				if (!mDrawerMenuLayout.isDrawerOpen(Gravity.LEFT)) {
 					if (mActivity.getCustomFragmentManager().size() <= 1) {
@@ -79,14 +77,30 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 				}
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
+				mActivity.getCustomActionBar().displayHomeIndicator();
 			}
 
 			@Override
 			public void onDrawerOpened(View view) {
-				super.onDrawerOpened(view);
 				Log.d("onDrawerOpened");
 				// 通知menu onOpen
 				mActivity.notifyMenuOnOpen();
+				mActivity.getCustomActionBar().displayUpIndicator();
+			}
+
+			@Override
+			public void onDrawerSlide(View view, float slideOffset) {
+				boolean flip=false;
+				if(slideOffset >= .995) {
+					flip=true;
+		        }else if (slideOffset <= .005) {
+		        	flip=false;
+		        }
+				mActivity.getCustomActionBar().displayIndicator(flip,slideOffset);
+			}
+
+			@Override
+			public void onDrawerStateChanged(int arg0) {
 			}
 
 		});
