@@ -1,13 +1,14 @@
 package mobi.cangol.mobile.actionbar;
 
 import java.util.ArrayList;
-
 import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.actionbar.internal.ActionBarImpl;
 import mobi.cangol.mobile.actionbar.view.ActionBarView;
 import mobi.cangol.mobile.logging.Log;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
 
 public class ActionBarActivityDelegate {
 	
@@ -34,8 +36,8 @@ public class ActionBarActivityDelegate {
 	protected void onCreate(Bundle savedInstanceState){
 		Log.d("onCreate");
 		mContainerView =  (ViewGroup) LayoutInflater.from(mActivity).inflate(R.layout.actionbar_activity_main, null);
-		mContentView=(FrameLayout) mContainerView.findViewById(R.id.content_view);
-		mActionBar= new ActionBarImpl((ActionBarView) mContainerView.findViewById(R.id.actionbar));
+		mContentView=(FrameLayout) mContainerView.findViewById(R.id.actionbar_content_view);
+		mActionBar= new ActionBarImpl((ActionBarView) mContainerView.findViewById(R.id.actionbar_view));
 	}
 	
 	public ActionMenuInflater getActionMenuInflater() {
@@ -89,6 +91,7 @@ public class ActionBarActivityDelegate {
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	private void attachToActivity(Activity activity,View layout) {
 		// get the window background
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});

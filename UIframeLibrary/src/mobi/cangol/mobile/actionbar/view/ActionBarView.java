@@ -48,7 +48,7 @@ public class ActionBarView extends RelativeLayout {
         mActionBarActivity=(ActionBarActivity) context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        mInflater.inflate(R.layout.actionbar, this);
+        mInflater.inflate(R.layout.actionbar_layout, this);
         mRootView=this.findViewById(R.id.actionbar_main_layout);
         mIndicator = (ImageView) this.findViewById(R.id.actionbar_main_indicator);
         mTitleView = (TextView) this.findViewById(R.id.actionbar_main_title);

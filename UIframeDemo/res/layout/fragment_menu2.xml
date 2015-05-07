@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Home"
+        android:background="#ff00ff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView

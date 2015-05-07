@@ -1,14 +1,14 @@
 package mobi.cangol.mobile.demo;
 
 import mobi.cangol.mobile.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.demo.fragment.MenuFragment;
+import mobi.cangol.mobile.demo.fragment.MenuFragment2;
 import mobi.cangol.mobile.logging.Log;
-import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
+import mobi.cangol.mobile.navigation.SlidingNavigationFragmentActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 @SuppressLint("ResourceAsColor")
-public class MainActivity extends TabNavigationFragmentActivity  {
+public class MainActivity extends SlidingNavigationFragmentActivity  {
 	private static long back_pressed;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -18,12 +18,13 @@ public class MainActivity extends TabNavigationFragmentActivity  {
 		setContentView(R.layout.activity_main);
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuFragment.class,null);
+			this.setMenuFragment(MenuFragment2.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
+		this.setFloatActionBarEnabled(true);
 	}
 
 	@Override
@@ -52,5 +53,10 @@ public class MainActivity extends TabNavigationFragmentActivity  {
 		}else{
 			back_pressed=System.currentTimeMillis();
 		}
+	}
+
+	@Override
+	public int getContentFrameId() {
+		return R.id.content_frame;
 	}
 }

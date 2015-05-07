@@ -6,14 +6,14 @@
     android:fitsSystemWindows="true">
     
     <FrameLayout
-        android:id="@+id/content_view"
+        android:id="@+id/actionbar_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/actionbar_height">
     </FrameLayout>
     
 	<mobi.cangol.mobile.actionbar.view.ActionBarView
-        android:id="@+id/actionbar"
+        android:id="@+id/actionbar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">

@@ -6,7 +6,7 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
-        layout="@layout/actionbar_layout_main" />
+        layout="@layout/actionbar_view" />
       <mobi.cangol.mobile.actionbar.view.ProgressView
         android:id="@+id/actionbar_main_progress"
         android:layout_width="match_parent"

@@ -2,7 +2,9 @@ package mobi.cangol.mobile.navigation;
 
 import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+import android.app.Activity;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -48,19 +50,14 @@ class TabNavigationFragmentActivityDelegate extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		mRootView = (ViewGroup) LayoutInflater.from(mActivity).inflate(
-				R.layout.tab_main, null);
-		mContentView = (FrameLayout) mRootView.findViewById(R.id.content_frame);
-		mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_frame);
+				R.layout.navigation_tab_main, null);
+		mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
+		mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
 	}
 
 	@Override
 	public int getMenuFrameId() {
-		return R.id.menu_frame;
-	}
-
-	@Override
-	public int getContentFrameId() {
-		return R.id.content_frame;
+		return mMenuView.getId();
 	}
 
 	@Override
@@ -119,5 +116,22 @@ class TabNavigationFragmentActivityDelegate extends
 	@Override
 	public BaseNavigationFragmentActivity getActivity() {
 		return mActivity;
+	}
+	@Override
+	public void attachToActivity(Activity activity) {
+		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
+		int background = a.getResourceId(0, 0);
+		a.recycle();
+		
+		if (mContentView.getBackground() == null)
+			mContentView.setBackgroundResource(background);
+		
+		ViewGroup contentParent = (ViewGroup)getActivity().findViewById(android.R.id.content);
+		ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
+		
+		contentParent.removeView(content);
+		contentParent.addView(mRootView);
+		getContentView().addView(content);
+		
 	}
 }

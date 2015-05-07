@@ -1,5 +1,6 @@
 package mobi.cangol.mobile.base;
 
+import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.navigation.AbstractNavigationFragmentActivityDelegate;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,51 +14,42 @@ import android.view.ViewGroup.LayoutParams;
  * @author Cangol
  */
 public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActivity  {
+	public static final String MENU_SHOW="MENU_SHOW";
 	protected String TAG = Utils.makeLogTag(BaseNavigationFragmentActivity.class);
 	private BaseMenuFragment menuFragment;
 	private static final String MENU_TAG="MenuFragment";
 	private AbstractNavigationFragmentActivityDelegate mHelper;
-	private int mContentFrameId;
-	private int mMenuFrameId;
-	public int getContentFrameId() {
-		return mContentFrameId;
-	}
 	
-	public int getMenuFrameId() {
-		return mMenuFrameId;
-	}
+	public abstract int getContentFrameId();
 	
 	public void setNavigationFragmentActivityDelegate(AbstractNavigationFragmentActivityDelegate mHelper) {
 		this.mHelper = mHelper;
-		this.mMenuFrameId=mHelper.getMenuFrameId();
-		this.mContentFrameId=mHelper.getContentFrameId();
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mHelper.onCreate(savedInstanceState);
-		this.initFragmentStack(mContentFrameId);
+		this.initFragmentStack(getContentFrameId());
 	}
 	@Override
 	public void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		mHelper.onPostCreate(savedInstanceState);
+		mHelper.attachToActivity(this);
+		if(savedInstanceState!=null){
+			boolean show=savedInstanceState.getBoolean(MENU_SHOW);
+			mHelper.showMenu(show);
+		}
+	}
+	public  void onSaveInstanceState(Bundle outState){
+		outState.putBoolean(MENU_SHOW, isShowMenu());
 	}
 	@Override
 	public View findViewById(int id) {
 		View v = super.findViewById(id);
 		if (v != null)
 			return v;
-		return mHelper.findViewById(id);
+		return mHelper.getRootView().findViewById(id);
 	}
-
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		mHelper.onSaveInstanceState(outState);
-	}
-
 	@Override
 	public void setContentView(int id) {
 		setContentView(getLayoutInflater().inflate(id, null));
@@ -101,7 +93,7 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 		menuFragment = (BaseMenuFragment) Fragment.instantiate(this,fragmentClass.getName(), args);
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
-		t.replace(this.getMenuFrameId(), menuFragment,MENU_TAG);
+		t.replace(mHelper.getMenuFrameId(), menuFragment,MENU_TAG);
 		t.commit();
 		getSupportFragmentManager().executePendingTransactions();
 	}
