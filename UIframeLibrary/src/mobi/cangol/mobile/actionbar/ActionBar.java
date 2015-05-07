@@ -22,7 +22,7 @@ import android.widget.BaseAdapter;
 
 	abstract public void displayUpIndicator();
 
-	abstract public void displayIndicator(boolean flip,float slideOffset);
+	abstract public void displayIndicator(float slideOffset);
 
 	abstract public String getTitle();
 

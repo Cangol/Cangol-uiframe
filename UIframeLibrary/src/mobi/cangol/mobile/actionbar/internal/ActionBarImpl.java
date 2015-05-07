@@ -39,8 +39,8 @@ public class ActionBarImpl extends ActionBar{
 	}
 
 	@Override
-	public void displayIndicator(boolean flip,float slideOffset){
-		mActionBarView.displayIndicator(flip,slideOffset);
+	public void displayIndicator(float slideOffset){
+		mActionBarView.displayIndicator(slideOffset);
 	}
 
 	@Override

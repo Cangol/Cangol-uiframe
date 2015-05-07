@@ -144,8 +144,12 @@ public class ActionBarView extends RelativeLayout {
 		mDrawerArrowDrawable.setParameter(1);
 		mIndicator.setImageDrawable(mDrawerArrowDrawable);
 	}
-	public void displayIndicator(boolean flip,float slideOffset) {
-		mDrawerArrowDrawable.setFlip(flip);
+	public void displayIndicator(float slideOffset) {
+		if(slideOffset >= .995) {
+			mDrawerArrowDrawable.setFlip(true);
+        }else if (slideOffset <= .005) {
+        	mDrawerArrowDrawable.setFlip(false);
+        }
 		mDrawerArrowDrawable.setParameter(slideOffset);
 		mIndicator.setImageDrawable(mDrawerArrowDrawable);
 	}

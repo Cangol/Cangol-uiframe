@@ -17,4 +17,9 @@
     <string name="action_setting">设置</string>
     <string name="actionbar_activity_not_found">Failed to open intent...</string>
 
+    
+    <string name="content_hint">Content</string>
+  <string name="drawer_hint">Drawer</string>
+  <string name="rounded">See Rounded</string>
+  <string name="squared">See Squared</string>
 </resources>

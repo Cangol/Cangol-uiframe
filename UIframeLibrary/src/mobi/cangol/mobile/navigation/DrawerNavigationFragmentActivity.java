@@ -90,13 +90,7 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 
 			@Override
 			public void onDrawerSlide(View view, float slideOffset) {
-				boolean flip=false;
-				if(slideOffset >= .995) {
-					flip=true;
-		        }else if (slideOffset <= .005) {
-		        	flip=false;
-		        }
-				mActivity.getCustomActionBar().displayIndicator(flip,slideOffset);
+				mActivity.getCustomActionBar().displayIndicator(slideOffset);
 			}
 
 			@Override

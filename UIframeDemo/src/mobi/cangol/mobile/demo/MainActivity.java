@@ -3,6 +3,7 @@ package mobi.cangol.mobile.demo;
 import mobi.cangol.mobile.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.demo.fragment.MenuFragment2;
 import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.navigation.SlidingNavigationFragmentActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -5,4 +5,9 @@
     <color name="green">#00FF00</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    
+    <color name="light_gray">#c2c7cc</color>
+  <color name="dark_gray">#3d454c</color>
+  <color name="dark_gray_pressed">#373e44</color>
+  <color name="darker_gray">#1f2226</color>
 </resources>
