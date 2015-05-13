@@ -1,6 +1,5 @@
 package mobi.cangol.mobile.base;
 
-import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.navigation.AbstractNavigationFragmentActivityDelegate;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

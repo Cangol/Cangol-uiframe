@@ -59,15 +59,18 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 		mSlidingMenuLayout.setPanelSlideListener(new PanelSlideListener(){
 			@Override
 			public void onPanelClosed(View view) {
-				mActivity.getCustomActionBar().displayHomeIndicator();
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
-				mActivity.getCustomActionBar().displayHomeIndicator();
+				if (mActivity.getCustomFragmentManager().size() <= 1) {
+					mActivity.getCustomActionBar().displayHomeIndicator();
+				}else{
+					mActivity.getCustomActionBar().displayUpIndicator();
+				}
+				
 			}
 
 			@Override
 			public void onPanelOpened(View view) {
-				mActivity.getCustomActionBar().displayUpIndicator();
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
 				mActivity.getCustomActionBar().displayUpIndicator();

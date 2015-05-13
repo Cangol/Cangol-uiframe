@@ -117,18 +117,17 @@ class TabNavigationFragmentActivityDelegate extends
 	public BaseNavigationFragmentActivity getActivity() {
 		return mActivity;
 	}
+	
 	@Override
 	public void attachToActivity(Activity activity) {
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
 		int background = a.getResourceId(0, 0);
 		a.recycle();
 		
-		if (mContentView.getBackground() == null)
-			mContentView.setBackgroundResource(background);
-		
 		ViewGroup contentParent = (ViewGroup)getActivity().findViewById(android.R.id.content);
 		ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
-		
+//		if(content.getBackground()==null)
+//			content.setBackgroundResource(background);
 		contentParent.removeView(content);
 		contentParent.addView(mRootView);
 		getContentView().addView(content);

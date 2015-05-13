@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 public class DrawerMenuLayout extends DrawerLayout{
 	private FrameLayout	mContentView;
 	private FrameLayout	mMenuView;
-	private float mMenuWidth=0.70f;
+	private float mMenuWidth=0.80f;
 	private boolean isActionBarOverlay;
 	
 	public DrawerMenuLayout(Context context, AttributeSet attrs) {
@@ -107,15 +107,15 @@ public class DrawerMenuLayout extends DrawerLayout{
 		a.recycle();	
 		
 		//如果已设置过颜色 则不继承theme颜色
-		if(mContentView.getBackground()==null){
-			mContentView.setBackgroundResource(background);
-		}
+//		if(mContentView.getBackground()==null){
+//			mContentView.setBackgroundResource(background);
+//		}
 		
 		this.isActionBarOverlay=isActionBarOverlay;
 		
 		if(isActionBarOverlay){
 			ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
-			ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
+			View decorChild = (View) decor.findViewById(R.id.container_view);
 			decor.removeView(decorChild);
 			decor.addView(this);
 			getContentView().addView(decorChild);
