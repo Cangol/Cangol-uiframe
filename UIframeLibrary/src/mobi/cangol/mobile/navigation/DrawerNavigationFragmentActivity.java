@@ -65,14 +65,12 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 			@Override
 			public void onDrawerClosed(View view) {
 				Log.d("onDrawerClosed");
-				if (mDrawerMenuLayout.isDrawerVisible(Gravity.LEFT)) {
-					if (mActivity.getCustomFragmentManager().size() <= 1) {
-						mDrawerMenuLayout.setDrawerLockMode(Gravity.LEFT,DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-						mActivity.getCustomActionBar().displayHomeIndicator();
-					} else {
-						mDrawerMenuLayout.setDrawerLockMode(Gravity.LEFT,DrawerLayout.LOCK_MODE_UNLOCKED);
-						mActivity.getCustomActionBar().displayUpIndicator();
-					}
+				if (mActivity.getCustomFragmentManager().size() <= 1) {
+					mDrawerMenuLayout.setDrawerLockMode(Gravity.LEFT,DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+					mActivity.getCustomActionBar().displayHomeIndicator();
+				} else {
+					mDrawerMenuLayout.setDrawerLockMode(Gravity.LEFT,DrawerLayout.LOCK_MODE_UNLOCKED);
+					mActivity.getCustomActionBar().displayUpIndicator();
 				}
 				// 通知menu onClose
 				mActivity.notifyMenuOnClose();
@@ -88,7 +86,7 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 
 			@Override
 			public void onDrawerSlide(View view, float slideOffset) {
-				//mActivity.getCustomActionBar().displayIndicator(slideOffset);
+				mActivity.getCustomActionBar().displayIndicator(slideOffset);
 			}
 
 			@Override

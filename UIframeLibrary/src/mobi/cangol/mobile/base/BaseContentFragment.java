@@ -15,6 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
+import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 /**
@@ -53,7 +54,7 @@ public abstract class BaseContentFragment extends BaseFragment{
 			if(getActivity()==null){
 				throw new IllegalStateException("getActivity is null");
 			}else{
-				BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
+				ActionBarActivity bfActivity = (ActionBarActivity) this.getActivity();
 				if(isCleanStack()){
 					bfActivity.getCustomActionBar().displayHomeIndicator();
 				}else{

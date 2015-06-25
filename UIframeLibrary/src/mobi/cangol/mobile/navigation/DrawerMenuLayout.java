@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.navigation;
 
 import mobi.cangol.mobile.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -16,7 +17,7 @@ import android.widget.FrameLayout;
 public class DrawerMenuLayout extends DrawerLayout{
 	private FrameLayout	mContentView;
 	private FrameLayout	mMenuView;
-	private float mMenuWidth=0.80f;
+	private float mMenuWidth=0.75f;
 	private boolean isActionBarOverlay;
 	
 	public DrawerMenuLayout(Context context, AttributeSet attrs) {
@@ -24,15 +25,15 @@ public class DrawerMenuLayout extends DrawerLayout{
 		mMenuView=new FrameLayout(context);
 		mContentView=new FrameLayout(context);
 		
-		DrawerLayout.LayoutParams lp2=new DrawerLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		DrawerLayout.LayoutParams lp1=new DrawerLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		mContentView.setId(R.id.content_view);
-		this.addView(mContentView,lp2);
+		this.addView(mContentView,lp1);
 		
-		int width1=(int) (mMenuWidth*context.getResources().getDisplayMetrics().widthPixels);
-		DrawerLayout.LayoutParams lp1=new DrawerLayout.LayoutParams(width1, LayoutParams.MATCH_PARENT);
-		lp1.gravity=Gravity.LEFT;
+		int width=(int) (mMenuWidth*context.getResources().getDisplayMetrics().widthPixels);
+		DrawerLayout.LayoutParams lp2=new DrawerLayout.LayoutParams(width, LayoutParams.MATCH_PARENT);
+		lp2.gravity=Gravity.LEFT;
 		mMenuView.setId(R.id.menu_view);
-		this.addView(mMenuView,lp1);
+		this.addView(mMenuView,lp2);
 	}
 	
 	public int getMenuFrameId() {
@@ -115,15 +116,17 @@ public class DrawerMenuLayout extends DrawerLayout{
 		
 		if(isActionBarOverlay){
 			ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
-			View decorChild = (View) decor.findViewById(R.id.container_view);
+			ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
+			if(decorChild.getBackground()==null)
+				decorChild.setBackgroundResource(background);
 			decor.removeView(decorChild);
-			decor.addView(this);
+			decor.addView(this,0);
 			getContentView().addView(decorChild);
 		}else{
 			ViewGroup contentParent = (ViewGroup)activity.findViewById(android.R.id.content);
 			ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
 			contentParent.removeView(content);
-			contentParent.addView(this);
+			contentParent.addView(this,0);
 			getContentView().addView(content);
 		}
 	}

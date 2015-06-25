@@ -1,9 +1,6 @@
 package mobi.cangol.mobile.navigation;
 
-import java.lang.reflect.Field;
-
 import mobi.cangol.mobile.R;
-import mobi.cangol.mobile.logging.Log;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -27,8 +24,8 @@ public class SlidingMenuLayout extends SlidingPaneLayout{
 		mMenuView=new FrameLayout(context);
 		mContentView=new FrameLayout(context);
 		
-		int width1=(int) (mMenuWidth*context.getResources().getDisplayMetrics().widthPixels);
-		ViewGroup.LayoutParams lp1=new ViewGroup.LayoutParams(width1, LayoutParams.MATCH_PARENT);
+		int width=(int) (mMenuWidth*context.getResources().getDisplayMetrics().widthPixels);
+		ViewGroup.LayoutParams lp1=new ViewGroup.LayoutParams(width, LayoutParams.MATCH_PARENT);
 		mMenuView.setId(R.id.menu_view);
 		this.addView(mMenuView,lp1);
 		
@@ -131,17 +128,17 @@ public class SlidingMenuLayout extends SlidingPaneLayout{
 		
 		if(isActionBarOverlay){
 			ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
-			View decorChild = (View) decor.findViewById(R.id.container_view);
+			ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
 			if(decorChild.getBackground()==null)
 				decorChild.setBackgroundResource(background);
 			decor.removeView(decorChild);
-			decor.addView(this);
+			decor.addView(this,0);
 			getContentView().addView(decorChild);
 		}else{
 			ViewGroup contentParent = (ViewGroup)activity.findViewById(android.R.id.content);
 			ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
 			contentParent.removeView(content);
-			contentParent.addView(this);
+			contentParent.addView(this,0);
 			getContentView().addView(content);
 		}
 	}

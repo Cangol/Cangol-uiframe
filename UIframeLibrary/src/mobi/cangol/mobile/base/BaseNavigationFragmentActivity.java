@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
 /**
  * @Description:
@@ -27,6 +28,8 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		mHelper.onCreate(savedInstanceState);
 		this.initFragmentStack(getContentFrameId());
 	}

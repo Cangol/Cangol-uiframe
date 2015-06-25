@@ -126,10 +126,10 @@ class TabNavigationFragmentActivityDelegate extends
 		
 		ViewGroup contentParent = (ViewGroup)getActivity().findViewById(android.R.id.content);
 		ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
-//		if(content.getBackground()==null)
-//			content.setBackgroundResource(background);
+		if(content.getBackground()==null)
+			content.setBackgroundResource(background);
 		contentParent.removeView(content);
-		contentParent.addView(mRootView);
+		contentParent.addView(mRootView,0);
 		getContentView().addView(content);
 		
 	}
