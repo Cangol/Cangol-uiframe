@@ -30,7 +30,16 @@ public abstract class BaseMenuFragment extends BaseFragment{
 		outState.putInt("currentModuleId", currentModuleId);
 	}
 	
-	
+	public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,String tag,Bundle args) {
+		
+		if(getActivity()==null){
+			throw new IllegalStateException("getActivity is null");
+		}else{
+			BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
+			bfActivity.setContentFragment(fragmentClass, tag,args);
+		}
+	}
+
 	public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,String tag,Bundle args,int moduleId) {
 		
 		if(getActivity()==null){

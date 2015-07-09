@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-public class SlidingMenuLayout extends SlidingPaneLayout{
+public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout{
 	private FrameLayout	mContentView;
 	private FrameLayout	mMenuView;
 	private float mMenuWidth=0.70f;
