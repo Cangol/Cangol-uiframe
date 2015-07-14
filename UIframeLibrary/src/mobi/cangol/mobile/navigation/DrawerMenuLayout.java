@@ -1,7 +1,6 @@
 package mobi.cangol.mobile.navigation;
 
 import mobi.cangol.mobile.R;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -18,8 +17,7 @@ public class DrawerMenuLayout extends DrawerLayout{
 	private FrameLayout	mContentView;
 	private FrameLayout	mMenuView;
 	private float mMenuWidth=0.75f;
-	private boolean isActionBarOverlay;
-	
+	private boolean isFloatActionBarEnabled;
 	public DrawerMenuLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mMenuView=new FrameLayout(context);
@@ -34,6 +32,7 @@ public class DrawerMenuLayout extends DrawerLayout{
 		lp2.gravity=Gravity.LEFT;
 		mMenuView.setId(R.id.menu_view);
 		this.addView(mMenuView,lp2);
+		
 	}
 	
 	public int getMenuFrameId() {
@@ -88,37 +87,55 @@ public class DrawerMenuLayout extends DrawerLayout{
 		int rightPadding = insets.right;
 		int topPadding = insets.top;
 		int bottomPadding = insets.bottom;
-		if (isActionBarOverlay) {
-			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
-					mContentView.getPaddingTop()+topPadding,
-					mContentView.getPaddingRight()+rightPadding,
-					mContentView.getPaddingBottom()+bottomPadding);
-			mMenuView.setPadding(mMenuView.getPaddingLeft()+leftPadding,
-					mMenuView.getPaddingTop()+topPadding,
-					mMenuView.getPaddingRight()+rightPadding,
-					mMenuView.getPaddingBottom()+bottomPadding);
+		if (isFloatActionBarEnabled) {
+//			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
+//					mContentView.getPaddingTop()+topPadding,
+//					mContentView.getPaddingRight()+rightPadding,
+//					mContentView.getPaddingBottom()+bottomPadding);
+//			mMenuView.setPadding(mMenuView.getPaddingLeft()+leftPadding,
+//					mMenuView.getPaddingTop()+topPadding,
+//					mMenuView.getPaddingRight()+rightPadding,
+//					mMenuView.getPaddingBottom()+bottomPadding);
+			
+			mContentView.setPadding(leftPadding,
+					topPadding,
+					rightPadding,
+					bottomPadding);
+			mMenuView.setPadding(leftPadding,
+					topPadding,
+					rightPadding,
+					bottomPadding);
 		}
 		return true;
 	}
-
-	public void attachToActivity(Activity activity,boolean isActionBarOverlay) {
+	@Override
+	public void setBackgroundColor(int color) {
+		super.setBackgroundColor(color);
+		mMenuView.setBackgroundColor(color);
+	}
+	@Override
+	public void setBackgroundResource(int resId) {
+		super.setBackgroundResource(resId);
+		mMenuView.setBackgroundResource(resId);
+	}
+	public void attachToActivity(Activity activity,boolean mFloatActionBarEnabled) {
 		// get the window background
 		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
 		int background = a.getResourceId(0, 0);
 		a.recycle();	
 		
-		//如果已设置过颜色 则不继承theme颜色
-//		if(mContentView.getBackground()==null){
-//			mContentView.setBackgroundResource(background);
-//		}
+		this.isFloatActionBarEnabled=mFloatActionBarEnabled;
 		
-		this.isActionBarOverlay=isActionBarOverlay;
-		
-		if(isActionBarOverlay){
+		if(mFloatActionBarEnabled){
 			ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
 			ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
-			if(decorChild.getBackground()==null)
-				decorChild.setBackgroundResource(background);
+			if(decorChild.getBackground()!=null){
+				this.setBackgroundDrawable(decorChild.getBackground());
+				decorChild.setBackgroundDrawable(null);
+			}else{
+				if(this.getBackground()==null)
+					this.setBackgroundResource(background);
+			}
 			decor.removeView(decorChild);
 			decor.addView(this,0);
 			getContentView().addView(decorChild);

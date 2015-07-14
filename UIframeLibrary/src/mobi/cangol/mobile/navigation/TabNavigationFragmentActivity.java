@@ -133,4 +133,15 @@ class TabNavigationFragmentActivityDelegate extends
 		getContentView().addView(content);
 		
 	}
+
+	@Override
+	public void setBackgroundColor(int color) {
+		mRootView.setBackgroundColor(color);
+	}
+
+	@Override
+	public void setBackgroundResource(int resId) {
+		mRootView.setBackgroundResource(resId);
+		
+	}
 }

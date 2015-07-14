@@ -37,5 +37,8 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
 	
 	public abstract void attachToActivity(Activity activity);
 	
+	public abstract void setBackgroundColor(int color);
+	
+	public abstract void setBackgroundResource(int resId);
 	
 }

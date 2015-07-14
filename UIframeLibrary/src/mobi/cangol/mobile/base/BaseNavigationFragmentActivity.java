@@ -45,6 +45,16 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 	public  void onSaveInstanceState(Bundle outState){
 		outState.putBoolean(MENU_SHOW, isShowMenu());
 	}
+	public void setBackgroundColor(int color){
+		super.setBackgroundColor(color);
+		mHelper.setBackgroundColor(color);
+	}
+	
+	public void setBackgroundResource(int resId){
+		super.setBackgroundResource(resId);
+		mHelper.setBackgroundResource(resId);
+	}
+	
 	@Override
 	public View findViewById(int id) {
 		View v = super.findViewById(id);

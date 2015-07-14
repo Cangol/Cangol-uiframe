@@ -149,7 +149,14 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 	}
 	@Override
 	public void attachToActivity(Activity activity) {
-		// TODO Auto-generated method stub
 		mDrawerMenuLayout.attachToActivity(activity,((DrawerNavigationFragmentActivity)activity).isFloatActionBarEnabled());
+	}
+	@Override
+	public void setBackgroundColor(int color) {
+		mDrawerMenuLayout.setBackgroundColor(color);
+	}
+	@Override
+	public void setBackgroundResource(int resId) {
+		mDrawerMenuLayout.setBackgroundResource(resId);
 	}
 }

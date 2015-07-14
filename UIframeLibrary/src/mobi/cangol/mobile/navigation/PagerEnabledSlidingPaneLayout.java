@@ -27,12 +27,7 @@ public class PagerEnabledSlidingPaneLayout extends SlidingPaneLayout {
     }
 
     public PagerEnabledSlidingPaneLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public PagerEnabledSlidingPaneLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-
+    	super(context, attrs);
         ViewConfiguration config = ViewConfiguration.get(context);
         mEdgeSlop = config.getScaledEdgeSlop();
     }

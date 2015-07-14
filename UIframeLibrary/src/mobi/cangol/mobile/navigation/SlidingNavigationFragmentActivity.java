@@ -139,6 +139,13 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 	public void attachToActivity(Activity activity) {
 		mSlidingMenuLayout.attachToActivity(activity,((SlidingNavigationFragmentActivity)activity).isFloatActionBarEnabled());
 	}
-
+	@Override
+	public void setBackgroundColor(int color) {
+		mSlidingMenuLayout.setBackgroundColor(color);
+	}
+	@Override
+	public void setBackgroundResource(int resId) {
+		mSlidingMenuLayout.setBackgroundResource(resId);
+	}
 	
 }
