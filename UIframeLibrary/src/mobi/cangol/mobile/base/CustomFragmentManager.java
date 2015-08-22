@@ -116,9 +116,10 @@ public class CustomFragmentManager {
 			}
 			BaseFragment last =stack.peek();
 			if(last!=null&&clazz.isInstance(last)){	
-				if (last.isCleanStack()){
-					return;//导致 fragmentTransaction 为null
-				}else if(last.isSingleton()){
+//				if (last.isCleanStack()){
+//					//return;//导致 fragmentTransaction 为null
+//				}else 
+				if(last.isSingleton()){
 					if (tag.equals(tagStack.peek())){
 						return;
 					}else{

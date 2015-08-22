@@ -128,9 +128,15 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 	}
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		/**
 		if (keyCode == KeyEvent.KEYCODE_BACK
 				&& mSlidingMenuLayout.isShowMenu()) {
 			mSlidingMenuLayout.showMenu(false);
+			return false;
+		} **/
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& !mSlidingMenuLayout.isShowMenu()) {
+			mSlidingMenuLayout.showMenu(true);
 			return true;
 		}
 		return false;

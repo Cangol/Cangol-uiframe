@@ -258,7 +258,7 @@ public abstract class BaseFragment extends Fragment{
 		}
 	}
 	public boolean isSingleton(){
-		return true;
+		return false;
 	}
 	public boolean isCleanStack(){
 		return false;
