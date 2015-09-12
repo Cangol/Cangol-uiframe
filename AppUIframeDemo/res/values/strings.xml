@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">Cangol-UIframe</string>
+    <string name="common_empty">暂无数据！</string>
+    <string name="common_retry">获取数据失败,重试！</string>
+    <string name="common_error">很抱歉，暂时无法获取相关数据!</string>
+    <string name="common_loading">加载中</string>
+    <string name="common_loading_more">正在加载更多</string>
+    <string name="common_delete_action_title">%1$d项被选择</string>
+    <string name="common_network_error">网络有问题,请您检查网络.</string>
+    <string name="common_network_to3g">连接到网络3G,提醒您流量会产生费用.</string>
+    <string name="common_storage_remove">存储卡被移除，下载等功能可能无法使用！</string>
+    
+    <string name="action_delete">删除</string>
+    <string name="action_selectAll">全选</string>
+    <string name="action_invert">反选</string>
+    <string name="action_setting">设置</string>
+    <string name="actionbar_activity_not_found">Failed to open intent...</string>
+
+    
+    <string name="content_hint">Content</string>
+  <string name="drawer_hint">Drawer</string>
+  <string name="rounded">See Rounded</string>
+  <string name="squared">See Squared</string>
+</resources>
