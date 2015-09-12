@@ -1,3 +1,17 @@
+/AppUIframeDemo/.project
+/AppUIframe/.classpath
+/AppUIframe/AppUIframe.iml
+/AppUIframe/.project
+project.properties
+/AppUIframeDemo/AppUIframeDemo.iml
+/AppUIframeDemo/.classpath
+/Cangol-AppUIframe.iml
+/gradlew.bat
+/gradlew
+/AppUIframe/proguard-project.txt
+/settings.gradle
+/gradle/wrapper/gradle-wrapper.properties
+/AppUIframeDemo/proguard-project.txt
 # Built application files
 *.apk
 *.ap_
