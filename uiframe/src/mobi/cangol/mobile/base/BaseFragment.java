@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2013 Cangol
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package mobi.cangol.mobile.base;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -21,11 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-/**
- * @Description:
- * @version $Revision: 1.0 $
- * @author Cangol
- */
+
 public abstract class BaseFragment extends Fragment{
 	protected String TAG = Utils.makeLogTag(BaseFragment.class);
 	public static final int RESULT_CANCELED    = 0;
@@ -36,26 +47,36 @@ public abstract class BaseFragment extends Fragment{
 	private CustomFragmentManager stack;
 	protected CoreApplication app;
 	protected FragmentInfo mUpFragment;
-	
+
 	private long starttime;
 	
 	private int resultCode = RESULT_CANCELED;
 	private Bundle resultData;
 	
-	public int getResultCode() {
-		return resultCode;
-	}
-	
-	public float getIdletime(){
-		 return (System.currentTimeMillis()-starttime)/1000.0f;
-	}
 	abstract protected void findViews(View view);
 
 	abstract protected void initViews(Bundle savedInstanceState);
 	
 	abstract protected void initData(Bundle savedInstanceState);
 	
-	abstract protected FragmentInfo getNavigtionUpToFragment();	
+	abstract protected FragmentInfo getNavigtionUpToFragment();
+
+    /**
+     * 获取回调码
+     * @return
+     */
+    protected int getResultCode() {
+        return resultCode;
+    }
+
+    public float getIdletime(){
+        return (System.currentTimeMillis()-starttime)/1000.0f;
+    }
+
+    /**
+     * 获取自定义actionbar
+     * @return
+     */
 	public ActionBar getCustomActionBar() {
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -64,21 +85,42 @@ public abstract class BaseFragment extends Fragment{
 			return abActivity.getCustomActionBar();
 		}
 	}
+
+    /**
+     * 获取标题
+     * @return
+     */
 	public String getTitle() {
 		return title;
 	}
+
+    /**
+     * 设置标题
+     * @param title
+     */
 	public void setTitle(String title) {
 		if(this.getParentFragment()!=null)return;
 		this.title=title;
 		if(getCustomActionBar()!=null)
 		getCustomActionBar().setTitle(title);
 	}
+
+    /**
+     * 设置标题
+     * @param title
+     */
 	public void setTitle(int title) {
 		if(this.getParentFragment()!=null)return;
 		this.title=getString(title);
 		if(getCustomActionBar()!=null)
 		getCustomActionBar().setTitle(title);
 	}
+
+    /**
+     * 返回view
+     * @param id
+     * @return
+     */
 	public final View findViewById(int id) {
 		return this.getView().findViewById(id);
 	}
@@ -89,6 +131,11 @@ public abstract class BaseFragment extends Fragment{
 		TAG = Utils.makeLogTag(this.getClass());
 		if(LIFECYCLE)Log.v(TAG,"onAttach");
 	}
+
+    /**
+     * 设置状态栏颜色
+     * @param color
+     */
 	public void setStatusBarColor(int color){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -97,7 +144,11 @@ public abstract class BaseFragment extends Fragment{
 			abActivity.setStatusBarTintColor(color);
 		}
 	}
-	
+
+    /**
+     * 设置导航栏颜色
+     * @param color
+     */
 	public void setNavigationBarTintColor(int color){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -106,6 +157,10 @@ public abstract class BaseFragment extends Fragment{
 			abActivity.setNavigationBarTintColor(color);
 		}
 	}
+
+    /**
+     * 开始progress模式
+     */
 	public void startProgress(){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -114,6 +169,10 @@ public abstract class BaseFragment extends Fragment{
 			 abActivity.getCustomActionBar().startProgress();
 		}
 	}
+
+    /**
+     * 停止progress模式
+     */
 	public void stopProgress(){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -122,6 +181,12 @@ public abstract class BaseFragment extends Fragment{
 			 abActivity.getCustomActionBar().stopProgress();
 		}
 	}
+
+    /**
+     * 开启自定义actionbar模式
+     * @param callback
+     * @return
+     */
 	public ActionMode startCustomActionMode(Callback callback){
 		ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
 		if(abActivity==null){
@@ -142,6 +207,11 @@ public abstract class BaseFragment extends Fragment{
 			if(null!=stack)stack.restoreState(savedInstanceState);
 		}
 	}
+
+    /**
+     * 初始化子fragment管理栈
+     * @param containerId
+     */
 	protected void initFragmentStack(int containerId){
 		if(null==stack)
 		stack = CustomFragmentManager.forContainer(this.getActivity(), containerId,this.getChildFragmentManager());
@@ -216,19 +286,39 @@ public abstract class BaseFragment extends Fragment{
 		super.onDestroy();
 		if(LIFECYCLE)Log.v(TAG, "onDestroy");
 	}
+
+    /**
+     * actionbar menu创建方法
+     * @param actionMenu
+     * @return
+     */
 	protected boolean onMenuActionCreated(ActionMenu actionMenu) {
 		
 		return false;
 	}
-	
+
+    /**
+     * actionbar menu选择时间相应方法
+     * @param action
+     * @return
+     */
 	protected boolean onMenuActionSelected(ActionMenuItem action) {
 		
 		return false;
 	}
-	
+
+    /**
+     * 显示toast
+     * @param resId
+     */
 	public void showToast(int resId){
 		Toast.makeText(this.getActivity(),resId,Toast.LENGTH_SHORT).show();
 	}
+
+    /**
+     * 显示toast
+     * @param str
+     */
 	public void showToast(String str){
 		Toast.makeText(this.getActivity(),str,Toast.LENGTH_SHORT).show();
 	}
@@ -244,8 +334,8 @@ public abstract class BaseFragment extends Fragment{
 		if(LIFECYCLE)Log.v(TAG, "onActivityResult");
 		
 	}
-	
-	public boolean onBackPressed() {
+
+    final public boolean onBackPressed() {
 		if(LIFECYCLE)Log.v(TAG, "onBackPressed");
 		if(null==stack)return false;
 		if (stack.size() <= 1) {
@@ -259,17 +349,36 @@ public abstract class BaseFragment extends Fragment{
 			}
 		}
 	}
+
+    /**
+     * 返回当前fragment是否是单例的，如果是在当前的自定栈里，他只能存在一个
+     * @return
+     */
 	public boolean isSingleton(){
 		return false;
 	}
+
+    /**
+     * 返回是否清除栈,一级fragment建议设置为true,二三级fragment建议设置为false
+     * @return
+     */
 	public boolean isCleanStack(){
 		return false;
 	}
+
+    /**
+     * 返回左上角导航图标的事件处理结果
+     * @return
+     */
 	public boolean onSupportNavigateUp() {
 		
 		return false;
 	}
-	public void  popBackStack(){
+
+    /**
+     * 将当前fragment弹出栈
+     */
+    final public void  popBackStack(){
 		BaseFragment parent=(BaseFragment) this.getParentFragment();
 		if(parent!=null){
 			parent.getCustomFragmentManager().pop();
@@ -282,20 +391,40 @@ public abstract class BaseFragment extends Fragment{
 			}
 		}
 	}
-	
+
+    /**
+     * fragment之间的回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 	public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
 		if(LIFECYCLE)Log.v(TAG, "onFragmentResult");
-    }	
-	
-	public void setResult(int resultCode){
+    }
+
+    /**
+     * 设置回调的状态码
+     * @param resultCode
+     */
+    final public void setResult(int resultCode){
 		this.setResult(resultCode, null);
 	}
-	
-	public void setResult(int resultCode,Bundle resultData){
+
+    /**
+     * 设置回调的状态码和参数
+     * @param resultCode
+     * @param resultData
+     */
+    final public void setResult(int resultCode,Bundle resultData){
 			this.resultCode=resultCode;
 			this.resultData=resultData;
 	}
-	public void notifyResult(){
+
+    /**
+     * 通知返回回调
+     * @hide
+     */
+    final public void notifyResult(){
 		BaseFragment taget=(BaseFragment) getTargetFragment();
 		if(taget!=null){
 			taget.onFragmentResult(getTargetRequestCode(),resultCode, resultData);
@@ -303,30 +432,65 @@ public abstract class BaseFragment extends Fragment{
 			throw new IllegalStateException("Target Fragment is null");
 		}
 	}
-	public CustomFragmentManager getCustomFragmentManager() {
+
+    /**
+     * 获取子fragment管理栈
+     * @return
+     */
+    final public CustomFragmentManager getCustomFragmentManager() {
 		return stack;
 	}
-	
-	public void replaceFragment(Class<? extends BaseFragment> fragmentClass){
+
+    /**
+     * 替换fragment
+     * @param fragmentClass
+     */
+	final public void replaceFragment(Class<? extends BaseFragment> fragmentClass){
 		replaceFragment(fragmentClass, fragmentClass.getSimpleName(), null);
 	}
-	
-	public void replaceFragment(Class<? extends BaseFragment> fragmentClass , Bundle bundle){
-		replaceFragment(fragmentClass, fragmentClass.getSimpleName(), bundle);
+
+    /**
+     * 替换fragment
+     * @param fragmentClass
+     * @param args
+     */
+    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass , Bundle args){
+		replaceFragment(fragmentClass, fragmentClass.getSimpleName(), args);
 	}
-	
-	public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
-		this.replaceFragment(fragmentClass, tag, args,null);
+
+    /**
+     * 替换fragment
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     */
+    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
+		this.replaceFragment(fragmentClass, tag, args, null);
 	}
-	
-	public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int requestCode) {
+
+    /**
+     * 替换fragment,并要求请求回调
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param args
+     */
+    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int requestCode) {
 		if(requestCode!=-1){
 			this.replaceFragment(fragmentClass, tag, args,new CustomFragmentTransaction().setTargetFragment(this, requestCode));	
 		}else{
 			throw new IllegalStateException("requestCode!=-1");
 		}
 	}
-	public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction){
+
+    /**
+     * 替换父类级fragment 带自定义动画
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param customFragmentTransaction
+     */
+    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction){
 		BaseFragment parent=(BaseFragment) this.getParentFragment();
 		CustomFragmentManager stack=null;
 		if(parent!=null){
@@ -342,37 +506,66 @@ public abstract class BaseFragment extends Fragment{
 		stack.replace(fragmentClass, tag,args,customFragmentTransaction);
 		stack.commit();
 	}
-	public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
-		replaceParentFragment(fragmentClass, tag, args,null);
+
+    /**
+     * 替换父类级fragment
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     */
+    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
+        replaceParentFragment(fragmentClass, tag, args, null);
 	}
-	public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int requestCode) {
+
+    /**
+     * 替换父类级fragment,并要求请求回调
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param requestCode
+     */
+    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int requestCode) {
 		if(requestCode!=-1){
 			this.replaceParentFragment(fragmentClass, tag, args,new CustomFragmentTransaction().setTargetFragment(this, requestCode));	
 		}else{
 			throw new IllegalStateException("requestCode!=-1");
 		}
 	}
-	public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction){
+
+    /**
+     * 替换父类级fragment 带自定义动画
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param customFragmentTransaction
+     */
+    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction){
 		BaseFragment parent=(BaseFragment) this.getParentFragment();
 		if(parent!=null){
-			parent.replaceFragment(fragmentClass, tag,args,customFragmentTransaction);
+			parent.replaceFragment(fragmentClass, tag, args, customFragmentTransaction);
 		}else{
 			throw new IllegalStateException("ParentFragment is null");
 		}
 	}
-	public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
+
+    /**
+     * 替换子类级fragment
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     */
+    final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
 		replaceChildFragment(fragmentClass, tag, args,null);
 	}
-	
-	public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int enter,int exit) {
-		replaceChildFragment(fragmentClass, tag,args,new CustomFragmentTransaction().setCustomAnimations(enter, exit));	
-	}
-	
-	public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int enter,int exit,int popEnter, int popExit) {
-		replaceChildFragment(fragmentClass, tag,args,new CustomFragmentTransaction().setCustomAnimations(enter,exit,popEnter,popExit));	
-	}
-	
-	public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction) {
+
+    /**
+     * 替换子fragment 带自定义动画
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param customFragmentTransaction
+     */
+    final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,CustomFragmentTransaction customFragmentTransaction) {
 		if(stack!=null){
 			stack.replace(fragmentClass, tag,args,customFragmentTransaction);
 			stack.commit();
@@ -381,23 +574,28 @@ public abstract class BaseFragment extends Fragment{
 		}
 		
 	}
-	
-//	/**ActionBarActivity method**/
-//	public void requestWindowFeature(int featureId){
-//		if(getActivity()==null){
-//			throw new IllegalStateException("getActivity is null");
-//		}else{
-//			ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
-//			abActivity.requestWindowFeature(featureId);
-//		}
-//	}
-	
+
+    /**
+     * 获取AppService
+     * @param name
+     * @return
+     */
 	public AppService getAppService(String name) {
 		return app.getAppService(name);
 	}
+
+    /**
+     * 获取Session
+     * @return
+     */
 	public Session getSession() {
 		return app.getSession();
 	}
+
+    /**
+     * 返回当前fragment是否有效
+     * @return
+     */
 	public boolean isEnable() {
 		if (null == getActivity() || !isAdded() || isRemoving() || isDetached()) {
 			return false;

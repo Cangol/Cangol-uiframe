@@ -27,8 +27,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 /**
- * @Description:
- * @version $Revision: 1.0 $
  * @author Cangol
  */
 public  abstract class BaseActivity extends Activity implements BaseActivityDelegate{
@@ -36,7 +34,7 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 	private static final boolean LIFECYCLE=Utils.LIFECYCLE;
 	public CoreApplication app;
 	private long starttime;
-	
+
 	public float getIdletime(){
 		 return (System.currentTimeMillis()-starttime)/1000.0f;
 	}
@@ -48,12 +46,6 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 		app = (CoreApplication) this.getApplication();
 		app.addActivityToManager(this);
 	}
-
-	public abstract void findViews();
-
-	public abstract void initViews(Bundle savedInstanceState);
-
-	public abstract void initData(Bundle savedInstanceState);
 
 	public  void showToast(int resId){
 		Toast.makeText(this,resId,Toast.LENGTH_SHORT).show();
@@ -113,17 +105,21 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 		super.onSaveInstanceState(outState);
 		if(LIFECYCLE)Log.v(TAG, "onSaveInstanceState");
 	}
+
 	public Session getSession() {
 		return app.getSession();
 	}
+
 	public AppService getAppService(String name) {
 		return app.getAppService(name);
 	}
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		if(LIFECYCLE)Log.v(TAG, "onConfigurationChanged");
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -136,6 +132,7 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 		if(LIFECYCLE)Log.v(TAG, "onBackPressed");
 		super.onBackPressed();
 	}
+
 	@Override
 	public void setFullScreen(boolean fullscreen) {
 		if(fullscreen){
@@ -144,8 +141,11 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 		}else{
 			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		}
-		
 	}
+
+    /**
+     * 处理back事件
+     */
 	@Override
 	public void onBack() {
 		super.onBackPressed();

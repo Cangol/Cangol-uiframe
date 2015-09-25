@@ -18,26 +18,32 @@ package mobi.cangol.mobile.base;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
-/**
- * @Description:
- * @version $Revision: 1.0 $
- * @author Cangol
- */
 public abstract class BaseContentFragment extends BaseFragment{
-	
-	
+
+    /**
+     * 设置content fragment
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     */
 	final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,String tag,Bundle args) {
 		replaceFragment(fragmentClass, tag, args);
 	}
-	
-	
+
+    /**
+     * 设置content fragment,并更通知menuFragment更新变更了模块
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     * @param moduleId
+     */
 	final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,String tag,Bundle args,int moduleId) {
 		setContentFragment(fragmentClass, tag, args);
 		notifyMenuChange(moduleId);
 		
 	}
 	
-	final public void notifyMenuChange(int moduleId){
+	final protected void notifyMenuChange(int moduleId){
 		if(getActivity()==null){
 			throw new IllegalStateException("getActivity is null");
 		}else{
@@ -66,7 +72,12 @@ public abstract class BaseContentFragment extends BaseFragment{
 		}
 		
 	}
-	final private void setMenuEnable(boolean enable) {
+
+    /**
+     * 设置menu的显示（在super.onViewCreated后调用才有效）
+     * @param enable
+     */
+	final protected void setMenuEnable(boolean enable) {
 		BaseFragment parent=(BaseFragment) this.getParentFragment();
 		if(parent==null){
 			if(getActivity()==null){
@@ -79,6 +90,7 @@ public abstract class BaseContentFragment extends BaseFragment{
 			}
 		}
 	}
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);

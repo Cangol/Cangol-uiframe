@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2013 Cangol
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package mobi.cangol.mobile.base;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -9,11 +24,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
-/**
- * @Description:
- * @version $Revision: 1.0 $
- * @author Cangol
- */
+
 public  abstract class BaseFragmentActivity extends FragmentActivity implements BaseActivityDelegate,CustomFragmentActivityDelegate{
 	protected String TAG = Utils.makeLogTag(BaseFragmentActivity.class);
 	private static final boolean LIFECYCLE=Utils.LIFECYCLE;
@@ -43,11 +54,22 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	public  void showToast(String str,int duration){
 		Toast.makeText(this,str,duration).show();
 	}
-	
+
+    /**
+     * 初始自定义栈管理器
+     * @param containerId
+     */
 	public void initFragmentStack(int containerId){
 		if(null==stack)
 		stack = CustomFragmentManager.forContainer(this, containerId,this.getSupportFragmentManager());
 	}
+
+    /**
+     * 替换fragment
+     * @param fragmentClass
+     * @param tag
+     * @param args
+     */
 	public void replaceFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
 		if(null==stack){
 			throw new IllegalStateException("stack is null");
@@ -59,9 +81,20 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	public CustomFragmentManager getCustomFragmentManager() {
 		return stack;
 	}
+
+    /**
+     * 获取AppService
+     * @param name
+     * @return
+     */
 	public AppService getAppService(String name) {
 		return app.getAppService(name);
 	}
+
+    /**
+     * 获取Session
+     * @return
+     */
 	public Session getSession() {
 		return app.getSession();
 	}
@@ -130,6 +163,11 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 		super.onConfigurationChanged(newConfig);
 		if(LIFECYCLE)Log.v(TAG, "onConfigurationChanged");
 	}
+
+    /**
+     * 设置全屏
+     * @param fullscreen
+     */
 	@Override
 	public void setFullScreen(boolean fullscreen) {
 		if(fullscreen){
@@ -158,6 +196,10 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 			}
 		}
 	}
+
+    /**
+     * 处理back事件
+     */
 	public void onBack(){
 		if(LIFECYCLE)Log.v(TAG, "onBack");
 		super.onBackPressed();
