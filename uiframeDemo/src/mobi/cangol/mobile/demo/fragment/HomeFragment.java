@@ -128,9 +128,9 @@ public class HomeFragment extends BaseContentFragment {
 	@Override
 	public boolean onMenuActionCreated(ActionMenu actionMenu) {
 		super.onMenuActionCreated(actionMenu);
-		actionMenu.add(new ActionMenuItem(1,R.string.action_setting,R.drawable.ic_action_delete,2));
-		actionMenu.add(new ActionMenuItem(2,R.string.action_selectAll,R.drawable.ic_action_select,2));
-		actionMenu.add(new ActionMenuItem(3,R.string.action_invert,R.drawable.ic_action_unselect,2));
+		actionMenu.add(new ActionMenuItem(1,R.string.action_setting,R.drawable.ic_action_delete,1));
+		actionMenu.add(new ActionMenuItem(2,R.string.action_selectAll,R.drawable.ic_action_select,1));
+		//actionMenu.add(new ActionMenuItem(3,R.string.action_invert,R.drawable.ic_action_unselect,2));
 		return true;
 	}
 

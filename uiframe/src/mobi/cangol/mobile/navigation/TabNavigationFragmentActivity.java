@@ -48,20 +48,15 @@ public abstract class TabNavigationFragmentActivity extends
 	@Override
 	abstract public void initData(Bundle savedInstanceState);
 	
-	abstract public void onHomeIndicatorClick();
-	
 	@Override
 	public boolean onSupportNavigateUp() {
 		if (stack.size() <= 1) {
-			onHomeIndicatorClick();
+            stack.peek().onSupportNavigateUp();
 			return true;
 		} else {
 			return super.onSupportNavigateUp();
 		}
 	}
-	
-	
-
 }
 
 class TabNavigationFragmentActivityDelegate extends

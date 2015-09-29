@@ -154,12 +154,14 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     public boolean onSupportNavigateUp() {
         if (LIFECYCLE)
             Log.v(TAG, "onSupportNavigateUp ");
-        if (stack == null || stack.size() <= 1) {
+        if (stack == null) {
             return super.onSupportNavigateUp();
         } else {
             if (stack.peek().onSupportNavigateUp()) {
                 return true;
-            } else {
+            } else if (stack.size() == 1){
+                return super.onSupportNavigateUp();
+            } else{
                 FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                 if (upFragment != null) {
                     replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);

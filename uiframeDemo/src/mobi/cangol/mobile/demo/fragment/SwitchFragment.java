@@ -66,10 +66,10 @@ public class SwitchFragment extends BaseContentFragment {
 		Bundle args=new Bundle();
 		if(!mIsDownload){
 			args.putBoolean("mIsDownload", mIsDownload);
-			replaceChildFragment(ItemFragment.class, "ItemFragment1", args,R.anim.slide_in_bottom,R.anim.slide_out_top,R.anim.slide_in_top,R.anim.slide_out_bottom);
+			replaceChildFragment(ItemFragment.class, "ItemFragment1", args);
 		}else{
 			args.putBoolean("mIsDownload", mIsDownload);
-			replaceChildFragment(ItemFragment.class, "ItemFragment2", args, R.anim.slide_in_top,R.anim.slide_out_bottom, R.anim.slide_in_bottom,R.anim.slide_out_top);
+			replaceChildFragment(ItemFragment.class, "ItemFragment2", args);
 		}
 		mIsDownload = !mIsDownload;
 	}

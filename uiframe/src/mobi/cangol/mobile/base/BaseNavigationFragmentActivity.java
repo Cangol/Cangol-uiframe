@@ -125,11 +125,11 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 		getSupportFragmentManager().executePendingTransactions();
 	}
 	final public void setContentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int moduleId) {
-		replaceFragment(fragmentClass,tag,args);
+		replaceFragment(fragmentClass, tag, args);
 		setCurrentModuleId(moduleId);
 	}
 	final public void setContentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args) {
-		replaceFragment(fragmentClass, tag,args);
+		replaceFragment(fragmentClass, tag, args);
 	}
 	public void notifyMenuOnClose(){
 		if(menuFragment!=null)
@@ -145,19 +145,6 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		menuFragment=(BaseMenuFragment) getSupportFragmentManager().findFragmentByTag(MENU_TAG);
-	}
-	@Override
-	public boolean onSupportNavigateUp() {
-		if (stack.size() <= 1) {
-			if(!isShowMenu()){
-				showMenu(true);
-			}else{
-				showMenu(false);
-			}
-			return true;
-		} else {
-			return super.onSupportNavigateUp();
-		}
 	}
 }
 

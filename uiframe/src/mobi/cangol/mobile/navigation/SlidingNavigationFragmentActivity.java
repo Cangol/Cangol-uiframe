@@ -15,18 +15,17 @@
  */
 package mobi.cangol.mobile.navigation;
 
-import mobi.cangol.mobile.R;
-import mobi.cangol.mobile.actionbar.view.DrawerArrowDrawable;
-import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import mobi.cangol.mobile.R;
+import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 
 public abstract class SlidingNavigationFragmentActivity extends
 		BaseNavigationFragmentActivity {
@@ -52,6 +51,21 @@ public abstract class SlidingNavigationFragmentActivity extends
 
 	@Override
 	abstract public void initData(Bundle savedInstanceState);
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if (stack.size()<= 1){
+            if(!isShowMenu()){
+                showMenu(true);
+            }else{
+                showMenu(false);
+            }
+            return true;
+        } else {
+            return super.onSupportNavigateUp();
+        }
+    }
 
 }
 

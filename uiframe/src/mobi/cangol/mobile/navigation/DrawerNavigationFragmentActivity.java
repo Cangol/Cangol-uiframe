@@ -55,6 +55,21 @@ public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFra
 	@Override
 	abstract public void initData(Bundle savedInstanceState);
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if (stack.size()<= 1){
+            if(!isShowMenu()){
+                showMenu(true);
+            }else{
+                showMenu(false);
+            }
+            return true;
+        } else {
+            return super.onSupportNavigateUp();
+        }
+    }
+
 }
 
 class DrawerMenuNavigationFragmentActivityDelegate extends
