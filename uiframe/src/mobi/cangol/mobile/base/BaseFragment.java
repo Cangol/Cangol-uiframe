@@ -230,7 +230,7 @@ public abstract class BaseFragment extends Fragment{
 		super.onViewCreated(view, savedInstanceState);
 		if(LIFECYCLE)Log.v(TAG, "onViewCreated");
 		if(this.getParentFragment()==null){
-			getCustomActionBar().clearActions();
+			getCustomActionBar().clearActionMenus();
 		}
 	}
 
