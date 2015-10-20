@@ -164,10 +164,11 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 			return false;
 		} **/
 		if (keyCode == KeyEvent.KEYCODE_BACK
-				&& !mSlidingMenuLayout.isShowMenu()) {
-			mSlidingMenuLayout.showMenu(true);
+				&& mSlidingMenuLayout.isShowMenu()) {
+			mSlidingMenuLayout.showMenu(false);
 			return true;
 		}
+
 		return false;
 	}
 	@Override
