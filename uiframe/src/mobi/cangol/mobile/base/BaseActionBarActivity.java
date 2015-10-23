@@ -33,7 +33,10 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     private static final boolean LIFECYCLE = Utils.LIFECYCLE;
     protected CoreApplication app;
     protected CustomFragmentManager stack;
-
+    private long startTime;
+    public float getIdletime(){
+        return (System.currentTimeMillis()-startTime)/1000.0f;
+    }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
@@ -48,6 +51,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             if (null != stack) stack.restoreState(savedInstanceState);
         }
     }
+
 
     public void showToast(int resId) {
         Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
@@ -183,6 +187,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected void onResume() {
         super.onResume();
         if (LIFECYCLE) Log.v(TAG, "onResume");
+        if(LIFECYCLE)Log.v(TAG, "onResume "+getIdletime()+"s");
     }
 
     @Override
@@ -206,6 +211,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(LIFECYCLE)Log.v(TAG, "onDestroy "+getIdletime()+"s");
         app.delActivityFromManager(this);
     }
 

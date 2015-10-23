@@ -30,6 +30,10 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	private static final boolean LIFECYCLE=Utils.LIFECYCLE;
 	protected CoreApplication app;
 	private CustomFragmentManager stack;
+    private long startTime;
+    public float getIdletime(){
+        return (System.currentTimeMillis()-startTime)/1000.0f;
+    }
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setSoftInputMode(
@@ -109,6 +113,7 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	protected void onResume() {
 		super.onResume();
 		if(LIFECYCLE)Log.v(TAG, "onResume");
+        if(LIFECYCLE)Log.v(TAG, "onResume "+getIdletime()+"s");
 	}
 
 	@Override
@@ -132,7 +137,9 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		app.delActivityFromManager(this);
+        if(LIFECYCLE)Log.v(TAG, "onDestroy "+getIdletime()+"s");
+
+        app.delActivityFromManager(this);
 	}
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {

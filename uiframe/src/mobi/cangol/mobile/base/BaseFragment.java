@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public abstract class BaseFragment extends Fragment{
 	protected CoreApplication app;
 	protected FragmentInfo mUpFragment;
 
-	private long starttime;
+	private long startTime;
 	
 	private int resultCode = RESULT_CANCELED;
 	private Bundle resultData;
@@ -70,7 +71,7 @@ public abstract class BaseFragment extends Fragment{
     }
 
     public float getIdletime(){
-        return (System.currentTimeMillis()-starttime)/1000.0f;
+        return (System.currentTimeMillis()-startTime)/1000.0f;
     }
 
     /**
@@ -221,7 +222,7 @@ public abstract class BaseFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if(LIFECYCLE){Log.v(TAG, "onCreateView");
-			starttime=System.currentTimeMillis();
+            startTime=System.currentTimeMillis();
 		}
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
@@ -602,5 +603,12 @@ public abstract class BaseFragment extends Fragment{
 		}
 		return true;
 	}
-	
+
+    /**
+     * 获取ActionBarActivity,由于原getActivity为final，故增加此方法
+     * @return
+     */
+    public final ActionBarActivity ActionBarActivity() {
+        return (ActionBarActivity)getActivity();
+    }
 }

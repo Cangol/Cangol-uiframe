@@ -33,10 +33,10 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 	protected String TAG = Utils.makeLogTag(BaseActivity.class);
 	private static final boolean LIFECYCLE=Utils.LIFECYCLE;
 	public CoreApplication app;
-	private long starttime;
+	private long startTime;
 
 	public float getIdletime(){
-		 return (System.currentTimeMillis()-starttime)/1000.0f;
+		 return (System.currentTimeMillis()-startTime)/1000.0f;
 	}
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(LIFECYCLE)Log.v(TAG, "onResume"+getIdletime()+"s");
+		if(LIFECYCLE)Log.v(TAG, "onResume "+getIdletime()+"s");
 	}
 
 	@Override
