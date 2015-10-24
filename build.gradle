@@ -12,9 +12,9 @@ buildscript {
 allprojects {
 
     repositories {
-        jcenter()
-        maven {
-            url  "http://dl.bintray.com/cangol/maven"
+        jcenter(){
+           url "https://dl.bintray.com/cangol/maven"
         }
+
     }
 }

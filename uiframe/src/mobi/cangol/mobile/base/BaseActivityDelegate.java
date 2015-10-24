@@ -17,8 +17,8 @@ package mobi.cangol.mobile.base;
 
 import android.os.Bundle;
 
-import mobi.cangol.mobile.Session;
 import mobi.cangol.mobile.service.AppService;
+import mobi.cangol.mobile.service.session.SessionService;
 
 public interface BaseActivityDelegate {
 
@@ -74,7 +74,7 @@ public interface BaseActivityDelegate {
      * 获取Session
      * @return
      */
-    Session getSession();
+    SessionService getSession();
 
     /**
      * 设置全屏

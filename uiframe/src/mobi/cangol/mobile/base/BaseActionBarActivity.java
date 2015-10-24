@@ -16,12 +16,12 @@
 package mobi.cangol.mobile.base;
 
 import mobi.cangol.mobile.CoreApplication;
-import mobi.cangol.mobile.Session;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
+import mobi.cangol.mobile.service.session.SessionService;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -106,7 +106,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    public Session getSession() {
+    public SessionService getSession() {
         return app.getSession();
     }
 

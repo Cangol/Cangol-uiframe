@@ -15,28 +15,26 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import mobi.cangol.mobile.CoreApplication;
-import mobi.cangol.mobile.Session;
 import mobi.cangol.mobile.actionbar.ActionBar;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.actionbar.ActionMode;
 import mobi.cangol.mobile.actionbar.ActionMode.Callback;
-import mobi.cangol.mobile.actionbar.ActionTab;
-import mobi.cangol.mobile.actionbar.ActionTabItem;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseFragment extends Fragment{
 	protected String TAG = Utils.makeLogTag(BaseFragment.class);
@@ -589,7 +587,7 @@ public abstract class BaseFragment extends Fragment{
      * 获取Session
      * @return
      */
-	public Session getSession() {
+	public SessionService getSession() {
 		return app.getSession();
 	}
 

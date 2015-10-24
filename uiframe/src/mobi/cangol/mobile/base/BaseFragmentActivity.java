@@ -16,9 +16,10 @@
 package mobi.cangol.mobile.base;
 
 import mobi.cangol.mobile.CoreApplication;
-import mobi.cangol.mobile.Session;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
+import mobi.cangol.mobile.service.session.SessionService;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -99,7 +100,7 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
      * 获取Session
      * @return
      */
-	public Session getSession() {
+	public SessionService getSession() {
 		return app.getSession();
 	}
 	
