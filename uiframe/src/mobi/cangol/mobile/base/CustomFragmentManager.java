@@ -79,7 +79,7 @@ public class CustomFragmentManager {
 
 		int i = 0;
 		for (String tag : tagStack) {
-			Log.i(STATE_TAG, "tag ="+tag);
+			Log.i(STATE_TAG, "tag =" + tag);
 			stackTags[i++] = tag;
 		}
 
@@ -100,10 +100,16 @@ public class CustomFragmentManager {
 		return fragmentTransaction;
 	}
 	public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args){
-		this.replace(clazz, tag, args,null);
+        if(clazz.isAssignableFrom(BaseDialogFragment.class)){
+            throw new IllegalStateException("DialogFragment can not be attached to a container view");
+        }else{
+            this.replace(clazz, tag, args,null);
+        }
 	}
 	public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args,CustomFragmentTransaction customFragmentTransaction){
-		if(stack.size()>0){
+        if(clazz.isAssignableFrom(BaseDialogFragment.class))
+            throw new IllegalStateException("DialogFragment can not be attached to a container view");
+        if(stack.size()>0){
 			BaseFragment first = stack.firstElement();
 			if (first != null && tag.equals(tagStack.firstElement())) {
 				if(customFragmentTransaction==null||!customFragmentTransaction.fillCustomAnimations(beginTransaction())){

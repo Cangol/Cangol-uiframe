@@ -52,6 +52,12 @@ public class ItemFragment extends BaseContentFragment {
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
 		mTextView1.setText(""+mIsDownload);
+        mTextView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(ItemFragment.class);
+            }
+        });
 
 	}
 

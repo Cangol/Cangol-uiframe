@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000ff"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/dialog_common_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Title" />
+		<View
+		    android:id="@+id/dialog_common_title_line"
+	        android:layout_width="match_parent"
+	        android:layout_height="2dp"
+	        android:background="#ddd"
+	        android:visibility="gone" />
+		 <TextView
+	            android:id="@+id/dialog_common_message"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:minLines="2"
+	            android:layout_margin="8dp"
+	            android:gravity="center|left"
+	            android:text="Message"
+	            android:visibility="gone"/>
+	
+	        <ListView
+	            android:id="@+id/dialog_common_list"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:visibility="gone" >
+	        </ListView>
+		 <LinearLayout
+		    android:id="@+id/dialog_common_content"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+	        
+	 	 </LinearLayout>
+        <View
+            android:id="@+id/dialog_common_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#ddd" />
+
+        <LinearLayout
+            android:id="@+id/dialog_common_btn_area"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/dialog_common_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="confirm"
+                android:visibility="gone"/>
+
+            <View
+                android:id="@+id/dialog_common_left_line"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#ddd"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/dialog_common_center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="done"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/dialog_common_right_line"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#ddd"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/dialog_common_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="cancel"
+                android:visibility="gone" />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

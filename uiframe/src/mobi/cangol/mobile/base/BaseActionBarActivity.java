@@ -50,6 +50,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         } else {
             if (null != stack) stack.restoreState(savedInstanceState);
         }
+        this.getCustomActionBar();
     }
 
 
@@ -123,14 +124,14 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     public void onMenuActionCreated(ActionMenu actionMenu) {
         if (stack != null && stack.size() > 0) {
-            stack.peek().onMenuActionCreated(actionMenu);
+            ((BaseContentFragment)stack.peek()).onMenuActionCreated(actionMenu);
         }
     }
 
     @Override
     public boolean onMenuActionSelected(ActionMenuItem action) {
         if (null != stack) {
-            return stack.peek().onMenuActionSelected(action);
+            return ((BaseContentFragment)stack.peek()).onMenuActionSelected(action);
         }
         return false;
     }

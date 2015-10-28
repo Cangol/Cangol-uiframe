@@ -11,7 +11,9 @@ dependencies {
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.0"
-
+    defaultConfig {
+        consumerProguardFiles 'proguard-rules.txt'
+    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -53,7 +55,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 artifacts {
-    //archives javadocJar
+    archives javadocJar
     archives sourcesJar
 }
 

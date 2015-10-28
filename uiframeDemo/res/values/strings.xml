@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Cangol-UIframe</string>
+    <string name="app_name">Uiframe</string>
     <string name="common_empty">暂无数据！</string>
     <string name="common_retry">获取数据失败,重试！</string>
     <string name="common_error">很抱歉，暂时无法获取相关数据!</string>
