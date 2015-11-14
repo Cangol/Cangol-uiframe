@@ -82,19 +82,19 @@ public class HomeFragment extends BaseContentFragment {
 
 			@Override
 			public void onClick(View v) {
-				 //toFragmentForResult();
+				 toFragmentForResult();
 //				 Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
 //		         startActivityForResult(intent,1);
-                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
-                builder.setTitle("提示");
-                builder.setMessage("测试Dialog");
-                builder.setCenterButtonInfo("OK", new CommonDialogFragment.OnButtonClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-                builder.create().show(getFragmentManager(), "CommonDialogFragment");
+//                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
+//                builder.setTitle("提示");
+//                builder.setMessage("测试Dialog");
+//                builder.setCenterButtonInfo("OK", new CommonDialogFragment.OnButtonClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                    }
+//                });
+//                builder.create().show(getFragmentManager(), "CommonDialogFragment");
 			}
 			
 		});

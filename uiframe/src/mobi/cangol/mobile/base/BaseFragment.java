@@ -208,7 +208,12 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(null!=stack)stack.saveState(outState);
+        if(LIFECYCLE)Log.v(TAG, "onSaveInstanceState");
+    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

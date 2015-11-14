@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -181,7 +179,6 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         }
     }
 
-    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new Dialog(this.getActivity(), this.getTheme());
     }
@@ -277,10 +274,5 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
             this.mDialog = null;
         }
 
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({0L, 1L, 2L, 3L})
-    private @interface DialogStyle {
     }
 }

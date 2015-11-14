@@ -229,8 +229,8 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (null != stack) stack.saveState(outState);
         super.onSaveInstanceState(outState);
+        if (null != stack) stack.saveState(outState);
         if (LIFECYCLE) Log.v(TAG, "onSaveInstanceState");
     }
 

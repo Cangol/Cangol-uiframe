@@ -58,7 +58,8 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 		}
 	}
 	public  void onSaveInstanceState(Bundle outState){
-		outState.putBoolean(MENU_SHOW, isShowMenu());
+		super.onSaveInstanceState(outState);
+        outState.putBoolean(MENU_SHOW, isShowMenu());
 	}
 	public void setBackgroundColor(int color){
 		super.setBackgroundColor(color);

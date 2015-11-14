@@ -10,11 +10,7 @@ buildscript {
     }
 }
 allprojects {
-
     repositories {
-        jcenter(){
-            url 'https://dl.bintray.com/cangol/maven/'
-        }
-
+        jcenter()
     }
 }
