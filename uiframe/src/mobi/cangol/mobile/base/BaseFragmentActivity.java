@@ -42,10 +42,6 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 		TAG = Utils.makeLogTag(this.getClass());
 		app = (CoreApplication) this.getApplication();
 		app.addActivityToManager(this);
-		if(savedInstanceState==null){
-		}else{
-			if(null!=stack)stack.restoreState(savedInstanceState);
-		}
 	}
 	public  void showToast(int resId){
 		Toast.makeText(this,resId,Toast.LENGTH_SHORT).show();
@@ -145,6 +141,7 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
+        if(null!=stack)stack.restoreState(savedInstanceState);
 		if(LIFECYCLE)Log.v(TAG, "onRestoreInstanceState");
 	}
 

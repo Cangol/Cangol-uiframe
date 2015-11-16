@@ -45,11 +45,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
-        if (savedInstanceState == null) {
-
-        } else {
-            if (null != stack) stack.restoreState(savedInstanceState);
-        }
         this.getCustomActionBar();
     }
 
@@ -224,6 +219,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        if (null != stack) stack.restoreState(savedInstanceState);
         if (LIFECYCLE) Log.v(TAG, "onRestoreInstanceState");
     }
 
