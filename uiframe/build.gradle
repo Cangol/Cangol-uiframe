@@ -62,7 +62,7 @@ artifacts {
 
 // Bintray
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 version = properties.getProperty("LIBRARY_VERSION")
 group = properties.getProperty("GROUP_ID")
