@@ -2,7 +2,8 @@ package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.R;
+import mobi.cangol.mobile.uiframe.demo.R;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,17 +1,18 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import java.util.List;
-
-import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.R;
-import mobi.cangol.mobile.uiframe.demo.db.StationService;
-import mobi.cangol.mobile.uiframe.demo.model.Station;
-import mobi.cangol.mobile.logging.Log;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
+
+import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.uiframe.demo.db.StationService;
+import mobi.cangol.mobile.uiframe.demo.model.Station;
 
 public class ListDataFragment extends BaseContentFragment {
 	StationService stationService;

@@ -3,7 +3,8 @@ package mobi.cangol.mobile.uiframe.demo.fragment;
 import mobi.cangol.mobile.base.BaseMenuFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
-import mobi.cangol.mobile.uiframe.R;
+import mobi.cangol.mobile.uiframe.demo.R;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;

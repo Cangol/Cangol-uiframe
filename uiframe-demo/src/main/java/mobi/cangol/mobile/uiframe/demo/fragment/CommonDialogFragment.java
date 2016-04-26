@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import mobi.cangol.mobile.base.BaseDialogFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.R;
+import mobi.cangol.mobile.uiframe.demo.R;
 
 /**
  * Created by Cangol
