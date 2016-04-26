@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <mobi.cangol.mobile.uiframe.view.PromptView
+    <mobi.cangol.mobile.uiframe.demo.view.PromptView
         android:id="@+id/promptView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </mobi.cangol.mobile.uiframe.view.PromptView>
+    </mobi.cangol.mobile.uiframe.demo.view.PromptView>
 
     <ListView
         android:id="@+id/listView"
