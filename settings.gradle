@@ -1,2 +1,2 @@
-include ':uiframeDemo'
+include ':uiframe-demo'
 include ':uiframe'
