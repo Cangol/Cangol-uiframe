@@ -1,6 +1,5 @@
 package mobi.cangol.mobile.uiframe.demo.view;
 
-import mobi.cangol.mobile.uiframe.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -9,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import mobi.cangol.mobile.uiframe.demo.R;
+
 /**
  * @Description:
  * @version $Revision: 1.0 $
