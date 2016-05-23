@@ -27,3 +27,5 @@ before_script:
 #  directories:
 #    - $HOME/.gradle/caches/
 #    - $HOME/.gradle/wrapper/
+after_success:
+  - gradle cobertura coveralls
