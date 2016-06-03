@@ -24,11 +24,12 @@ import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.actionbar.ActionMode;
+import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
     protected String TAG = Utils.makeLogTag(BaseContentFragment.class);
 
-    private String title;
+    private CharSequence title;
 
     /**
      * 获取ActionBarActivity,由于原getActivity为final，故增加此方法
@@ -58,7 +59,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @return
      */
-    public String getTitle() {
+    public CharSequence getTitle() {
         return title;
     }
 
@@ -210,10 +211,14 @@ public abstract class BaseContentFragment extends BaseFragment {
         if (savedInstanceState == null) {
 
         } else {
-            title = savedInstanceState.getString("title");
+            title = savedInstanceState.getCharSequence("title");
         }
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequence("title",title);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

@@ -226,6 +226,25 @@ public abstract class BaseFragment extends Fragment {
         if (LIFECYCLE) Log.v(TAG, "onActivityResult");
 
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged");
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (LIFECYCLE) Log.v(TAG, "onLowMemory");
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (LIFECYCLE) Log.v(TAG, "onViewStateRestored");
+    }
+
     /**
      * fragment之间的回调
      *
