@@ -26,63 +26,60 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class HomeFragment extends BaseContentFragment {
-	private Button mButton1;
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_home, container,false);
-		return v;
-	}
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		findViews(view);
-	}
+    private Button mButton1;
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		initViews(savedInstanceState);
-		initData(savedInstanceState);
-	}
-	@Override
-	protected void initData(Bundle savedInstanceState) {
-		CacheManager mCacheManager=(CacheManager) getAppService(AppService.CACHE_MANAGER);
-		try {
-			Station st=new Station();
-			st.set_id(1);
-			st.setName("test");
-			Log.d("ff="+JsonUtils.toJSONObject(st));
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	protected void findViews(View view) {
-		mButton1=(Button) view.findViewById(R.id.button1);
-	}
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-	}
-	@Override
-	protected void initViews(Bundle savedInstanceState) {
-		this.setTitle(this.getClass().getSimpleName());
-		mButton1.setOnClickListener(new OnClickListener(){
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        return v;
+    }
 
-			@Override
-			public void onClick(View v) {
-				 toFragmentForResult();
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findViews(view);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViews(savedInstanceState);
+        initData(savedInstanceState);
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+        CacheManager mCacheManager = (CacheManager) getAppService(AppService.CACHE_MANAGER);
+        Station st = new Station();
+        st.set_id(1);
+        st.setName("test");
+        Log.d("ff=" + JsonUtils.toJSONObject(st));
+    }
+
+    @Override
+    protected void findViews(View view) {
+        mButton1 = (Button) view.findViewById(R.id.button1);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
+        this.setTitle(this.getClass().getSimpleName());
+        mButton1.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                toFragmentForResult();
 //				 Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
 //		         startActivityForResult(intent,1);
 //                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
@@ -95,73 +92,77 @@ public class HomeFragment extends BaseContentFragment {
 //                    }
 //                });
 //                builder.create().show(getFragmentManager(), "CommonDialogFragment");
-			}
-			
-		});
-		AsyncHttpClient mAsyncHttpClient= AsyncHttpClient.build("11");
-		mAsyncHttpClient.get(this.getActivity(),"http://192.168.2.62:83/index.php/friend/NewFriendLis",null, new JsonHttpResponseHandler() {
-			
-			@Override
-			public void onStart() {
-				super.onStart();
-				Log.d("onStart");
-			}
+            }
 
-			@Override
-			public void onSuccess(JSONObject response) {
-				super.onSuccess(response);
-				Log.d("onSuccess");
-			}
+        });
+        AsyncHttpClient mAsyncHttpClient = AsyncHttpClient.build("11");
+        mAsyncHttpClient.get(this.getActivity(), "http://192.168.2.62:83/index.php/friend/NewFriendLis", null, new JsonHttpResponseHandler() {
 
-			@Override
-			public void onFailure(Throwable e, String errorResponse) {
-				Log.d("onFailure");
-			}
-			
-		});
-	}
-	private void toFragmentForResult(){
-		replaceFragment(DetailsFragment.class, "DetailsFragment", new Bundle(),1);
-	}
-	
-	@Override
-	public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-		super.onFragmentResult(requestCode, resultCode, data);
-		Log.d(TAG, "requestCode="+requestCode+",resultCode="+requestCode+",data="+data);
-		switch(requestCode){
-			case 1:
-				showToast("onFragmentResult resultCode="+resultCode);
-				mButton1.setText("OK");
-				break;
-		}
-	}
-	@Override
-	public boolean onMenuActionCreated(ActionMenu actionMenu) {
-		super.onMenuActionCreated(actionMenu);
-		actionMenu.addMenu(1, R.string.action_setting, R.drawable.ic_action_delete, 1);
-		actionMenu.addMenu(2, R.string.action_selectAll, R.drawable.ic_action_select,1);
-		//actionMenu.addMenu(3,getString(R.string.action_invert),R.drawable.ic_action_unselect,2);
-		return true;
-	}
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.d("onStart");
+            }
 
-	@Override
-	public boolean onMenuActionSelected(ActionMenuItem action) {
-		switch(action.getId()){
-			case 1:
-				showToast("setting");
-				break;
-		}
-		return super.onMenuActionSelected(action);
-	}
-	
-	@Override
-	public FragmentInfo getNavigtionUpToFragment() {
-		return null;
-	}
+            @Override
+            public void onSuccess(JSONObject response) {
+                super.onSuccess(response);
+                Log.d("onSuccess");
+            }
+
+            @Override
+            public void onFailure(Throwable e, String errorResponse) {
+                Log.d("onFailure");
+            }
+
+        });
+    }
+
+    private void toFragmentForResult() {
+        replaceFragment(DetailsFragment.class, "DetailsFragment", new Bundle(), 1);
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        Log.d(TAG, "requestCode=" + requestCode + ",resultCode=" + requestCode + ",data=" + data);
+        switch (requestCode) {
+            case 1:
+                showToast("onFragmentResult resultCode=" + resultCode);
+                mButton1.setText("OK");
+                break;
+        }
+    }
+
+    @Override
+    public boolean onMenuActionCreated(ActionMenu actionMenu) {
+        super.onMenuActionCreated(actionMenu);
+        actionMenu.addMenu(1, R.string.action_setting, R.drawable.ic_action_delete, 1);
+        actionMenu.addMenu(2, R.string.action_selectAll, R.drawable.ic_action_select, 1);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuActionSelected(ActionMenuItem action) {
+        switch (action.getId()) {
+            case 1:
+                showToast("setting");
+                break;
+            case 2:
+                getActionBarActivity().startSearchMode();
+                break;
+        }
+        return super.onMenuActionSelected(action);
+    }
+
+    @Override
+    public FragmentInfo getNavigtionUpToFragment() {
+        return null;
+    }
 
 
-	@Override
-	public boolean isCleanStack() {
-		return true;
-	}
+    @Override
+    public boolean isCleanStack() {
+        return true;
+    }
 }
