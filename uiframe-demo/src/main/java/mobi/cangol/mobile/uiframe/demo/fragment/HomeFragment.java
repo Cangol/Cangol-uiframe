@@ -59,7 +59,7 @@ public class HomeFragment extends BaseContentFragment {
         Station st = new Station();
         st.set_id(1);
         st.setName("test");
-        Log.d("ff=" + JsonUtils.toJSONObject(st));
+        Log.d("ff=" + JsonUtils.toJSONObject(st,false));
     }
 
     @Override
