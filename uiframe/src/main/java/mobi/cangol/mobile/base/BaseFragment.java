@@ -304,7 +304,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
 
-    final public boolean onBackPressed() {
+     public boolean onBackPressed() {
 
         if (null == stack) return false;
         if (stack.size() <= 1) {
@@ -318,7 +318,6 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
-
     /**
      * 返回view
      *

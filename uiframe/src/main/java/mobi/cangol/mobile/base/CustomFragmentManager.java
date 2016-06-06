@@ -44,7 +44,7 @@ public class CustomFragmentManager {
 		    @Override
 		    public void run() {
 		      if (fragmentTransaction != null&&fActivity!=null) {
-		        fragmentTransaction.commit();
+		        fragmentTransaction.commitAllowingStateLoss();
 		        fragmentManager.executePendingTransactions();
 		        fragmentTransaction = null;
 		      }
