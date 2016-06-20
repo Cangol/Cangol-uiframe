@@ -13,6 +13,8 @@ import android.view.View;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import mobi.cangol.mobile.logging.Log;
+
 /**
  * Created by weixuewu on 15/10/26.
  */
@@ -39,7 +41,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     boolean mShownByMe;
 
     public BaseDialogFragment() {
-
+        super();
     }
 
     public void setStyle(int style, int theme) {

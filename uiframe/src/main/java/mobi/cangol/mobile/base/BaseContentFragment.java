@@ -27,9 +27,12 @@ import mobi.cangol.mobile.actionbar.ActionMode;
 import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
-    protected String TAG = Utils.makeLogTag(BaseContentFragment.class);
 
     private CharSequence title;
+
+    public BaseContentFragment() {
+        super();
+    }
 
     /**
      * 获取ActionBarActivity,由于原getActivity为final，故增加此方法

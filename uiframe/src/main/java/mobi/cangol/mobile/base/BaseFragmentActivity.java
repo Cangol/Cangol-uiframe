@@ -185,7 +185,7 @@ public  abstract class BaseFragmentActivity extends FragmentActivity implements 
 	}
 	@Override
 	final public void onBackPressed() {
-		Log.e( "onBackPressed ");
+		if (LIFECYCLE)Log.v("onBackPressed");
 		if(null==stack){
 			onBack();
 			return;

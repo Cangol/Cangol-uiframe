@@ -26,7 +26,6 @@ import android.view.ViewGroup.LayoutParams;
 
 public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActivity  {
 	public static final String MENU_SHOW="MENU_SHOW";
-	protected String TAG = Utils.makeLogTag(BaseNavigationFragmentActivity.class);
 	private BaseMenuFragment menuFragment;
 	private static final String MENU_TAG="MenuFragment";
 	private AbstractNavigationFragmentActivityDelegate mHelper;

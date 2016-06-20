@@ -42,6 +42,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         TAG = Utils.makeLogTag(this.getClass());
+        if (LIFECYCLE)Log.v(TAG,"onCreate");
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
@@ -133,7 +134,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     final public void onBackPressed() {
-        Log.e("onBackPressed ");
+        if (LIFECYCLE)Log.v(TAG,"onBackPressed ");
         if (null == stack) {
             onBack();
             return;

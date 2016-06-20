@@ -44,6 +44,7 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		TAG = Utils.makeLogTag(this.getClass());
+		if (LIFECYCLE)Log.v(TAG,"onCreate");
 		app = (CoreApplication) this.getApplication();
 		app.addActivityToManager(this);
 	}
@@ -149,6 +150,7 @@ public  abstract class BaseActivity extends Activity implements BaseActivityDele
      */
 	@Override
 	public void onBack() {
+		if(LIFECYCLE)Log.v(TAG, "onBack");
 		super.onBackPressed();
 	}
 }

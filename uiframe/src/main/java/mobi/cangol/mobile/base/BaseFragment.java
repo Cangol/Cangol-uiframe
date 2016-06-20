@@ -43,6 +43,9 @@ public abstract class BaseFragment extends Fragment {
     protected CoreApplication app;
     private CustomFragmentManager stack;
 
+    public BaseFragment(){
+        TAG = Utils.makeLogTag(this.getClass());
+    }
 
     /**
      * 查找view
