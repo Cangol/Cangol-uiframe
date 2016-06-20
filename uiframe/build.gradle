@@ -8,7 +8,7 @@ dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'mobi.cangol.mobile:appcore:1.0.4@jar'
     compile 'mobi.cangol.mobile:actionbar:1.0.2@aar'
-    compile 'com.android.support:support-v13:13.0.0+'
+    compile 'com.android.support:support-v4:23.0.0+'
 }
 
 android {
