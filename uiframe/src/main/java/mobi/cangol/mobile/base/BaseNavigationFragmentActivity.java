@@ -121,7 +121,7 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
 		t.replace(mHelper.getMenuFrameId(), menuFragment,MENU_TAG);
-		t.commit();
+		t.commitAllowingStateLoss();
 		getSupportFragmentManager().executePendingTransactions();
 	}
 	final public void setContentFragment(Class<? extends BaseFragment> fragmentClass,String tag,Bundle args,int moduleId) {
