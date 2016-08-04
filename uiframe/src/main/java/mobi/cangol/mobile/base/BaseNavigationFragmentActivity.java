@@ -109,6 +109,14 @@ public  abstract class BaseNavigationFragmentActivity extends BaseActionBarActiv
 		return super.onKeyUp(keyCode, event);
 	}
 
+	public int getCurrentMoudleId(){
+		if(menuFragment==null){
+			throw new IllegalStateException("menuFragment is null");
+		}else{
+			return menuFragment.getCurrentModuleId();
+		}
+	}
+
 	public void setCurrentModuleId(int moduleId) {
 		if(menuFragment==null){
 			throw new IllegalStateException("menuFragment is null");

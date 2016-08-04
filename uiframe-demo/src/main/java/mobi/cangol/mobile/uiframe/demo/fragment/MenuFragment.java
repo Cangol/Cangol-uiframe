@@ -127,6 +127,7 @@ public class MenuFragment extends BaseMenuFragment{
 	private void updateFocus(int moduleId) {
 		switch(moduleId){
 			case ModuleMenuIDS.MODULE_HOME:
+				textView1.setSelected(true);
 				textView1.setTextColor(Color.RED);
 				textView2.setTextColor(Color.BLACK);
 				textView3.setTextColor(Color.BLACK);
