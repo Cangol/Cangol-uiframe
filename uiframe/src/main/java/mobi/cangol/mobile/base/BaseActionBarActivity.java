@@ -29,8 +29,8 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
-    private static final boolean LIFECYCLE = Utils.LIFECYCLE;
-    protected  final static String TAG = Utils.makeLogTag(BaseActionBarActivity.class);
+    private static final boolean LIFECYCLE = Log.getLevel()>=android.util.Log.VERBOSE;
+    protected  final static String TAG = Log.makeLogTag(BaseActionBarActivity.class);
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
@@ -47,7 +47,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Utils.setLogTag(this);
+        Log.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);

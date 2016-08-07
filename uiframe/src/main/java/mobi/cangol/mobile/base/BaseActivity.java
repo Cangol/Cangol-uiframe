@@ -31,9 +31,9 @@ import mobi.cangol.mobile.service.session.SessionService;
  * @author Cangol
  */
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
-    private static final boolean LIFECYCLE = Utils.LIFECYCLE;
+    private static final boolean LIFECYCLE = Log.getLevel()>=android.util.Log.VERBOSE;
     public CoreApplication app;
-    protected static final String TAG = Utils.makeLogTag(BaseActivity.class);
+    protected static final String TAG = Log.makeLogTag(BaseActivity.class);
     private long startTime;
 
     public float getIdletime() {
@@ -44,7 +44,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Utils.setLogTag(this);
+        Log.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
