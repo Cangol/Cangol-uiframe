@@ -24,7 +24,6 @@ import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.actionbar.ActionMode;
-import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
 
@@ -71,9 +70,9 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param title
      */
-    public void setTitle(String title) {
+    public void setTitle(int title) {
         if (this.getParentFragment() != null) return;
-        this.title = title;
+        this.title = getString(title);
         if (getCustomActionBar() != null)
             getCustomActionBar().setTitle(title);
     }
@@ -83,9 +82,9 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param title
      */
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         if (this.getParentFragment() != null) return;
-        this.title = getString(title);
+        this.title = title;
         if (getCustomActionBar() != null)
             getCustomActionBar().setTitle(title);
     }
@@ -172,6 +171,8 @@ public abstract class BaseContentFragment extends BaseFragment {
                 if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
                     bfActivity.setMenuEnable(enable);
+                }else{
+                    throw new IllegalStateException("getActivity has not method name of setMenuEnable");
                 }
             }
         }
@@ -206,6 +207,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
 
     }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -217,10 +219,11 @@ public abstract class BaseContentFragment extends BaseFragment {
             title = savedInstanceState.getCharSequence("title");
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putCharSequence("title",title);
+        outState.putCharSequence("title", title);
     }
 
     @Override
@@ -265,6 +268,7 @@ public abstract class BaseContentFragment extends BaseFragment {
 
         return false;
     }
+
     /**
      * 设置content fragment
      *

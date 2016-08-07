@@ -15,6 +15,11 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.WindowManager;
+import android.widget.Toast;
+
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
@@ -23,26 +28,27 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.view.WindowManager;
-import android.widget.Toast;
-
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
-    protected String TAG = Utils.makeLogTag(BaseActionBarActivity.class);
     private static final boolean LIFECYCLE = Utils.LIFECYCLE;
+    protected  final static String TAG = Utils.makeLogTag(BaseActionBarActivity.class);
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
-    public float getIdletime(){
-        return (System.currentTimeMillis()-startTime)/1000.0f;
+    public float getIdletime() {
+        return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        TAG = Utils.makeLogTag(this.getClass());
-        if (LIFECYCLE)Log.v(TAG,"onCreate");
+        Utils.setLogTag(this);
+        if (LIFECYCLE) Log.v(TAG, "onCreate");
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
@@ -68,6 +74,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     /**
      * 初始化Custom Fragment管理栈
+     *
      * @param containerId
      */
     public void initFragmentStack(int containerId) {
@@ -80,6 +87,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     /**
      * 替换fragment
+     *
      * @param fragmentClass
      * @param tag
      * @param args
@@ -120,21 +128,21 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     public void onMenuActionCreated(ActionMenu actionMenu) {
         if (stack != null && stack.size() > 0) {
-            ((BaseContentFragment)stack.peek()).onMenuActionCreated(actionMenu);
+            ((BaseContentFragment) stack.peek()).onMenuActionCreated(actionMenu);
         }
     }
 
     @Override
     public boolean onMenuActionSelected(ActionMenuItem action) {
         if (null != stack) {
-            return ((BaseContentFragment)stack.peek()).onMenuActionSelected(action);
+            return ((BaseContentFragment) stack.peek()).onMenuActionSelected(action);
         }
         return false;
     }
 
     @Override
     final public void onBackPressed() {
-        if (LIFECYCLE)Log.v(TAG,"onBackPressed ");
+        if (LIFECYCLE) Log.v(TAG, "onBackPressed ");
         if (null == stack) {
             onBack();
             return;
@@ -160,9 +168,9 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         } else {
             if (stack.peek().onSupportNavigateUp()) {
                 return true;
-            } else if (stack.size() == 1){
+            } else if (stack.size() == 1) {
                 return super.onSupportNavigateUp();
-            } else{
+            } else {
                 FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                 if (upFragment != null) {
                     replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
@@ -183,8 +191,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume");
-        if(LIFECYCLE)Log.v(TAG, "onResume "+getIdletime()+"s");
+        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdletime() + "s");
     }
 
     @Override
@@ -208,7 +215,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(LIFECYCLE)Log.v(TAG, "onDestroy "+getIdletime()+"s");
+        if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdletime() + "s");
         app.delActivityFromManager(this);
     }
 

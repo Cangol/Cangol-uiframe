@@ -29,6 +29,7 @@ public interface BaseActivityDelegate {
 
     /**
      * 初始化view
+     *
      * @param savedInstanceState
      */
 
@@ -36,28 +37,36 @@ public interface BaseActivityDelegate {
 
     /**
      * 初始化数据
+     *
      * @param savedInstanceState
      */
     void initData(Bundle savedInstanceState);
 
     /**
      * 显示toast
+     *
      * @param resId
      */
     void showToast(int resId);
+
     /**
      * 显示toast
+     *
      * @param str
      */
     void showToast(String str);
+
     /**
      * 显示toast
+     *
      * @param resId
      * @param duration
      */
     void showToast(int resId, int duration);
+
     /**
      * 显示toast
+     *
      * @param str
      * @param duration
      */
@@ -65,6 +74,7 @@ public interface BaseActivityDelegate {
 
     /**
      * 获取AppService
+     *
      * @param name
      * @return
      */
@@ -72,12 +82,14 @@ public interface BaseActivityDelegate {
 
     /**
      * 获取Session
+     *
      * @return
      */
     SessionService getSession();
 
     /**
      * 设置全屏
+     *
      * @param fullscreen
      */
     void setFullScreen(boolean fullscreen);

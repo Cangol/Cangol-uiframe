@@ -31,20 +31,19 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseFragment extends Fragment {
-    protected String TAG = Utils.makeLogTag(BaseFragment.class);
-    private static final boolean LIFECYCLE = Utils.LIFECYCLE;
-    private long startTime;
-
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
+    private static final boolean LIFECYCLE = Utils.LIFECYCLE;
+    protected static final String TAG = Utils.makeLogTag(BaseFragment.class);
+    protected CoreApplication app;
+    private long startTime;
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
-
-    protected CoreApplication app;
     private CustomFragmentManager stack;
 
-    public BaseFragment(){
-        TAG = Utils.makeLogTag(this.getClass());
+    public BaseFragment() {
+        super();
+        Utils.setLogTag(this);
     }
 
     /**
@@ -84,6 +83,7 @@ public abstract class BaseFragment extends Fragment {
         if (null == stack)
             stack = CustomFragmentManager.forContainer(this.getActivity(), containerId, this.getChildFragmentManager());
     }
+
     /**
      * 获取子fragment管理栈
      *
@@ -134,7 +134,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        TAG = Utils.makeLogTag(this.getClass());
+        Utils.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onAttach");
     }
 
@@ -211,12 +211,14 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(null!=stack)stack.saveState(outState);
-        if(LIFECYCLE)Log.v(TAG, "onSaveInstanceState");
+        if (null != stack) stack.saveState(outState);
+        if (LIFECYCLE) Log.v(TAG, "onSaveInstanceState");
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -281,7 +283,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 通知返回回调
-     *
      */
     final public void notifyResult() {
         BaseFragment taget = (BaseFragment) getTargetFragment();
@@ -304,10 +305,11 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * back键相应
+     *
      * @return
      */
 
-     public boolean onBackPressed() {
+    public boolean onBackPressed() {
 
         if (null == stack) return false;
         if (stack.size() <= 1) {
@@ -321,6 +323,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
     /**
      * 返回view
      *

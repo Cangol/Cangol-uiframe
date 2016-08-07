@@ -18,8 +18,10 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-        	android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>

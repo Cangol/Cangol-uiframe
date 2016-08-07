@@ -51,6 +51,8 @@ public class MenuFragment extends BaseMenuFragment{
 	protected void initData(Bundle savedInstanceState) {
 		if(savedInstanceState!=null){
 			updateFocus(this.getCurrentModuleId());
+		} else {
+			this.setCurrentModuleId(this.getCurrentModuleId());
 		}
 	}
 
@@ -136,6 +138,7 @@ public class MenuFragment extends BaseMenuFragment{
 				textView6.setTextColor(Color.BLACK);
 				break;
 			case ModuleMenuIDS.MODULE_LIST:
+				textView1.setSelected(false);
 				textView1.setTextColor(Color.BLACK);
 				textView2.setTextColor(Color.RED);
 				textView3.setTextColor(Color.BLACK);
@@ -144,6 +147,7 @@ public class MenuFragment extends BaseMenuFragment{
 				textView6.setTextColor(Color.BLACK);
 				break;
 			case ModuleMenuIDS.MODULE_SETTING:
+				textView1.setSelected(false);
 				textView1.setTextColor(Color.BLACK);
 				textView2.setTextColor(Color.BLACK);
 				textView3.setTextColor(Color.RED);
@@ -152,6 +156,7 @@ public class MenuFragment extends BaseMenuFragment{
 				textView6.setTextColor(Color.BLACK);
 				break;
 			case ModuleMenuIDS.MODULE_SWITCH:
+				textView1.setSelected(false);
 				textView1.setTextColor(Color.BLACK);
 				textView2.setTextColor(Color.BLACK);
 				textView3.setTextColor(Color.BLACK);
@@ -160,6 +165,7 @@ public class MenuFragment extends BaseMenuFragment{
 				textView6.setTextColor(Color.BLACK);
 				break;
 			case ModuleMenuIDS.MODULE_TABS:
+				textView1.setSelected(false);
 				textView1.setTextColor(Color.BLACK);
 				textView2.setTextColor(Color.BLACK);
 				textView3.setTextColor(Color.BLACK);
@@ -168,6 +174,7 @@ public class MenuFragment extends BaseMenuFragment{
 				textView6.setTextColor(Color.BLACK);
 				break;
 			case ModuleMenuIDS.MODULE_PAGES:
+				textView1.setSelected(false);
 				textView1.setTextColor(Color.BLACK);
 				textView2.setTextColor(Color.BLACK);
 				textView3.setTextColor(Color.BLACK);
