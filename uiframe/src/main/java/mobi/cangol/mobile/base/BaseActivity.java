@@ -31,9 +31,9 @@ import mobi.cangol.mobile.service.session.SessionService;
  * @author Cangol
  */
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
-    private static final boolean LIFECYCLE = Log.getLevel()>=android.util.Log.VERBOSE;
-    public CoreApplication app;
     protected static final String TAG = Log.makeLogTag(BaseActivity.class);
+    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
+    public CoreApplication app;
     private long startTime;
 
     public float getIdletime() {

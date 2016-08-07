@@ -37,21 +37,21 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
     /**
      * 返回自定义的根布局
      *
-     * @return
+     * @return 根布局
      */
     public abstract ViewGroup getRootView();
 
     /**
      * 返回menu布局
      *
-     * @return
+     * @return menu布局
      */
     public abstract ViewGroup getMenuView();
 
     /**
      * 返回内容去布局
      *
-     * @return
+     * @return content布局
      */
     public abstract ViewGroup getContentView();
 
@@ -63,7 +63,7 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
     /**
      * 获取menu布局的id
      *
-     * @return
+     * @return menuFrame的id
      */
     public abstract int getMenuFrameId();
 
@@ -84,7 +84,7 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
     /**
      * 返回menu是否显示
      *
-     * @return
+     * @return 是否显示
      */
     public abstract boolean isShowMenu();
 

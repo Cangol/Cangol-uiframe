@@ -33,8 +33,8 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
-    private static final boolean LIFECYCLE = Log.getLevel()>=android.util.Log.VERBOSE;
     protected static final String TAG = Log.makeLogTag(BaseFragment.class);
+    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     private long startTime;
     private int resultCode = RESULT_CANCELED;

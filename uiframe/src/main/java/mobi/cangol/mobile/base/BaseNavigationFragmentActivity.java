@@ -128,7 +128,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     public void setCurrentModuleId(int moduleId) {
         if (menuFragment == null) {
             throw new IllegalStateException("menuFragment is null");
-        } else{
+        } else {
             menuFragment.setCurrentModuleId(moduleId);
         }
     }

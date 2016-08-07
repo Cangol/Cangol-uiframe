@@ -29,11 +29,12 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
-    private static final boolean LIFECYCLE = Log.getLevel()>=android.util.Log.VERBOSE;
-    protected  final static String TAG = Log.makeLogTag(BaseActionBarActivity.class);
+    protected final static String TAG = Log.makeLogTag(BaseActionBarActivity.class);
+    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
+
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }

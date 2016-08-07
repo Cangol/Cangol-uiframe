@@ -152,7 +152,7 @@ public class CustomFragmentManager {
                         }
                         fragmentManager.popBackStack();
                     }
-                }else{
+                } else {
                     //
                 }
             }
@@ -173,7 +173,7 @@ public class CustomFragmentManager {
         if (customFragmentTransaction != null)
             customFragmentTransaction.fillTargetFragment(fragment);
 
-        if (fisrtAnim || stack.size() > 0){
+        if (fisrtAnim || stack.size() > 0) {
             //保证第一个填充不适用动画
             if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
                 if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
@@ -182,7 +182,7 @@ public class CustomFragmentManager {
                     beginTransaction().setCustomAnimations(enterAnimation, exitAnimation);
                 }
             }
-        }else{
+        } else {
             //
         }
 

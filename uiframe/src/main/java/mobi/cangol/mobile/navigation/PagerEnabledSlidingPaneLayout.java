@@ -26,7 +26,7 @@ import android.view.ViewConfiguration;
  * SlidingPaneLayout that, if closed, checks if children can scroll before it intercepts
  * touch events.  This allows it to contain horizontally scrollable children without
  * intercepting all of their touches.
- * <p/>
+ *
  * To handle cases where the user is scrolled very far to the right, but should still be
  * able to open the pane without the need to scroll all the way back to the start, this
  * view also adds edge touch detection, so it will intercept edge swipes to open the pane.
