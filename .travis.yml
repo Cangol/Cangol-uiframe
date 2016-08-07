@@ -28,6 +28,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 script:
-  - gradle build conectedCheck --refresh-dependencies
+  - gradle build --refresh-dependencies
 after_success:
   - gradle cobertura coveralls
