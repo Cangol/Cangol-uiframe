@@ -172,6 +172,8 @@ public abstract class BaseContentFragment extends BaseFragment {
                 if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
                     bfActivity.setMenuEnable(enable);
+                }else{
+                    Log.e("getActivity is not BaseNavigationFragmentActivity ");
                 }
             }
         }

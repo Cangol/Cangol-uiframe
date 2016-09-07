@@ -13,6 +13,7 @@
         android:layout_marginLeft="14dp"
         android:text="Start" />
     <EditText
+        android:id="@+id/ed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
