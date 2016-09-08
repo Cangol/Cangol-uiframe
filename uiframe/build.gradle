@@ -3,12 +3,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'net.saliman.cobertura'
+apply from: 'config/quality.gradle'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile 'mobi.cangol.mobile:appcore:1.0.4@jar'
+    compile 'mobi.cangol.mobile:appcore:1.0.5@jar'
     compile 'mobi.cangol.mobile:actionbar:1.0.2@aar'
-    compile 'com.android.support:support-v4:23.0.0+'
+    compile 'com.android.support:support-v4:[23.0.0,)'
 }
 
 android {
@@ -17,8 +18,8 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 3
+        versionName "1.0.3"
     }
     lintOptions {
         abortOnError false
@@ -32,9 +33,9 @@ task sourcesJar(type: Jar) {
 
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath = configurations.compile
+    //classpath += android.sourceSets.main.compileClasspath
 }
-
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir

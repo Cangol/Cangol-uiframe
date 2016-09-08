@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2013 Cangol
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package mobi.cangol.mobile.base;
 
 import android.app.Activity;
@@ -9,11 +24,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import mobi.cangol.mobile.logging.Log;
 
 /**
  * Created by weixuewu on 15/10/26.
@@ -46,11 +56,11 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void setStyle(int style, int theme) {
         this.mStyle = style;
-        if(this.mStyle == 2 || this.mStyle == 3) {
+        if (this.mStyle == 2 || this.mStyle == 3) {
             this.mTheme = 16973913;
         }
 
-        if(theme != 0) {
+        if (theme != 0) {
             this.mTheme = theme;
         }
 
@@ -82,22 +92,22 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     void dismissInternal(boolean allowStateLoss) {
-        if(!this.mDismissed) {
+        if (!this.mDismissed) {
             this.mDismissed = true;
             this.mShownByMe = false;
-            if(this.mDialog != null) {
+            if (this.mDialog != null) {
                 this.mDialog.dismiss();
                 this.mDialog = null;
             }
 
             this.mViewDestroyed = true;
-            if(this.mBackStackId >= 0) {
+            if (this.mBackStackId >= 0) {
                 this.getFragmentManager().popBackStack(this.mBackStackId, 1);
                 this.mBackStackId = -1;
             } else {
                 FragmentTransaction ft = this.getFragmentManager().beginTransaction();
                 ft.remove(this);
-                if(allowStateLoss) {
+                if (allowStateLoss) {
                     ft.commitAllowingStateLoss();
                 } else {
                     ft.commit();
@@ -115,29 +125,29 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         return this.mTheme;
     }
 
+    public boolean isCancelable() {
+        return this.mCancelable;
+    }
+
     public void setCancelable(boolean cancelable) {
         this.mCancelable = cancelable;
-        if(this.mDialog != null) {
+        if (this.mDialog != null) {
             this.mDialog.setCancelable(cancelable);
         }
 
     }
 
-    public boolean isCancelable() {
-        return this.mCancelable;
+    public boolean isShowsDialog() {
+        return this.mShowsDialog;
     }
 
     public void setShowsDialog(boolean showsDialog) {
         this.mShowsDialog = showsDialog;
     }
 
-    public boolean getShowsDialog() {
-        return this.mShowsDialog;
-    }
-
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(!this.mShownByMe) {
+        if (!this.mShownByMe) {
             this.mDismissed = false;
         }
 
@@ -145,7 +155,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onDetach() {
         super.onDetach();
-        if(!this.mShownByMe && !this.mDismissed) {
+        if (!this.mShownByMe && !this.mDismissed) {
             this.mDismissed = true;
         }
 
@@ -154,7 +164,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mShowsDialog = true;
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             this.mStyle = savedInstanceState.getInt("android:style", 0);
             this.mTheme = savedInstanceState.getInt("android:theme", 0);
             this.mCancelable = savedInstanceState.getBoolean("android:cancelable", true);
@@ -165,18 +175,18 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        if(!this.mShowsDialog) {
+        if (!this.mShowsDialog) {
             return super.getLayoutInflater(savedInstanceState);
         } else {
             this.mDialog = this.onCreateDialog(savedInstanceState);
-            switch(this.mStyle) {
+            switch (this.mStyle) {
                 case 3:
                     this.mDialog.getWindow().addFlags(24);
                 case 1:
                 case 2:
                     this.mDialog.requestWindowFeature(1);
                 default:
-                    return this.mDialog != null?(LayoutInflater)this.mDialog.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE):(LayoutInflater)this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    return this.mDialog != null ? (LayoutInflater) this.mDialog.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) : (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
         }
     }
@@ -189,7 +199,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public void onDismiss(DialogInterface dialog) {
-        if(!this.mViewDestroyed) {
+        if (!this.mViewDestroyed) {
             this.dismissInternal(true);
         }
 
@@ -197,10 +207,10 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(this.mShowsDialog) {
+        if (this.mShowsDialog) {
             View view = this.getView();
-            if(view != null) {
-                if(view.getParent() != null) {
+            if (view != null) {
+                if (view.getParent() != null) {
                     throw new IllegalStateException("DialogFragment can not be attached to a container view");
                 }
                 this.mDialog.setContentView(view);
@@ -210,9 +220,9 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
             this.mDialog.setCancelable(this.mCancelable);
             this.mDialog.setOnCancelListener(this);
             this.mDialog.setOnDismissListener(this);
-            if(savedInstanceState != null) {
+            if (savedInstanceState != null) {
                 Bundle dialogState = savedInstanceState.getBundle("android:savedDialogState");
-                if(dialogState != null) {
+                if (dialogState != null) {
                     this.mDialog.onRestoreInstanceState(dialogState);
                 }
             }
@@ -222,7 +232,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onStart() {
         super.onStart();
-        if(this.mDialog != null) {
+        if (this.mDialog != null) {
             this.mViewDestroyed = false;
             this.mDialog.show();
         }
@@ -231,30 +241,30 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(this.mDialog != null) {
+        if (this.mDialog != null) {
             Bundle dialogState = this.mDialog.onSaveInstanceState();
-            if(dialogState != null) {
+            if (dialogState != null) {
                 outState.putBundle("android:savedDialogState", dialogState);
             }
         }
 
-        if(this.mStyle != 0) {
+        if (this.mStyle != 0) {
             outState.putInt("android:style", this.mStyle);
         }
 
-        if(this.mTheme != 0) {
+        if (this.mTheme != 0) {
             outState.putInt("android:theme", this.mTheme);
         }
 
-        if(!this.mCancelable) {
+        if (!this.mCancelable) {
             outState.putBoolean("android:cancelable", this.mCancelable);
         }
 
-        if(!this.mShowsDialog) {
+        if (!this.mShowsDialog) {
             outState.putBoolean("android:showsDialog", this.mShowsDialog);
         }
 
-        if(this.mBackStackId != -1) {
+        if (this.mBackStackId != -1) {
             outState.putInt("android:backStackId", this.mBackStackId);
         }
 
@@ -262,7 +272,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onStop() {
         super.onStop();
-        if(this.mDialog != null) {
+        if (this.mDialog != null) {
             this.mDialog.hide();
         }
 
@@ -270,7 +280,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     public void onDestroyView() {
         super.onDestroyView();
-        if(this.mDialog != null) {
+        if (this.mDialog != null) {
             this.mViewDestroyed = true;
             this.mDialog.dismiss();
             this.mDialog = null;

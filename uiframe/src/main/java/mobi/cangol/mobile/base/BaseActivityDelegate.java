@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (c) 2013 Cangol
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,6 +29,7 @@ public interface BaseActivityDelegate {
 
     /**
      * 初始化view
+     *
      * @param savedInstanceState
      */
 
@@ -36,28 +37,36 @@ public interface BaseActivityDelegate {
 
     /**
      * 初始化数据
+     *
      * @param savedInstanceState
      */
     void initData(Bundle savedInstanceState);
 
     /**
      * 显示toast
+     *
      * @param resId
      */
     void showToast(int resId);
+
     /**
      * 显示toast
+     *
      * @param str
      */
     void showToast(String str);
+
     /**
      * 显示toast
+     *
      * @param resId
      * @param duration
      */
     void showToast(int resId, int duration);
+
     /**
      * 显示toast
+     *
      * @param str
      * @param duration
      */
@@ -65,6 +74,7 @@ public interface BaseActivityDelegate {
 
     /**
      * 获取AppService
+     *
      * @param name
      * @return
      */
@@ -72,12 +82,14 @@ public interface BaseActivityDelegate {
 
     /**
      * 获取Session
+     *
      * @return
      */
     SessionService getSession();
 
     /**
      * 设置全屏
+     *
      * @param fullscreen
      */
     void setFullScreen(boolean fullscreen);
