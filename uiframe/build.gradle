@@ -3,6 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'net.saliman.cobertura'
+apply from: '../maven_push.gradle'
 apply from: 'config/quality.gradle'
 
 dependencies {
@@ -33,8 +34,7 @@ task sourcesJar(type: Jar) {
 
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
-    classpath = configurations.compile
-    //classpath += android.sourceSets.main.compileClasspath
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
@@ -49,4 +49,3 @@ cobertura.coverageFormats = ['html', 'xml']
 tasks.coveralls {
     dependsOn 'check'
 }
-apply from: '../maven_push.gradle'
