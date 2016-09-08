@@ -3,6 +3,7 @@ package mobi.cangol.mobile.uiframe.demo.fragment;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.BaseMenuFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 
@@ -180,6 +181,13 @@ public class MenuFragment2 extends BaseMenuFragment{
 				break;
 		}
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		Log.d("onResume");
+	}
+
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
 		// TODO Auto-generated method stub
