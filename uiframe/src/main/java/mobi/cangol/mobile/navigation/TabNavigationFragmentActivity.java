@@ -15,10 +15,6 @@
  */
 package mobi.cangol.mobile.navigation;
 
-import mobi.cangol.mobile.R;
-import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
-import mobi.cangol.mobile.logging.Log;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -31,166 +27,170 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import mobi.cangol.mobile.R;
+import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+
 public abstract class TabNavigationFragmentActivity extends
-		BaseNavigationFragmentActivity {
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		this.setNavigationFragmentActivityDelegate(new TabNavigationFragmentActivityDelegate(
-				this));
-		super.onCreate(savedInstanceState);
-		this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
-		this.getCustomActionBar().setDisplayShowHomeEnabled(false);
-	}
-	
-	@Override
-	abstract public void findViews();
+        BaseNavigationFragmentActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        this.setNavigationFragmentActivityDelegate(new TabNavigationFragmentActivityDelegate(
+                this));
+        super.onCreate(savedInstanceState);
+        this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
+        this.getCustomActionBar().setDisplayShowHomeEnabled(false);
+    }
 
-	@Override
-	abstract public void initViews(Bundle savedInstanceState);
+    @Override
+    abstract public void findViews();
 
-	@Override
-	abstract public void initData(Bundle savedInstanceState);
-	
-	@Override
-	public boolean onSupportNavigateUp() {
-		if (stack.size() <= 1) {
+    @Override
+    abstract public void initViews(Bundle savedInstanceState);
+
+    @Override
+    abstract public void initData(Bundle savedInstanceState);
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if (stack.size() <= 1) {
             stack.peek().onSupportNavigateUp();
-			return true;
-		} else {
-			return super.onSupportNavigateUp();
-		}
-	}
+            return true;
+        } else {
+            return super.onSupportNavigateUp();
+        }
+    }
 }
 
 class TabNavigationFragmentActivityDelegate extends
-		AbstractNavigationFragmentActivityDelegate {
-	private BaseNavigationFragmentActivity mActivity;
-	private SoftKeyboardHandledLinearLayout mRootView;
-	private FrameLayout mMenuView;
-	private FrameLayout mContentView;
+        AbstractNavigationFragmentActivityDelegate {
+    private BaseNavigationFragmentActivity mActivity;
+    private SoftKeyboardHandledLinearLayout mRootView;
+    private FrameLayout mMenuView;
+    private FrameLayout mContentView;
 
-	public TabNavigationFragmentActivityDelegate(
-			BaseNavigationFragmentActivity activity) {
-		mActivity = activity;
-	}
+    public TabNavigationFragmentActivityDelegate(
+            BaseNavigationFragmentActivity activity) {
+        mActivity = activity;
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		mRootView = (SoftKeyboardHandledLinearLayout) LayoutInflater.from(mActivity).inflate(
-				R.layout.navigation_tab_main, null);
-		mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
-		mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
-		mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
-			boolean justShowMenu=false;
-			@Override
-			public void onSoftKeyboardShow() {
-				if(isShowMenu()){
-					justShowMenu=true;
-					showMenu(false);
-				}else{
-					justShowMenu=false;
-				}
-			}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        mRootView = (SoftKeyboardHandledLinearLayout) LayoutInflater.from(mActivity).inflate(
+                R.layout.navigation_tab_main, null);
+        mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
+        mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
+        mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
+            boolean justShowMenu = false;
 
-			@Override
-			public void onSoftKeyboardHide() {
-				if(justShowMenu){
-					new Handler().postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							showMenu(true);
-						}
-					},300L);
-				}
-			}
-		});
-	}
+            @Override
+            public void onSoftKeyboardShow() {
+                if (isShowMenu()) {
+                    justShowMenu = true;
+                    showMenu(false);
+                } else {
+                    justShowMenu = false;
+                }
+            }
 
-	@Override
-	public int getMenuFrameId() {
-		return mMenuView.getId();
-	}
+            @Override
+            public void onSoftKeyboardHide() {
+                if (justShowMenu) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showMenu(true);
+                        }
+                    }, 300L);
+                }
+            }
+        });
+    }
 
-	@Override
-	public ViewGroup getRootView() {
-		return mRootView;
-	}
+    @Override
+    public int getMenuFrameId() {
+        return mMenuView.getId();
+    }
 
-	@Override
-	public ViewGroup getMenuView() {
-		return mMenuView;
-	}
+    @Override
+    public ViewGroup getRootView() {
+        return mRootView;
+    }
 
-	@Override
-	public ViewGroup getContentView() {
-		return mContentView;
-	}
+    @Override
+    public ViewGroup getMenuView() {
+        return mMenuView;
+    }
 
-	@Override
-	public void setContentView(View v) {
-		mContentView.addView(v);
-	}
+    @Override
+    public ViewGroup getContentView() {
+        return mContentView;
+    }
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
+    @Override
+    public void setContentView(View v) {
+        mContentView.addView(v);
+    }
 
-	}
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
 
-	@Override
-	public void showMenu(boolean show) {
-		if (show) {
-			mMenuView.setVisibility(View.VISIBLE);
-		} else {
-			mMenuView.setVisibility(View.GONE);
-		}
-	}
+    }
 
-	@Override
-	public boolean isShowMenu() {
-		return mMenuView.getVisibility() == View.VISIBLE;
-	}
+    @Override
+    public void showMenu(boolean show) {
+        if (show) {
+            mMenuView.setVisibility(View.VISIBLE);
+        } else {
+            mMenuView.setVisibility(View.GONE);
+        }
+    }
 
-	@Override
-	public void setMenuEnable(boolean enable) {
-		if (enable) {
-			mMenuView.setVisibility(View.VISIBLE);
-		} else {
-			mMenuView.setVisibility(View.GONE);
-		}
-	}
+    @Override
+    public boolean isShowMenu() {
+        return mMenuView.getVisibility() == View.VISIBLE;
+    }
 
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		return false;
-	}
+    @Override
+    public void setMenuEnable(boolean enable) {
+        if (enable) {
+            mMenuView.setVisibility(View.VISIBLE);
+        } else {
+            mMenuView.setVisibility(View.GONE);
+        }
+    }
 
-	@Override
-	public BaseNavigationFragmentActivity getActivity() {
-		return mActivity;
-	}
-	
-	@Override
-	public void attachToActivity(Activity activity) {
-		TypedArray a = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
-		int background = a.getResourceId(0, 0);
-		a.recycle();
-		
-		ViewGroup contentParent = (ViewGroup)getActivity().findViewById(android.R.id.content);
-		ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
-		contentParent.removeView(content);
-		contentParent.addView(mRootView,0);
-		getContentView().addView(content);
-		
-	}
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return false;
+    }
 
-	@Override
-	public void setBackgroundColor(int color) {
-		mRootView.setBackgroundColor(color);
-	}
+    @Override
+    public BaseNavigationFragmentActivity getActivity() {
+        return mActivity;
+    }
 
-	@Override
-	public void setBackgroundResource(int resId) {
-		mRootView.setBackgroundResource(resId);
-		
-	}
+    @Override
+    public void attachToActivity(Activity activity) {
+        TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
+        int background = a.getResourceId(0, 0);
+        a.recycle();
+
+        ViewGroup contentParent = (ViewGroup) getActivity().findViewById(android.R.id.content);
+        ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
+        contentParent.removeView(content);
+        contentParent.addView(mRootView, 0);
+        getContentView().addView(content);
+
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        mRootView.setBackgroundColor(color);
+    }
+
+    @Override
+    public void setBackgroundResource(int resId) {
+        mRootView.setBackgroundResource(resId);
+
+    }
 }

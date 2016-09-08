@@ -23,8 +23,6 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.LinearLayout;
 
-import mobi.cangol.mobile.logging.Log;
-
 /**
  * Created by jince on 2015/12/5.
  */
@@ -69,7 +67,7 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
                 isKeyboardShown = true;
                 listener.onSoftKeyboardShow();
             }
-        } else if (actualHeight <=proposedHeight) {
+        } else if (actualHeight <= proposedHeight) {
             if (isKeyboardShown) {
                 isKeyboardShown = false;
                 listener.onSoftKeyboardHide();
@@ -85,7 +83,8 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
 
     // Callback
     public interface SoftKeyboardVisibilityChangeListener {
-         void onSoftKeyboardShow();
-         void onSoftKeyboardHide();
+        void onSoftKeyboardShow();
+
+        void onSoftKeyboardHide();
     }
 }

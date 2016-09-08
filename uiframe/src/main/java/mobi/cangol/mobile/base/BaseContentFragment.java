@@ -172,7 +172,7 @@ public abstract class BaseContentFragment extends BaseFragment {
                 if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
                     bfActivity.setMenuEnable(enable);
-                }else{
+                } else {
                     Log.e("getActivity is not BaseNavigationFragmentActivity ");
                 }
             }
@@ -208,6 +208,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
 
     }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -219,10 +220,11 @@ public abstract class BaseContentFragment extends BaseFragment {
             title = savedInstanceState.getCharSequence("title");
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putCharSequence("title",title);
+        outState.putCharSequence("title", title);
     }
 
     @Override
@@ -267,6 +269,7 @@ public abstract class BaseContentFragment extends BaseFragment {
 
         return false;
     }
+
     /**
      * 设置content fragment
      *
