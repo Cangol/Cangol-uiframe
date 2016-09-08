@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright (c) 2013 Cangol
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,6 +24,7 @@ import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.actionbar.ActionMode;
+import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
 
@@ -70,9 +71,9 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param title
      */
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         if (this.getParentFragment() != null) return;
-        this.title = getString(title);
+        this.title = title;
         if (getCustomActionBar() != null)
             getCustomActionBar().setTitle(title);
     }
@@ -82,9 +83,9 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param title
      */
-    public void setTitle(String title) {
+    public void setTitle(int title) {
         if (this.getParentFragment() != null) return;
-        this.title = title;
+        this.title = getString(title);
         if (getCustomActionBar() != null)
             getCustomActionBar().setTitle(title);
     }
@@ -172,7 +173,7 @@ public abstract class BaseContentFragment extends BaseFragment {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
                     bfActivity.setMenuEnable(enable);
                 } else {
-                    throw new IllegalStateException("getActivity has not method name of setMenuEnable");
+                    Log.e("getActivity is not BaseNavigationFragmentActivity ");
                 }
             }
         }

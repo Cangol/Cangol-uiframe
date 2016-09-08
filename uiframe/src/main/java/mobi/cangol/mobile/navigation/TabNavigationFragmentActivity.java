@@ -1,12 +1,12 @@
 /**
  * Copyright (c) 2013 Cangol
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -63,7 +64,7 @@ public abstract class TabNavigationFragmentActivity extends
 class TabNavigationFragmentActivityDelegate extends
         AbstractNavigationFragmentActivityDelegate {
     private BaseNavigationFragmentActivity mActivity;
-    private ViewGroup mRootView;
+    private SoftKeyboardHandledLinearLayout mRootView;
     private FrameLayout mMenuView;
     private FrameLayout mContentView;
 
@@ -74,10 +75,35 @@ class TabNavigationFragmentActivityDelegate extends
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mRootView = (ViewGroup) LayoutInflater.from(mActivity).inflate(
+        mRootView = (SoftKeyboardHandledLinearLayout) LayoutInflater.from(mActivity).inflate(
                 R.layout.navigation_tab_main, null);
         mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
         mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
+        mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
+            boolean justShowMenu = false;
+
+            @Override
+            public void onSoftKeyboardShow() {
+                if (isShowMenu()) {
+                    justShowMenu = true;
+                    showMenu(false);
+                } else {
+                    justShowMenu = false;
+                }
+            }
+
+            @Override
+            public void onSoftKeyboardHide() {
+                if (justShowMenu) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showMenu(true);
+                        }
+                    }, 300L);
+                }
+            }
+        });
     }
 
     @Override
