@@ -235,7 +235,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged");
+        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged "+hidden);
     }
 
     @Override

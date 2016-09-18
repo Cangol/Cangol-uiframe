@@ -16,6 +16,7 @@
 package mobi.cangol.mobile.base;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -254,7 +255,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param actionMenu
      * @return
      */
-    protected boolean onMenuActionCreated(ActionMenu actionMenu) {
+    public boolean onMenuActionCreated(ActionMenu actionMenu) {
 
         return false;
     }
@@ -265,8 +266,21 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param action
      * @return
      */
-    protected boolean onMenuActionSelected(ActionMenuItem action) {
-
+    public boolean onMenuActionSelected(ActionMenuItem action) {
+        if(this.getChildFragmentManager()!=null&&
+                this.getChildFragmentManager().getFragments().size()>0){
+            int size=getChildFragmentManager().getFragments().size();
+            Fragment fragment=null;
+            for (int i = size-1; i >=0; i--) {
+                fragment=getChildFragmentManager().getFragments().get(i);
+                if(fragment instanceof BaseContentFragment){
+                    if(((BaseContentFragment) fragment).isEnable()
+                            &&fragment.isVisible()){
+                        return ((BaseContentFragment) fragment).onMenuActionSelected(action);
+                    }
+                }
+            }
+        }
         return false;
     }
 
