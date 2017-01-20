@@ -235,7 +235,9 @@ public abstract class BaseContentFragment extends BaseFragment {
             getCustomActionBar().clearActionMenus();
         }
         setActionBarUpIndicator();
-        setMenuEnable(isCleanStack());
+        if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
+            setMenuEnable(isCleanStack());
+        }
     }
 
     @Override
