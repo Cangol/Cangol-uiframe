@@ -27,7 +27,7 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseFragmentActivity extends FragmentActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
-    protected final static String TAG = Log.makeLogTag(BaseFragmentActivity.class);
+    protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     private CustomFragmentManager stack;

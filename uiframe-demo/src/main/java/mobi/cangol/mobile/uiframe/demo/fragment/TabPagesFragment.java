@@ -52,9 +52,9 @@ public class TabPagesFragment extends BaseContentFragment {
 		mTabHost.setup();
 		mViewPager = (ViewPager)view.findViewById(R.id.pager);
 		mTabPageManager=new TabPageManager(this.getChildFragmentManager(),mTabHost,mViewPager);
-		mTabPageManager.addTab(mTabHost.newTabSpec("ItemFragment1").setIndicator("Simple1"), SettingFragment.class, new Bundle());
+		mTabPageManager.addTab(mTabHost.newTabSpec("ItemFragment1").setIndicator("Simple1"), ItemFragment.class, new Bundle());
 		mTabPageManager.addTab(mTabHost.newTabSpec("ItemFragment2").setIndicator("Simple2"), ItemFragment.class, new Bundle());
-		mTabPageManager.addTab(mTabHost.newTabSpec("ItemFragment3").setIndicator("Simple3"), SettingFragment.class, new Bundle());
+		mTabPageManager.addTab(mTabHost.newTabSpec("ItemFragment3").setIndicator("Simple3"), ItemFragment.class, new Bundle());
 	
 	}
 	@Override

@@ -33,18 +33,13 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
-    protected static final String TAG = Log.makeLogTag(BaseFragment.class);
+    protected  final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     private long startTime;
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
     private CustomFragmentManager stack;
-
-    public BaseFragment() {
-        super();
-        Log.setLogTag(this);
-    }
 
     /**
      * 查找view
@@ -134,7 +129,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onAttach");
     }
 

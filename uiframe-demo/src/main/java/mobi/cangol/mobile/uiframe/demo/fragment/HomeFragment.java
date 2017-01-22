@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class HomeFragment extends BaseContentFragment {
-    private Button mButton1;
+    private Button mButton1,mButton2;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +65,7 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     protected void findViews(View view) {
         mButton1 = (Button) view.findViewById(R.id.button1);
+        mButton2 = (Button) view.findViewById(R.id.button2);
     }
 
     @Override
@@ -75,23 +76,31 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
+        mButton2.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//                toFragmentForResult();
+//				 Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
+//		         startActivityForResult(intent,1);
+                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
+                builder.setTitle("提示");
+                builder.setMessage("测试Dialog");
+                builder.setCenterButtonInfo("OK", new CommonDialogFragment.OnButtonClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                builder.create().show(getFragmentManager(), "CommonDialogFragment");
+            }
+
+        });
         mButton1.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                toFragmentForResult();
-//				 Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
-//		         startActivityForResult(intent,1);
-//                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
-//                builder.setTitle("提示");
-//                builder.setMessage("测试Dialog");
-//                builder.setCenterButtonInfo("OK", new CommonDialogFragment.OnButtonClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//                builder.create().show(getFragmentManager(), "CommonDialogFragment");
+               toFragmentForResult();
             }
 
         });
