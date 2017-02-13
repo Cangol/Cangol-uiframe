@@ -270,6 +270,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      */
     public boolean onMenuActionSelected(ActionMenuItem action) {
         if(this.getChildFragmentManager()!=null&&
+                this.getChildFragmentManager().getFragments()!=null&&
                 this.getChildFragmentManager().getFragments().size()>0){
             int size=getChildFragmentManager().getFragments().size();
             Fragment fragment=null;
