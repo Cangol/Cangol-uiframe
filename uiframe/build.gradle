@@ -10,17 +10,17 @@ dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'mobi.cangol.mobile:appcore:1.0.5@jar'
     compile 'mobi.cangol.mobile:actionbar:1.0.2@aar'
-    compile 'com.android.support:support-v4:[23.0.0,)'
+    compile 'com.android.support:support-v4:[25.0.0,)'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
-        minSdkVersion 13
-        versionCode 4
-        versionName "1.0.4"
+        minSdkVersion 14
+        versionCode 6
+        versionName "1.0.6"
     }
     lintOptions {
         abortOnError false
