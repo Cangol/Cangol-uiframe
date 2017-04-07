@@ -8,9 +8,10 @@ apply from: '../config/quality.gradle'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile 'mobi.cangol.mobile:appcore:1.0.5@jar'
-    compile 'mobi.cangol.mobile:actionbar:1.0.2@aar'
-    compile 'com.android.support:support-v4:[25.0.0,)'
+    compile 'mobi.cangol.mobile:appcore:1.1.0@jar'
+    compile 'mobi.cangol.mobile:actionbar:1.0.3@aar'
+    compile 'com.android.support:support-fragment:[25.0.0,)'
+    compile 'com.android.support:appcompat-v7:[25.0.0,)'
 }
 
 android {
@@ -19,8 +20,8 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        versionCode 6
-        versionName "1.0.6"
+        versionCode 7
+        versionName "1.0.7"
     }
     lintOptions {
         abortOnError false
