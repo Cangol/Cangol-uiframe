@@ -122,24 +122,24 @@ public abstract class BaseContentFragment extends BaseFragment {
     /**
      * 开始progress模式
      */
-    public void startProgress() {
+    public void enableRefresh(boolean enable) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
             throw new IllegalStateException("getActivity is null");
         } else {
-            abActivity.getCustomActionBar().startProgress();
+            abActivity.getCustomActionBar().enableRefresh(enable);
         }
     }
 
     /**
      * 停止progress模式
      */
-    public void stopProgress() {
+    public void refreshing(boolean refreshing) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
             throw new IllegalStateException("getActivity is null");
         } else {
-            abActivity.getCustomActionBar().stopProgress();
+            abActivity.getCustomActionBar().refreshing(refreshing);
         }
     }
 
