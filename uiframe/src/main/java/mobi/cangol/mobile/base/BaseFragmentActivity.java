@@ -15,10 +15,13 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -223,5 +226,18 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     public void onBack() {
         if (LIFECYCLE) Log.v(TAG, "onBack");
         super.onBackPressed();
+    }
+
+    @Override
+    public void showSoftInput(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, 0);
+        editText.setText(null);
+    }
+    @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 }

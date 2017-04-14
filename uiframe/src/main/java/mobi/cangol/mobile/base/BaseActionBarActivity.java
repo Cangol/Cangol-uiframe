@@ -15,9 +15,12 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -123,6 +126,19 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         } else {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
+
+    @Override
+    public void showSoftInput(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, 0);
+        editText.setText(null);
+    }
+    @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
     @Override

@@ -309,7 +309,14 @@ public abstract class BaseContentFragment extends BaseFragment {
     final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
         setContentFragment(fragmentClass, tag, args);
         notifyMenuChange(moduleId);
+    }
 
+    /**
+     * 获取父类 BaseContentFragment
+     * @return
+     */
+    final public BaseContentFragment getParentContentFragment() {
+        return (BaseContentFragment) getParentFragment();
     }
 
 }

@@ -15,7 +15,10 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
@@ -100,4 +103,15 @@ public interface BaseActivityDelegate {
     void onBack();
 
 
+    /**
+     * 显示软键盘
+     * @param editText
+     */
+    void showSoftInput(EditText editText);
+
+    /**
+     * 隐藏软键盘
+     * @param editText
+     */
+    void hideSoftInput(EditText editText);
 }

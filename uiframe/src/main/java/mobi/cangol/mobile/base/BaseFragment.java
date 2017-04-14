@@ -16,6 +16,7 @@
 package mobi.cangol.mobile.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import mobi.cangol.mobile.CoreApplication;
@@ -356,6 +359,18 @@ public abstract class BaseFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    public void showSoftInput(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, 0);
+        editText.setText(null);
+    }
+
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
     /**
