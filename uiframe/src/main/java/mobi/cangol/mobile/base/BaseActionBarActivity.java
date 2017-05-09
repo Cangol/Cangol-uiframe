@@ -159,19 +159,19 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     final public void onBackPressed() {
         if (LIFECYCLE) Log.v(TAG, "onBackPressed ");
-        if (null == stack) {
+        if (null == stack||stack.size()==0) {
             onBack();
             return;
-        }
-        if (stack.size() <= 1) {
-            onBack();
-        } else {
+        }else  if (stack.size() == 1) {
             if (stack.peek().onBackPressed()) {
                 return;
             } else {
-                stack.pop();
+                onBack();
                 return;
             }
+        }else{
+            stack.pop();
+            return;
         }
     }
 
@@ -179,7 +179,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     public boolean onSupportNavigateUp() {
         if (LIFECYCLE)
             Log.v(TAG, "onSupportNavigateUp ");
-        if (stack == null) {
+        if (stack == null||stack.size()==0) {
             return super.onSupportNavigateUp();
         } else {
             if (stack.peek().onSupportNavigateUp()) {
