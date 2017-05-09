@@ -204,19 +204,19 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     final public void onBackPressed() {
         if (LIFECYCLE) Log.v("onBackPressed");
-        if (null == stack) {
+        if (null == stack||stack.size()==0) {
             onBack();
             return;
-        }
-        if (stack.size() <= 1) {
-            onBack();
-        } else {
+        }else  if (stack.size() == 1) {
             if (stack.peek().onBackPressed()) {
                 return;
             } else {
-                stack.pop();
+                onBack();
                 return;
             }
+        }else{
+            stack.pop();
+            return;
         }
     }
 
