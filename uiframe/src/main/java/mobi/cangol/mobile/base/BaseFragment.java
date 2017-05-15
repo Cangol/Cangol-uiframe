@@ -26,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
@@ -337,18 +336,54 @@ public abstract class BaseFragment extends Fragment {
      * @param resId
      */
     public void showToast(int resId) {
-        Toast.makeText(this.getActivity(), resId, Toast.LENGTH_SHORT).show();
+        if (getActivity() == null) {
+            throw new IllegalStateException("getActivity is null");
+        } else {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(resId);
+        }
     }
 
+    /**
+     * 显示toast
+     * @param resId
+     * @param duration
+     */
+    public void showToast(int resId, int duration) {
+        if (getActivity() == null) {
+            throw new IllegalStateException("getActivity is null");
+        } else {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(resId,duration);
+        }
+    }
     /**
      * 显示toast
      *
      * @param str
      */
     public void showToast(String str) {
-        Toast.makeText(this.getActivity(), str, Toast.LENGTH_SHORT).show();
+        if (getActivity() == null) {
+            throw new IllegalStateException("getActivity is null");
+        } else {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(str);
+        }
     }
 
+    /**
+     * 显示toast
+     * @param str
+     * @param duration
+     */
+    public void showToast(String str, int duration) {
+        if (getActivity() == null) {
+            throw new IllegalStateException("getActivity is null");
+        } else {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(str);
+        }
+    }
     /**
      * 返回当前fragment是否有效
      *

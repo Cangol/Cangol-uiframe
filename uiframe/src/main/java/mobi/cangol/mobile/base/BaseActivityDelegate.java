@@ -15,9 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import mobi.cangol.mobile.service.AppService;
@@ -114,4 +112,5 @@ public interface BaseActivityDelegate {
      * @param editText
      */
     void hideSoftInput(EditText editText);
+
 }

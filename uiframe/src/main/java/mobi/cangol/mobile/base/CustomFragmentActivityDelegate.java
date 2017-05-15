@@ -27,4 +27,13 @@ public interface CustomFragmentActivityDelegate {
      */
     CustomFragmentManager getCustomFragmentManager();
 
+
+    void showToast(int resId);
+
+    void showToast(String str);
+
+    void showToast(int resId, int duration);
+
+    void showToast(String str, int duration);
+
 }

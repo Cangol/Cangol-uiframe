@@ -15,16 +15,14 @@
  */
 package mobi.cangol.mobile.uiframe.demo;
 
-import com.squareup.leakcanary.LeakCanary;
-
 import mobi.cangol.mobile.CoreApplication;
-import mobi.cangol.mobile.uiframe.demo.db.DatabaseHelper;
-import mobi.cangol.mobile.uiframe.demo.utils.Constants;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.ServiceProperty;
 import mobi.cangol.mobile.service.conf.ConfigService;
 import mobi.cangol.mobile.service.status.StatusService;
+import mobi.cangol.mobile.uiframe.demo.db.DatabaseHelper;
+import mobi.cangol.mobile.uiframe.demo.utils.Constants;
 
 
 /**
@@ -42,12 +40,12 @@ public class DemoApplication  extends CoreApplication {
 			this.setDevMode(true);
 			super.onCreate();
 			init();
-			if (LeakCanary.isInAnalyzerProcess(this)) {
-				// This process is dedicated to LeakCanary for heap analysis.
-				// You should not init your app in this process.
-				return;
-			}
-			LeakCanary.install(this);
+//			if (LeakCanary.isInAnalyzerProcess(this)) {
+//				// This process is dedicated to LeakCanary for heap analysis.
+//				// You should not init your app in this process.
+//				return;
+//			}
+//			LeakCanary.install(this);
 		}
 		public void init() {
 			if (isDevMode())

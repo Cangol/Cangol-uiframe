@@ -58,19 +58,19 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         this.getCustomActionBar();
     }
 
-
+    @Override
     public void showToast(int resId) {
         Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
-
+    @Override
     public void showToast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
-
+    @Override
     public void showToast(int resId, int duration) {
         Toast.makeText(this, resId, duration).show();
     }
-
+    @Override
     public void showToast(String str, int duration) {
         Toast.makeText(this, str, duration).show();
     }
@@ -162,16 +162,18 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         if (null == stack||stack.size()==0) {
             onBack();
             return;
-        }else  if (stack.size() == 1) {
+        }else {
             if (stack.peek().onBackPressed()) {
                 return;
             } else {
-                onBack();
-                return;
+                if (stack.size() == 1)  {
+                    onBack();
+                    return;
+                }else{
+                    stack.pop();
+                    return;
+                }
             }
-        }else{
-            stack.pop();
-            return;
         }
     }
 
@@ -181,19 +183,21 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             Log.v(TAG, "onSupportNavigateUp ");
         if (stack == null||stack.size()==0) {
             return super.onSupportNavigateUp();
-        } else {
+        }else{
             if (stack.peek().onSupportNavigateUp()) {
                 return true;
-            } else if (stack.size() == 1) {
-                return super.onSupportNavigateUp();
             } else {
-                FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
-                if (upFragment != null) {
-                    replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
+                if (stack.size() == 1) {
+                    return super.onSupportNavigateUp();
                 } else {
-                    stack.pop();
+                    FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
+                    if (upFragment != null) {
+                        replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
+                    } else {
+                        stack.pop();
+                    }
+                    return true;
                 }
-                return true;
             }
         }
     }

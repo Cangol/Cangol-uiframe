@@ -9,7 +9,7 @@ apply from: '../config/quality.gradle'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'mobi.cangol.mobile:appcore:1.1.0@jar'
-    compile 'mobi.cangol.mobile:actionbar:1.0.3@aar'
+    compile 'mobi.cangol.mobile:actionbar:1.0.10@aar'
     compile 'com.android.support:support-fragment:[25.0.0,)'
     compile 'com.android.support:appcompat-v7:[25.0.0,)'
 }
@@ -21,7 +21,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         versionCode 9
-        versionName "1.0.9"
+        versionName "1.0.10"
     }
     lintOptions {
         abortOnError false

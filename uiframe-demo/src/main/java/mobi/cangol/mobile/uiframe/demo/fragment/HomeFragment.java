@@ -104,27 +104,27 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
-        AsyncHttpClient mAsyncHttpClient = AsyncHttpClient.build("11");
-        mAsyncHttpClient.get(this.getActivity(), "http://192.168.2.62:83/index.php/friend/NewFriendLis", null, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                Log.d("onStart");
-            }
-
-            @Override
-            public void onSuccess(JSONObject response) {
-                super.onSuccess(response);
-                Log.d("onSuccess");
-            }
-
-            @Override
-            public void onFailure(Throwable e, String errorResponse) {
-                Log.d("onFailure");
-            }
-
-        });
+//        AsyncHttpClient mAsyncHttpClient = AsyncHttpClient.build("11");
+//        mAsyncHttpClient.get(this.getActivity(), "http://192.168.2.62:83/index.php/friend/NewFriendLis", null, new JsonHttpResponseHandler() {
+//
+//            @Override
+//            public void onStart() {
+//                super.onStart();
+//                Log.d("onStart");
+//            }
+//
+//            @Override
+//            public void onSuccess(JSONObject response) {
+//                super.onSuccess(response);
+//                Log.d("onSuccess");
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable e, String errorResponse) {
+//                Log.d("onFailure");
+//            }
+//
+//        });
     }
 
     private void toFragmentForResult() {
@@ -162,6 +162,13 @@ public class HomeFragment extends BaseContentFragment {
                 break;
         }
         return super.onMenuActionSelected(action);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        Log.d("onBackPressed");
+        return true;
+        //return super.onBackPressed();
     }
 
     @Override
