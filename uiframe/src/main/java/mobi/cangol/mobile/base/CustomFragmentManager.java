@@ -22,6 +22,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import org.json.JSONException;
+
 import java.util.Stack;
 
 import mobi.cangol.mobile.logging.Log;
@@ -38,10 +40,14 @@ public class CustomFragmentManager {
     private final Runnable execPendingTransactions = new Runnable() {
         @Override
         public void run() {
-            if (fragmentTransaction != null && fActivity != null) {
-                fragmentTransaction.commitAllowingStateLoss();
-                fragmentManager.executePendingTransactions();
-                fragmentTransaction = null;
+            try{
+                if (fragmentTransaction != null && fActivity != null) {
+                    fragmentTransaction.commitNowAllowingStateLoss();
+                    fragmentManager.executePendingTransactions();
+                    fragmentTransaction = null;
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
             }
         }
     };
