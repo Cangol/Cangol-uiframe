@@ -22,8 +22,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import org.json.JSONException;
-
 import java.util.Stack;
 
 import mobi.cangol.mobile.logging.Log;
