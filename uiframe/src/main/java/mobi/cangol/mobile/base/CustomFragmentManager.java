@@ -40,7 +40,7 @@ public class CustomFragmentManager {
         public void run() {
             try{
                 if (fragmentTransaction != null && fActivity != null) {
-                    fragmentTransaction.commitNowAllowingStateLoss();
+                    fragmentTransaction.commitAllowingStateLoss();
                     fragmentManager.executePendingTransactions();
                     fragmentTransaction = null;
                 }
