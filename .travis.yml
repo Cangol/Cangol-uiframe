@@ -4,20 +4,20 @@ jdk:
 sudo: false
 android:
   components:
-    - build-tools-23.0.1
-    - android-23
+    - build-tools-25.0.0
+    - android-25
     - extra-android-m2repository
     - extra-android-support
-    - sys-img-armeabi-v7a-android-23
+    - sys-img-armeabi-v7a-android-25
 before_install:
     # Gradle
-    - wget -q http://services.gradle.org/distributions/gradle-2.14.1-all.zip
-    - unzip -q gradle-2.14.1-all.zip
-    - export GRADLE_HOME=$PWD/gradle-2.14.1
+    - wget -q http://services.gradle.org/distributions/gradle-3.3-all.zip
+    - unzip -q gradle-3.3-all.zip
+    - export GRADLE_HOME=$PWD/gradle-3.3
     - export PATH=$GRADLE_HOME/bin:$PATH
 # Emulator Management: Create, Start and Wait
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
