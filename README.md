@@ -19,7 +19,7 @@ Maven
      </dependency>
 Gradle
  
-    compile 'mobi.cangol.mobile:uiframe:1.0.4@aar'
+    compile 'mobi.cangol.mobile:uiframe:1.0.11@aar'
 
 ###License
 
