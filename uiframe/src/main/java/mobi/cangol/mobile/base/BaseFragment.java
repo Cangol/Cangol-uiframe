@@ -586,4 +586,14 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * post一个非ui线程
+     * @param runnable
+     */
+    protected void postRunnable(Runnable runnable) {
+        if (getActivity() instanceof BaseActivityDelegate) {
+            ((BaseActivityDelegate) getActivity()).postRunnable(runnable);
+        }
+    }
 }

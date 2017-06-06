@@ -16,6 +16,7 @@
 package mobi.cangol.mobile.base;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.EditText;
 
 import mobi.cangol.mobile.service.AppService;
@@ -103,14 +104,26 @@ public interface BaseActivityDelegate {
 
     /**
      * 显示软键盘
+     *
      * @param editText
      */
     void showSoftInput(EditText editText);
 
     /**
      * 隐藏软键盘
+     *
      * @param editText
      */
     void hideSoftInput(EditText editText);
+
+    /**
+     * 获取一个主线程的Handler
+     */
+    Handler getHandler();
+
+    /**
+     * post一个非ui线程
+     */
+    void postRunnable(Runnable runnable);
 
 }

@@ -18,10 +18,16 @@ package mobi.cangol.mobile.base;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
@@ -37,7 +43,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
-
+    private Handler handler;
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
@@ -53,6 +59,9 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
         startTime = System.currentTimeMillis();
+        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread.start();
+        handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
@@ -274,5 +283,31 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (LIFECYCLE) Log.v(TAG, "onConfigurationChanged");
+    }
+
+    @Override
+    public Handler getHandler() {
+        return handler;
+    }
+
+    @Override
+    public void postRunnable(Runnable runnable) {
+        if (handler!= null && runnable != null)
+            handler.post(runnable);
+    }
+    final static class InternalHandler extends Handler {
+        private final WeakReference<Context> mContext;
+
+        public InternalHandler(Context context,Looper looper) {
+            super(looper);
+            mContext = new WeakReference<Context>(context);
+        }
+
+        public void handleMessage(Message msg) {
+            Context context = mContext.get();
+            if (context != null) {
+                handleMessage(msg);
+            }
+        }
     }
 }

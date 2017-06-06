@@ -18,11 +18,17 @@ package mobi.cangol.mobile.base;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
@@ -35,7 +41,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     protected CoreApplication app;
     private CustomFragmentManager stack;
     private long startTime;
-
+    private Handler handler;
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
@@ -46,6 +52,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Log.setLogTag(this);
         startTime = System.currentTimeMillis();
+        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread.start();
+        handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
     }
@@ -242,5 +251,31 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     public void hideSoftInput(EditText editText) {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    @Override
+    public Handler getHandler() {
+        return handler;
+    }
+
+    @Override
+    public void postRunnable(Runnable runnable) {
+        if (handler!= null && runnable != null)
+            handler.post(runnable);
+    }
+    final static class InternalHandler extends Handler {
+        private final WeakReference<Context> mContext;
+
+        public InternalHandler(Context context,Looper looper) {
+            super(looper);
+            mContext = new WeakReference<Context>(context);
+        }
+
+        public void handleMessage(Message msg) {
+            Context context = mContext.get();
+            if (context != null) {
+                handleMessage(msg);
+            }
+        }
     }
 }
