@@ -14,7 +14,7 @@ Maven
      <dependency>
          <groupId>mobi.cangol.mobile</groupId>
          <artifactId>uiframe</artifactId>
-         <version>1.0.4</version>
+         <version>1.0.11</version>
          <type>aar</type>
      </dependency>
 Gradle
