@@ -49,6 +49,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Log.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
+        startTime = System.currentTimeMillis();
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
     }

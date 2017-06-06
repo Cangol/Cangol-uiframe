@@ -45,6 +45,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Log.setLogTag(this);
+        startTime = System.currentTimeMillis();
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
     }

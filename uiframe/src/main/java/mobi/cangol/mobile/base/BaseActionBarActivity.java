@@ -52,10 +52,10 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
+        startTime = System.currentTimeMillis();
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
-        this.getCustomActionBar();
     }
 
     @Override
