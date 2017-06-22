@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 public class ItemFragment extends BaseContentFragment {
 	
-	private boolean mIsDownload;
+	private String mFlag;
 	private TextView mTextView1;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mIsDownload=this.getArguments().getBoolean("mIsDownload");
+		mFlag=this.getArguments().getString("flag");
 	}
 	
 	@Override
@@ -52,19 +52,11 @@ public class ItemFragment extends BaseContentFragment {
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
-		mTextView1.setText(""+mIsDownload);
-        mTextView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(ItemFragment.class);
-            }
-        });
-
+		mTextView1.setText(""+mFlag);
 	}
 
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

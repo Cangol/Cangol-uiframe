@@ -314,7 +314,7 @@ public abstract class BaseFragment extends Fragment {
             if (stack.peek().onBackPressed()) {
                 return true;
             } else {
-                stack.pop();
+                stack.popBackStack();
                 return true;
             }
         }
@@ -465,7 +465,7 @@ public abstract class BaseFragment extends Fragment {
      * @param args
      * @param args
      */
-    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
+    final public void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
         if (requestCode != -1) {
             this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
@@ -517,7 +517,7 @@ public abstract class BaseFragment extends Fragment {
      * @param args
      * @param requestCode
      */
-    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
+    final public void replaceParentFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
         if (requestCode != -1) {
             this.replaceParentFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
@@ -566,7 +566,7 @@ public abstract class BaseFragment extends Fragment {
             stack.replace(fragmentClass, tag, args, customFragmentTransaction);
             stack.commit();
         } else {
-            throw new IllegalStateException("fragment'CustomFragmentManager is null, Pleaser initFragmentStack");
+            throw new IllegalStateException("fragment'CustomFragmentManager is null, Please initFragmentStack");
         }
     }
 
@@ -576,17 +576,32 @@ public abstract class BaseFragment extends Fragment {
     final public void popBackStack() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
-            parent.getCustomFragmentManager().pop();
+            parent.getCustomFragmentManager().popBackStack();
         } else {
             if (getActivity() == null) {
                 throw new IllegalStateException("getActivity is null");
             } else {
                 CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-                bfActivity.getCustomFragmentManager().pop();
+                bfActivity.getCustomFragmentManager().popBackStack();
             }
         }
     }
-
+    /**
+     * 将所有fragment弹出栈
+     */
+    final public void popBackStackAll() {
+        BaseFragment parent = (BaseFragment) this.getParentFragment();
+        if (parent != null) {
+            parent.getCustomFragmentManager().popBackStackAll();
+        } else {
+            if (getActivity() == null) {
+                throw new IllegalStateException("getActivity is null");
+            } else {
+                CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+                bfActivity.getCustomFragmentManager().popBackStackAll();
+            }
+        }
+    }
     /**
      * post一个非ui线程
      * @param runnable

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends TabNavigationFragmentActivity {
@@ -19,7 +19,7 @@ public class MainActivity extends TabNavigationFragmentActivity {
 		setContentView(R.layout.activity_main);
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuFragment.class,null);
+			this.setMenuFragment(MenuBottomFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null);
 		}
 		findViews();

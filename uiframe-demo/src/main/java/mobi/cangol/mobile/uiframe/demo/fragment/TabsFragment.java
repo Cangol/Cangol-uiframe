@@ -48,8 +48,12 @@ public class TabsFragment extends BaseContentFragment {
 		mTabHost = (TabHost)view.findViewById(android.R.id.tabhost);
 		mTabHost.setup();
 		mTabManager=new TabManager(this.getChildFragmentManager(),mTabHost,R.id.realtabcontent);
-		mTabManager.addTab(mTabHost.newTabSpec("ItemFragment1").setIndicator("Simple1"), ItemFragment.class, new Bundle());
-		mTabManager.addTab(mTabHost.newTabSpec("ItemFragment2").setIndicator("Simple2"), ItemFragment.class, new Bundle());
+		Bundle args1=new Bundle();
+		args1.putString("flag", "Simple1");
+		mTabManager.addTab(mTabHost.newTabSpec("ItemFragment1").setIndicator("Simple1"), ItemFragment.class, args1);
+		Bundle args2=new Bundle();
+		args2.putString("flag", "Simple2");
+		mTabManager.addTab(mTabHost.newTabSpec("ItemFragment2").setIndicator("Simple2"), ItemFragment.class, args2);
 	}
 
 	@Override

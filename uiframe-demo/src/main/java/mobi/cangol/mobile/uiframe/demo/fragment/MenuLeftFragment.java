@@ -1,7 +1,9 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
+import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.BaseMenuFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 
@@ -13,7 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MenuFragment extends BaseMenuFragment{
+public class MenuLeftFragment extends BaseMenuFragment{
 	
 	public TextView textView1;
 	public TextView textView2;
@@ -31,7 +33,7 @@ public class MenuFragment extends BaseMenuFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_menu, container,false);
+		View v = inflater.inflate(R.layout.fragment_menu_left, container,false);
 		return v;
 	}
 	@Override
@@ -51,8 +53,6 @@ public class MenuFragment extends BaseMenuFragment{
 	protected void initData(Bundle savedInstanceState) {
 		if(savedInstanceState!=null){
 			updateFocus(this.getCurrentModuleId());
-		} else {
-			this.setCurrentModuleId(this.getCurrentModuleId());
 		}
 	}
 
@@ -64,7 +64,6 @@ public class MenuFragment extends BaseMenuFragment{
 		textView4=(TextView) v.findViewById(R.id.textView4);
 		textView5=(TextView) v.findViewById(R.id.textView5);
 		textView6=(TextView) v.findViewById(R.id.textView6);
-		
 	}
 
 	@Override
@@ -118,88 +117,40 @@ public class MenuFragment extends BaseMenuFragment{
 		
 		});
 	}
-
+	public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,String tag,Bundle args,int moduleId) {
+		super.setContentFragment(fragmentClass,tag,args,moduleId);
+		showMenu(false);
+	}
 	@Override
 	protected void onContentChange(int moduleId) {
 		if(this.getView()!=null){
 			updateFocus(moduleId);
 		}
 	}
-	
+
 	private void updateFocus(int moduleId) {
-		switch(moduleId){
-			case ModuleMenuIDS.MODULE_HOME:
-				textView1.setSelected(true);
-				textView1.setTextColor(Color.RED);
-				textView2.setTextColor(Color.BLACK);
-				textView3.setTextColor(Color.BLACK);
-				textView4.setTextColor(Color.BLACK);
-				textView5.setTextColor(Color.BLACK);
-				textView6.setTextColor(Color.BLACK);
-				break;
-			case ModuleMenuIDS.MODULE_LIST:
-				textView1.setSelected(false);
-				textView1.setTextColor(Color.BLACK);
-				textView2.setTextColor(Color.RED);
-				textView3.setTextColor(Color.BLACK);
-				textView4.setTextColor(Color.BLACK);
-				textView5.setTextColor(Color.BLACK);
-				textView6.setTextColor(Color.BLACK);
-				break;
-			case ModuleMenuIDS.MODULE_SETTING:
-				textView1.setSelected(false);
-				textView1.setTextColor(Color.BLACK);
-				textView2.setTextColor(Color.BLACK);
-				textView3.setTextColor(Color.RED);
-				textView4.setTextColor(Color.BLACK);
-				textView5.setTextColor(Color.BLACK);
-				textView6.setTextColor(Color.BLACK);
-				break;
-			case ModuleMenuIDS.MODULE_SWITCH:
-				textView1.setSelected(false);
-				textView1.setTextColor(Color.BLACK);
-				textView2.setTextColor(Color.BLACK);
-				textView3.setTextColor(Color.BLACK);
-				textView4.setTextColor(Color.RED);
-				textView5.setTextColor(Color.BLACK);
-				textView6.setTextColor(Color.BLACK);
-				break;
-			case ModuleMenuIDS.MODULE_TABS:
-				textView1.setSelected(false);
-				textView1.setTextColor(Color.BLACK);
-				textView2.setTextColor(Color.BLACK);
-				textView3.setTextColor(Color.BLACK);
-				textView4.setTextColor(Color.BLACK);
-				textView5.setTextColor(Color.RED);
-				textView6.setTextColor(Color.BLACK);
-				break;
-			case ModuleMenuIDS.MODULE_PAGES:
-				textView1.setSelected(false);
-				textView1.setTextColor(Color.BLACK);
-				textView2.setTextColor(Color.BLACK);
-				textView3.setTextColor(Color.BLACK);
-				textView4.setTextColor(Color.BLACK);
-				textView5.setTextColor(Color.BLACK);
-				textView6.setTextColor(Color.RED);
-				break;
-		}
+
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		Log.d("onResume");
+	}
+
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected void onClosed() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onOpen() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

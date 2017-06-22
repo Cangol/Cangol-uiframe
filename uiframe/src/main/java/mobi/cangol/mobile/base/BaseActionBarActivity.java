@@ -179,7 +179,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                     onBack();
                     return;
                 }else{
-                    stack.pop();
+                    stack.popBackStack();
                     return;
                 }
             }
@@ -203,7 +203,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                     if (upFragment != null) {
                         replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
                     } else {
-                        stack.pop();
+                        stack.popBackStack();
                     }
                     return true;
                 }

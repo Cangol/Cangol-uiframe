@@ -225,7 +225,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
                     onBack();
                     return;
                 }else{
-                    stack.pop();
+                    stack.popBackStack();
                     return;
                 }
             }

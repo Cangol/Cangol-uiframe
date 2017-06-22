@@ -54,7 +54,7 @@ public class CustomFragmentManager {
     private int exitAnimation;
     private int popStackEnterAnimation;
     private int popStackExitAnimation;
-    private boolean fisrtAnim = false;
+    private boolean firstUseAnim = false;
 
     private CustomFragmentManager(FragmentActivity fActivity, int containerId, FragmentManager fragmentManager) {
         this.fActivity = fActivity;
@@ -127,18 +127,20 @@ public class CustomFragmentManager {
                         beginTransaction().setCustomAnimations(enterAnimation, exitAnimation, popStackEnterAnimation, popStackExitAnimation);
                     } else if (enterAnimation > 0 && exitAnimation > 0) {
                         beginTransaction().setCustomAnimations(enterAnimation, exitAnimation);
+                    }else{
+                        beginTransaction();
                     }
                 }
 
-                if (stack.size() > 1) {
-                    while (stack.size() > 1) {
-                        synchronized (lock) {
-                            stack.pop();
-                            tagStack.pop();
-                        }
-                        fragmentManager.popBackStack();
+                Log.i(STATE_TAG,"while pop");
+                while (stack.size() > 1) {
+                    synchronized (lock) {
+                        stack.pop();
+                        tagStack.pop();
                     }
+                    //fragmentManager.popBackStack();
                 }
+                fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return;
             }
             BaseFragment last = stack.peek();
@@ -154,7 +156,7 @@ public class CustomFragmentManager {
                             stack.pop();
                             tagStack.pop();
                         }
-                        fragmentManager.popBackStack();
+                        fragmentManager.popBackStackImmediate();
                     }
                 } else {
                     //
@@ -166,24 +168,28 @@ public class CustomFragmentManager {
             fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
         }
         if (fragment.isCleanStack()) {
+            Log.i(STATE_TAG,"while pop");
             while (stack.size() > 0) {
                 synchronized (lock) {
                     stack.pop();
                     tagStack.pop();
                 }
-                fragmentManager.popBackStack();
+                //fragmentManager.popBackStack();
             }
+            fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         if (customFragmentTransaction != null)
             customFragmentTransaction.fillTargetFragment(fragment);
 
-        if (fisrtAnim || stack.size() > 0) {
+        if (firstUseAnim || stack.size() > 0) {
             //保证第一个填充不适用动画
             if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
                 if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
                     beginTransaction().setCustomAnimations(enterAnimation, exitAnimation, popStackEnterAnimation, popStackExitAnimation);
                 } else if (enterAnimation > 0 && exitAnimation > 0) {
                     beginTransaction().setCustomAnimations(enterAnimation, exitAnimation);
+                }else{
+                    beginTransaction();
                 }
             }
         } else {
@@ -197,22 +203,20 @@ public class CustomFragmentManager {
         }
     }
 
-    public void setFisrtAnim(boolean fisrtAnim) {
-        this.fisrtAnim = fisrtAnim;
+    public void setFirstUseAnim(boolean firstUseAnim) {
+        this.firstUseAnim = firstUseAnim;
     }
 
     private void attachFragment(Fragment fragment, String tag) {
         if (fragment != null) {
             Log.i(STATE_TAG, "attachFragment tag=" + tag);
             if (fragment.isDetached()) {
-                beginTransaction()
-                        .attach(fragment);
+                beginTransaction().attach(fragment);
                 if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag);
                 }
             } else if (!fragment.isAdded()) {
-                beginTransaction()
-                        .replace(containerId, fragment, tag);
+                beginTransaction().replace(containerId, fragment, tag);
                 if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag);
                 }
@@ -232,7 +236,7 @@ public class CustomFragmentManager {
         return stack.size();
     }
 
-    public boolean pop() {
+    public boolean popBackStack() {
         if (stack.size() > 1) {
             fragmentManager.popBackStackImmediate();
             synchronized (lock) {
@@ -247,12 +251,16 @@ public class CustomFragmentManager {
         return false;
     }
 
-    public boolean popFirst() {
-        if (stack.size() == 1) {
-            fragmentManager.popBackStackImmediate();
-            stack.pop();
-            tagStack.pop();
-            return true;
+    public boolean popBackStackAll() {
+        while (stack.size() > 1) {
+            synchronized (lock) {
+                stack.pop();
+                tagStack.pop();
+            }
+        }
+        fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        for (int i = 0; i <fragmentManager.getFragments().size() ; i++) {
+            Log.d("tag=="+(fragmentManager.getFragments().get(i)==null?"is null":fragmentManager.getFragments().get(i).getTag()));
         }
         return false;
     }

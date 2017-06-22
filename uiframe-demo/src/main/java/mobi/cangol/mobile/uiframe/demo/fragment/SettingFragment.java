@@ -48,7 +48,16 @@ public class SettingFragment extends BaseContentFragment {
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		findViewById(R.id.textView2).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Bundle bundle=new Bundle();
+				bundle.putInt("sno",1);
+				setContentFragment(NextFragment.class,"NextFragment_"+1,bundle);
 
+			}
+
+		});
 	}
 
 	@Override

@@ -4,17 +4,13 @@ import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.model.Station;
-import mobi.cangol.mobile.http.AsyncHttpClient;
-import mobi.cangol.mobile.http.JsonHttpResponseHandler;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.parser.JsonUtils;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.cache.CacheManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,8 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class HomeFragment extends BaseContentFragment {
-    private Button mButton1,mButton2;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -64,8 +58,6 @@ public class HomeFragment extends BaseContentFragment {
 
     @Override
     protected void findViews(View view) {
-        mButton1 = (Button) view.findViewById(R.id.button1);
-        mButton2 = (Button) view.findViewById(R.id.button2);
     }
 
     @Override
@@ -76,13 +68,17 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
-        mButton2.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentFragment(SettingFragment.class,"SettingFragment",null, ModuleMenuIDS.MODULE_HOME);
+            }
+
+        });
+        findViewById(R.id.button2).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                toFragmentForResult();
-//				 Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
-//		         startActivityForResult(intent,1);
                 final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
                 builder.setTitle("提示");
                 builder.setMessage("测试Dialog");
@@ -96,39 +92,21 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
-        mButton1.setOnClickListener(new OnClickListener() {
 
+        findViewById(R.id.button3).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               toFragmentForResult();
+                Bundle bundle=new Bundle();
+                bundle.putInt("sno",1);
+                setContentFragment(NextFragment.class,"NextFragment_"+1,bundle);
+
             }
 
         });
-//        AsyncHttpClient mAsyncHttpClient = AsyncHttpClient.build("11");
-//        mAsyncHttpClient.get(this.getActivity(), "http://192.168.2.62:83/index.php/friend/NewFriendLis", null, new JsonHttpResponseHandler() {
-//
-//            @Override
-//            public void onStart() {
-//                super.onStart();
-//                Log.d("onStart");
-//            }
-//
-//            @Override
-//            public void onSuccess(JSONObject response) {
-//                super.onSuccess(response);
-//                Log.d("onSuccess");
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable e, String errorResponse) {
-//                Log.d("onFailure");
-//            }
-//
-//        });
     }
 
     private void toFragmentForResult() {
-        replaceFragment(DetailsFragment.class, "DetailsFragment", new Bundle(), 1);
+
     }
 
     @Override
@@ -138,7 +116,6 @@ public class HomeFragment extends BaseContentFragment {
         switch (requestCode) {
             case 1:
                 showToast("onFragmentResult resultCode=" + resultCode);
-                mButton1.setText("OK");
                 break;
         }
     }
@@ -163,14 +140,6 @@ public class HomeFragment extends BaseContentFragment {
         }
         return super.onMenuActionSelected(action);
     }
-
-    @Override
-    public boolean onBackPressed() {
-        Log.d("onBackPressed");
-        return true;
-        //return super.onBackPressed();
-    }
-
     @Override
     public FragmentInfo getNavigtionUpToFragment() {
         return null;

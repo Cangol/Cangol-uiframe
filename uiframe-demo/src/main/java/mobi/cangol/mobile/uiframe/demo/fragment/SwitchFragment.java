@@ -37,7 +37,7 @@ public class SwitchFragment extends BaseContentFragment {
 		initFragmentStack(R.id.switch_container);
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
-		swictherFragement();
+		switchFragment();
 	}
 	@Override
 	protected void initData(Bundle savedInstanceState) {
@@ -56,20 +56,20 @@ public class SwitchFragment extends BaseContentFragment {
 
 			@Override
 			public void onClick(View v) {
-				swictherFragement();
+				switchFragment();
 			}
 			
 		});
 
 	}
 	private boolean mIsDownload=true;
-	protected void swictherFragement() {
+	protected void switchFragment() {
 		Bundle args=new Bundle();
 		if(!mIsDownload){
-			args.putBoolean("mIsDownload", mIsDownload);
+			args.putString("flag", "Up");
 			replaceChildFragment(ItemFragment.class, "ItemFragment1", args);
 		}else{
-			args.putBoolean("mIsDownload", mIsDownload);
+			args.putString("flag", "Down");
 			replaceChildFragment(ItemFragment.class, "ItemFragment2", args);
 		}
 		mIsDownload = !mIsDownload;
