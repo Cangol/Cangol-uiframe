@@ -59,6 +59,7 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final int proposedHeight = MeasureSpec.getSize(heightMeasureSpec);
         final int actualHeight = getHeight();
         if (actualHeight > proposedHeight) {
@@ -74,7 +75,6 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
             }
             // Keyboard is hidden <<< this doesn't work sometimes, so I don't use it
         }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     public void setOnSoftKeyboardVisibilityChangeListener(SoftKeyboardVisibilityChangeListener listener) {

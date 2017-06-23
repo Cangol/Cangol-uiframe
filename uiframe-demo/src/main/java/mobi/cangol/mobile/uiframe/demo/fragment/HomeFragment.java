@@ -45,6 +45,7 @@ public class HomeFragment extends BaseContentFragment {
         super.onActivityCreated(savedInstanceState);
         initViews(savedInstanceState);
         initData(savedInstanceState);
+        getActionBarActivity().setActionbarShow(true);
     }
 
     @Override
@@ -145,6 +146,10 @@ public class HomeFragment extends BaseContentFragment {
         return null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 
     @Override
     public boolean isCleanStack() {

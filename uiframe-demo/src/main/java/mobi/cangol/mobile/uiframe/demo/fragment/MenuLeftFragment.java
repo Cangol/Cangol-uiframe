@@ -7,7 +7,6 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +79,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(ListDataFragment.class, "ListFragment",null,ModuleMenuIDS.MODULE_LIST);
+				setContentFragment(ListFragment.class, "ListFragment",null,ModuleMenuIDS.MODULE_LIST);
 			}
 		
 		});

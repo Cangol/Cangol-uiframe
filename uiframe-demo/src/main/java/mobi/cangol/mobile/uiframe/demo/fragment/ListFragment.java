@@ -14,7 +14,7 @@ import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.db.StationService;
 import mobi.cangol.mobile.uiframe.demo.model.Station;
 
-public class ListDataFragment extends BaseContentFragment {
+public class ListFragment extends BaseContentFragment {
 	StationService stationService;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class ListDataFragment extends BaseContentFragment {
 		super.onActivityCreated(savedInstanceState);
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
+		getActionBarActivity().setActionbarShow(false);
 	}
 	
 	@Override

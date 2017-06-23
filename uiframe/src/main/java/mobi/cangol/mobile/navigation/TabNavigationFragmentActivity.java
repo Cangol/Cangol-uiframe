@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
@@ -64,7 +65,7 @@ public abstract class TabNavigationFragmentActivity extends
 class TabNavigationFragmentActivityDelegate extends
         AbstractNavigationFragmentActivityDelegate {
     private BaseNavigationFragmentActivity mActivity;
-    private SoftKeyboardHandledLinearLayout mRootView;
+    private LinearLayout mRootView;
     private FrameLayout mMenuView;
     private FrameLayout mContentView;
 
@@ -75,35 +76,35 @@ class TabNavigationFragmentActivityDelegate extends
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mRootView = (SoftKeyboardHandledLinearLayout) LayoutInflater.from(mActivity).inflate(
+        mRootView = (LinearLayout) LayoutInflater.from(mActivity).inflate(
                 R.layout.navigation_tab_main, null);
         mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
         mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
-        mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
-            boolean justShowMenu = false;
-
-            @Override
-            public void onSoftKeyboardShow() {
-                if (isShowMenu()) {
-                    justShowMenu = true;
-                    showMenu(false);
-                } else {
-                    justShowMenu = false;
-                }
-            }
-
-            @Override
-            public void onSoftKeyboardHide() {
-                if (justShowMenu) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showMenu(true);
-                        }
-                    }, 300L);
-                }
-            }
-        });
+//        mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
+//            boolean justShowMenu = false;
+//
+//            @Override
+//            public void onSoftKeyboardShow() {
+//                if (isShowMenu()) {
+//                    justShowMenu = true;
+//                    showMenu(false);
+//                } else {
+//                    justShowMenu = false;
+//                }
+//            }
+//
+//            @Override
+//            public void onSoftKeyboardHide() {
+//                if (justShowMenu) {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showMenu(true);
+//                        }
+//                    }, 300L);
+//                }
+//            }
+//        });
     }
 
     @Override
