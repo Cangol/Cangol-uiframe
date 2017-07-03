@@ -4,7 +4,6 @@ import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.BaseMenuFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.logging.Log;
-import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 
 import android.os.Bundle;
@@ -15,7 +14,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MenuLeftFragment extends BaseMenuFragment{
-	
+	public static final int MODULE_HOME=0;
+
+	public static final int MODULE_LIST=1;
+
+	public static final int MODULE_SETTING=2;
+
+	public static final int MODULE_SWITCH=4;
+
+	public static final int MODULE_TABS=5;
+
+	public static final int MODULE_PAGES=6;
 	public TextView textView1;
 	public TextView textView2;
 	public TextView textView3;
@@ -71,7 +80,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(HomeFragment.class, "HomeFragment",null,ModuleMenuIDS.MODULE_HOME);
+				setContentFragment(HomeFragment.class, "HomeFragment",null,MODULE_HOME);
 			}
 		
 		});
@@ -79,7 +88,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(ListFragment.class, "ListFragment",null,ModuleMenuIDS.MODULE_LIST);
+				setContentFragment(ListFragment.class, "ListFragment",null,MODULE_LIST);
 			}
 		
 		});
@@ -87,7 +96,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(SettingFragment.class, "SettingFragment",null,ModuleMenuIDS.MODULE_SETTING);
+				setContentFragment(SettingFragment.class, "SettingFragment",null,MODULE_SETTING);
 			}
 		
 		});
@@ -95,7 +104,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(SwitchFragment.class, "SwitchFragment",null,ModuleMenuIDS.MODULE_SWITCH);
+				setContentFragment(SwitchFragment.class, "SwitchFragment",null,MODULE_SWITCH);
 			}
 		
 		});
@@ -103,7 +112,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(TabsFragment.class, "TabsFragment",null,ModuleMenuIDS.MODULE_TABS);
+				setContentFragment(TabsFragment.class, "TabsFragment",null,MODULE_TABS);
 			}
 		
 		});
@@ -111,7 +120,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(TabPagesFragment.class, "TabPagesFragment",null,ModuleMenuIDS.MODULE_PAGES);
+				setContentFragment(TabPagesFragment.class, "TabPagesFragment",null,MODULE_PAGES);
 			}
 		
 		});

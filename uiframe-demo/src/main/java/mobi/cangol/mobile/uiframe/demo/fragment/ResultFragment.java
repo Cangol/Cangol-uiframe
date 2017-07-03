@@ -4,28 +4,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
+import android.widget.TextView;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.db.StationService;
-import mobi.cangol.mobile.uiframe.demo.model.Station;
+import mobi.cangol.mobile.uiframe.demo.Singleton;
 
-public class ListFragment extends BaseContentFragment {
-	StationService stationService;
+public class ResultFragment extends BaseContentFragment {
+	
+	private TextView mTextView1;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		stationService=new StationService(this.getActivity());
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_list, container,false);
+		View v = inflater.inflate(R.layout.fragment_item, container,false);
 		return v;
 	}
 	@Override
@@ -40,42 +37,42 @@ public class ListFragment extends BaseContentFragment {
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 	}
-	
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-		Station staticon=new Station();
-		staticon.setName("aaaa");
-		stationService.save(staticon);
-		stationService.getCount();
-		List<Station> list=stationService.findList(2, 10);
-		for(int i=0;i<list.size();i++){
-			Log.d(i+":"+list.get(i));
-		}
+
 	}
 
 	@Override
 	protected void findViews(View view) {
 		this.setTitle(this.getClass().getSimpleName());
-
+		mTextView1=(TextView) view.findViewById(R.id.textView1);
+		mTextView1.setText("Click me Result");
 	}
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-
+		mTextView1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				popBackStack();
+			}
+		});
 	}
 
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public boolean isSingleton() {
+		return false;
+	}
 
 	@Override
 	public boolean isCleanStack() {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
-	
+
 }

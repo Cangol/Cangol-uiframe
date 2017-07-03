@@ -7,6 +7,7 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
 
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends TabNavigationFragmentActivity {
@@ -20,7 +21,7 @@ public class MainActivity extends TabNavigationFragmentActivity {
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "HomeFragment", null);
+			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
@@ -28,6 +29,12 @@ public class MainActivity extends TabNavigationFragmentActivity {
 		//this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
         //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
+		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
+			@Override
+			public void onTest() {
+				setContentFragment(SettingFragment.class, "SettingFragment", null,MenuBottomFragment.MODULE_SETTING);
+			}
+		});
 	}
 
 	@Override

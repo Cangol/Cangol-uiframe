@@ -2,7 +2,6 @@ package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import mobi.cangol.mobile.base.BaseMenuFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
 import mobi.cangol.mobile.uiframe.demo.R;
 
 import android.os.Bundle;
@@ -13,6 +12,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MenuBottomFragment extends BaseMenuFragment{
+	public static final int MODULE_HOME=0;
+
+	public static final int MODULE_LIST=1;
+
+	public static final int MODULE_SETTING=2;
+
+	public static final int MODULE_SWITCH=4;
+
+	public static final int MODULE_TABS=5;
+
+	public static final int MODULE_PAGES=6;
 	
 	public TextView textView1;
 	public TextView textView2;
@@ -72,7 +82,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(HomeFragment.class, "HomeFragment",null,ModuleMenuIDS.MODULE_HOME);
+				setContentFragment(HomeFragment.class, "HomeFragment",null,MODULE_HOME);
 			}
 		
 		});
@@ -80,7 +90,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(ListFragment.class, "ListFragment",null,ModuleMenuIDS.MODULE_LIST);
+				setContentFragment(ListFragment.class, "ListFragment",null,MODULE_LIST);
 			}
 		
 		});
@@ -88,7 +98,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(SettingFragment.class, "SettingFragment",null,ModuleMenuIDS.MODULE_SETTING);
+				setContentFragment(SettingFragment.class, "SettingFragment",null,MODULE_SETTING);
 			}
 		
 		});
@@ -96,7 +106,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(SwitchFragment.class, "SwitchFragment",null,ModuleMenuIDS.MODULE_SWITCH);
+				setContentFragment(SwitchFragment.class, "SwitchFragment",null,MODULE_SWITCH);
 			}
 		
 		});
@@ -104,7 +114,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(TabsFragment.class, "TabsFragment",null,ModuleMenuIDS.MODULE_TABS);
+				setContentFragment(TabsFragment.class, "TabsFragment",null,MODULE_TABS);
 			}
 		
 		});
@@ -112,7 +122,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(TabPagesFragment.class, "TabPagesFragment",null,ModuleMenuIDS.MODULE_PAGES);
+				setContentFragment(TabPagesFragment.class, "TabPagesFragment",null,MODULE_PAGES);
 			}
 		
 		});
@@ -126,12 +136,12 @@ public class MenuBottomFragment extends BaseMenuFragment{
 	}
 
 	private void updateFocus(int moduleId) {
-		textView1.setSelected(ModuleMenuIDS.MODULE_HOME==moduleId);
-		textView2.setSelected(ModuleMenuIDS.MODULE_LIST==moduleId);
-		textView3.setSelected(ModuleMenuIDS.MODULE_SETTING==moduleId);
-		textView4.setSelected(ModuleMenuIDS.MODULE_SWITCH==moduleId);
-		textView5.setSelected(ModuleMenuIDS.MODULE_TABS==moduleId);
-		textView6.setSelected(ModuleMenuIDS.MODULE_PAGES==moduleId);
+		textView1.setSelected(MODULE_HOME==moduleId);
+		textView2.setSelected(MODULE_LIST==moduleId);
+		textView3.setSelected(MODULE_SETTING==moduleId);
+		textView4.setSelected(MODULE_SWITCH==moduleId);
+		textView5.setSelected(MODULE_TABS==moduleId);
+		textView6.setSelected(MODULE_PAGES==moduleId);
 	}
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {

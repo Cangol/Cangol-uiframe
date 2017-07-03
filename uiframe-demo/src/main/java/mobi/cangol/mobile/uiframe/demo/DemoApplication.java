@@ -35,6 +35,7 @@ public class DemoApplication  extends CoreApplication {
 		private StatusService statusService;
 		private AppStatusListener appStatusListener;
 		private DatabaseHelper databaseHelper;
+		private Singleton singleton;
 		@Override
 		public void onCreate() {
 			this.setDevMode(true);
@@ -46,6 +47,8 @@ public class DemoApplication  extends CoreApplication {
 //				return;
 //			}
 //			LeakCanary.install(this);
+			Log.setLogLevelFormat(android.util.Log.VERBOSE,false);
+			singleton=Singleton.getInstance();
 		}
 		public void init() {
 			if (isDevMode())

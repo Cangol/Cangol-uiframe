@@ -1,17 +1,5 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import mobi.cangol.mobile.actionbar.ActionMenu;
-import mobi.cangol.mobile.actionbar.ActionMenuItem;
-import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.demo.ModuleMenuIDS;
-import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.model.Station;
-import mobi.cangol.mobile.logging.Log;
-import mobi.cangol.mobile.parser.JsonUtils;
-import mobi.cangol.mobile.service.AppService;
-import mobi.cangol.mobile.service.cache.CacheManager;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +7,17 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import mobi.cangol.mobile.actionbar.ActionMenu;
+import mobi.cangol.mobile.actionbar.ActionMenuItem;
+import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.parser.JsonUtils;
+import mobi.cangol.mobile.service.AppService;
+import mobi.cangol.mobile.service.cache.CacheManager;
+import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.uiframe.demo.model.Station;
 
 public class HomeFragment extends BaseContentFragment {
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,7 @@ public class HomeFragment extends BaseContentFragment {
         Station st = new Station();
         st.set_id(1);
         st.setName("test");
-        Log.d("ff=" + JsonUtils.toJSONObject(st,false));
+        Log.d("ff=" + JsonUtils.toJSONObject(st, false));
     }
 
     @Override
@@ -72,7 +70,7 @@ public class HomeFragment extends BaseContentFragment {
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentFragment(SettingFragment.class,"SettingFragment",null, ModuleMenuIDS.MODULE_HOME);
+                replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
             }
 
         });
@@ -80,7 +78,7 @@ public class HomeFragment extends BaseContentFragment {
 
             @Override
             public void onClick(View v) {
-                final CommonDialogFragment.Builder builder=new CommonDialogFragment.Builder(getActivity());
+                final CommonDialogFragment.Builder builder = new CommonDialogFragment.Builder(getActivity());
                 builder.setTitle("提示");
                 builder.setMessage("测试Dialog");
                 builder.setCenterButtonInfo("OK", new CommonDialogFragment.OnButtonClickListener() {
@@ -97,17 +95,13 @@ public class HomeFragment extends BaseContentFragment {
         findViewById(R.id.button3).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("sno",1);
-                setContentFragment(NextFragment.class,"NextFragment_"+1,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putInt("sno", 1);
+                setContentFragment(NextFragment.class, "NextFragment_" + 1, bundle);
 
             }
 
         });
-    }
-
-    private void toFragmentForResult() {
-
     }
 
     @Override
@@ -141,6 +135,7 @@ public class HomeFragment extends BaseContentFragment {
         }
         return super.onMenuActionSelected(action);
     }
+
     @Override
     public FragmentInfo getNavigtionUpToFragment() {
         return null;

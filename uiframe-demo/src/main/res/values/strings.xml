@@ -10,16 +10,16 @@
     <string name="common_network_error">网络有问题,请您检查网络.</string>
     <string name="common_network_to3g">连接到网络3G,提醒您流量会产生费用.</string>
     <string name="common_storage_remove">存储卡被移除，下载等功能可能无法使用！</string>
-    
+
     <string name="action_delete">删除</string>
     <string name="action_selectAll">全选</string>
     <string name="action_invert">反选</string>
     <string name="action_setting">设置</string>
     <string name="actionbar_activity_not_found">Failed to open intent...</string>
 
-    
+
     <string name="content_hint">Content</string>
-  <string name="drawer_hint">Drawer</string>
-  <string name="rounded">See Rounded</string>
-  <string name="squared">See Squared</string>
+    <string name="drawer_hint">Drawer</string>
+    <string name="rounded">See Rounded</string>
+    <string name="squared">See Squared</string>
 </resources>

@@ -4,6 +4,10 @@ import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.uiframe.demo.SecondActivity;
+import mobi.cangol.mobile.uiframe.demo.Singleton;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,9 +73,28 @@ public class NextFragment extends BaseContentFragment {
 
 			@Override
 			public void onClick(View v) {
-				Bundle bundle=new Bundle();
-				bundle.putInt("sno",sno+1);
-				setContentFragment(NextFragment.class,"NextFragment_"+(sno+1),bundle);
+					Bundle bundle=new Bundle();
+					bundle.putInt("sno",sno+1);
+					setContentFragment(NextFragment.class,"NextFragment_"+(sno+1),bundle);
+
+			}
+
+		});
+		findViewById(R.id.button4).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getContext(), SecondActivity.class));
+
+			}
+
+		});
+		findViewById(R.id.button5).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Singleton.getInstance().notifyTest();
+
 			}
 
 		});
