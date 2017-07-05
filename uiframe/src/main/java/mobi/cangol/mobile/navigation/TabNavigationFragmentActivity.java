@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,8 +27,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import mobi.cangol.mobile.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+import mobi.cangol.mobile.uiframe.R;
 
 public abstract class TabNavigationFragmentActivity extends
         BaseNavigationFragmentActivity {

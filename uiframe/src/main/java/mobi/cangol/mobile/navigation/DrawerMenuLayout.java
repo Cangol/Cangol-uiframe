@@ -27,7 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import mobi.cangol.mobile.R;
+import mobi.cangol.mobile.uiframe.R;
+
 
 public class DrawerMenuLayout extends DrawerLayout {
     private FrameLayout mContentView;

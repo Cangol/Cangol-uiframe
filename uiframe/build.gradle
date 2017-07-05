@@ -9,7 +9,7 @@ apply from: '../config/quality.gradle'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'mobi.cangol.mobile:actionbar:[1.0.12,)@aar'
-    compile 'mobi.cangol.mobile:appcore:[1.1.3,)@jar'
+    //compile 'mobi.cangol.mobile:appcore:[1.1.5,)@jar'
     compile 'com.android.support:support-fragment:[25.0.0,)'
     compile 'com.android.support:appcompat-v7:[25.0.0,)'
 }

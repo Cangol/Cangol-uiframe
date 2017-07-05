@@ -40,7 +40,7 @@ public class DemoApplication  extends CoreApplication {
 		public void onCreate() {
 			this.setDevMode(true);
 			super.onCreate();
-			init();
+			//init();
 //			if (LeakCanary.isInAnalyzerProcess(this)) {
 //				// This process is dedicated to LeakCanary for heap analysis.
 //				// You should not init your app in this process.
