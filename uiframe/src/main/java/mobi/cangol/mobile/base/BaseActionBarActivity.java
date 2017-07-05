@@ -43,6 +43,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
+    private HandlerThread handlerThread;
     private Handler handler;
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
@@ -59,7 +60,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
         startTime = System.currentTimeMillis();
-        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getApplication();
@@ -246,6 +247,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdletime() + "s");
         app.delActivityFromManager(this);
+        handlerThread.quit();
     }
 
     public void onBack() {

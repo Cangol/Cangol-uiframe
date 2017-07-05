@@ -41,6 +41,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     protected CoreApplication app;
     private CustomFragmentManager stack;
     private long startTime;
+    private HandlerThread handlerThread;
     private Handler handler;
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
@@ -52,7 +53,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Log.setLogTag(this);
         startTime = System.currentTimeMillis();
-        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getApplication();
@@ -161,6 +162,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdletime() + "s");
 
         app.delActivityFromManager(this);
+        handlerThread.quit();
     }
 
     @Override

@@ -20,12 +20,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import java.lang.ref.WeakReference;
 
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
@@ -42,7 +48,8 @@ public abstract class BaseFragment extends Fragment {
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
     private CustomFragmentManager stack;
-
+    private HandlerThread handlerThread;
+    private Handler handler;
     /**
      * 查找view
      *
@@ -137,6 +144,9 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
+        handlerThread = new HandlerThread(TAG);
+        handlerThread.start();
+        handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState == null) {
 
@@ -206,6 +216,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
+        handlerThread.quit();
     }
 
     @Override
@@ -602,13 +613,28 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
-    /**
-     * post一个非ui线程
-     * @param runnable
-     */
+    protected Handler getHandler() {
+        return handler;
+    }
+
     protected void postRunnable(Runnable runnable) {
-        if (getActivity() instanceof BaseActivityDelegate) {
-            ((BaseActivityDelegate) getActivity()).postRunnable(runnable);
+        if (handler!= null && runnable != null)
+            handler.post(runnable);
+    }
+
+    final static class InternalHandler extends Handler {
+        private final WeakReference<BaseFragment> mFragmentRef;
+
+        public InternalHandler(BaseFragment fragment,Looper looper) {
+            super(looper);
+            mFragmentRef = new WeakReference<>(fragment);
+        }
+
+        public void handleMessage(Message msg) {
+            BaseFragment fragment = mFragmentRef.get();
+            if (fragment != null&&fragment.isEnable()) {
+                handleMessage(msg);
+            }
         }
     }
 }

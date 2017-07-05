@@ -44,6 +44,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     public CoreApplication app;
     private long startTime;
+    private HandlerThread handlerThread;
     private Handler handler;
     public float getIdletime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
@@ -56,7 +57,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         Log.setLogTag(this);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
         startTime = System.currentTimeMillis();
-        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getApplication();
@@ -146,6 +147,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
         app.delActivityFromManager(this);
         super.onDestroy();
+        handlerThread.quit();
     }
 
     @Override
