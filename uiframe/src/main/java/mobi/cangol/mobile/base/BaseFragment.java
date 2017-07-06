@@ -48,7 +48,6 @@ public abstract class BaseFragment extends Fragment {
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
     private CustomFragmentManager stack;
-    private HandlerThread handlerThread;
     private Handler handler;
     /**
      * 查找view
@@ -144,7 +143,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
-        handlerThread = new HandlerThread(TAG);
+        HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
         app = (CoreApplication) this.getActivity().getApplication();
@@ -216,7 +215,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
-        handlerThread.quit();
+        //handlerThread.quit();
     }
 
     @Override
