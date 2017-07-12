@@ -202,6 +202,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                 } else {
                     FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                     if (upFragment != null) {
+                        stack.popBackStack();
                         replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
                     } else {
                         stack.popBackStack();

@@ -124,6 +124,9 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
             return menuFragment.getCurrentModuleId();
         }
     }
+    public BaseMenuFragment getMenuFragment() {
+        return menuFragment;
+    }
 
     public void setCurrentModuleId(int moduleId) {
         if (menuFragment == null) {

@@ -102,7 +102,7 @@ public class NextFragment extends BaseContentFragment {
 
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
-		return null;
+		return new FragmentInfo(ItemFragment.class,"ItemFragment",null);
 	}
 
 	@Override

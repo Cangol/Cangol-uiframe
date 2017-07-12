@@ -38,14 +38,10 @@ public class CustomFragmentManager {
     private final Runnable execPendingTransactions = new Runnable() {
         @Override
         public void run() {
-            try{
-                if (fragmentTransaction != null && fActivity != null) {
-                    fragmentTransaction.commitAllowingStateLoss();
-                    fragmentManager.executePendingTransactions();
-                    fragmentTransaction = null;
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
+            if (fragmentTransaction != null && fActivity != null) {
+                fragmentTransaction.commitAllowingStateLoss();
+                fragmentManager.executePendingTransactions();
+                fragmentTransaction = null;
             }
         }
     };
