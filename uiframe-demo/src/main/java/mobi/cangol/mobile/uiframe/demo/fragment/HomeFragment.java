@@ -102,6 +102,16 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
+        findViewById(R.id.button4).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("sno", 1);
+                setContentFragment(SingletonFragment.class, "SingletonFragment", bundle);
+
+            }
+
+        });
     }
 
     @Override

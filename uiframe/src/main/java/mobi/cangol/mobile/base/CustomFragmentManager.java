@@ -152,7 +152,7 @@ public class CustomFragmentManager {
                             stack.pop();
                             tagStack.pop();
                         }
-                        fragmentManager.popBackStackImmediate();
+                        fragmentManager.popBackStack();
                     }
                 } else {
                     //
@@ -162,7 +162,22 @@ public class CustomFragmentManager {
         BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(tag);
         if (fragment == null || !fragment.isSingleton()) {
             fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+        }else if(fragment.isSingleton()){
+            while (!tag.equals(tagStack.peek())) {
+                synchronized (lock) {
+                    stack.pop();
+                    tagStack.pop();
+                }
+                fragmentManager.popBackStack();
+            }
+            synchronized (lock) {
+                stack.pop();
+                tagStack.pop();
+            }
+            fragmentManager.popBackStack();
+            fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
         }
+
         if (fragment.isCleanStack()) {
             Log.i(STATE_TAG,"while pop");
             while (stack.size() > 0) {
@@ -172,7 +187,7 @@ public class CustomFragmentManager {
                 }
                 //fragmentManager.popBackStack();
             }
-            fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         if (customFragmentTransaction != null)
             customFragmentTransaction.fillTargetFragment(fragment);
@@ -234,7 +249,7 @@ public class CustomFragmentManager {
 
     public boolean popBackStack() {
         if (stack.size() > 1) {
-            fragmentManager.popBackStackImmediate();
+            fragmentManager.popBackStack();
             synchronized (lock) {
                 BaseFragment baseFragment = stack.pop();
                 tagStack.pop();
@@ -254,7 +269,7 @@ public class CustomFragmentManager {
                 tagStack.pop();
             }
         }
-        fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         for (int i = 0; i <fragmentManager.getFragments().size() ; i++) {
             Log.d("tag=="+(fragmentManager.getFragments().get(i)==null?"is null":fragmentManager.getFragments().get(i).getTag()));
         }

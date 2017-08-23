@@ -98,6 +98,17 @@ public class NextFragment extends BaseContentFragment {
 			}
 
 		});
+		findViewById(R.id.button6).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle=new Bundle();
+				bundle.putInt("sno",sno*-1);
+				setContentFragment(SingletonFragment.class,"SingletonFragment",bundle);
+
+			}
+
+		});
 	}
 
 	@Override

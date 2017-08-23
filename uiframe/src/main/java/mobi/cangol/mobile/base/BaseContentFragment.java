@@ -307,8 +307,8 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param moduleId
      */
     final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
-        setContentFragment(fragmentClass, tag, args);
         notifyMenuChange(moduleId);
+        setContentFragment(fragmentClass, tag, args);
     }
 
     /**
