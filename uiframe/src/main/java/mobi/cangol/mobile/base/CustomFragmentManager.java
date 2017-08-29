@@ -136,7 +136,7 @@ public class CustomFragmentManager {
                     }
                     //fragmentManager.popBackStack();
                 }
-                fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return;
             }
             BaseFragment last = stack.peek();
@@ -249,7 +249,7 @@ public class CustomFragmentManager {
 
     public boolean popBackStack() {
         if (stack.size() > 1) {
-            fragmentManager.popBackStack();
+            fragmentManager.popBackStackImmediate();
             synchronized (lock) {
                 BaseFragment baseFragment = stack.pop();
                 tagStack.pop();
@@ -269,7 +269,7 @@ public class CustomFragmentManager {
                 tagStack.pop();
             }
         }
-        fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         for (int i = 0; i <fragmentManager.getFragments().size() ; i++) {
             Log.d("tag=="+(fragmentManager.getFragments().get(i)==null?"is null":fragmentManager.getFragments().get(i).getTag()));
         }
