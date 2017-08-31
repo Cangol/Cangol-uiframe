@@ -109,6 +109,15 @@ public class NextFragment extends BaseContentFragment {
 			}
 
 		});
+		findViewById(R.id.button7).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				setContentFragment(HomeFragment.class,"HomeFragment",null);
+
+			}
+
+		});
 	}
 
 	@Override

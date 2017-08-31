@@ -118,6 +118,7 @@ public class CustomFragmentManager {
         if (stack.size() > 0) {
             BaseFragment first = stack.firstElement();
             if (first != null && tag.equals(tagStack.firstElement())) {
+                Log.i(STATE_TAG,"firstElement TAG="+tag);
                 if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
                     if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
                         beginTransaction().setCustomAnimations(enterAnimation, exitAnimation, popStackEnterAnimation, popStackExitAnimation);
@@ -127,18 +128,18 @@ public class CustomFragmentManager {
                         beginTransaction();
                     }
                 }
-
                 Log.i(STATE_TAG,"while pop");
                 while (stack.size() > 1) {
                     synchronized (lock) {
+                        Log.i(STATE_TAG,"pop "+tagStack.peek());
                         stack.pop();
                         tagStack.pop();
                     }
-                    //fragmentManager.popBackStack();
+                    fragmentManager.popBackStack();
                 }
-                fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return;
             }
+
             BaseFragment last = stack.peek();
             if (last != null && clazz.isInstance(last)) {
 //				if (last.isCleanStack()){
@@ -160,34 +161,72 @@ public class CustomFragmentManager {
             }
         }
         BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(tag);
-        if (fragment == null || !fragment.isSingleton()) {
+        if (fragment == null) {
+            Log.i(STATE_TAG,"fragment=null newInstance");
             fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-        }else if(fragment.isSingleton()){
-            while (!tag.equals(tagStack.peek())) {
-                synchronized (lock) {
-                    stack.pop();
-                    tagStack.pop();
+            if (fragment.isCleanStack()) {
+                Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
+                while (stack.size() > 0) {
+                    synchronized (lock) {
+                        stack.pop();
+                        tagStack.pop();
+                    }
+                    fragmentManager.popBackStack();
                 }
-                fragmentManager.popBackStack();
-            }
-            synchronized (lock) {
-                stack.pop();
-                tagStack.pop();
-            }
-            fragmentManager.popBackStack();
-            fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-        }
-
-        if (fragment.isCleanStack()) {
-            Log.i(STATE_TAG,"while pop");
-            while (stack.size() > 0) {
-                synchronized (lock) {
-                    stack.pop();
-                    tagStack.pop();
+            }else{
+                Log.i(STATE_TAG,"fragment isCleanStack=false");
+                if(fragment.isSingleton()&&tagStack.contains(tag)){
+                    Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
+                    while (!tag.equals(tagStack.peek())) {
+                        synchronized (lock) {
+                            stack.pop();
+                            tagStack.pop();
+                        }
+                        fragmentManager.popBackStack();
+                    }
+                    synchronized (lock) {
+                        stack.pop();
+                        tagStack.pop();
+                    }
+                    fragmentManager.popBackStack();
+                    Log.i(STATE_TAG,"fragment newInstance");
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }
-                //fragmentManager.popBackStack();
             }
-            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }else {
+            Log.i(STATE_TAG,"fragment is exist");
+            if (fragment.isCleanStack()) {
+                Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
+                while (stack.size() > 1) {
+                    synchronized (lock) {
+                        stack.pop();
+                        tagStack.pop();
+                    }
+                    fragmentManager.popBackStack();
+                }
+                return;
+            }else{
+                Log.i(STATE_TAG,"fragment isCleanStack=false");
+                if(!fragment.isSingleton()){
+                    Log.i(STATE_TAG,"fragment isSingleton=false,newInstance");
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                }else{
+                    Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
+                    while (!tag.equals(tagStack.peek())) {
+                        synchronized (lock) {
+                            stack.pop();
+                            tagStack.pop();
+                        }
+                        fragmentManager.popBackStack();
+                    }
+                    synchronized (lock) {
+                        stack.pop();
+                        tagStack.pop();
+                    }
+                    fragmentManager.popBackStack();
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                }
+            }
         }
         if (customFragmentTransaction != null)
             customFragmentTransaction.fillTargetFragment(fragment);
@@ -220,13 +259,14 @@ public class CustomFragmentManager {
 
     private void attachFragment(Fragment fragment, String tag) {
         if (fragment != null) {
-            Log.i(STATE_TAG, "attachFragment tag=" + tag);
             if (fragment.isDetached()) {
+                Log.i(STATE_TAG, "attachFragment tag=" + tag);
                 beginTransaction().attach(fragment);
                 if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag);
                 }
             } else if (!fragment.isAdded()) {
+                Log.i(STATE_TAG, "replaceFragment tag=" + tag);
                 beginTransaction().replace(containerId, fragment, tag);
                 if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag);
@@ -261,19 +301,17 @@ public class CustomFragmentManager {
         }
         return false;
     }
-
     public boolean popBackStackAll() {
-        while (stack.size() > 1) {
-            synchronized (lock) {
-                stack.pop();
-                tagStack.pop();
+        if(stack.size() > 1){
+            while (stack.size() > 1) {
+                synchronized (lock) {
+                    stack.pop();
+                    tagStack.pop();
+                }
+                fragmentManager.popBackStack();
             }
         }
-        fragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        for (int i = 0; i <fragmentManager.getFragments().size() ; i++) {
-            Log.d("tag=="+(fragmentManager.getFragments().get(i)==null?"is null":fragmentManager.getFragments().get(i).getTag()));
-        }
-        return false;
+        return true;
     }
 
     public void commit() {

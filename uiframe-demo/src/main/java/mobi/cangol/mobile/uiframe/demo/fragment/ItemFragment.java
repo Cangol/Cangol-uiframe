@@ -16,6 +16,7 @@ public class ItemFragment extends BaseContentFragment {
 	private TextView mTextView1;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(getArguments()!=null)
 		mFlag=this.getArguments().getString("flag");
 	}
 	
