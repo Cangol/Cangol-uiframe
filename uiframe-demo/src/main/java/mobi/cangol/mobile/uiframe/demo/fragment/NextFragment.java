@@ -122,7 +122,8 @@ public class NextFragment extends BaseContentFragment {
 
 	@Override
 	protected FragmentInfo getNavigtionUpToFragment() {
-		return new FragmentInfo(ItemFragment.class,"ItemFragment",null);
+		//return new FragmentInfo(ItemFragment.class,"ItemFragment",null);
+		return null;
 	}
 
 	@Override
@@ -135,4 +136,15 @@ public class NextFragment extends BaseContentFragment {
 		return false;
 	}
 
+	@Override
+	public boolean onSupportNavigateUp() {
+		setContentFragment(HomeFragment.class,"HomeFragment",null);
+		return true;
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		setContentFragment(HomeFragment.class,"HomeFragment",null);
+		return true;
+	}
 }

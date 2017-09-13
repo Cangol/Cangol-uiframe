@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import mobi.cangol.mobile.logging.Log;
@@ -39,9 +40,13 @@ public class CustomFragmentManager {
         @Override
         public void run() {
             if (fragmentTransaction != null && fActivity != null) {
-                fragmentTransaction.commitAllowingStateLoss();
-                fragmentManager.executePendingTransactions();
-                fragmentTransaction = null;
+                try{
+                    fragmentTransaction.commitAllowingStateLoss();
+                    fragmentManager.executePendingTransactions();
+                    fragmentTransaction = null;
+                }catch (IllegalStateException e){
+                    Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                }
             }
         }
     };
@@ -115,51 +120,51 @@ public class CustomFragmentManager {
     public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (clazz.isAssignableFrom(BaseDialogFragment.class))
             throw new IllegalStateException("DialogFragment can not be attached to a container view");
-        if (stack.size() > 0) {
-            BaseFragment first = stack.firstElement();
-            if (first != null && tag.equals(tagStack.firstElement())) {
-                Log.i(STATE_TAG,"firstElement TAG="+tag);
-                if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
-                    if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
-                        beginTransaction().setCustomAnimations(enterAnimation, exitAnimation, popStackEnterAnimation, popStackExitAnimation);
-                    } else if (enterAnimation > 0 && exitAnimation > 0) {
-                        beginTransaction().setCustomAnimations(enterAnimation, exitAnimation);
-                    }else{
-                        beginTransaction();
-                    }
-                }
-                Log.i(STATE_TAG,"while pop");
-                while (stack.size() > 1) {
-                    synchronized (lock) {
-                        Log.i(STATE_TAG,"pop "+tagStack.peek());
-                        stack.pop();
-                        tagStack.pop();
-                    }
-                    fragmentManager.popBackStack();
-                }
-                return;
-            }
-
-            BaseFragment last = stack.peek();
-            if (last != null && clazz.isInstance(last)) {
-//				if (last.isCleanStack()){
-//					//return;//导致 fragmentTransaction 为null
-//				}else 
-                if (last.isSingleton()) {
-                    if (tag.equals(tagStack.peek())) {
-                        return;
-                    } else {
-                        synchronized (lock) {
-                            stack.pop();
-                            tagStack.pop();
-                        }
-                        fragmentManager.popBackStack();
-                    }
-                } else {
-                    //
-                }
-            }
-        }
+//        if (stack.size() > 0) {
+//            BaseFragment first = stack.firstElement();
+//            if (first != null && tag.equals(tagStack.firstElement())) {
+//                Log.i(STATE_TAG,"firstElement TAG="+tag);
+//                if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
+//                    if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
+//                        beginTransaction().setCustomAnimations(enterAnimation, exitAnimation, popStackEnterAnimation, popStackExitAnimation);
+//                    } else if (enterAnimation > 0 && exitAnimation > 0) {
+//                        beginTransaction().setCustomAnimations(enterAnimation, exitAnimation);
+//                    }else{
+//                        beginTransaction();
+//                    }
+//                }
+//                Log.i(STATE_TAG,"while pop");
+//                while (stack.size() > 1) {
+//                    synchronized (lock) {
+//                        Log.i(STATE_TAG,"pop "+tagStack.peek());
+//                        stack.pop();
+//                        tagStack.pop();
+//                    }
+//                    fragmentManager.popBackStack();
+//                }
+//                return;
+//            }
+//
+//            BaseFragment last = stack.peek();
+//            if (last != null && clazz.isInstance(last)) {
+////				if (last.isCleanStack()){
+////					//return;//导致 fragmentTransaction 为null
+////				}else
+//                if (last.isSingleton()) {
+//                    if (tag.equals(tagStack.peek())) {
+//                        return;
+//                    } else {
+//                        synchronized (lock) {
+//                            stack.pop();
+//                            tagStack.pop();
+//                        }
+//                        fragmentManager.popBackStack();
+//                    }
+//                } else {
+//                    //
+//                }
+//            }
+//        }
         BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
             Log.i(STATE_TAG,"fragment=null newInstance");
@@ -204,7 +209,7 @@ public class CustomFragmentManager {
                     }
                     fragmentManager.popBackStack();
                 }
-                return;
+                fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
                 if(!fragment.isSingleton()){
