@@ -45,7 +45,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     private long startTime;
     private HandlerThread handlerThread;
     private Handler handler;
-    public float getIdletime() {
+    public float getIdleTime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
 
@@ -222,7 +222,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdletime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
@@ -246,7 +246,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdletime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdleTime() + "s");
         app.delActivityFromManager(this);
         handlerThread.quit();
     }

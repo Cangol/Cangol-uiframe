@@ -46,7 +46,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     private long startTime;
     private HandlerThread handlerThread;
     private Handler handler;
-    public float getIdletime() {
+    public float getIdleTime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdletime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
