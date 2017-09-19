@@ -15,7 +15,6 @@
  */
 package mobi.cangol.mobile.navigation;
 
-import android.R.color;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -33,7 +32,7 @@ import mobi.cangol.mobile.uiframe.R;
 public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
-    private float mMenuWidth = 0.70f;
+    private float mMenuWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
     private boolean mMenuEnable = true;
 

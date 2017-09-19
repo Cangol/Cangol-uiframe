@@ -1,0 +1,230 @@
+package mobi.cangol.mobile.navigation;
+
+import android.app.Activity;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import mobi.cangol.mobile.base.BaseFragment;
+import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+import mobi.cangol.mobile.uiframe.R;
+
+/**
+ * Created by xuewu.wei on 2017/9/19.
+ */
+
+public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigationFragmentActivity {
+    private boolean mFloatActionBarEnabled;
+
+    public boolean isFloatActionBarEnabled() {
+        return mFloatActionBarEnabled;
+    }
+
+    public void setFloatActionBarEnabled(boolean floatActionBarEnabled) {
+        mFloatActionBarEnabled = floatActionBarEnabled;
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        this.setNavigationFragmentActivityDelegate(new TabDrawerNavigationFragmentActivityDelegate(
+                this));
+        super.onCreate(savedInstanceState);
+        this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
+        this.getCustomActionBar().setDisplayShowHomeEnabled(false);
+        //默认是无效的
+        this.setDrawerEnable(Gravity.LEFT,false);
+        this.setDrawerEnable(Gravity.RIGHT,false);
+    }
+
+    @Override
+    abstract public void findViews();
+
+    @Override
+    abstract public void initViews(Bundle savedInstanceState);
+
+    @Override
+    abstract public void initData(Bundle savedInstanceState);
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if (stack.size() <= 1) {
+            stack.peek().onSupportNavigateUp();
+            return true;
+        } else {
+            return super.onSupportNavigateUp();
+        }
+    }
+
+    public void setDrawerEnable(int gravity, boolean enable) {
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawerEnable(gravity, enable);
+        }else{
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+
+    public void showDrawer(int gravity, boolean show) {
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).showDrawer(gravity,show);
+        }else{
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+    public boolean isShowDrawer(int gravity) {
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).isShowDrawer(gravity);
+        }else{
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+
+    public void setDrawer(int gravity, Class<? extends BaseFragment> fragmentClass, Bundle args) {
+        BaseFragment drawerFragment = (BaseFragment) Fragment.instantiate(this, fragmentClass.getName(), args);
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawer(gravity, drawerFragment);
+        }else{
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+}
+
+class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFragmentActivityDelegate {
+
+    private BaseNavigationFragmentActivity mActivity;
+    private TabMenuDrawerLayout mDrawerLayout;
+    private FrameLayout mMenuView;
+    private FrameLayout mContentView;
+
+    public TabDrawerNavigationFragmentActivityDelegate(
+            BaseNavigationFragmentActivity activity) {
+        mActivity = activity;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        mDrawerLayout = (TabMenuDrawerLayout) LayoutInflater.from(mActivity).inflate(
+                R.layout.navigation_tab_drawer_main, null);
+
+        mContentView = (FrameLayout) mDrawerLayout.findViewById(R.id.content_view);
+        mMenuView = (FrameLayout) mDrawerLayout.findViewById(R.id.menu_view);
+    }
+
+    public void setDrawerEnable(int gravity, boolean enable) {
+        mDrawerLayout.setDrawerEnable(gravity, enable);
+    }
+
+    public void showDrawer(int gravity, boolean show) {
+        mDrawerLayout.showDrawer(gravity, show);
+    }
+
+    public boolean isShowDrawer(int gravity) {
+        return mDrawerLayout.isShowDrawer(gravity);
+    }
+
+    @Override
+    public int getMenuFrameId() {
+        return mMenuView.getId();
+    }
+
+    @Override
+    public ViewGroup getRootView() {
+        return mDrawerLayout;
+    }
+
+    @Override
+    public ViewGroup getMenuView() {
+        return mMenuView;
+    }
+
+    @Override
+    public ViewGroup getContentView() {
+        return mContentView;
+    }
+
+    @Override
+    public void setContentView(View v) {
+        mContentView.addView(v);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+
+    }
+
+    @Override
+    public void showMenu(boolean show) {
+        if (show) {
+            mMenuView.setVisibility(View.VISIBLE);
+        } else {
+            mMenuView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public boolean isShowMenu() {
+        return mMenuView.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public void setMenuEnable(boolean enable) {
+        if (enable) {
+            mMenuView.setVisibility(View.VISIBLE);
+        } else {
+            mMenuView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mDrawerLayout.isShowDrawer(Gravity.LEFT)) {
+                mDrawerLayout.showDrawer(Gravity.LEFT, false);
+                return true;
+            } else if (mDrawerLayout.isShowDrawer(Gravity.RIGHT)) {
+                mDrawerLayout.showDrawer(Gravity.RIGHT, false);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void attachToActivity(Activity activity) {
+        mDrawerLayout.attachToActivity(activity, ((TabDrawerNavigationFragmentActivity) activity).isFloatActionBarEnabled());
+    }
+
+    @Override
+    public BaseNavigationFragmentActivity getActivity() {
+        return mActivity;
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        mDrawerLayout.setBackgroundColor(color);
+    }
+
+    @Override
+    public void setBackgroundResource(int resId) {
+        mDrawerLayout.setBackgroundResource(resId);
+    }
+
+    public void setDrawer(int gravity, BaseFragment fragment) {
+        FragmentTransaction t = mActivity.getSupportFragmentManager()
+                .beginTransaction();
+        t.replace(gravity == Gravity.LEFT ? R.id.left_view : R.id.right_view, fragment, "DrawerFragment_" + gravity);
+        t.commitAllowingStateLoss();
+        mActivity.getSupportFragmentManager().executePendingTransactions();
+    }
+}
+
+

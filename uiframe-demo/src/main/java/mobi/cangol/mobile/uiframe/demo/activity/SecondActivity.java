@@ -1,7 +1,9 @@
-package mobi.cangol.mobile.uiframe.demo;
+package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import mobi.cangol.mobile.uiframe.demo.R;
 
 public class SecondActivity extends AppCompatActivity {
 

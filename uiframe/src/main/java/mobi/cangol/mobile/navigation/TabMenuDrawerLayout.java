@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2013 Cangol
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License")
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
@@ -23,6 +8,7 @@ import android.graphics.Rect;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -30,39 +16,39 @@ import android.widget.FrameLayout;
 import mobi.cangol.mobile.uiframe.R;
 
 
-public class DrawerMenuLayout extends DrawerLayout {
-    private FrameLayout mContentView;
-    private FrameLayout mMenuView;
-    private float mMenuWidth = 0.618f;
+public class TabMenuDrawerLayout extends DrawerLayout {
+
+    private ViewGroup mContentView;
+    private FrameLayout mLeftView;
+    private FrameLayout mRightView;
+    private float mDrawerWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
 
-    public DrawerMenuLayout(Context context, AttributeSet attrs) {
+    public TabMenuDrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mMenuView = new FrameLayout(context);
         mContentView = new FrameLayout(context);
+        mLeftView = new FrameLayout(context);
+        mRightView = new FrameLayout(context);
 
-        DrawerLayout.LayoutParams lp1 = new DrawerLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        mContentView.setId(R.id.content_view);
+        View tabRoot= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
+        tabRoot.setFitsSystemWindows(false);
+        mContentView.addView(tabRoot);
+
+        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mContentView.setId(R.id.main_view);
         this.addView(mContentView, lp1);
 
-        int width = (int) (mMenuWidth * context.getResources().getDisplayMetrics().widthPixels);
-        DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(width, LayoutParams.MATCH_PARENT);
+        int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
+
+        LayoutParams lp2 = new LayoutParams(width, LayoutParams.MATCH_PARENT);
         lp2.gravity = Gravity.LEFT;
-        mMenuView.setId(R.id.menu_view);
-        this.addView(mMenuView, lp2);
+        mLeftView.setId(R.id.left_view);
+        this.addView(mLeftView, lp2);
 
-    }
-
-    public int getMenuFrameId() {
-        return mMenuView.getId();
-    }
-
-    public int getContentFrameId() {
-        return mContentView.getId();
-    }
-
-    public ViewGroup getMenuView() {
-        return mMenuView;
+        LayoutParams lp3 = new LayoutParams(width, LayoutParams.MATCH_PARENT);
+        lp3.gravity = Gravity.RIGHT;
+        mRightView.setId(R.id.right_view);
+        this.addView(mRightView, lp3);
     }
 
     public ViewGroup getContentView() {
@@ -79,21 +65,20 @@ public class DrawerMenuLayout extends DrawerLayout {
         super.onConfigurationChanged(newConfig);
     }
 
-    public void showMenu(boolean show) {
+    public void showDrawer(int gravity, boolean show) {
         if (show) {
-            this.openDrawer(Gravity.LEFT);
+            this.openDrawer(gravity);
         } else {
-            this.closeDrawer(Gravity.LEFT);
+            this.closeDrawer(gravity);
         }
     }
 
-    public boolean isShowMenu() {
-        return this.isDrawerOpen(Gravity.LEFT);
+    public boolean isShowDrawer(int gravity) {
+        return this.isDrawerOpen(gravity);
     }
 
-    public void setMenuEnable(boolean enable) {
-        this.setDrawerLockMode(enable ? DrawerLayout.LOCK_MODE_UNLOCKED
-                : DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
+    public void setDrawerEnable(int gravity, boolean enable) {
+        this.setDrawerLockMode(enable ? DrawerLayout.LOCK_MODE_UNLOCKED : DrawerLayout.LOCK_MODE_LOCKED_CLOSED, gravity);
     }
 
     /*
@@ -107,20 +92,15 @@ public class DrawerMenuLayout extends DrawerLayout {
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
         if (isFloatActionBarEnabled) {
-//			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
-//					mContentView.getPaddingTop()+topPadding,
-//					mContentView.getPaddingRight()+rightPadding,
-//					mContentView.getPaddingBottom()+bottomPadding);
-//			mMenuView.setPadding(mMenuView.getPaddingLeft()+leftPadding,
-//					mMenuView.getPaddingTop()+topPadding,
-//					mMenuView.getPaddingRight()+rightPadding,
-//					mMenuView.getPaddingBottom()+bottomPadding);
-
             mContentView.setPadding(leftPadding,
                     topPadding,
                     rightPadding,
                     bottomPadding);
-            mMenuView.setPadding(leftPadding,
+            mLeftView.setPadding(leftPadding,
+                    topPadding,
+                    rightPadding,
+                    bottomPadding);
+            mRightView.setPadding(leftPadding,
                     topPadding,
                     rightPadding,
                     bottomPadding);
@@ -131,13 +111,15 @@ public class DrawerMenuLayout extends DrawerLayout {
     @Override
     public void setBackgroundColor(int color) {
         super.setBackgroundColor(color);
-        mMenuView.setBackgroundColor(color);
+        mRightView.setBackgroundColor(color);
+        mLeftView.setBackgroundColor(color);
     }
 
     @Override
     public void setBackgroundResource(int resId) {
         super.setBackgroundResource(resId);
-        mMenuView.setBackgroundResource(resId);
+        mRightView.setBackgroundResource(resId);
+        mLeftView.setBackgroundResource(resId);
     }
 
     public void attachToActivity(Activity activity, boolean mFloatActionBarEnabled) {

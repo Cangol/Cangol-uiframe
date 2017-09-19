@@ -1,16 +1,18 @@
-package mobi.cangol.mobile.uiframe.demo;
+package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
+import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
 
 @SuppressLint("ResourceAsColor")
-public class MainActivity extends TabNavigationFragmentActivity {
+public class TabActivity extends TabNavigationFragmentActivity {
 	private static long back_pressed;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

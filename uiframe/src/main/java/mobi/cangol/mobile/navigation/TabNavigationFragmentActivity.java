@@ -64,7 +64,7 @@ public abstract class TabNavigationFragmentActivity extends
 class TabNavigationFragmentActivityDelegate extends
         AbstractNavigationFragmentActivityDelegate {
     private BaseNavigationFragmentActivity mActivity;
-    private LinearLayout mRootView;
+    private ViewGroup mRootView;
     private FrameLayout mMenuView;
     private FrameLayout mContentView;
 
@@ -75,7 +75,7 @@ class TabNavigationFragmentActivityDelegate extends
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mRootView = (LinearLayout) LayoutInflater.from(mActivity).inflate(
+        mRootView = (ViewGroup) LayoutInflater.from(mActivity).inflate(
                 R.layout.navigation_tab_main, null);
         mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
         mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);

@@ -42,6 +42,10 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         this.mHelper = mHelper;
     }
 
+    public AbstractNavigationFragmentActivityDelegate getNavigationFragmentActivityDelegate() {
+        return mHelper;
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
