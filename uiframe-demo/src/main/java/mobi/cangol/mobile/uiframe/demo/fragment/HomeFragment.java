@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.parser.JsonUtils;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.cache.CacheManager;
@@ -108,6 +110,15 @@ public class HomeFragment extends BaseContentFragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sno", 1);
                 setContentFragment(SingletonFragment.class, "SingletonFragment", bundle);
+
+            }
+
+        });
+        findViewById(R.id.button5).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
+                ((TabDrawerNavigationFragmentActivity)getActivity()).showDrawer(Gravity.RIGHT,true);
 
             }
 

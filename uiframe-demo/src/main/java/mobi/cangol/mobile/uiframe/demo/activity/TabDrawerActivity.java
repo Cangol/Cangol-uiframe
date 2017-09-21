@@ -8,6 +8,7 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
 
@@ -19,18 +20,20 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		super.onCreate(savedInstanceState);
 		this.setStatusBarTintColor(R.color.red);
 		this.setNavigationBarTintColor(R.color.black);
+
 		setContentView(R.layout.activity_main);
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
+			this.setDrawer(Gravity.RIGHT,ListFragment.class, null);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
+
+		this.setFloatActionBarEnabled(false);
 		this.setDrawerEnable(Gravity.RIGHT,true);
-		this.setFloatActionBarEnabled(true);
-		this.setDrawer(Gravity.RIGHT, MenuLeftFragment.class,null);
 	}
 
 	@Override

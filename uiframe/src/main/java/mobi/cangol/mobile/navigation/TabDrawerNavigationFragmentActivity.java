@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         super.onCreate(savedInstanceState);
         this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
         this.getCustomActionBar().setDisplayShowHomeEnabled(false);
-        //默认是无效的
+        //默认是不能滑动的
         this.setDrawerEnable(Gravity.LEFT,false);
         this.setDrawerEnable(Gravity.RIGHT,false);
     }
@@ -117,6 +118,36 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
 
         mContentView = (FrameLayout) mDrawerLayout.findViewById(R.id.content_view);
         mMenuView = (FrameLayout) mDrawerLayout.findViewById(R.id.menu_view);
+        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment!=null&& fragment instanceof BaseFragment){
+                    ((BaseFragment)fragment).onDrawerSlide(slideOffset);
+                }
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment!=null){
+                    fragment.setUserVisibleHint(true);
+                }
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment!=null){
+                    fragment.setUserVisibleHint(false);
+                }
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     public void setDrawerEnable(int gravity, boolean enable) {
@@ -219,6 +250,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
     }
 
     public void setDrawer(int gravity, BaseFragment fragment) {
+        fragment.setUserVisibleHint(false);
         FragmentTransaction t = mActivity.getSupportFragmentManager()
                 .beginTransaction();
         t.replace(gravity == Gravity.LEFT ? R.id.left_view : R.id.right_view, fragment, "DrawerFragment_" + gravity);

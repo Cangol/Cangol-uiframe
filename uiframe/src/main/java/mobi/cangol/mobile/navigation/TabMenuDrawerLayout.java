@@ -18,7 +18,7 @@ import mobi.cangol.mobile.uiframe.R;
 
 public class TabMenuDrawerLayout extends DrawerLayout {
 
-    private ViewGroup mContentView;
+    private ViewGroup mRootView;
     private FrameLayout mLeftView;
     private FrameLayout mRightView;
     private float mDrawerWidth = 0.618f;
@@ -26,17 +26,14 @@ public class TabMenuDrawerLayout extends DrawerLayout {
 
     public TabMenuDrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContentView = new FrameLayout(context);
         mLeftView = new FrameLayout(context);
         mRightView = new FrameLayout(context);
 
-        View tabRoot= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
-        tabRoot.setFitsSystemWindows(false);
-        mContentView.addView(tabRoot);
-
+        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
+        mRootView.setFitsSystemWindows(false);
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        mContentView.setId(R.id.main_view);
-        this.addView(mContentView, lp1);
+        mRootView.setId(R.id.main_view);
+        this.addView(mRootView, lp1);
 
         int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
 
@@ -52,12 +49,12 @@ public class TabMenuDrawerLayout extends DrawerLayout {
     }
 
     public ViewGroup getContentView() {
-        return mContentView;
+        return (ViewGroup) mRootView.findViewById(R.id.content_view);
     }
 
     public void setContentView(View v) {
-        mContentView.removeAllViews();
-        mContentView.addView(v);
+        getContentView().removeAllViews();
+        getContentView().addView(v);
     }
 
     @Override
@@ -92,7 +89,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
         if (isFloatActionBarEnabled) {
-            mContentView.setPadding(leftPadding,
+            mRootView.setPadding(leftPadding,
                     topPadding,
                     rightPadding,
                     bottomPadding);

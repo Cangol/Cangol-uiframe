@@ -218,6 +218,10 @@ public abstract class BaseFragment extends Fragment {
         //handlerThread.quit();
     }
 
+    public void onDrawerSlide(float slideOffset){
+        if (LIFECYCLE) Log.v(TAG, "onDrawerSlide");
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

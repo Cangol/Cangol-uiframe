@@ -55,6 +55,7 @@ public class MenuLeftFragment extends BaseMenuFragment{
 		super.onActivityCreated(savedInstanceState);
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
+		Log.d("getUserVisibleHint "+getUserVisibleHint());
 	}
 	
 	@Override
@@ -141,9 +142,15 @@ public class MenuLeftFragment extends BaseMenuFragment{
 	}
 
 	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		Log.d("setUserVisibleHint "+isVisibleToUser);
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
-		Log.d("onResume");
+		Log.d("getUserVisibleHint "+getUserVisibleHint());
 	}
 
 	@Override
