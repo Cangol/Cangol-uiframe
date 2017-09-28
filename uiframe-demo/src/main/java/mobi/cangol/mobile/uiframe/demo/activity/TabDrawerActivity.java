@@ -1,6 +1,8 @@
 package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Gravity;
 
@@ -32,10 +34,9 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 
-		this.setFloatActionBarEnabled(false);
+		this.setFloatActionBarEnabled(true);
 		this.setDrawerEnable(Gravity.RIGHT,true);
 	}
-
 	@Override
 	protected void onStart() {
 		super.onStart();

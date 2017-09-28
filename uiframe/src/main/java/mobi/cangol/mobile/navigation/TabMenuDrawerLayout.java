@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mRightView = new FrameLayout(context);
 
         mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
-        mRootView.setFitsSystemWindows(false);
+        //mRootView.setFitsSystemWindows(false);
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mRootView.setId(R.id.main_view);
         this.addView(mRootView, lp1);
@@ -88,6 +89,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         int rightPadding = insets.right;
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
+        Log.d("fitSystemWindows",""+insets.toString());
         if (isFloatActionBarEnabled) {
             mRootView.setPadding(leftPadding,
                     topPadding,
