@@ -21,7 +21,6 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		this.setStatusBarTintColor(R.color.red);
 		this.setNavigationBarTintColor(R.color.black);
 		setContentView(R.layout.activity_main);
-		this.setFloatActionBarEnabled(true);
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuLeftFragment.class,null);
@@ -30,7 +29,7 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
-		this.setFloatActionBarEnabled(false);
+		this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
         //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {

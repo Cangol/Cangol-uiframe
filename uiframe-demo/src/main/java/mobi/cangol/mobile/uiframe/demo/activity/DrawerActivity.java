@@ -32,7 +32,6 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
-		this.setFloatActionBarEnabled(false);
         //this.initFragmentStack(R.id.content_frame);
         //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {

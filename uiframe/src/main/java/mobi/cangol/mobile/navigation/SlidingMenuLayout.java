@@ -129,21 +129,13 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
      */
     @Override
     protected boolean fitSystemWindows(Rect insets) {
+        super.fitSystemWindows(insets);
         int leftPadding = insets.left;
         int rightPadding = insets.right;
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
         Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
-//			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
-//					mContentView.getPaddingTop()+topPadding,
-//					mContentView.getPaddingRight()+rightPadding,
-//					mContentView.getPaddingBottom()+bottomPadding);
-//			mMenuView.setPadding(mMenuView.getPaddingLeft()+leftPadding,
-//					mMenuView.getPaddingTop()+topPadding,
-//					mMenuView.getPaddingRight()+rightPadding,
-//					mMenuView.getPaddingBottom()+bottomPadding);
-
             mContentView.setPadding(leftPadding,
                     topPadding,
                     rightPadding,

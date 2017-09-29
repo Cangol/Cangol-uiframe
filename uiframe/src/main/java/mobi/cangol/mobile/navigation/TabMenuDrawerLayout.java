@@ -30,10 +30,10 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mLeftView = new FrameLayout(context);
         mRightView = new FrameLayout(context);
 
-        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, this);
-        //LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
+        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mRootView.setId(R.id.main_view);
-        //this.addView(mRootView, lp1);
+        this.addView(mRootView, lp1);
 
         int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
 
@@ -84,6 +84,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
      */
     @Override
     protected boolean fitSystemWindows(Rect insets) {
+        super.fitSystemWindows(insets);
         int leftPadding = insets.left;
         int rightPadding = insets.right;
         int topPadding = insets.top;

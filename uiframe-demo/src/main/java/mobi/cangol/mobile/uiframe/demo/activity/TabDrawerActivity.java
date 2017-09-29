@@ -25,6 +25,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 
 		setContentView(R.layout.activity_main);
 		this.getCustomActionBar().setBackgroundResource(R.color.red);
+		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
@@ -33,8 +34,6 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
-
-		this.setFloatActionBarEnabled(false);
 		this.setDrawerEnable(Gravity.RIGHT,true);
 	}
 	@Override
