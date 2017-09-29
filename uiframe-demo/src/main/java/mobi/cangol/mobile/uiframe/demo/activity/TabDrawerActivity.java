@@ -34,7 +34,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 
-		this.setFloatActionBarEnabled(true);
+		this.setFloatActionBarEnabled(false);
 		this.setDrawerEnable(Gravity.RIGHT,true);
 	}
 	@Override

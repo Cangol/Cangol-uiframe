@@ -30,11 +30,10 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mLeftView = new FrameLayout(context);
         mRightView = new FrameLayout(context);
 
-        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
-        //mRootView.setFitsSystemWindows(false);
-        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, this);
+        //LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mRootView.setId(R.id.main_view);
-        this.addView(mRootView, lp1);
+        //this.addView(mRootView, lp1);
 
         int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
 
@@ -89,7 +88,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         int rightPadding = insets.right;
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
-        Log.d("fitSystemWindows",""+insets.toString());
+        Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
             mRootView.setPadding(leftPadding,
                     topPadding,
@@ -121,15 +120,15 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mLeftView.setBackgroundResource(resId);
     }
 
-    public void attachToActivity(Activity activity, boolean mFloatActionBarEnabled) {
+    public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
         // get the window background
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
         int background = a.getResourceId(0, 0);
         a.recycle();
 
-        this.isFloatActionBarEnabled = mFloatActionBarEnabled;
+        this.isFloatActionBarEnabled = isFloatActionBarEnabled;
 
-        if (mFloatActionBarEnabled) {
+        if (isFloatActionBarEnabled) {
             ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
             ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
             if (decorChild.getBackground() != null) {

@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,6 +133,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         int rightPadding = insets.right;
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
+        Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
 //			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
 //					mContentView.getPaddingTop()+topPadding,

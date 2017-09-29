@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         int rightPadding = insets.right;
         int topPadding = insets.top;
         int bottomPadding = insets.bottom;
+        Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
 //			mContentView.setPadding(mContentView.getPaddingLeft()+leftPadding,
 //					mContentView.getPaddingTop()+topPadding,
@@ -140,15 +142,15 @@ public class DrawerMenuLayout extends DrawerLayout {
         mMenuView.setBackgroundResource(resId);
     }
 
-    public void attachToActivity(Activity activity, boolean mFloatActionBarEnabled) {
+    public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
         // get the window background
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
         int background = a.getResourceId(0, 0);
         a.recycle();
 
-        this.isFloatActionBarEnabled = mFloatActionBarEnabled;
+        this.isFloatActionBarEnabled = isFloatActionBarEnabled;
 
-        if (mFloatActionBarEnabled) {
+        if (isFloatActionBarEnabled) {
             ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
             ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
             if (decorChild.getBackground() != null) {

@@ -1,5 +1,5 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="ActionBarTheme.Dark">
+    <style name="AppTheme.Dark" parent="ActionBarTheme.Dark">
     </style>
 </resources>
