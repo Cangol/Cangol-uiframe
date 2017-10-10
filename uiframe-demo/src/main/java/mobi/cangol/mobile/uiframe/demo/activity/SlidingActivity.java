@@ -71,6 +71,6 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 	}
 
 	public int getContentFrameId() {
-		return R.id.content_frame;
+		return R.id.frame_main;
 	}
 }

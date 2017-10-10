@@ -1,8 +1,6 @@
 package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Gravity;
 
@@ -12,7 +10,6 @@ import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
 
 @SuppressLint("ResourceAsColor")
 public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
@@ -34,7 +31,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
-		this.setDrawerEnable(Gravity.RIGHT,true);
+		//this.setDrawerEnable(Gravity.RIGHT,true);
 	}
 	@Override
 	protected void onStart() {
@@ -67,6 +64,6 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 	}
 
 	public int getContentFrameId() {
-		return R.id.content_frame;
+		return R.id.frame_main;
 	}
 }

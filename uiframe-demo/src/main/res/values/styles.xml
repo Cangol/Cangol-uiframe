@@ -1,5 +1,9 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme.Dark" parent="ActionBarTheme.Dark">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="actionbar_background">@color/red</item>
+        <item name="actionbar_title">@color/white</item>
     </style>
 </resources>

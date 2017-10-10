@@ -70,6 +70,6 @@ public class TabActivity extends TabNavigationFragmentActivity {
 	}
 
 	public int getContentFrameId() {
-		return R.id.content_frame;
+		return R.id.frame_main;
 	}
 }

@@ -2,11 +2,9 @@ package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Gravity;
 
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
-import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
@@ -73,6 +71,6 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 	}
 
 	public int getContentFrameId() {
-		return R.id.content_frame;
+		return R.id.frame_main;
 	}
 }
