@@ -114,15 +114,49 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
-        findViewById(R.id.button5).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
-                ((TabDrawerNavigationFragmentActivity)getActivity()).showDrawer(Gravity.RIGHT,true);
+        if(getActivity() instanceof TabDrawerNavigationFragmentActivity){
+            findViewById(R.id.button5).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
+                        ((TabDrawerNavigationFragmentActivity)getActivity()).setDrawer(Gravity.RIGHT,ListFragment.class, null);
 
-            }
+                }
 
-        });
+            });
+            findViewById(R.id.button6).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
+                        showToast(""+((TabDrawerNavigationFragmentActivity)getActivity()).getDrawer(Gravity.RIGHT));
+
+                }
+
+            });
+            findViewById(R.id.button7).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
+                        ((TabDrawerNavigationFragmentActivity)getActivity()).showDrawer(Gravity.RIGHT,true);
+
+                }
+
+            });
+            findViewById(R.id.button8).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity() instanceof TabDrawerNavigationFragmentActivity)
+                        ((TabDrawerNavigationFragmentActivity)getActivity()).removeDrawer(Gravity.RIGHT);
+
+                }
+
+            });
+        }else{
+            findViewById(R.id.button5).setVisibility(View.GONE);
+            findViewById(R.id.button6).setVisibility(View.GONE);
+            findViewById(R.id.button7).setVisibility(View.GONE);
+            findViewById(R.id.button8).setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -31,6 +31,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     public void setFloatActionBarEnabled(boolean floatActionBarEnabled) {
         mFloatActionBarEnabled = floatActionBarEnabled;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setNavigationFragmentActivityDelegate(new TabDrawerNavigationFragmentActivityDelegate(
@@ -39,8 +40,8 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         this.getCustomActionBar().setTitleGravity(Gravity.CENTER);
         this.getCustomActionBar().setDisplayShowHomeEnabled(false);
         //默认是不能滑动的
-        this.setDrawerEnable(Gravity.LEFT,false);
-        this.setDrawerEnable(Gravity.RIGHT,false);
+        this.setDrawerEnable(Gravity.LEFT, false);
+        this.setDrawerEnable(Gravity.RIGHT, false);
     }
 
     @Override
@@ -66,7 +67,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() != null
                 && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawerEnable(gravity, enable);
-        }else{
+        } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
         }
     }
@@ -74,16 +75,17 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     public void showDrawer(int gravity, boolean show) {
         if (getNavigationFragmentActivityDelegate() != null
                 && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
-            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).showDrawer(gravity,show);
-        }else{
+            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).showDrawer(gravity, show);
+        } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
         }
     }
+
     public boolean isShowDrawer(int gravity) {
         if (getNavigationFragmentActivityDelegate() != null
                 && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).isShowDrawer(gravity);
-        }else{
+        } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
         }
     }
@@ -93,7 +95,25 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() != null
                 && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawer(gravity, drawerFragment);
-        }else{
+        } else {
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+
+    public BaseFragment getDrawer(int gravity) {
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).getDrawer(gravity);
+        } else {
+            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+        }
+    }
+
+    public void removeDrawer(int gravity) {
+        if (getNavigationFragmentActivityDelegate() != null
+                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+            ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).removeDrawer(gravity);
+        } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
         }
     }
@@ -121,24 +141,24 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment!=null&& fragment instanceof BaseFragment){
-                    ((BaseFragment)fragment).onDrawerSlide(slideOffset);
+                Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment != null && fragment instanceof BaseFragment) {
+                    ((BaseFragment) fragment).onDrawerSlide(slideOffset);
                 }
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment!=null){
+                Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment != null) {
                     fragment.setUserVisibleHint(true);
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                Fragment fragment=mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment!=null){
+                Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
+                if (fragment != null) {
                     fragment.setUserVisibleHint(false);
                 }
             }
@@ -257,6 +277,27 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
         t.commitAllowingStateLoss();
         mActivity.getSupportFragmentManager().executePendingTransactions();
     }
+
+    public BaseFragment getDrawer(int gravity) {
+        Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(gravity == Gravity.LEFT ? R.id.left_view : R.id.right_view);
+        if(fragment!=null){
+            return (BaseFragment) fragment;
+        }else{
+            return null;
+        }
+    }
+
+    public void removeDrawer(int gravity) {
+        Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(gravity == Gravity.LEFT ? R.id.left_view : R.id.right_view);
+        if(fragment!=null){
+            FragmentTransaction t = mActivity.getSupportFragmentManager()
+                    .beginTransaction();
+            t.remove(fragment);
+            t.commitAllowingStateLoss();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+        }
+    }
+
 }
 
 

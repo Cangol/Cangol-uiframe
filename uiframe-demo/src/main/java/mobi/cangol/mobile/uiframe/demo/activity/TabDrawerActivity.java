@@ -26,7 +26,6 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
-			this.setDrawer(Gravity.RIGHT,ListFragment.class, null);
 		}
 		findViews();
 		initViews(savedInstanceState);
@@ -36,7 +35,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Log.v("onStart " + System.currentTimeMillis());
+		Log.v("onStart " + getDrawer(Gravity.RIGHT));
 
 	}
 

@@ -18,7 +18,6 @@ import mobi.cangol.mobile.uiframe.R;
 
 
 public class TabMenuDrawerLayout extends DrawerLayout {
-
     private ViewGroup mRootView;
     private FrameLayout mLeftView;
     private FrameLayout mRightView;
@@ -64,7 +63,13 @@ public class TabMenuDrawerLayout extends DrawerLayout {
 
     public void showDrawer(int gravity, boolean show) {
         if (show) {
-            this.openDrawer(gravity);
+            if(gravity==Gravity.LEFT&&mLeftView.getChildCount()>0){
+                this.openDrawer(gravity);
+            }else if(gravity==Gravity.RIGHT&&mRightView.getChildCount()>0){
+                this.openDrawer(gravity);
+            }else{
+                Log.e("showDrawer","gravity is not LEFT|RIGHT,drawer is empty");
+            }
         } else {
             this.closeDrawer(gravity);
         }
