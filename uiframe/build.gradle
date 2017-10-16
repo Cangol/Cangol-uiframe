@@ -21,6 +21,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
+        multiDexEnabled true
         versionCode Integer.decode("${POM_VERSION_CODE}")
         versionName "${POM_VERSION}"
     }
