@@ -28,6 +28,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -138,6 +139,23 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (LIFECYCLE) Log.v(TAG, "onAttach");
+    }
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        if (LIFECYCLE) Log.v(TAG, "onAttachFragment");
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (LIFECYCLE) Log.v(TAG, "onCreateAnimation");
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode);
+        if (LIFECYCLE) Log.v(TAG, "onMultiWindowModeChanged");
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -624,7 +642,9 @@ public abstract class BaseFragment extends Fragment {
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
+    protected void handleMessage(Message msg) {
 
+    }
     final static class InternalHandler extends Handler {
         private final WeakReference<BaseFragment> mFragmentRef;
 
@@ -636,7 +656,7 @@ public abstract class BaseFragment extends Fragment {
         public void handleMessage(Message msg) {
             BaseFragment fragment = mFragmentRef.get();
             if (fragment != null&&fragment.isEnable()) {
-                handleMessage(msg);
+                fragment.handleMessage(msg);
             }
         }
     }

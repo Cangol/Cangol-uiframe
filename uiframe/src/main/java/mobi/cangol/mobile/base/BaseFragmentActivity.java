@@ -265,6 +265,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
+    protected void handleMessage(Message msg) {
+
+    }
     final static class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
@@ -276,7 +279,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         public void handleMessage(Message msg) {
             Context context = mContext.get();
             if (context != null) {
-                handleMessage(msg);
+                ((BaseFragmentActivity)context).handleMessage(msg);
             }
         }
     }

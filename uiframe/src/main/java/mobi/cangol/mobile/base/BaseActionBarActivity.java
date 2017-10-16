@@ -298,6 +298,9 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
+    protected void handleMessage(Message msg) {
+
+    }
     final static class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
@@ -309,7 +312,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         public void handleMessage(Message msg) {
             Context context = mContext.get();
             if (context != null) {
-                handleMessage(msg);
+                ((BaseActionBarActivity)context).handleMessage(msg);
             }
         }
     }
