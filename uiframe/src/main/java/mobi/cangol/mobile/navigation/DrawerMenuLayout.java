@@ -103,7 +103,6 @@ public class DrawerMenuLayout extends DrawerLayout {
      */
     @Override
     protected boolean fitSystemWindows(Rect insets) {
-        super.fitSystemWindows(insets);
         int leftPadding = insets.left;
         int rightPadding = insets.right;
         int topPadding = insets.top;
