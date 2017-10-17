@@ -642,10 +642,23 @@ public abstract class BaseFragment extends Fragment {
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
+
+    protected void postRunnable(StaticInnerRunnable runnable) {
+        if (handler!= null && runnable != null)
+            handler.post(runnable);
+    }
+
     protected void handleMessage(Message msg) {
 
     }
-    final static class InternalHandler extends Handler {
+
+    protected  static class StaticInnerRunnable implements Runnable{
+        @Override
+        public void run() {
+        }
+    }
+
+    protected  final static class InternalHandler extends Handler {
         private final WeakReference<BaseFragment> mFragmentRef;
 
         public InternalHandler(BaseFragment fragment,Looper looper) {

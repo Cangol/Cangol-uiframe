@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -72,7 +73,24 @@ public class HomeFragment extends BaseContentFragment {
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
+
+
+                postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(""+this);
+                        SystemClock.sleep(10000);
+                    }
+                });
+
+                postRunnable(new StaticInnerRunnable() {
+                    @Override
+                    public void run() {
+                        Log.d(""+this);
+                        SystemClock.sleep(10000);
+                    }
+                });
+                //replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
             }
 
         });
@@ -199,6 +217,12 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        getHandler().getLooper().quit();
+        super.onDestroy();
     }
 
     @Override
