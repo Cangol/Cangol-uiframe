@@ -38,7 +38,6 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragmentActivity extends FragmentActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
-    protected CoreApplication app;
     private CustomFragmentManager stack;
     private long startTime;
     private HandlerThread handlerThread;
@@ -56,8 +55,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        app = (CoreApplication) this.getApplication();
-        app.addActivityToManager(this);
+        ((CoreApplication) this.getApplication()).addActivityToManager(this);
     }
     @Override
     public void showToast(int resId) {
@@ -106,23 +104,18 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         return stack;
     }
 
-    /**
-     * 获取AppService
-     *
-     * @param name
-     * @return
-     */
+    @Override
+    public CoreApplication getCoreApplication(){
+        return (CoreApplication) this.getApplication();
+    }
+    @Override
     public AppService getAppService(String name) {
-        return app.getAppService(name);
+        return  getCoreApplication().getAppService(name);
     }
 
-    /**
-     * 获取Session
-     *
-     * @return
-     */
+    @Override
     public SessionService getSession() {
-        return app.getSession();
+        return  getCoreApplication().getSession();
     }
 
     @Override
@@ -161,7 +154,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdleTime() + "s");
 
-        app.delActivityFromManager(this);
+        ((CoreApplication) this.getApplication()).delActivityFromManager(this);
         handlerThread.quit();
     }
 
@@ -260,13 +253,17 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         return handler;
     }
 
-    @Override
-    public void postRunnable(Runnable runnable) {
+    protected void postRunnable(StaticInnerRunnable runnable) {
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
 
+    }
+    protected  static class StaticInnerRunnable implements Runnable{
+        @Override
+        public void run() {
+        }
     }
     final static class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;

@@ -40,7 +40,6 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
-    protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
     private HandlerThread handlerThread;
@@ -63,8 +62,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        app = (CoreApplication) this.getApplication();
-        app.addActivityToManager(this);
+        ((CoreApplication) this.getApplication()).addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
     }
 
@@ -119,13 +117,17 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
+    public CoreApplication getCoreApplication(){
+        return (CoreApplication) this.getApplication();
+    }
+    @Override
     public AppService getAppService(String name) {
-        return app.getAppService(name);
+        return  getCoreApplication().getAppService(name);
     }
 
     @Override
     public SessionService getSession() {
-        return app.getSession();
+        return  getCoreApplication().getSession();
     }
 
     @Override
@@ -247,7 +249,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected void onDestroy() {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdleTime() + "s");
-        app.delActivityFromManager(this);
+        ((CoreApplication) this.getApplication()).delActivityFromManager(this);
         handlerThread.quit();
     }
 
@@ -293,13 +295,17 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         return handler;
     }
 
-    @Override
-    public void postRunnable(Runnable runnable) {
+    protected void postRunnable(StaticInnerRunnable runnable) {
         if (handler!= null && runnable != null)
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
 
+    }
+    protected  static class StaticInnerRunnable implements Runnable{
+        @Override
+        public void run() {
+        }
     }
     final static class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;

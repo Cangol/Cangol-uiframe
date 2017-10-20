@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.EditText;
 
+import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
@@ -75,6 +76,11 @@ public interface BaseActivityDelegate {
     void showToast(String str, int duration);
 
     /**
+     * 获取CoreApplication
+     * @return
+     */
+    CoreApplication getCoreApplication();
+    /**
      * 获取AppService
      *
      * @param name
@@ -120,10 +126,5 @@ public interface BaseActivityDelegate {
      * 获取一个主线程的Handler
      */
     Handler getHandler();
-
-    /**
-     * post一个非ui线程
-     */
-    void postRunnable(Runnable runnable);
 
 }

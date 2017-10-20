@@ -74,15 +74,6 @@ public class HomeFragment extends BaseContentFragment {
             @Override
             public void onClick(View v) {
 
-
-                postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(""+this);
-                        SystemClock.sleep(10000);
-                    }
-                });
-
                 postRunnable(new StaticInnerRunnable() {
                     @Override
                     public void run() {

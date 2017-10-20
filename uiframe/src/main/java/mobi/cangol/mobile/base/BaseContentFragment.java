@@ -214,7 +214,6 @@ public abstract class BaseContentFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setMenuVisibility(true);
-        app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState == null) {
 
         } else {

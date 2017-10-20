@@ -44,7 +44,6 @@ public abstract class BaseFragment extends Fragment {
     public static final int RESULT_OK = -1;
     protected  final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
-    protected CoreApplication app;
     private long startTime;
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
@@ -116,13 +115,20 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 获取CoreApplication
+     * @return
+     */
+    public CoreApplication getCoreApplication(){
+        return  ((CoreApplication) this.getActivity().getApplication());
+    }
+    /**
      * 获取AppService
      *
      * @param name
      * @return
      */
     public AppService getAppService(String name) {
-        return app.getAppService(name);
+        return  getCoreApplication().getAppService(name);
     }
 
     /**
@@ -131,7 +137,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public SessionService getSession() {
-        return app.getSession();
+        return  getCoreApplication().getSession();
     }
 
 
@@ -164,7 +170,6 @@ public abstract class BaseFragment extends Fragment {
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState == null) {
 
         } else {
@@ -231,9 +236,9 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        getHandler().getLooper().quit();
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
-        //handlerThread.quit();
     }
 
     public void onDrawerSlide(float slideOffset){
@@ -636,11 +641,6 @@ public abstract class BaseFragment extends Fragment {
     }
     protected Handler getHandler() {
         return handler;
-    }
-
-    protected void postRunnable(Runnable runnable) {
-        if (handler!= null && runnable != null)
-            handler.post(runnable);
     }
 
     protected void postRunnable(StaticInnerRunnable runnable) {

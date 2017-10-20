@@ -43,7 +43,6 @@ public class TabActivity extends TabNavigationFragmentActivity {
 	protected void onStart() {
 		super.onStart();
 		Log.v("onStart " + System.currentTimeMillis());
-
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 	public void onBack() {
 		if(back_pressed+2000>System.currentTimeMillis()){
 			super.onBack();
-			app.exit();
+			getCoreApplication().exit();
 		}else{
 			back_pressed=System.currentTimeMillis();
             showToast("Please on back");
