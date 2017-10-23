@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Stack;
 
@@ -359,17 +360,19 @@ public class CustomFragmentManager {
 
     /**
      * 判断是否执行了onSaveInstanceState
-     * Support 26.0.0-alpha1 以后才有此方法
+     * Support 26.0.0-alpha1 之后才有isStateSaved方法
+     * 这里用反射直接读取mStateSaved字段，兼容旧的版本
+     *
      * @return
      */
     public boolean isStateSaved(){
         Class implClass=null;
-        Method method=null;
+        Field field=null;
         try {
             implClass=Class.forName("android.support.v4.app.FragmentManagerImpl");
-            method = implClass.getDeclaredMethod("isStateSaved");
-            method.setAccessible(true);
-            return  (Boolean) method.invoke(implClass.cast(fragmentManager));
+            field=implClass.getDeclaredField("mStateSaved");
+            field.setAccessible(true);
+            return  (Boolean) field.get(implClass.cast(fragmentManager));
         } catch (Exception e) {
             Log.e("isStateSaved", ""+e.getMessage(),e);
         }

@@ -534,7 +534,7 @@ public abstract class BaseFragment extends Fragment {
                 stack = bfActivity.getCustomFragmentManager();
             }
         }
-        if(!stack.isStateSaved()){
+        if(!isStateSaved()){
             stack.replace(fragmentClass, tag, args, customFragmentTransaction);
             stack.commit();
         }else{
@@ -607,7 +607,7 @@ public abstract class BaseFragment extends Fragment {
      */
     final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (stack != null) {
-            if(!stack.isStateSaved()){
+            if(!isStateSaved()){
                 stack.replace(fragmentClass, tag, args, customFragmentTransaction);
                 stack.commit();
             }else{
