@@ -38,6 +38,7 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragmentActivity extends FragmentActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
+    protected CoreApplication app;
     private CustomFragmentManager stack;
     private long startTime;
     private HandlerThread handlerThread;
@@ -55,7 +56,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        ((CoreApplication) this.getApplication()).addActivityToManager(this);
+        app = (CoreApplication) this.getApplication();
+        app.addActivityToManager(this);
     }
     @Override
     public void showToast(int resId) {
@@ -104,18 +106,23 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         return stack;
     }
 
-    @Override
-    public CoreApplication getCoreApplication(){
-        return (CoreApplication) this.getApplication();
-    }
-    @Override
+    /**
+     * 获取AppService
+     *
+     * @param name
+     * @return
+     */
     public AppService getAppService(String name) {
-        return  getCoreApplication().getAppService(name);
+        return app.getAppService(name);
     }
 
-    @Override
+    /**
+     * 获取Session
+     *
+     * @return
+     */
     public SessionService getSession() {
-        return  getCoreApplication().getSession();
+        return app.getSession();
     }
 
     @Override
@@ -152,9 +159,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdleTime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onDestroy");
 
-        ((CoreApplication) this.getApplication()).delActivityFromManager(this);
+        app.delActivityFromManager(this);
         handlerThread.quit();
     }
 

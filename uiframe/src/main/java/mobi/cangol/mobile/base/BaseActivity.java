@@ -42,6 +42,7 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
+    public CoreApplication app;
     private long startTime;
     private HandlerThread handlerThread;
     private Handler handler;
@@ -59,7 +60,8 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        ((CoreApplication) this.getApplication()).addActivityToManager(this);
+        app = (CoreApplication) this.getApplication();
+        app.addActivityToManager(this);
     }
     @Override
     public void showToast(int resId) {
@@ -126,18 +128,12 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public CoreApplication getCoreApplication(){
-        return (CoreApplication) this.getApplication();
-    }
-    @Override
-    public AppService getAppService(String name) {
-        return  getCoreApplication().getAppService(name);
+    public SessionService getSession() {
+        return app.getSession();
     }
 
-    @Override
-    public SessionService getSession() {
-        return  getCoreApplication().getSession();
+    public AppService getAppService(String name) {
+        return app.getAppService(name);
     }
 
     @Override
@@ -149,7 +145,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     @Override
     protected void onDestroy() {
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
-        ((CoreApplication) this.getApplication()).delActivityFromManager(this);
+        app.delActivityFromManager(this);
         super.onDestroy();
         handlerThread.quit();
     }

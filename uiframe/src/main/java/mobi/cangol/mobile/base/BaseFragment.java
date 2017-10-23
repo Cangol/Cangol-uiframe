@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
     public static final int RESULT_OK = -1;
     protected  final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
+    protected CoreApplication app;
     private long startTime;
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
@@ -115,20 +116,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 获取CoreApplication
-     * @return
-     */
-    public CoreApplication getCoreApplication(){
-        return  ((CoreApplication) this.getActivity().getApplication());
-    }
-    /**
      * 获取AppService
      *
      * @param name
      * @return
      */
     public AppService getAppService(String name) {
-        return  getCoreApplication().getAppService(name);
+        return app.getAppService(name);
     }
 
     /**
@@ -137,7 +131,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public SessionService getSession() {
-        return  getCoreApplication().getSession();
+        return app.getSession();
     }
 
 
@@ -170,6 +164,7 @@ public abstract class BaseFragment extends Fragment {
         HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
+        app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState == null) {
 
         } else {
@@ -318,9 +313,9 @@ public abstract class BaseFragment extends Fragment {
      * 通知返回回调
      */
     final public void notifyResult() {
-        BaseFragment taget = (BaseFragment) getTargetFragment();
-        if (taget != null) {
-            taget.onFragmentResult(getTargetRequestCode(), resultCode, resultData);
+        BaseFragment target = (BaseFragment) getTargetFragment();
+        if (target != null) {
+            target.onFragmentResult(getTargetRequestCode(), resultCode, resultData);
         } else {
             throw new IllegalStateException("Target Fragment is null");
         }

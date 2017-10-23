@@ -40,6 +40,7 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
+    protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
     private HandlerThread handlerThread;
@@ -62,7 +63,8 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this,handlerThread.getLooper());
-        ((CoreApplication) this.getApplication()).addActivityToManager(this);
+        app = (CoreApplication) this.getApplication();
+        app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
     }
 
@@ -117,17 +119,13 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    public CoreApplication getCoreApplication(){
-        return (CoreApplication) this.getApplication();
-    }
-    @Override
     public AppService getAppService(String name) {
-        return  getCoreApplication().getAppService(name);
+        return app.getAppService(name);
     }
 
     @Override
     public SessionService getSession() {
-        return  getCoreApplication().getSession();
+        return app.getSession();
     }
 
     @Override
@@ -162,7 +160,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     public boolean onMenuActionSelected(ActionMenuItem action) {
-        if (null != stack) {
+        if (null != stack&& stack.peek().isEnable()&& stack.peek().isVisible()) {
             return ((BaseContentFragment) stack.peek()).onMenuActionSelected(action);
         }
         return false;
@@ -248,8 +246,8 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (LIFECYCLE) Log.v(TAG, "onDestroy " + getIdleTime() + "s");
-        ((CoreApplication) this.getApplication()).delActivityFromManager(this);
+        if (LIFECYCLE) Log.v(TAG, "onDestroy" );
+        app.delActivityFromManager(this);
         handlerThread.quit();
     }
 
