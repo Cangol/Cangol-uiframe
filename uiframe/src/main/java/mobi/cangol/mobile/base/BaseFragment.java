@@ -447,7 +447,6 @@ public abstract class BaseFragment extends Fragment {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
-
     /**
      * 获取相应时间
      *
@@ -534,7 +533,7 @@ public abstract class BaseFragment extends Fragment {
                 stack = bfActivity.getCustomFragmentManager();
             }
         }
-        if(!isStateSaved()){
+        if(stack!=null&&!stack.isStateSaved()){
             stack.replace(fragmentClass, tag, args, customFragmentTransaction);
             stack.commit();
         }else{
@@ -542,6 +541,32 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 判断是否执行了onSaveInstanceState
+     * Support 26.0.0-alpha1 之后才有isStateSaved方法
+     * 这里用反射直接读取mStateSaved字段，兼容旧的版本
+     * 也为了与之后的版本兼容修改了方法名
+     * @return
+     */
+    public boolean isSavedState() {
+        BaseFragment parent = (BaseFragment) this.getParentFragment();
+        CustomFragmentManager stack = null;
+        if (parent != null) {
+            stack = parent.getCustomFragmentManager();
+        } else {
+            if (getActivity() == null) {
+                return false;
+            } else {
+                CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+                stack = bfActivity.getCustomFragmentManager();
+            }
+        }
+        if(stack!=null){
+            return stack.isStateSaved();
+        }else{
+            return false;
+        }
+    }
     /**
      * 替换父类级fragment
      *
@@ -607,7 +632,7 @@ public abstract class BaseFragment extends Fragment {
      */
     final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (stack != null) {
-            if(!isStateSaved()){
+            if(!stack.isStateSaved()){
                 stack.replace(fragmentClass, tag, args, customFragmentTransaction);
                 stack.commit();
             }else{

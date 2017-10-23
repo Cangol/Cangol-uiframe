@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 
@@ -17,11 +18,10 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setStatusBarTintColor(R.color.red);
-		this.setNavigationBarTintColor(R.color.black);
-
 		setContentView(R.layout.activity_main);
-		this.getCustomActionBar().setBackgroundResource(R.color.red);
+		this.setStatusBarTintColor(Color.RED);
+		this.setNavigationBarTintColor(Color.BLACK);
+		this.getCustomActionBar().setBackgroundColor(Color.RED);
 		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);

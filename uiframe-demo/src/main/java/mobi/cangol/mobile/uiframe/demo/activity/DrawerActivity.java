@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import mobi.cangol.mobile.logging.Log;
@@ -18,11 +19,11 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setStatusBarTintColor(R.color.red);
-		this.setNavigationBarTintColor(R.color.black);
 		setContentView(R.layout.activity_main);
+		this.setStatusBarTintColor(Color.RED);
+		this.setNavigationBarTintColor(Color.BLACK);
+		this.getCustomActionBar().setBackgroundColor(Color.RED);
 		this.setFloatActionBarEnabled(true);
-		this.getCustomActionBar().setBackgroundResource(R.color.red);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuLeftFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
