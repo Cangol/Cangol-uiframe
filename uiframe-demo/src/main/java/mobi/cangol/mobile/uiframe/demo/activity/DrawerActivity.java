@@ -41,35 +41,40 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		Log.v("onStart " + System.currentTimeMillis());
-
-	}
-
-	@Override
 	public void findViews() {
 	}
 	@Override
 	public void initViews(Bundle savedInstanceState) {
-		
+
 	}
+		
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		
+		android.util.Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		android.util.Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
+	}
+
+	@Override
+	protected void onDestroy() {
+		android.util.Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
+		super.onDestroy();
 	}
 
 	@Override
 	public void onBack() {
 		if(back_pressed+2000>System.currentTimeMillis()){
 			super.onBack();
-			getCoreApplication().exit();
+			app.exit();
 		}else{
 			back_pressed=System.currentTimeMillis();
             showToast("Please on back");
 		}
 	}
-
 	public int getContentFrameId() {
 		return R.id.frame_main;
 	}

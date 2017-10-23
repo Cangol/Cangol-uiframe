@@ -15,6 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import java.util.EmptyStackException;
+import java.lang.reflect.Method;
 import java.util.Stack;
 
 import mobi.cangol.mobile.logging.Log;
@@ -40,12 +41,26 @@ public class CustomFragmentManager {
         @Override
         public void run() {
             if (fragmentTransaction != null && fActivity != null) {
-                try{
-                    fragmentTransaction.commitAllowingStateLoss();
-                    fragmentManager.executePendingTransactions();
-                    fragmentTransaction = null;
-                }catch (IllegalStateException e){
-                    Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if(!fActivity.isFinishing()&&!fActivity.isDestroyed()){
+                        try{
+                            fragmentTransaction.commitAllowingStateLoss();
+                            fragmentManager.executePendingTransactions();
+                            fragmentTransaction = null;
+                        }catch (IllegalStateException e){
+                            Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                        }
+                    }
+                }else{
+                    if(!fActivity.isFinishing()){
+                        try{
+                            fragmentTransaction.commitAllowingStateLoss();
+                            fragmentManager.executePendingTransactions();
+                            fragmentTransaction = null;
+                        }catch (IllegalStateException e){
+                            Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                        }
+                    }
                 }
             }
         }
@@ -118,6 +133,7 @@ public class CustomFragmentManager {
     }
 
     public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+        if(fragmentManager.isDestroyed()||isStateSaved())return;
         if (clazz.isAssignableFrom(BaseDialogFragment.class))
             throw new IllegalStateException("DialogFragment can not be attached to a container view");
 //        if (stack.size() > 0) {
@@ -293,7 +309,8 @@ public class CustomFragmentManager {
     }
 
     public boolean popBackStack() {
-        if (stack.size() > 1) {
+        if(fragmentManager.isDestroyed()||isStateSaved())return false;
+        if(stack.size() > 1) {
             fragmentManager.popBackStackImmediate();
             synchronized (lock) {
                 BaseFragment baseFragment = stack.pop();
@@ -307,7 +324,8 @@ public class CustomFragmentManager {
         return false;
     }
     public boolean popBackStackAll() {
-        if(stack.size() > 1){
+        if(fragmentManager.isDestroyed()||isStateSaved())return false;
+        if (stack.size() > 1) {
             while (stack.size() > 1) {
                 synchronized (lock) {
                     stack.pop();
@@ -315,11 +333,12 @@ public class CustomFragmentManager {
                 }
                 fragmentManager.popBackStack();
             }
+            return true;
         }
-        return true;
+        return false;
     }
-
     public void commit() {
+        if(fragmentManager.isDestroyed()||isStateSaved())return;
         if (fragmentTransaction != null && !fragmentTransaction.isEmpty()) {
             handler.removeCallbacks(execPendingTransactions);
             handler.post(execPendingTransactions);
@@ -338,4 +357,22 @@ public class CustomFragmentManager {
         return false;
     }
 
+    /**
+     * 判断是否执行了onSaveInstanceState
+     * Support 26.0.0-alpha1 以后才有此方法
+     * @return
+     */
+    public boolean isStateSaved(){
+        Class implClass=null;
+        Method method=null;
+        try {
+            implClass=Class.forName("android.support.v4.app.FragmentManagerImpl");
+            method = implClass.getDeclaredMethod("isStateSaved");
+            method.setAccessible(true);
+            return  (Boolean) method.invoke(implClass.cast(fragmentManager));
+        } catch (Exception e) {
+            Log.e("isStateSaved", ""+e.getMessage(),e);
+        }
+        return false;
+    }
 }

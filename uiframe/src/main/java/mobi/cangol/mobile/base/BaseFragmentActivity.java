@@ -96,9 +96,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");
+        }else if(!stack.isStateSaved()){
+            stack.replace(fragmentClass, tag, args);
+            stack.commit();
+        }else{
+            Log.e(TAG,"Can not perform this action after onSaveInstanceState");
         }
-        stack.replace(fragmentClass, tag, args);
-        stack.commit();
     }
 
     @Override

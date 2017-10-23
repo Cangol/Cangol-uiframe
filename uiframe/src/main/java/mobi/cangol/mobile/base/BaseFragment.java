@@ -202,7 +202,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdletime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
@@ -226,7 +226,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (LIFECYCLE) Log.v(TAG, "onDestroyView " + getIdletime() + "s");
+        if (LIFECYCLE) Log.v(TAG, "onDestroyView " + getIdleTime() + "s");
     }
 
     @Override
@@ -368,11 +368,11 @@ public abstract class BaseFragment extends Fragment {
      * @param resId
      */
     public void showToast(int resId) {
-        if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
-        } else {
+        if(isEnable()){
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -382,11 +382,11 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(int resId, int duration) {
-        if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
-        } else {
+        if(isEnable()){
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId,duration);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
     /**
@@ -395,11 +395,11 @@ public abstract class BaseFragment extends Fragment {
      * @param str
      */
     public void showToast(String str) {
-        if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
-        } else {
+        if(isEnable()){
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -409,11 +409,11 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(String str, int duration) {
-        if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
-        } else {
+        if(isEnable()){
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
     /**
@@ -429,15 +429,23 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showSoftInput(EditText editText) {
-        editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, 0);
-        editText.setText(null);
+        if(isEnable()){
+            editText.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editText, 0);
+            editText.setText(null);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
+        }
     }
 
     public void hideSoftInput(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        if(isEnable()){
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        }else{
+            Log.e("IllegalStateException  Fragment isEnable=false");
+        }
     }
 
     /**
@@ -446,7 +454,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
 
-    public float getIdletime() {
+    public float getIdleTime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
 
@@ -526,8 +534,12 @@ public abstract class BaseFragment extends Fragment {
                 stack = bfActivity.getCustomFragmentManager();
             }
         }
-        stack.replace(fragmentClass, tag, args, customFragmentTransaction);
-        stack.commit();
+        if(!stack.isStateSaved()){
+            stack.replace(fragmentClass, tag, args, customFragmentTransaction);
+            stack.commit();
+        }else{
+            Log.e(TAG,"Can not perform this action after onSaveInstanceState");
+        }
     }
 
     /**
@@ -595,8 +607,12 @@ public abstract class BaseFragment extends Fragment {
      */
     final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (stack != null) {
-            stack.replace(fragmentClass, tag, args, customFragmentTransaction);
-            stack.commit();
+            if(!stack.isStateSaved()){
+                stack.replace(fragmentClass, tag, args, customFragmentTransaction);
+                stack.commit();
+            }else{
+                Log.e(TAG,"Can not perform this action after onSaveInstanceState");
+            }
         } else {
             throw new IllegalStateException("fragment'CustomFragmentManager is null, Please initFragmentStack");
         }

@@ -76,11 +76,6 @@ public interface BaseActivityDelegate {
     void showToast(String str, int duration);
 
     /**
-     * 获取CoreApplication
-     * @return
-     */
-    CoreApplication getCoreApplication();
-    /**
      * 获取AppService
      *
      * @param name

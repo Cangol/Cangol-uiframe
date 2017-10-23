@@ -17,6 +17,7 @@ package mobi.cangol.mobile.base;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -108,9 +109,12 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");
+        }else if(!stack.isStateSaved()){
+            stack.replace(fragmentClass, tag, args);
+            stack.commit();
+        }else{
+            Log.e(TAG,"Can not perform this action after onSaveInstanceState");
         }
-        stack.replace(fragmentClass, tag, args);
-        stack.commit();
     }
 
     @Override
@@ -189,8 +193,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     public boolean onSupportNavigateUp() {
-        if (LIFECYCLE)
-            Log.v(TAG, "onSupportNavigateUp ");
+        if (LIFECYCLE)Log.v(TAG, "onSupportNavigateUp ");
         if (stack == null||stack.size()==0) {
             return super.onSupportNavigateUp();
         }else{
@@ -199,7 +202,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             } else {
                 if (stack.size() == 1) {
                     return super.onSupportNavigateUp();
-                } else {
+                } else{
                     FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                     if (upFragment != null) {
                         stack.popBackStack();

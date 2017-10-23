@@ -11,8 +11,8 @@ dependencies {
     compile 'mobi.cangol.mobile:actionbar:[1.0.13,)@aar'
     compile 'mobi.cangol.mobile:appcore:[1.1.7,)@aar'
 
-    compile 'com.android.support:support-fragment:[25.0.0,)'
-    compile 'com.android.support:appcompat-v7:[25.0.0,)'
+    compile 'com.android.support:support-fragment:[26.0.0-alpha1,)'
+    compile 'com.android.support:appcompat-v7:[26.0.0-alpha1,)'
 }
 
 android {
