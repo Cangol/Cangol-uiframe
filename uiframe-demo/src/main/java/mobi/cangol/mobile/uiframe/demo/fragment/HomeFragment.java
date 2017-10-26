@@ -70,18 +70,18 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
-        findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                postRunnable(new StaticInnerRunnable() {
-                    @Override
-                    public void run() {
-                        Log.d(""+this);
-                        SystemClock.sleep(10000);
-                    }
-                });
-                //replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
+                replaceFragment(LeakFragment.class, "LeakFragment", null);
+            }
+
+        });
+        findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
             }
 
         });
