@@ -1,21 +1,21 @@
 
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import hugo.weaving.DebugLog;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.R;
 
+@DebugLog
 public class LeakFragment extends BaseContentFragment {
 	
-	private TextView mTextView1;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
@@ -24,7 +24,7 @@ public class LeakFragment extends BaseContentFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_item, container,false);
+		View v = inflater.inflate(R.layout.fragment_leak, container,false);
 		return v;
 	}
 	@Override
@@ -47,22 +47,59 @@ public class LeakFragment extends BaseContentFragment {
 	@Override
 	protected void findViews(View view) {
 		this.setTitle(this.getClass().getSimpleName());
-		mTextView1=(TextView) view.findViewById(R.id.textView1);
-		mTextView1.setText("Click me Sleep 10000");
 	}
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
-		mTextView1.setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				postRunnable(new Runnable(){
+					public void run(){
+						Log.d("sleep start "+this.hashCode());
+						try {
+							Thread.sleep(10000L);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Log.d("sleep stop "+this.hashCode());
+					}
+				});
+			}
+		});
+		findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				postRunnable(new StaticInnerRunnable(){
 					public void run(){
-						Log.d("sleep start "+this);
-						SystemClock.sleep(10000);
-						Log.d("sleep stop "+this);
+						Log.d("sleep start "+this.hashCode());
+						try {
+							Thread.sleep(15000L);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Log.d("sleep stop "+this.hashCode());
 					}
 				});
+			}
+		});
+		findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AsyncTask asyncTask=new AsyncTask() {
+					@Override
+					protected Object doInBackground(Object[] params) {
+						Log.d("sleep start "+this.hashCode());
+						try {
+							Thread.sleep(15000L);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Log.d("sleep stop "+this.hashCode());
+						return null;
+					}
+				};
+				asyncTask.execute();
 			}
 		});
 	}
@@ -82,4 +119,10 @@ public class LeakFragment extends BaseContentFragment {
 		return false;
 	}
 
+	@Override
+	public void onDestroy() {
+		handlerThread.getLooper().quit();
+		getHandler().getLooper().quit();
+		super.onDestroy();
+	}
 }

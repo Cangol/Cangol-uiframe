@@ -15,6 +15,7 @@
  */
 package mobi.cangol.mobile.uiframe.demo;
 
+import hugo.weaving.DebugLog;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
@@ -30,6 +31,7 @@ import mobi.cangol.mobile.uiframe.demo.utils.Constants;
  * @author Cangol
  * @date 2013-9-8
  */
+@DebugLog
 public class DemoApplication  extends CoreApplication {
 		public final String TAG=Constants.makeLogTag(DemoApplication.class);
 		private StatusService statusService;

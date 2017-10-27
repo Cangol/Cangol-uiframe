@@ -42,7 +42,7 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
-    protected  final String TAG = Log.makeLogTag(this.getClass());
+    protected final String TAG = Log.makeLogTag(this.getClass());
     private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     private long startTime;
@@ -50,6 +50,8 @@ public abstract class BaseFragment extends Fragment {
     private Bundle resultData;
     private CustomFragmentManager stack;
     private Handler handler;
+    protected HandlerThread handlerThread;
+
     /**
      * 查找view
      *
@@ -140,6 +142,7 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(activity);
         if (LIFECYCLE) Log.v(TAG, "onAttach");
     }
+
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
@@ -161,9 +164,9 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (LIFECYCLE) Log.v(TAG, "onCreate");
-        HandlerThread handlerThread = new HandlerThread(TAG);
+        handlerThread = new HandlerThread(TAG);
         handlerThread.start();
-        handler = new InternalHandler(this,handlerThread.getLooper());
+        handler = new InternalHandler(this, handlerThread.getLooper());
         app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState == null) {
 
@@ -236,7 +239,7 @@ public abstract class BaseFragment extends Fragment {
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
     }
 
-    public void onDrawerSlide(float slideOffset){
+    public void onDrawerSlide(float slideOffset) {
         if (LIFECYCLE) Log.v(TAG, "onDrawerSlide");
     }
 
@@ -263,7 +266,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged "+hidden);
+        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged " + hidden);
     }
 
     @Override
@@ -368,54 +371,58 @@ public abstract class BaseFragment extends Fragment {
      * @param resId
      */
     public void showToast(int resId) {
-        if(isEnable()){
+        if (isEnable()) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
-        }else{
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
     /**
      * 显示toast
+     *
      * @param resId
      * @param duration
      */
     public void showToast(int resId, int duration) {
-        if(isEnable()){
+        if (isEnable()) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-            bfActivity.showToast(resId,duration);
-        }else{
+            bfActivity.showToast(resId, duration);
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
+
     /**
      * 显示toast
      *
      * @param str
      */
     public void showToast(String str) {
-        if(isEnable()){
+        if (isEnable()) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
-        }else{
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
     /**
      * 显示toast
+     *
      * @param str
      * @param duration
      */
     public void showToast(String str, int duration) {
-        if(isEnable()){
+        if (isEnable()) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
-        }else{
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
+
     /**
      * 返回当前fragment是否有效
      *
@@ -429,24 +436,25 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showSoftInput(EditText editText) {
-        if(isEnable()){
+        if (isEnable()) {
             editText.requestFocus();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(editText, 0);
             editText.setText(null);
-        }else{
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
     public void hideSoftInput(EditText editText) {
-        if(isEnable()){
+        if (isEnable()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-        }else{
+        } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
+
     /**
      * 获取相应时间
      *
@@ -533,11 +541,11 @@ public abstract class BaseFragment extends Fragment {
                 stack = bfActivity.getCustomFragmentManager();
             }
         }
-        if(stack!=null&&!stack.isStateSaved()){
+        if (null != stack && !stack.isStateSaved()) {
             stack.replace(fragmentClass, tag, args, customFragmentTransaction);
             stack.commit();
-        }else{
-            Log.e(TAG,"Can not perform this action after onSaveInstanceState");
+        } else {
+            Log.e(TAG, "Can not perform this action after onSaveInstanceState");
         }
     }
 
@@ -546,6 +554,7 @@ public abstract class BaseFragment extends Fragment {
      * Support 26.0.0-alpha1 之后才有isStateSaved方法
      * 这里用反射直接读取mStateSaved字段，兼容旧的版本
      * 也为了与之后的版本兼容修改了方法名
+     *
      * @return
      */
     public boolean isSavedState() {
@@ -561,12 +570,13 @@ public abstract class BaseFragment extends Fragment {
                 stack = bfActivity.getCustomFragmentManager();
             }
         }
-        if(stack!=null){
+        if (stack != null) {
             return stack.isStateSaved();
-        }else{
+        } else {
             return false;
         }
     }
+
     /**
      * 替换父类级fragment
      *
@@ -632,11 +642,11 @@ public abstract class BaseFragment extends Fragment {
      */
     final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (stack != null) {
-            if(!stack.isStateSaved()){
+            if (!stack.isStateSaved()) {
                 stack.replace(fragmentClass, tag, args, customFragmentTransaction);
                 stack.commit();
-            }else{
-                Log.e(TAG,"Can not perform this action after onSaveInstanceState");
+            } else {
+                Log.e(TAG, "Can not perform this action after onSaveInstanceState");
             }
         } else {
             throw new IllegalStateException("fragment'CustomFragmentManager is null, Please initFragmentStack");
@@ -659,6 +669,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
     /**
      * 将所有fragment弹出栈
      */
@@ -675,36 +686,42 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
     protected Handler getHandler() {
         return handler;
-    }
-
-    protected void postRunnable(StaticInnerRunnable runnable) {
-        if (handler!= null && runnable != null)
-            handler.post(runnable);
     }
 
     protected void handleMessage(Message msg) {
 
     }
 
-    protected  static class StaticInnerRunnable implements Runnable{
+    protected void postRunnable(StaticInnerRunnable runnable) {
+        if (handler != null && runnable != null)
+            handler.post(runnable);
+    }
+
+    protected void postRunnable(Runnable runnable) {
+        if (handler != null && runnable != null)
+            handler.post(runnable);
+    }
+
+    protected static class StaticInnerRunnable implements Runnable {
         @Override
         public void run() {
         }
     }
 
-    protected  final static class InternalHandler extends Handler {
+    protected final static class InternalHandler extends Handler {
         private final WeakReference<BaseFragment> mFragmentRef;
 
-        public InternalHandler(BaseFragment fragment,Looper looper) {
+        public InternalHandler(BaseFragment fragment, Looper looper) {
             super(looper);
             mFragmentRef = new WeakReference<>(fragment);
         }
 
         public void handleMessage(Message msg) {
             BaseFragment fragment = mFragmentRef.get();
-            if (fragment != null&&fragment.isEnable()) {
+            if (fragment != null && fragment.isEnable()) {
                 fragment.handleMessage(msg);
             }
         }
