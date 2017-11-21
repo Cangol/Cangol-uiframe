@@ -21,7 +21,7 @@ public class FragmentStack {
     }
 
     public void addFragment(BaseFragment fragment) {
-        stack.add(new WeakReference<BaseFragment>(fragment));
+        stack.add(new WeakReference<>(fragment));
     }
 
     public void addTag(String tag) {

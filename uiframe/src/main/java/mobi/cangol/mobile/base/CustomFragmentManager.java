@@ -24,15 +24,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Stack;
 
 import mobi.cangol.mobile.logging.Log;
 
 public class CustomFragmentManager {
     private static final String STATE_TAG = "CustomFragmentManager";
-    private Stack<BaseFragment> stack = new Stack<BaseFragment>();
-    private Stack<String> tagStack = new Stack<String>();
+    private FragmentStack stack =null;
     private Object lock = new Object();
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -78,6 +75,7 @@ public class CustomFragmentManager {
         this.fragmentManager = fragmentManager;
         this.containerId = containerId;
         handler = new Handler();
+        stack= new FragmentStack();
     }
 
     public static CustomFragmentManager forContainer(FragmentActivity activity, int containerId,
@@ -102,7 +100,7 @@ public class CustomFragmentManager {
         String[] stackTags = new String[stackSize];
 
         int i = 0;
-        for (String tag : tagStack) {
+        for (String tag : stack.getTag()) {
             Log.i(STATE_TAG, "tag =" + tag);
             stackTags[i++] = tag;
         }
@@ -114,8 +112,8 @@ public class CustomFragmentManager {
         String[] stackTags = state.getStringArray(STATE_TAG);
         for (String tag : stackTags) {
             BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
-            stack.add(f);
-            tagStack.add(tag);
+            stack.addFragment(f);
+            stack.addTag(tag);
         }
     }
 
@@ -190,25 +188,25 @@ public class CustomFragmentManager {
                 Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
                 while (stack.size() > 0) {
                     synchronized (lock) {
-                        stack.pop();
-                        tagStack.pop();
+                        stack.popFragment();
+                        stack.popTag();
                     }
                     fragmentManager.popBackStack();
                 }
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
-                if(fragment.isSingleton()&&tagStack.contains(tag)){
+                if(fragment.isSingleton()&&stack.containsTag(tag)){
                     Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
-                    while (!tag.equals(tagStack.peek())) {
+                    while (!tag.equals(stack.peekTag())) {
                         synchronized (lock) {
-                            stack.pop();
-                            tagStack.pop();
+                            stack.popFragment();
+                            stack.popTag();
                         }
                         fragmentManager.popBackStack();
                     }
                     synchronized (lock) {
-                        stack.pop();
-                        tagStack.pop();
+                        stack.popFragment();
+                        stack.popTag();
                     }
                     fragmentManager.popBackStack();
                     Log.i(STATE_TAG,"fragment newInstance");
@@ -221,8 +219,8 @@ public class CustomFragmentManager {
                 Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
                 while (stack.size() > 1) {
                     synchronized (lock) {
-                        stack.pop();
-                        tagStack.pop();
+                        stack.popFragment();
+                        stack.popTag();
                     }
                     fragmentManager.popBackStack();
                 }
@@ -234,16 +232,16 @@ public class CustomFragmentManager {
                     fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }else{
                     Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
-                    while (!tag.equals(tagStack.peek())) {
+                    while (!tag.equals(stack.peekTag())) {
                         synchronized (lock) {
-                            stack.pop();
-                            tagStack.pop();
+                            stack.popFragment();
+                            stack.popTag();
                         }
                         fragmentManager.popBackStack();
                     }
                     synchronized (lock) {
-                        stack.pop();
-                        tagStack.pop();
+                        stack.popFragment();
+                        stack.popTag();
                     }
                     fragmentManager.popBackStack();
                     fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
@@ -270,8 +268,8 @@ public class CustomFragmentManager {
 
         attachFragment(fragment, tag);
         synchronized (lock) {
-            stack.add(fragment);
-            tagStack.add(tag);
+            stack.addFragment(fragment);
+            stack.addTag(tag);
         }
     }
 
@@ -302,7 +300,7 @@ public class CustomFragmentManager {
     }
 
     public BaseFragment peek() {
-        return stack.peek();
+        return stack.peekFragment();
     }
 
     public int size() {
@@ -314,8 +312,8 @@ public class CustomFragmentManager {
         if(stack.size() > 1) {
             fragmentManager.popBackStackImmediate();
             synchronized (lock) {
-                BaseFragment baseFragment = stack.pop();
-                tagStack.pop();
+                BaseFragment baseFragment = stack.popFragment();
+                stack.popTag();
                 if (baseFragment.getTargetFragment() != null) {
                     baseFragment.notifyResult();
                 }
@@ -329,8 +327,8 @@ public class CustomFragmentManager {
         if (stack.size() > 1) {
             while (stack.size() > 1) {
                 synchronized (lock) {
-                    stack.pop();
-                    tagStack.pop();
+                    stack.popFragment();
+                    stack.popTag();
                 }
                 fragmentManager.popBackStack();
             }
