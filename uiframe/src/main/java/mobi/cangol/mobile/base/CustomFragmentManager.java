@@ -18,11 +18,14 @@ package mobi.cangol.mobile.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 import mobi.cangol.mobile.logging.Log;
@@ -63,7 +66,7 @@ public class CustomFragmentManager {
             }
         }
     };
-    private Handler handler;
+    private InternalHandler handler;
     private int enterAnimation;
     private int exitAnimation;
     private int popStackEnterAnimation;
@@ -74,13 +77,27 @@ public class CustomFragmentManager {
         this.fActivity = fActivity;
         this.fragmentManager = fragmentManager;
         this.containerId = containerId;
-        handler = new Handler();
+        handler = new InternalHandler(fActivity);
         stack= new FragmentStack();
     }
 
     public static CustomFragmentManager forContainer(FragmentActivity activity, int containerId,
                                                      FragmentManager fragmentManager) {
         return new CustomFragmentManager(activity, containerId, fragmentManager);
+    }
+
+    public void destroy() {
+        stack.clear();
+        handler.removeCallbacks(execPendingTransactions);
+    }
+
+    protected final static class InternalHandler extends Handler {
+        private final WeakReference<FragmentActivity> mActivityRef;
+
+        public InternalHandler(FragmentActivity activity) {
+            super();
+            mActivityRef = new WeakReference<>(activity);
+        }
     }
 
     public int getContainerId() {
@@ -151,8 +168,8 @@ public class CustomFragmentManager {
                 if(stack.size() > 0){
                     BaseFragment oldTop= (BaseFragment) fragmentManager.findFragmentByTag(stack.peekTag());
                     if(oldTop!=null){
-                        Log.i(STATE_TAG,"oldTop is exist, detach "+stack.peekTag());
-                        beginTransaction().detach(stack.peekFragment());
+                        Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
+                        beginTransaction().detach(oldTop);
                         stack.popFragment();
                         stack.popTag();
                     }
@@ -191,20 +208,28 @@ public class CustomFragmentManager {
                 if(stack.size() > 0&&!tag.equals(stack.peekTag())){
                     BaseFragment oldTop= (BaseFragment) fragmentManager.findFragmentByTag(stack.peekTag());
                     if(oldTop!=null){
-                        Log.i(STATE_TAG,"oldTop is exist, detach "+stack.peekTag());
-                        beginTransaction().detach(stack.peekFragment());
+                        Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
+                        beginTransaction().detach(oldTop);
                         stack.popFragment();
                         stack.popTag();
                     }
                 }
                 //fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-                fragment.setArguments(args);
+                try {
+                    fragment.setArguments(args);
+                }catch (IllegalStateException e){
+                    Log.d(STATE_TAG,"setArguments ->Fragment already active");
+                }
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
                 if(!fragment.isSingleton()){
                     Log.i(STATE_TAG,"fragment isSingleton=false,newInstance");
                     //fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-                    fragment.setArguments(args);
+                    try {
+                        fragment.setArguments(args);
+                    }catch (IllegalStateException e){
+                        Log.d(STATE_TAG,"setArguments ->Fragment already active");
+                    }
                 }else{
                     Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
                     while (!tag.equals(stack.peekTag())) {

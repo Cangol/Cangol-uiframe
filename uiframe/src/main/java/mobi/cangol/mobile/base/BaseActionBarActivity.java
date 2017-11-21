@@ -250,6 +250,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected void onDestroy() {
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy" );
+        if (null != stack)stack.destroy();
         app.delActivityFromManager(this);
         handlerThread.quit();
     }

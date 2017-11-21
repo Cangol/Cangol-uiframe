@@ -51,4 +51,9 @@ public class FragmentStack {
     public Stack<String> getTag() {
         return tagStack;
     }
+
+    public void clear() {
+        stack.clear();
+        tagStack.clear();
+    }
 }
