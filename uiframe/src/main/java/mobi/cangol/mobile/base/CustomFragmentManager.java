@@ -170,6 +170,7 @@ public class CustomFragmentManager {
                     if(oldTop!=null){
                         Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
                         beginTransaction().detach(oldTop);
+                        commit();
                         stack.popFragment();
                         stack.popTag();
                     }
@@ -210,6 +211,7 @@ public class CustomFragmentManager {
                     if(oldTop!=null){
                         Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
                         beginTransaction().detach(oldTop);
+                        commit();
                         stack.popFragment();
                         stack.popTag();
                     }
