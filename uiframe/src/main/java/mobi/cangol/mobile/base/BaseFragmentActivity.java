@@ -137,7 +137,6 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume");
         if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
@@ -219,7 +218,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     final public void onBackPressed() {
         if (LIFECYCLE) Log.v(TAG, "onBackPressed ");
-        if (null == stack||stack.size()==0) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
             return;
         }else {

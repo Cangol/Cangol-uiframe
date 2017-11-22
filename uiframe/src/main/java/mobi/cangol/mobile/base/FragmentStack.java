@@ -29,11 +29,11 @@ public class FragmentStack {
     }
 
     public BaseFragment peekFragment() {
-        return stack.peek().get();
+        return stack.isEmpty()?null:stack.peek().get();
     }
 
     public String peekTag() {
-        return tagStack.peek();
+        return tagStack.isEmpty()?null:tagStack.peek();
     }
 
     public BaseFragment popFragment() {

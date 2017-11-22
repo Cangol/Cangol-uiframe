@@ -49,7 +49,7 @@ public abstract class BaseFragment extends Fragment {
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
     private CustomFragmentManager stack;
-    private Handler handler;
+    private InternalHandler handler;
     protected HandlerThread handlerThread;
 
     /**
@@ -235,6 +235,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         getHandler().getLooper().quit();
+        handlerThread.quit();
+        if (null != stack)stack.destroy();
         super.onDestroy();
         if (LIFECYCLE) Log.v(TAG, "onDestroy");
     }
@@ -343,7 +345,7 @@ public abstract class BaseFragment extends Fragment {
     public boolean onBackPressed() {
 
         if (null == stack) return false;
-        if (stack.size() <= 1) {
+        if (stack.size() <= 1||stack.peek()==null) {
             return false;
         } else {
             if (stack.peek().onBackPressed()) {

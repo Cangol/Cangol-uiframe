@@ -219,7 +219,7 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("onResume"+this.hashCode());
+        Log.d("onResume "+this.hashCode());
     }
 
     @Override

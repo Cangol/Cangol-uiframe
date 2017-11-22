@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -72,13 +71,15 @@ public class CustomFragmentManager {
     private int popStackEnterAnimation;
     private int popStackExitAnimation;
     private boolean firstUseAnim = false;
-
+    private FragmentManager.FragmentLifecycleCallbacks lifecycleCallbacks;
     private CustomFragmentManager(FragmentActivity fActivity, int containerId, FragmentManager fragmentManager) {
         this.fActivity = fActivity;
         this.fragmentManager = fragmentManager;
         this.containerId = containerId;
-        handler = new InternalHandler(fActivity);
-        stack= new FragmentStack();
+        this.handler = new InternalHandler(fActivity);
+        this.stack= new FragmentStack();
+        //this.lifecycleCallbacks=new FragmentLifecycleCallbacksLog();
+        //this.fragmentManager.registerFragmentLifecycleCallbacks(lifecycleCallbacks,false);
     }
 
     public static CustomFragmentManager forContainer(FragmentActivity activity, int containerId,
@@ -87,15 +88,16 @@ public class CustomFragmentManager {
     }
 
     public void destroy() {
-        stack.clear();
-        handler.removeCallbacks(execPendingTransactions);
+        this.stack.clear();
+        this. handler.removeCallbacks(execPendingTransactions);
+        //this.fragmentManager.unregisterFragmentLifecycleCallbacks(lifecycleCallbacks);
     }
 
     protected final static class InternalHandler extends Handler {
         private final WeakReference<FragmentActivity> mActivityRef;
 
         public InternalHandler(FragmentActivity activity) {
-            super();
+            super(Looper.getMainLooper());
             mActivityRef = new WeakReference<>(activity);
         }
     }
