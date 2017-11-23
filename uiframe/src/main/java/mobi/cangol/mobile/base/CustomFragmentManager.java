@@ -172,7 +172,7 @@ public class CustomFragmentManager {
                     if(oldTop!=null){
                         Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
                         //beginTransaction().detach(oldTop);
-                        fragmentManager.beginTransaction().detach(oldTop);
+                        fragmentManager.beginTransaction().detach(oldTop).commitAllowingStateLoss();
                         stack.popFragment();
                         stack.popTag();
                     }
@@ -212,7 +212,7 @@ public class CustomFragmentManager {
                     BaseFragment oldTop= (BaseFragment) fragmentManager.findFragmentByTag(stack.peekTag());
                     if(oldTop!=null){
                         Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
-                        fragmentManager.beginTransaction().detach(oldTop);
+                        fragmentManager.beginTransaction().detach(oldTop).commitAllowingStateLoss();
                         stack.popFragment();
                         stack.popTag();
                     }
