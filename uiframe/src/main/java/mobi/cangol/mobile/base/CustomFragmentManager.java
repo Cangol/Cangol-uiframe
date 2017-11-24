@@ -160,22 +160,12 @@ public class CustomFragmentManager {
             fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
             if (fragment.isCleanStack()) {
                 Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
-                while (stack.size() > 1) {
+                while (stack.size() > 0) {
                     synchronized (lock) {
                         stack.popFragment();
                         stack.popTag();
                     }
                     fragmentManager.popBackStack();
-                }
-                if(stack.size() > 0){
-                    BaseFragment oldTop= (BaseFragment) fragmentManager.findFragmentByTag(stack.peekTag());
-                    if(oldTop!=null){
-                        Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
-                        //beginTransaction().detach(oldTop);
-                        fragmentManager.beginTransaction().detach(oldTop);
-                        stack.popFragment();
-                        stack.popTag();
-                    }
                 }
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
@@ -208,31 +198,12 @@ public class CustomFragmentManager {
                     }
                     fragmentManager.popBackStack();
                 }
-                if(stack.size() > 0&&!tag.equals(stack.peekTag())){
-                    BaseFragment oldTop= (BaseFragment) fragmentManager.findFragmentByTag(stack.peekTag());
-                    if(oldTop!=null){
-                        Log.i(STATE_TAG,"oldTop is exist, detach "+oldTop);
-                        fragmentManager.beginTransaction().detach(oldTop);
-                        stack.popFragment();
-                        stack.popTag();
-                    }
-                }
-                //fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-                try {
-                    fragment.setArguments(args);
-                }catch (IllegalStateException e){
-                    Log.d(STATE_TAG,"setArguments ->Fragment already active");
-                }
+                fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
                 if(!fragment.isSingleton()){
                     Log.i(STATE_TAG,"fragment isSingleton=false,newInstance");
-                    //fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
-                    try {
-                        fragment.setArguments(args);
-                    }catch (IllegalStateException e){
-                        Log.d(STATE_TAG,"setArguments ->Fragment already active");
-                    }
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }else{
                     Log.i(STATE_TAG,"fragment isSingleton=true,while pop all");
                     while (!tag.equals(stack.peekTag())) {
