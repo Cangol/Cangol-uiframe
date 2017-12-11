@@ -102,6 +102,15 @@ public class LeakFragment extends BaseContentFragment {
 				asyncTask.execute();
 			}
 		});
+
+		findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putInt("sno", 1);
+				setContentFragment(NextFragment.class, "NextFragment_" + 1, bundle);
+			}
+		});
 	}
 
 	@Override

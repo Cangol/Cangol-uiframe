@@ -198,7 +198,11 @@ public class CustomFragmentManager {
                     }
                     fragmentManager.popBackStack();
                 }
-                fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                if(stack.peekTag()!=null&&!stack.peekTag().equals(tag)){
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                }else{
+                    return;
+                }
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
                 if(!fragment.isSingleton()){
