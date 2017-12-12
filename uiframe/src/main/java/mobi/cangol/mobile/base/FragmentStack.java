@@ -37,11 +37,12 @@ public class FragmentStack {
     }
 
     public BaseFragment popFragment() {
-        return stack.pop().get();
+
+        return stack.isEmpty()?null:stack.pop().get();
     }
 
     public String popTag() {
-        return tagStack.pop();
+        return tagStack.isEmpty()?null:tagStack.pop();
     }
 
     public boolean containsTag(String tag){
