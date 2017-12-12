@@ -190,18 +190,27 @@ public class CustomFragmentManager {
         }else {
             Log.i(STATE_TAG,"fragment is exist");
             if (fragment.isCleanStack()) {
-                Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
-                while (stack.size() > 1) {
-                    synchronized (lock) {
-                        stack.popFragment();
-                        stack.popTag();
+                if(stack.size() == 1){
+                    if(stack.peekTag().equals(tag)){
+                        return;
+                    }else{
+                        synchronized (lock) {
+                            stack.popFragment();
+                            stack.popTag();
+                        }
+                        fragmentManager.popBackStack();
+                        fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                     }
-                    fragmentManager.popBackStack();
-                }
-                if(stack.peekTag()!=null&&!stack.peekTag().equals(tag)){
-                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }else{
-                    return;
+                    Log.i(STATE_TAG,"fragment isCleanStack=true,while pop all");
+                    while (stack.size() > 0) {
+                        synchronized (lock) {
+                            stack.popFragment();
+                            stack.popTag();
+                        }
+                        fragmentManager.popBackStack();
+                    }
+                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }
             }else{
                 Log.i(STATE_TAG,"fragment isCleanStack=false");
