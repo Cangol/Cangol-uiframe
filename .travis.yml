@@ -13,6 +13,10 @@ android:
     - extra-android-m2repository
     - extra-android-support
     - sys-img-armeabi-v7a-android-22
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 before_install:
     # Gradle
     - wget -q http://services.gradle.org/distributions/gradle-3.3-all.zip

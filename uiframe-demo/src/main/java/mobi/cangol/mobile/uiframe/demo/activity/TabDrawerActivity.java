@@ -19,9 +19,9 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.setStatusBarTintColor(Color.RED);
-		this.setNavigationBarTintColor(Color.BLACK);
-		this.getCustomActionBar().setBackgroundColor(Color.RED);
+		this.setStatusBarTintColor(Color.GRAY);
+		this.setNavigationBarTintColor(Color.GRAY);
+		this.getCustomActionBar().setBackgroundColor(Color.GRAY);
 		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
