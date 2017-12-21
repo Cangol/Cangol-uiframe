@@ -48,7 +48,7 @@ public class CustomFragmentManager {
                             fragmentManager.executePendingTransactions();
                             fragmentTransaction = null;
                         }catch (IllegalStateException e){
-                            Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                            Log.e(STATE_TAG, "execPendingTransactions",e);
                         }
                     }
                 }else{
@@ -58,7 +58,7 @@ public class CustomFragmentManager {
                             fragmentManager.executePendingTransactions();
                             fragmentTransaction = null;
                         }catch (IllegalStateException e){
-                            Log.e(STATE_TAG, "IllegalStateException" + e.getMessage());
+                            Log.e(STATE_TAG, "execPendingTransactions",e);
                         }
                     }
                 }
