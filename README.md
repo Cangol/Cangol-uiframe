@@ -7,6 +7,10 @@ Cangol-app-uiframe
 [![Coverage Status](https://coveralls.io/repos/github/Cangol/Cangol-uiframe/badge.svg?branch=master)](https://coveralls.io/github/Cangol/Cangol-uiframe?branch=master)
 [![Join the chat at https://gitter.im/Cangol/Cangol-uiframe](https://badges.gitter.im/Cangol/Cangol-uiframe.svg)](https://gitter.im/Cangol/Cangol-uiframe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+###Docs
+
+http://cangol.mobi/Cangol-uiframe/
+
 ###Usage
 -
 Maven
@@ -14,12 +18,12 @@ Maven
      <dependency>
          <groupId>mobi.cangol.mobile</groupId>
          <artifactId>uiframe</artifactId>
-         <version>1.0.20</version>
+         <version>1.0.44</version>
          <type>aar</type>
      </dependency>
 Gradle
  
-    compile 'mobi.cangol.mobile:uiframe:1.0.20@aar'
+    compile 'mobi.cangol.mobile:uiframe:1.0.44@aar'
 
 ###License
 
