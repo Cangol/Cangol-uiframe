@@ -12,7 +12,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
