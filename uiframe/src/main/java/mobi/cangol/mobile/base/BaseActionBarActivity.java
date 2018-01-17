@@ -171,7 +171,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     public boolean onMenuActionSelected(ActionMenuItem action) {
-        if (null != stack&& stack.peek().isEnable()&& stack.peek().isVisible()) {
+        if (null != stack&& null!=stack.peek()&&stack.peek().isEnable()&& stack.peek().isVisible()) {
             return ((BaseContentFragment) stack.peek()).onMenuActionSelected(action);
         }
         return false;
