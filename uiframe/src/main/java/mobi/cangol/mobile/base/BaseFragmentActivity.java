@@ -256,7 +256,13 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
-
+    @Override
+    public void hideSoftInput() {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (this.getCurrentFocus() != null) {
+            imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
     @Override
     public Handler getHandler() {
         return handler;

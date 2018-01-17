@@ -15,6 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -152,9 +153,15 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     public void hideSoftInput(EditText editText) {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
+    @Override
+    public void hideSoftInput() {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (this.getCurrentFocus() != null) {
+            imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
     @Override
     public void onMenuActionCreated(ActionMenu actionMenu) {
         if (stack != null && stack.size() > 0) {
