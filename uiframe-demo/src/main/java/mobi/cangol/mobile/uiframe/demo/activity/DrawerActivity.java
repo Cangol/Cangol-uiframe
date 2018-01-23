@@ -20,9 +20,9 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.setStatusBarTintColor(Color.GRAY);
-		this.setNavigationBarTintColor(Color.GRAY);
-		this.getCustomActionBar().setBackgroundColor(Color.GRAY);
+		this.setStatusBarTintColor(Color.DKGRAY);
+		this.setNavigationBarTintColor(Color.DKGRAY);
+		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuLeftFragment.class,null);

@@ -72,9 +72,9 @@ public class DemoApplication  extends CoreApplication {
 			Log.v(TAG, "getAppDir:" + configService.getAppDir());
 			
 			Log.d(TAG,"初始化StatusService");
-			statusService = (StatusService) getAppService(AppService.STATUS_SERVICE);
-			appStatusListener = new AppStatusListener();
-			statusService.registerStatusListener(appStatusListener);
+//			statusService = (StatusService) getAppService(AppService.STATUS_SERVICE);
+//			appStatusListener = new AppStatusListener();
+//			statusService.registerStatusListener(appStatusListener);
 			
 		}
 
