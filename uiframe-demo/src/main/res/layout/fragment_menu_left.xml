@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Home"
         android:background="#ff00ff"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
 
     <TextView
         android:id="@+id/textView2"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="list"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
 
     <TextView
         android:id="@+id/textView3"
@@ -27,14 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="setting"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
 	<TextView
         android:id="@+id/textView4"
        	android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="switch"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
 	
 	<TextView
         android:id="@+id/textView5"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tabs"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
 	
 	<TextView
         android:id="@+id/textView6"
@@ -50,5 +50,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tabpage"
-        android:textColor="@color/menu_text_selector" /> />
+        android:textColor="@color/menu_text_selector" />
+
+	<ListView
+		android:id="@+id/listView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:entries="@array/sts">
+	</ListView>
 </LinearLayout>

@@ -18,14 +18,18 @@ package mobi.cangol.mobile.navigation;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import mobi.cangol.mobile.uiframe.R;
@@ -123,31 +127,61 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         return false;
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see android.view.ViewGroup#fitSystemWindows(android.graphics.Rect)
-     */
     @Override
     protected boolean fitSystemWindows(Rect insets) {
-        super.fitSystemWindows(insets);
-        int leftPadding = insets.left;
-        int rightPadding = insets.right;
-        int topPadding = insets.top;
-        int bottomPadding = insets.bottom;
-        Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
-            mContentView.setPadding(leftPadding,
-                    topPadding,
-                    rightPadding,
-                    bottomPadding);
-            mMenuView.setPadding(leftPadding,
-                    topPadding,
-                    rightPadding,
-                    bottomPadding);
+            setMyPadding(insets);
+            fitDecorChild();
         }
         return true;
     }
+    private void fitDecorChild(){
+        ViewGroup contentView= (ViewGroup) this.findViewById(R.id.actionbar_content_view);
+        if(contentView!=null){
+            ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
+            if(decorChild!=null){
+                FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
+                layoutParams.bottomMargin=0;
+                decorChild.setLayoutParams(layoutParams);
+            }
+        }
+    }
+    private void setMyPadding(Rect rect) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            switch (manager.getDefaultDisplay().getRotation()) {
+                case Surface.ROTATION_90:
+                    rect.right += getNavBarWidth();
+                    break;
+                case Surface.ROTATION_180:
+                    rect.top += getNavBarHeight();
+                    break;
+                case Surface.ROTATION_270:
+                    rect.left += getNavBarWidth();
+                    break;
+                default:
+                    rect.bottom += getNavBarHeight();
+            }
+        }
+        mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mMenuView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+    }
 
+    private int getNavBarWidth() {
+        return getNavBarDimen("navigation_bar_width");
+    }
+    private int getNavBarHeight() {
+        return getNavBarDimen("navigation_bar_height");
+    }
+    private int getNavBarDimen(String resourceString) {
+        Resources r = getResources();
+        int id = r.getIdentifier(resourceString, "dimen", "android");
+        if (id > 0) {
+            return r.getDimensionPixelSize(id);
+        } else {
+            return 0;
+        }
+    }
     @Override
     public void setBackgroundColor(int color) {
         super.setBackgroundColor(color);

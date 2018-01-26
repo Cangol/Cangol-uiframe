@@ -1,24 +1,32 @@
 package mobi.cangol.mobile.navigation;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import mobi.cangol.mobile.uiframe.R;
 
 
-public class TabMenuDrawerLayout extends DrawerLayout {
-    private ViewGroup mRootView;
+public class TabMenuDrawerLayout extends DrawerLayout  {
+    private static final String TAG="TabMenuDrawerLayout";
+    private LinearLayout mRootView;
     private FrameLayout mLeftView;
     private FrameLayout mRightView;
     private float mDrawerWidth = 0.618f;
@@ -29,7 +37,7 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mLeftView = new FrameLayout(context);
         mRightView = new FrameLayout(context);
 
-        mRootView= (ViewGroup) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
+        mRootView= (LinearLayout) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mRootView.setId(R.id.main_view);
         this.addView(mRootView, lp1);
@@ -82,33 +90,61 @@ public class TabMenuDrawerLayout extends DrawerLayout {
     public void setDrawerEnable(int gravity, boolean enable) {
         this.setDrawerLockMode(enable ? DrawerLayout.LOCK_MODE_UNLOCKED : DrawerLayout.LOCK_MODE_LOCKED_CLOSED, gravity);
     }
-
-    /*
-     *  (non-Javadoc)
-     * @see android.view.ViewGroup#fitSystemWindows(android.graphics.Rect)
-     */
     @Override
     protected boolean fitSystemWindows(Rect insets) {
-        int leftPadding = insets.left;
-        int rightPadding = insets.right;
-        int topPadding = insets.top;
-        int bottomPadding = insets.bottom;
-        Log.e("fitSystemWindows","fitSystemWindows="+insets.toString());
         if (isFloatActionBarEnabled) {
-            mRootView.setPadding(leftPadding,
-                    topPadding,
-                    rightPadding,
-                    bottomPadding);
-            mLeftView.setPadding(leftPadding,
-                    topPadding,
-                    rightPadding,
-                    bottomPadding);
-            mRightView.setPadding(leftPadding,
-                    topPadding,
-                    rightPadding,
-                    bottomPadding);
+            setMyPadding(insets);
+            fitDecorChild();
         }
         return true;
+    }
+    private void fitDecorChild(){
+        ViewGroup contentView= (ViewGroup) this.findViewById(R.id.actionbar_content_view);
+        if(contentView!=null){
+            ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
+            if(decorChild!=null){
+                FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
+                layoutParams.bottomMargin=0;
+                decorChild.setLayoutParams(layoutParams);
+            }
+        }
+    }
+    private void setMyPadding(Rect rect) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            switch (manager.getDefaultDisplay().getRotation()) {
+                case Surface.ROTATION_90:
+                    rect.right += getNavBarWidth();
+                    break;
+                case Surface.ROTATION_180:
+                    rect.top += getNavBarHeight();
+                    break;
+                case Surface.ROTATION_270:
+                    rect.left += getNavBarWidth();
+                    break;
+                default:
+                    rect.bottom += getNavBarHeight();
+            }
+        }
+        mRootView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mLeftView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mRightView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+    }
+
+    private int getNavBarWidth() {
+        return getNavBarDimen("navigation_bar_width");
+    }
+    private int getNavBarHeight() {
+        return getNavBarDimen("navigation_bar_height");
+    }
+    private int getNavBarDimen(String resourceString) {
+        Resources r = getResources();
+        int id = r.getIdentifier(resourceString, "dimen", "android");
+        if (id > 0) {
+            return r.getDimensionPixelSize(id);
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -124,7 +160,6 @@ public class TabMenuDrawerLayout extends DrawerLayout {
         mRightView.setBackgroundResource(resId);
         mLeftView.setBackgroundResource(resId);
     }
-
     public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
         // get the window background
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
