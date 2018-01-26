@@ -1,6 +1,5 @@
 package mobi.cangol.mobile.navigation;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -16,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -91,15 +90,15 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         this.setDrawerLockMode(enable ? DrawerLayout.LOCK_MODE_UNLOCKED : DrawerLayout.LOCK_MODE_LOCKED_CLOSED, gravity);
     }
     @Override
-    protected boolean fitSystemWindows(Rect insets) {
+    protected boolean fitSystemWindows(Rect rect) {
         if (isFloatActionBarEnabled) {
-            setMyPadding(insets);
-            fitDecorChild();
+            setMyPadding(rect);
+            fitDecorChild(this);
         }
         return true;
     }
-    private void fitDecorChild(){
-        ViewGroup contentView= (ViewGroup) this.findViewById(R.id.actionbar_content_view);
+    private void fitDecorChild(View view){
+        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
             if(decorChild!=null){

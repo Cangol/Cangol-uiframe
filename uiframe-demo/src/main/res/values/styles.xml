@@ -1,7 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme.Dark" parent="ActionBarTheme.Dark">
+    <style name="AppTheme" parent="ActionBarTheme.Dark">
         <item name="actionbar_background">@color/red</item>
         <item name="actionbar_title">@color/white</item>
+        <item name="android:windowBackground">@drawable/ic_splashing</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">false</item>
     </style>
 </resources>
