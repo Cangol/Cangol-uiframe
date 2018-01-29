@@ -96,7 +96,11 @@ public interface BaseActivityDelegate {
      * @param fullscreen
      */
     void setFullScreen(boolean fullscreen);
-
+    /**
+     * 是否是全屏
+     *
+     */
+    boolean isFullScreen();
     /**
      * back按钮回调
      */

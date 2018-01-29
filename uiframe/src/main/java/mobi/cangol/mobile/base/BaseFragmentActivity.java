@@ -214,7 +214,16 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         }
 
     }
-
+    @Override
+    public boolean isFullScreen() {
+        int flag = this.getWindow().getAttributes().flags;
+        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return true;
+        }else {
+            return false;
+        }
+    }
     @Override
     final public void onBackPressed() {
         if (LIFECYCLE) Log.v(TAG, "onBackPressed ");

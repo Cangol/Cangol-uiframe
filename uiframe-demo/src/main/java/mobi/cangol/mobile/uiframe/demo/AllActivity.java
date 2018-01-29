@@ -1,16 +1,18 @@
 package mobi.cangol.mobile.uiframe.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import mobi.cangol.mobile.base.BaseActionBarActivity;
 import mobi.cangol.mobile.base.BaseFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.DrawerActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.SlidingActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.TabActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.TabDrawerActivity;
 
-public class AllActivity extends BaseFragmentActivity {
+public class AllActivity extends BaseActionBarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,6 +27,10 @@ public class AllActivity extends BaseFragmentActivity {
 
 	@Override
 	public void initViews(Bundle savedInstanceState) {
+		setTitle("ALL");
+		this.setStatusBarTintColor(Color.DKGRAY);
+		this.setNavigationBarTintColor(Color.DKGRAY);
+		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener(){
 
 			@Override

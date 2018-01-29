@@ -15,10 +15,8 @@
  */
 package mobi.cangol.mobile.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -140,6 +138,17 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        int flag = this.getWindow().getAttributes().flags;
+        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return true;
+        }else {
+            return false;
         }
     }
 

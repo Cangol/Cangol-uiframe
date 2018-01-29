@@ -1,5 +1,6 @@
 package mobi.cangol.mobile.navigation;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -16,10 +17,12 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import mobi.cangol.mobile.base.BaseActionBarActivity;
 import mobi.cangol.mobile.uiframe.R;
 
 
@@ -91,12 +94,29 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     }
     @Override
     protected boolean fitSystemWindows(Rect rect) {
+        super.fitSystemWindows(rect);
+        Log.d(TAG,"fitSystemWindows "+rect.toString());
         if (isFloatActionBarEnabled) {
             setMyPadding(rect);
             fitDecorChild(this);
         }
         return true;
     }
+//    @Override
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+//        Log.d(TAG,"onApplyWindowInsets "+insets.getSystemWindowInsetTop());
+//        if (isFloatActionBarEnabled){
+//            Rect rect = new Rect(
+//                    insets.getSystemWindowInsetLeft(),
+//                    insets.getSystemWindowInsetTop(),
+//                    insets.getSystemWindowInsetRight(),
+//                    insets.getSystemWindowInsetBottom()
+//            );
+//            setMyPadding(rect);
+//        }
+//        return insets.consumeSystemWindowInsets();
+//    }
     private void fitDecorChild(View view){
         ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
@@ -109,6 +129,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         }
     }
     private void setMyPadding(Rect rect) {
+        Log.d(TAG,"setMyPadding "+rect.toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
             switch (manager.getDefaultDisplay().getRotation()) {
