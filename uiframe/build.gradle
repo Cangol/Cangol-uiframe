@@ -9,7 +9,8 @@ apply plugin: 'com.jakewharton.hugo'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile 'mobi.cangol.mobile:actionbar:[1.0.20,)@aar'
+    compile project(':actionbar')
+    //compile 'mobi.cangol.mobile:actionbar:1.0.20@aar'
     compile 'mobi.cangol.mobile:appcore:[1.1.13,)@aar'
     compile 'com.android.support:support-fragment:[25.0.0,)'
     compile 'com.android.support:appcompat-v7:[25.0.0,)'

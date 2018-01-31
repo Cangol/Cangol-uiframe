@@ -106,18 +106,33 @@ public class DrawerMenuLayout extends DrawerLayout {
     protected boolean fitSystemWindows(Rect insets) {
         if (isFloatActionBarEnabled) {
             setMyPadding(insets);
-            fitDecorChild();
+            fitDecorChild(this);
         }
         return true;
     }
-    private void fitDecorChild(){
-        ViewGroup contentView= (ViewGroup) this.findViewById(R.id.actionbar_content_view);
+    private void fitDecorChild(View view){
+        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
             if(decorChild!=null){
-                FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
-                layoutParams.bottomMargin=0;
-                decorChild.setLayoutParams(layoutParams);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                    FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
+                    switch (manager.getDefaultDisplay().getRotation()) {
+                        case Surface.ROTATION_90:
+                            layoutParams.rightMargin=0;
+                            break;
+                        case Surface.ROTATION_180:
+                            layoutParams.topMargin=0;
+                            break;
+                        case Surface.ROTATION_270:
+                            layoutParams.leftMargin=0;
+                            break;
+                        default:
+                            layoutParams.bottomMargin=0;
+                    }
+                    decorChild.setLayoutParams(layoutParams);
+                }
             }
         }
     }
