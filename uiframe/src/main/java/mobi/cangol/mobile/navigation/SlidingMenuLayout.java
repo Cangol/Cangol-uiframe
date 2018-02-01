@@ -24,13 +24,17 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import java.lang.reflect.Method;
 
 import mobi.cangol.mobile.uiframe.R;
 
@@ -130,7 +134,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         if (isFloatActionBarEnabled) {
-            setMyPadding(insets);
+            fitPadding(insets);
             fitDecorChild(this);
         }
         return true;
@@ -161,8 +165,9 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
             }
         }
     }
-    private void setMyPadding(Rect rect) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    private void fitPadding(Rect rect) {
+        boolean hasNavigationBar=checkDeviceHasNavigationBar();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&&hasNavigationBar) {
             WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
             switch (manager.getDefaultDisplay().getRotation()) {
                 case Surface.ROTATION_90:
@@ -181,7 +186,45 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mMenuView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
     }
-
+    /**
+     * 检测是否具有底部导航栏
+     * @return
+     */
+    private  boolean checkDeviceHasNavigationBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = windowManager.getDefaultDisplay();
+            DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+            display.getRealMetrics(realDisplayMetrics);
+            int realHeight = realDisplayMetrics.heightPixels;
+            int realWidth = realDisplayMetrics.widthPixels;
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            display.getMetrics(displayMetrics);
+            int displayHeight = displayMetrics.heightPixels;
+            int displayWidth = displayMetrics.widthPixels;
+            return (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
+        } else {
+            boolean hasNavigationBar = false;
+            Resources resources = getContext().getResources();
+            int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
+            if (id > 0) {
+                hasNavigationBar = resources.getBoolean(id);
+            }
+            try {
+                Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+                Method m = systemPropertiesClass.getMethod("get", String.class);
+                String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+                if ("1".equals(navBarOverride)) {
+                    hasNavigationBar = false;
+                } else if ("0".equals(navBarOverride)) {
+                    hasNavigationBar = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return hasNavigationBar;
+        }
+    }
     private int getNavBarWidth() {
         return getNavBarDimen("navigation_bar_width");
     }

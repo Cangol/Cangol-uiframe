@@ -94,7 +94,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     }
     @Override
     protected boolean fitSystemWindows(Rect rect) {
-        super.fitSystemWindows(rect);
         Log.d(TAG,"fitSystemWindows "+rect.toString());
         if (isFloatActionBarEnabled) {
             fitPadding(rect);
@@ -118,6 +117,74 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
 //        }
 //        return insets.consumeSystemWindowInsets();
 //    }
+
+    private void fitDecorChild(View view){
+        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
+        if(contentView!=null){
+            ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
+            if(decorChild!=null){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                    FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
+                    switch (manager.getDefaultDisplay().getRotation()) {
+                        case Surface.ROTATION_90:
+                            layoutParams.rightMargin=0;
+                            break;
+                        case Surface.ROTATION_180:
+                            layoutParams.topMargin=0;
+                            break;
+                        case Surface.ROTATION_270:
+                            layoutParams.leftMargin=0;
+                            break;
+                        default:
+                            layoutParams.bottomMargin=0;
+                    }
+                    decorChild.setLayoutParams(layoutParams);
+                }
+            }
+        }
+    }
+
+    private void fitPadding(Rect rect) {
+        Log.d(TAG,"fitPadding "+rect.toString());
+        boolean hasNavigationBar=checkDeviceHasNavigationBar();
+        Log.d(TAG,"checkDeviceHasNavigationBar="+hasNavigationBar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&&hasNavigationBar) {
+            WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            switch (manager.getDefaultDisplay().getRotation()) {
+                case Surface.ROTATION_90:
+                    rect.right += getNavBarWidth();
+                    break;
+                case Surface.ROTATION_180:
+                    rect.top += getNavBarHeight();
+                    break;
+                case Surface.ROTATION_270:
+                    rect.left += getNavBarWidth();
+                    break;
+                default:
+                    rect.bottom += getNavBarHeight();
+            }
+        }
+        mRootView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mLeftView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mRightView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+    }
+
+    private int getNavBarWidth() {
+        return getNavBarDimen("navigation_bar_width");
+    }
+    private int getNavBarHeight() {
+        return getNavBarDimen("navigation_bar_height");
+    }
+    private int getNavBarDimen(String resourceString) {
+        Resources r = getResources();
+        int id = r.getIdentifier(resourceString, "dimen", "android");
+        if (id > 0) {
+            return r.getDimensionPixelSize(id);
+        } else {
+            return 0;
+        }
+    }
     /**
      * 检测是否具有底部导航栏
      * @return
@@ -157,75 +224,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
             return hasNavigationBar;
         }
     }
-
-    private void fitDecorChild(View view){
-        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
-        if(contentView!=null){
-            ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
-            if(decorChild!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-                    FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
-                    switch (manager.getDefaultDisplay().getRotation()) {
-                        case Surface.ROTATION_90:
-                            layoutParams.rightMargin=0;
-                            break;
-                        case Surface.ROTATION_180:
-                            layoutParams.topMargin=0;
-                            break;
-                        case Surface.ROTATION_270:
-                            layoutParams.leftMargin=0;
-                            break;
-                        default:
-                            layoutParams.bottomMargin=0;
-                    }
-                    decorChild.setLayoutParams(layoutParams);
-                }
-            }
-        }
-    }
-
-    private void fitPadding(Rect rect) {
-        Log.d(TAG,"setMyPadding "+rect.toString());
-        boolean hasNavigationBar=checkDeviceHasNavigationBar();
-        Log.d(TAG,"checkDeviceHasNavigationBar="+hasNavigationBar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&&hasNavigationBar) {
-            WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            switch (manager.getDefaultDisplay().getRotation()) {
-                case Surface.ROTATION_90:
-                    rect.right += getNavBarWidth();
-                    break;
-                case Surface.ROTATION_180:
-                    rect.top += getNavBarHeight();
-                    break;
-                case Surface.ROTATION_270:
-                    rect.left += getNavBarWidth();
-                    break;
-                default:
-                    rect.bottom += getNavBarHeight();
-            }
-        }
-        mRootView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
-        mLeftView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
-        mRightView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
-    }
-
-    private int getNavBarWidth() {
-        return getNavBarDimen("navigation_bar_width");
-    }
-    private int getNavBarHeight() {
-        return getNavBarDimen("navigation_bar_height");
-    }
-    private int getNavBarDimen(String resourceString) {
-        Resources r = getResources();
-        int id = r.getIdentifier(resourceString, "dimen", "android");
-        if (id > 0) {
-            return r.getDimensionPixelSize(id);
-        } else {
-            return 0;
-        }
-    }
-
     @Override
     public void setBackgroundColor(int color) {
         super.setBackgroundColor(color);
