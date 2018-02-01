@@ -1,2 +1,2 @@
-include ':uiframe-demo', ':actionbar'
+include ':uiframe-demo'
 include ':uiframe'
