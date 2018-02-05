@@ -43,7 +43,6 @@ public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
     protected final String TAG = Log.makeLogTag(this.getClass());
-    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     private long startTime;
     private int resultCode = RESULT_CANCELED;
@@ -140,30 +139,30 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (LIFECYCLE) Log.v(TAG, "onAttach");
+        Log.v(TAG, "onAttach");
     }
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
-        if (LIFECYCLE) Log.v(TAG, "onAttachFragment");
+        Log.v(TAG, "onAttachFragment");
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        if (LIFECYCLE) Log.v(TAG, "onCreateAnimation");
+        Log.v(TAG, "onCreateAnimation");
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
-        if (LIFECYCLE) Log.v(TAG, "onMultiWindowModeChanged");
+        Log.v(TAG, "onMultiWindowModeChanged");
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onCreate");
+        Log.v(TAG, "onCreate");
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new InternalHandler(this, handlerThread.getLooper());
@@ -177,7 +176,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (LIFECYCLE) {
+        {
             Log.v(TAG, "onCreateView");
             startTime = System.currentTimeMillis();
         }
@@ -187,49 +186,49 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onViewCreated");
+        Log.v(TAG, "onViewCreated");
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onActivityCreated");
+        Log.v(TAG, "onActivityCreated");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (LIFECYCLE) Log.v(TAG, "onPause");
+        Log.v(TAG, "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
+        Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (LIFECYCLE) Log.v(TAG, "onStart");
+        Log.v(TAG, "onStart");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (LIFECYCLE) Log.v(TAG, "onStop");
+        Log.v(TAG, "onStop");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        if (LIFECYCLE) Log.v(TAG, "onDetach");
+        Log.v(TAG, "onDetach");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (LIFECYCLE) Log.v(TAG, "onDestroyView " + getIdleTime() + "s");
+        Log.v(TAG, "onDestroyView " + getIdleTime() + "s");
     }
 
     @Override
@@ -238,49 +237,49 @@ public abstract class BaseFragment extends Fragment {
         handlerThread.quit();
         if (null != stack)stack.destroy();
         super.onDestroy();
-        if (LIFECYCLE) Log.v(TAG, "onDestroy");
+        Log.v(TAG, "onDestroy");
     }
 
     public void onDrawerSlide(float slideOffset) {
-        if (LIFECYCLE) Log.v(TAG, "onDrawerSlide");
+        Log.v(TAG, "onDrawerSlide");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (null != stack) stack.saveState(outState);
-        if (LIFECYCLE) Log.v(TAG, "onSaveInstanceState");
+        Log.v(TAG, "onSaveInstanceState");
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (LIFECYCLE) Log.v(TAG, "onConfigurationChanged");
+        Log.v(TAG, "onConfigurationChanged");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (LIFECYCLE) Log.v(TAG, "onActivityResult");
+        Log.v(TAG, "onActivityResult");
 
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (LIFECYCLE) Log.v(TAG, "onHiddenChanged " + hidden);
+        Log.v(TAG, "onHiddenChanged " + hidden);
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        if (LIFECYCLE) Log.v(TAG, "onLowMemory");
+        Log.v(TAG, "onLowMemory");
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onViewStateRestored");
+        Log.v(TAG, "onViewStateRestored");
     }
 
     /**

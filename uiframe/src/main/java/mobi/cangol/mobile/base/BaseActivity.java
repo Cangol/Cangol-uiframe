@@ -41,7 +41,6 @@ import mobi.cangol.mobile.service.session.SessionService;
  */
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
-    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     public CoreApplication app;
     private long startTime;
     private HandlerThread handlerThread;
@@ -55,7 +54,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Log.setLogTag(this);
-        if (LIFECYCLE) Log.v(TAG, "onCreate");
+        Log.v(TAG, "onCreate");
         startTime = System.currentTimeMillis();
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
@@ -83,48 +82,48 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (LIFECYCLE) Log.v(TAG, "onNewIntent");
+        Log.v(TAG, "onNewIntent");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (LIFECYCLE) Log.v(TAG, "onStart");
+        Log.v(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
+        Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
     protected void onPause() {
-        if (LIFECYCLE) Log.v(TAG, "onPause");
+        Log.v(TAG, "onPause");
         super.onPause();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (LIFECYCLE) Log.v(TAG, "onRestart");
+        Log.v(TAG, "onRestart");
     }
 
     @Override
     protected void onStop() {
-        if (LIFECYCLE) Log.v(TAG, "onStop");
+        Log.v(TAG, "onStop");
         super.onStop();
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onRestoreInstanceState");
+        Log.v(TAG, "onRestoreInstanceState");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (LIFECYCLE) Log.v(TAG, "onSaveInstanceState");
+        Log.v(TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
     }
 
@@ -139,12 +138,12 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (LIFECYCLE) Log.v(TAG, "onConfigurationChanged");
+        Log.v(TAG, "onConfigurationChanged");
     }
 
     @Override
     protected void onDestroy() {
-        if (LIFECYCLE) Log.v(TAG, "onDestroy");
+        Log.v(TAG, "onDestroy");
         app.delActivityFromManager(this);
         super.onDestroy();
         handlerThread.quit();
@@ -152,7 +151,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
 
     @Override
     public void onBackPressed() {
-        if (LIFECYCLE) Log.v(TAG, "onBackPressed");
+        Log.v(TAG, "onBackPressed");
         super.onBackPressed();
     }
 
@@ -189,7 +188,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
      */
     @Override
     public void onBack() {
-        if (LIFECYCLE) Log.v(TAG, "onBack");
+        Log.v(TAG, "onBack");
         super.onBackPressed();
     }
 

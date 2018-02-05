@@ -71,15 +71,13 @@ public class CustomFragmentManager {
     private int popStackEnterAnimation;
     private int popStackExitAnimation;
     private boolean firstUseAnim = false;
-    private FragmentManager.FragmentLifecycleCallbacks lifecycleCallbacks;
+
     private CustomFragmentManager(FragmentActivity fActivity, int containerId, FragmentManager fragmentManager) {
         this.fActivity = fActivity;
         this.fragmentManager = fragmentManager;
         this.containerId = containerId;
         this.handler = new InternalHandler(fActivity);
         this.stack= new FragmentStack();
-        //this.lifecycleCallbacks=new FragmentLifecycleCallbacksLog();
-        //this.fragmentManager.registerFragmentLifecycleCallbacks(lifecycleCallbacks,false);
     }
 
     public static CustomFragmentManager forContainer(FragmentActivity activity, int containerId,
@@ -90,7 +88,6 @@ public class CustomFragmentManager {
     public void destroy() {
         this.stack.clear();
         this. handler.removeCallbacks(execPendingTransactions);
-        //this.fragmentManager.unregisterFragmentLifecycleCallbacks(lifecycleCallbacks);
     }
 
     protected final static class InternalHandler extends Handler {

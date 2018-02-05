@@ -39,7 +39,6 @@ import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
-    private static final boolean LIFECYCLE = Log.getLevel() >= android.util.Log.VERBOSE;
     protected CoreApplication app;
     protected CustomFragmentManager stack;
     private long startTime;
@@ -58,7 +57,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        if (LIFECYCLE) Log.v(TAG, "onCreate");
+        Log.v(TAG, "onCreate");
         startTime = System.currentTimeMillis();
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
@@ -188,7 +187,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     final public void onBackPressed() {
-        if (LIFECYCLE) Log.v(TAG, "onBackPressed ");
+        Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
             return;
@@ -209,7 +208,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     public boolean onSupportNavigateUp() {
-        if (LIFECYCLE)Log.v(TAG, "onSupportNavigateUp ");
+        Log.v(TAG, "onSupportNavigateUp ");
         if (stack == null||stack.size()==0||stack.peek()==null) {
             return super.onSupportNavigateUp();
         }else{
@@ -235,44 +234,44 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        if (LIFECYCLE) Log.v(TAG, "onStart");
+        Log.v(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (LIFECYCLE) Log.v(TAG, "onResume " + getIdleTime() + "s");
+        Log.v(TAG, "onResume " + getIdleTime() + "s");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (LIFECYCLE) Log.v(TAG, "onPause");
+        Log.v(TAG, "onPause");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (LIFECYCLE) Log.v(TAG, "onRestart");
+        Log.v(TAG, "onRestart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (LIFECYCLE) Log.v(TAG, "onStop");
+        Log.v(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (LIFECYCLE) Log.v(TAG, "onDestroy" );
+        Log.v(TAG, "onDestroy" );
         if (null != stack)stack.destroy();
         app.delActivityFromManager(this);
         handlerThread.quit();
     }
 
     public void onBack() {
-        if (LIFECYCLE) Log.v(TAG, "onBack");
+        Log.v(TAG, "onBack");
         super.onBackPressed();
     }
 
@@ -280,32 +279,32 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (null != stack) stack.restoreState(savedInstanceState);
-        if (LIFECYCLE) Log.v(TAG, "onRestoreInstanceState");
+        Log.v(TAG, "onRestoreInstanceState");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (null != stack) stack.saveState(outState);
-        if (LIFECYCLE) Log.v(TAG, "onSaveInstanceState");
+        Log.v(TAG, "onSaveInstanceState");
     }
 
     @Override
     public Object getLastCustomNonConfigurationInstance() {
-        if (LIFECYCLE) Log.v(TAG, "getLastCustomNonConfigurationInstance");
+        Log.v(TAG, "getLastCustomNonConfigurationInstance");
         return super.getLastCustomNonConfigurationInstance();
     }
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
-        if (LIFECYCLE) Log.v(TAG, "onRetainCustomNonConfigurationInstance");
+        Log.v(TAG, "onRetainCustomNonConfigurationInstance");
         return super.onRetainCustomNonConfigurationInstance();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (LIFECYCLE) Log.v(TAG, "onConfigurationChanged");
+        Log.v(TAG, "onConfigurationChanged");
     }
 
     @Override
