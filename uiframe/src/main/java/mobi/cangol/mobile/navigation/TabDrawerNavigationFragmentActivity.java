@@ -150,16 +150,18 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
             @Override
             public void onDrawerOpened(View drawerView) {
                 Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment != null) {
+                if (fragment != null && fragment instanceof BaseFragment) {
                     fragment.setUserVisibleHint(true);
+                    ((BaseFragment) fragment).onDrawerOpened();
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment != null) {
+                if (fragment != null && fragment instanceof BaseFragment) {
                     fragment.setUserVisibleHint(false);
+                    ((BaseFragment) fragment).onDrawerClosed();
                 }
             }
 

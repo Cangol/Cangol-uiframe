@@ -244,6 +244,14 @@ public abstract class BaseFragment extends Fragment {
         Log.v(TAG, "onDrawerSlide");
     }
 
+    public void onDrawerOpened() {
+        Log.v(TAG, "onDrawerOpened");
+    }
+
+    public void onDrawerClosed() {
+        Log.v(TAG, "onDrawerClosed");
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
