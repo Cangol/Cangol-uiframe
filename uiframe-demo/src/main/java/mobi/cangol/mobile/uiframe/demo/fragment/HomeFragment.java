@@ -2,7 +2,6 @@ package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
@@ -23,6 +23,11 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.cache.CacheManager;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.model.Station;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
+import zhy.com.highlight.view.HightLightView;
 
 public class HomeFragment extends BaseContentFragment {
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +80,8 @@ public class HomeFragment extends BaseContentFragment {
         findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(LeakFragment.class, "LeakFragment", null);
+                //replaceFragment(LeakFragment.class, "LeakFragment", null);
+                hightLight();
             }
 
         });
@@ -176,6 +182,7 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
+
         findViewById(R.id.button10).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +190,36 @@ public class HomeFragment extends BaseContentFragment {
             }
 
         });
+    }
+    private HighLight mHighLight;
+    private void hightLight(){
+        mHighLight = new HighLight(getContext())
+                .autoRemove(true)
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        Toast.makeText(getContext(), "clicked and remove HightLight view by yourself", Toast.LENGTH_SHORT).show();
+                        mHighLight.remove();
+                    }
+                })
+                .maskColor(Color.parseColor("#6f000000"))
+                .anchor(((BaseNavigationFragmentActivity)getActivity()).getMaskView().getRootView())
+                .setOnShowCallback(new HighLightInterface.OnShowCallback() {
+                    @Override
+                    public void onShow(HightLightView hightLightView) {
+                        ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(true);
+                    }
+                })
+                .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {
+                    @Override
+                    public void onRemove() {
+                        ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(false);
+                    }
+                })
+                .addHighLight(R.id.button0,R.layout.hight_layout,new OnLeftPosCallback(45),new RectLightShape());
+
+        ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(true);
+        mHighLight.show();
     }
 
     @Override

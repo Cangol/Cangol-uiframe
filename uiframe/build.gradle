@@ -13,6 +13,7 @@ dependencies {
     compile 'mobi.cangol.mobile:appcore:[1.1.18,)@aar'
     compile 'com.android.support:support-fragment:[25.0.0,)'
     compile 'com.android.support:appcompat-v7:[25.0.0,)'
+    compile 'com.isanwenyu.highlight:highlight:1.8.0'
 }
 
 android {
