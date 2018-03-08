@@ -52,8 +52,15 @@ public class DrawerMenuLayout extends DrawerLayout {
         mMaskView = new FrameLayout(context);
 
         DrawerLayout.LayoutParams lp1 = new DrawerLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp1.gravity = Gravity.NO_GRAVITY;
         mContentView.setId(R.id.content_view);
         this.addView(mContentView, lp1);
+
+        LayoutParams lp3 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp3.gravity = Gravity.NO_GRAVITY;
+        mMaskView.setId(R.id.mask_view);
+        mMaskView.setVisibility(GONE);
+        this.addView(mMaskView, lp3);
 
         int width = (int) (mMenuWidth * context.getResources().getDisplayMetrics().widthPixels);
         DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(width, LayoutParams.MATCH_PARENT);
@@ -61,10 +68,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         mMenuView.setId(R.id.menu_view);
         this.addView(mMenuView, lp2);
 
-        LayoutParams lp3 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        mMaskView.setId(R.id.mask_view);
-        mMaskView.setVisibility(GONE);
-        this.addView(mMaskView, lp3);
+
 
     }
 
