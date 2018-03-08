@@ -22,6 +22,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		this.setStatusBarTintColor(Color.DKGRAY);
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
+		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
