@@ -74,10 +74,12 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     }
 
     public FrameLayout getMaskView() {
+        Log.d(TAG,"getMaskView ");
         return mMaskView;
     }
 
     public void displayMaskView(boolean show) {
+        Log.d(TAG,"displayMaskView "+show);
         this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 

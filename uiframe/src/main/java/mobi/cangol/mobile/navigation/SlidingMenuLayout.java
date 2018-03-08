@@ -200,6 +200,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         }
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mMenuView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mMaskView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
     }
     /**
      * 检测是否具有底部导航栏

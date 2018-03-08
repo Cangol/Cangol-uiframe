@@ -33,16 +33,6 @@ import mobi.cangol.mobile.logging.Log;
 
 public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFragmentActivity {
 
-    private boolean mFloatActionBarEnabled;
-
-    public boolean isFloatActionBarEnabled() {
-        return mFloatActionBarEnabled;
-    }
-
-    public void setFloatActionBarEnabled(boolean floatActionBarEnabled) {
-        mFloatActionBarEnabled = floatActionBarEnabled;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setNavigationFragmentActivityDelegate(new DrawerMenuNavigationFragmentActivityDelegate(this));

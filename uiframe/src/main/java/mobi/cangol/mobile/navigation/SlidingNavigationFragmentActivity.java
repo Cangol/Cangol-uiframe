@@ -30,16 +30,6 @@ import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 
 public abstract class SlidingNavigationFragmentActivity extends
         BaseNavigationFragmentActivity {
-    private boolean mFloatActionBarEnabled;
-
-    public boolean isFloatActionBarEnabled() {
-        return mFloatActionBarEnabled;
-    }
-
-    public void setFloatActionBarEnabled(boolean floatActionBarEnabled) {
-        mFloatActionBarEnabled = floatActionBarEnabled;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setNavigationFragmentActivityDelegate(new SlidingMenuNavigationFragmentActivityDelegate(this));

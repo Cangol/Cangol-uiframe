@@ -31,7 +31,15 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     private static final String MENU_TAG = "MenuFragment";
     private BaseMenuFragment menuFragment;
     private AbstractNavigationFragmentActivityDelegate mHelper;
+    protected boolean mFloatActionBarEnabled;
 
+    public boolean isFloatActionBarEnabled() {
+        return mFloatActionBarEnabled;
+    }
+
+    public void setFloatActionBarEnabled(boolean floatActionBarEnabled) {
+        mFloatActionBarEnabled = floatActionBarEnabled;
+    }
     /**
      * 返回content布局的id
      *
@@ -104,7 +112,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     }
 
     public FrameLayout getMaskView() {
-        if(isActionbarOverlay()){
+        if(isFloatActionBarEnabled()){
            return mHelper.getMaskView();
         }else{
            return super.getMaskView();
@@ -112,7 +120,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     }
 
     public void displayMaskView(boolean show) {
-        if(isActionbarOverlay()){
+        if(isFloatActionBarEnabled()){
             mHelper.displayMaskView(show);
         }else{
             super.displayMaskView(show);

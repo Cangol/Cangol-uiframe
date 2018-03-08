@@ -75,12 +75,7 @@ public class HomeFragment extends BaseContentFragment {
         findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 replaceFragment(LeakFragment.class, "LeakFragment", null);
-
-//                ((BaseNavigationFragmentActivity)getActivity()).getMaskView().setBackgroundColor(Color.parseColor("#6f000000"));
-//                ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(true);
-
             }
 
         });
@@ -88,7 +83,6 @@ public class HomeFragment extends BaseContentFragment {
             @Override
             public void onClick(View v) {
                 replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
-                //((BaseNavigationFragmentActivity)getActivity()).displayMaskView(false);
             }
 
         });
@@ -173,6 +167,22 @@ public class HomeFragment extends BaseContentFragment {
             findViewById(R.id.button7).setVisibility(View.GONE);
             findViewById(R.id.button8).setVisibility(View.GONE);
         }
+
+        findViewById(R.id.button9).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseNavigationFragmentActivity)getActivity()).getMaskView().setBackgroundColor(Color.parseColor("#9F000000"));
+                ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(true);
+            }
+
+        });
+        findViewById(R.id.button10).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(false);
+            }
+
+        });
     }
 
     @Override
