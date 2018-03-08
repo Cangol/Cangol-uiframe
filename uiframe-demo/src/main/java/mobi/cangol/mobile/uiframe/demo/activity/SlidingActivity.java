@@ -23,7 +23,7 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		this.setStatusBarTintColor(Color.DKGRAY);
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
-		this.setFloatActionBarEnabled(true);
+		this.setFloatActionBarEnabled(false);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuLeftFragment.class,null);
 			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);

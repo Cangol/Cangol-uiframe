@@ -42,7 +42,6 @@ import mobi.cangol.mobile.uiframe.R;
 public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
-    private FrameLayout mMaskView;
     private float mMenuWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
     private boolean mMenuEnable = true;
@@ -51,7 +50,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         super(context, attrs);
         mMenuView = new FrameLayout(context);
         mContentView = new FrameLayout(context);
-        mMaskView=new FrameLayout(context);
 
         int width = (int) (mMenuWidth * context.getResources().getDisplayMetrics().widthPixels);
         ViewGroup.LayoutParams lp1 = new ViewGroup.LayoutParams(width, LayoutParams.MATCH_PARENT);
@@ -61,11 +59,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mContentView.setId(R.id.content_view);
         this.addView(mContentView, lp2);
-
-        ViewGroup.LayoutParams lp3 = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        mMaskView.setId(R.id.mask_view);
-        mMaskView.setVisibility(GONE);
-        this.addView(mMaskView, lp3);
 
         mContentView.setOnTouchListener(new OnTouchListener() {
 
@@ -104,13 +97,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-    public FrameLayout getMaskView() {
-        return mMaskView;
-    }
-
-    public void displayMaskView(boolean show) {
-        this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
     public void showMenu(boolean show) {
@@ -200,7 +186,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         }
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mMenuView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
-        mMaskView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
     }
     /**
      * 检测是否具有底部导航栏
@@ -287,7 +272,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
                     this.setBackgroundResource(background);
             }
             decor.removeView(decorChild);
-            decor.addView(this, 0);
+            decor.addView(this.getRootView(), 0);
             getContentView().addView(decorChild);
         } else {
             ViewGroup contentParent = (ViewGroup) activity.findViewById(android.R.id.content);

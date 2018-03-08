@@ -65,8 +65,9 @@ public abstract class SlidingNavigationFragmentActivity extends
 class SlidingMenuNavigationFragmentActivityDelegate extends
         AbstractNavigationFragmentActivityDelegate {
     private BaseNavigationFragmentActivity mActivity;
+    private ViewGroup mRootView;
     private SlidingMenuLayout mSlidingMenuLayout;
-
+    private FrameLayout mMaskView;
     public SlidingMenuNavigationFragmentActivityDelegate(
             BaseNavigationFragmentActivity activity) {
         mActivity = activity;
@@ -79,7 +80,9 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mSlidingMenuLayout = (SlidingMenuLayout) LayoutInflater.from(mActivity).inflate(R.layout.navigation_sliding_main, null);
+        mRootView= (ViewGroup) LayoutInflater.from(mActivity).inflate(R.layout.navigation_sliding_main, null);
+        mMaskView= (FrameLayout) mRootView.findViewById(R.id.mask_view);
+        mSlidingMenuLayout= (SlidingMenuLayout) mRootView.findViewById(R.id.sidingMenuLayout);
         mSlidingMenuLayout.setPanelSlideListener(new PanelSlideListener() {
             @Override
             public void onPanelClosed(View view) {
@@ -110,7 +113,7 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 
     @Override
     public ViewGroup getRootView() {
-        return mSlidingMenuLayout;
+        return mRootView;
     }
 
     @Override
@@ -187,12 +190,11 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
 
     @Override
     public FrameLayout getMaskView() {
-        return mSlidingMenuLayout.getMaskView();
+        return mMaskView;
     }
 
     @Override
-    public void displayMaskView(boolean show) {
-        mSlidingMenuLayout.displayMaskView(show);
+    public void displayMaskView(boolean show) {mMaskView.setVisibility(show?View.VISIBLE:View.GONE);
     }
 
 }
