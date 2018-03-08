@@ -51,6 +51,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         super(context, attrs);
         mMenuView = new FrameLayout(context);
         mContentView = new FrameLayout(context);
+        mMaskView=new FrameLayout(context);
 
         int width = (int) (mMenuWidth * context.getResources().getDisplayMetrics().widthPixels);
         ViewGroup.LayoutParams lp1 = new ViewGroup.LayoutParams(width, LayoutParams.MATCH_PARENT);
