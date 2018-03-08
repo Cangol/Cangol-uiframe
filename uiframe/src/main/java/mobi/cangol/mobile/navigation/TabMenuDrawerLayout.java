@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,17 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
 
         mRootView= (LinearLayout) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp1.gravity = Gravity.NO_GRAVITY;
         mRootView.setId(R.id.main_view);
         this.addView(mRootView, lp1);
 
-        int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
+        LayoutParams lp4 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp4.gravity = Gravity.NO_GRAVITY;
+        mMaskView.setId(R.id.mask_view);
+        mMaskView.setVisibility(GONE);
+        this.addView(mMaskView, lp4);
 
+        int width = (int) (mDrawerWidth * context.getResources().getDisplayMetrics().widthPixels);
         LayoutParams lp2 = new LayoutParams(width, LayoutParams.MATCH_PARENT);
         lp2.gravity = Gravity.LEFT;
         mLeftView.setId(R.id.left_view);
@@ -58,10 +65,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         mRightView.setId(R.id.right_view);
         this.addView(mRightView, lp3);
 
-        LayoutParams lp4 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        mMaskView.setId(R.id.mask_view);
-        mMaskView.setVisibility(GONE);
-        this.addView(mMaskView, lp4);
     }
 
     public ViewGroup getContentView() {
@@ -74,12 +77,10 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     }
 
     public FrameLayout getMaskView() {
-        Log.d(TAG,"getMaskView ");
         return mMaskView;
     }
 
     public void displayMaskView(boolean show) {
-        Log.d(TAG,"displayMaskView "+show);
         this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
