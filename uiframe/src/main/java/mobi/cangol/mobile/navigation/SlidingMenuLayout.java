@@ -23,6 +23,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -41,6 +42,7 @@ import mobi.cangol.mobile.uiframe.R;
 public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
+    private FrameLayout mMaskView;
     private float mMenuWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
     private boolean mMenuEnable = true;
@@ -58,6 +60,11 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mContentView.setId(R.id.content_view);
         this.addView(mContentView, lp2);
+
+        ViewGroup.LayoutParams lp3 = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mMaskView.setId(R.id.mask_view);
+        mMaskView.setVisibility(GONE);
+        this.addView(mMaskView, lp3);
 
         mContentView.setOnTouchListener(new OnTouchListener() {
 
@@ -96,6 +103,13 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+    public FrameLayout getMaskView() {
+        return mMaskView;
+    }
+
+    public void displayMaskView(boolean show) {
+        this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
     public void showMenu(boolean show) {

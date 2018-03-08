@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 
@@ -131,5 +132,17 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
      * @param resId
      */
     public abstract void setBackgroundResource(int resId);
+
+    /**
+     * 获取蒙版view
+     * @return
+     */
+    public abstract FrameLayout getMaskView();
+
+    /**
+     * 显示或隐藏蒙板
+     * @param show
+     */
+    public abstract void displayMaskView(boolean show);
 
 }

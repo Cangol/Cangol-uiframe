@@ -1,5 +1,6 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
@@ -75,6 +77,10 @@ public class HomeFragment extends BaseContentFragment {
             public void onClick(View v) {
 
                 replaceFragment(LeakFragment.class, "LeakFragment", null);
+
+//                ((BaseNavigationFragmentActivity)getActivity()).getMaskView().setBackgroundColor(Color.parseColor("#6f000000"));
+//                ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(true);
+
             }
 
         });
@@ -82,6 +88,7 @@ public class HomeFragment extends BaseContentFragment {
             @Override
             public void onClick(View v) {
                 replaceFragmentForResult(ResultFragment.class, "ResultFragment", null, 1);
+                //((BaseNavigationFragmentActivity)getActivity()).displayMaskView(false);
             }
 
         });

@@ -41,6 +41,7 @@ import mobi.cangol.mobile.uiframe.R;
 public class DrawerMenuLayout extends DrawerLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
+    private FrameLayout mMaskView;
     private float mMenuWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
 
@@ -48,6 +49,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         super(context, attrs);
         mMenuView = new FrameLayout(context);
         mContentView = new FrameLayout(context);
+        mMaskView = new FrameLayout(context);
 
         DrawerLayout.LayoutParams lp1 = new DrawerLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mContentView.setId(R.id.content_view);
@@ -58,6 +60,11 @@ public class DrawerMenuLayout extends DrawerLayout {
         lp2.gravity = Gravity.LEFT;
         mMenuView.setId(R.id.menu_view);
         this.addView(mMenuView, lp2);
+
+        LayoutParams lp3 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mMaskView.setId(R.id.mask_view);
+        mMaskView.setVisibility(GONE);
+        this.addView(mMaskView, lp3);
 
     }
 
@@ -85,6 +92,13 @@ public class DrawerMenuLayout extends DrawerLayout {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+    public FrameLayout getMaskView() {
+        return mMaskView;
+    }
+
+    public void displayMaskView(boolean show) {
+        this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
     public void showMenu(boolean show) {
@@ -158,6 +172,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         }
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mMenuView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mMaskView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
     }
     /**
      * 检测是否具有底部导航栏

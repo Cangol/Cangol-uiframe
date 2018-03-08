@@ -5,4 +5,5 @@
     <item name="main_view" type="id"/>
     <item name="left_view" type="id"/>
     <item name="right_view" type="id"/>
+    <item name="mask_view" type="id"/>
 </resources>

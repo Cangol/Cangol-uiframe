@@ -175,7 +175,13 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
     public void setDrawerEnable(int gravity, boolean enable) {
         mDrawerLayout.setDrawerEnable(gravity, enable);
     }
+    public FrameLayout getMaskView() {
+        return mDrawerLayout.getMaskView();
+    }
 
+    public void displayMaskView(boolean show) {
+        mDrawerLayout.displayMaskView(show);
+    }
     public void showDrawer(int gravity, boolean show) {
         mDrawerLayout.showDrawer(gravity, show);
     }

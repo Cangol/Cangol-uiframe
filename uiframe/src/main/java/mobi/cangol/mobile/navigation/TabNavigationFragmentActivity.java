@@ -193,4 +193,14 @@ class TabNavigationFragmentActivityDelegate extends
         mRootView.setBackgroundResource(resId);
 
     }
+
+    @Override
+    public FrameLayout getMaskView() {
+        return null;
+    }
+
+    @Override
+    public void displayMaskView(boolean show) {
+
+    }
 }

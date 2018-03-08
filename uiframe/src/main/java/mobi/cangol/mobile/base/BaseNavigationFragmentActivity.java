@@ -22,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import mobi.cangol.mobile.navigation.AbstractNavigationFragmentActivityDelegate;
 
@@ -100,6 +101,22 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     @Override
     public void setContentView(View v, LayoutParams params) {
         super.setContentView(v, params);
+    }
+
+    public FrameLayout getMaskView() {
+        if(isActionbarOverlay()){
+           return mHelper.getMaskView();
+        }else{
+           return super.getMaskView();
+        }
+    }
+
+    public void displayMaskView(boolean show) {
+        if(isActionbarOverlay()){
+            mHelper.displayMaskView(show);
+        }else{
+            super.displayMaskView(show);
+        }
     }
 
     public void showMenu(boolean show) {

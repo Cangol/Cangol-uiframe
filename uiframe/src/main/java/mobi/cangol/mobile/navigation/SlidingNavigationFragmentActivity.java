@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import mobi.cangol.mobile.uiframe.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
@@ -192,6 +193,16 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
     @Override
     public void setBackgroundResource(int resId) {
         mSlidingMenuLayout.setBackgroundResource(resId);
+    }
+
+    @Override
+    public FrameLayout getMaskView() {
+        return mSlidingMenuLayout.getMaskView();
+    }
+
+    @Override
+    public void displayMaskView(boolean show) {
+        mSlidingMenuLayout.displayMaskView(show);
     }
 
 }

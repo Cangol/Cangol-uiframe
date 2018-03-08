@@ -31,6 +31,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     private LinearLayout mRootView;
     private FrameLayout mLeftView;
     private FrameLayout mRightView;
+    private FrameLayout mMaskView;
     private float mDrawerWidth = 0.618f;
     private boolean isFloatActionBarEnabled;
 
@@ -38,6 +39,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         super(context, attrs);
         mLeftView = new FrameLayout(context);
         mRightView = new FrameLayout(context);
+        mMaskView = new FrameLayout(context);
 
         mRootView= (LinearLayout) LayoutInflater.from(context).inflate(R.layout.navigation_tab_main, null);
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -55,6 +57,11 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         lp3.gravity = Gravity.RIGHT;
         mRightView.setId(R.id.right_view);
         this.addView(mRightView, lp3);
+
+        LayoutParams lp4 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mMaskView.setId(R.id.mask_view);
+        mMaskView.setVisibility(GONE);
+        this.addView(mMaskView, lp4);
     }
 
     public ViewGroup getContentView() {
@@ -64,6 +71,14 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
     public void setContentView(View v) {
         getContentView().removeAllViews();
         getContentView().addView(v);
+    }
+
+    public FrameLayout getMaskView() {
+        return mMaskView;
+    }
+
+    public void displayMaskView(boolean show) {
+        this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
     @Override
@@ -168,6 +183,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         mRootView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mLeftView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
         mRightView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
+        mMaskView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
     }
 
     private int getNavBarWidth() {
