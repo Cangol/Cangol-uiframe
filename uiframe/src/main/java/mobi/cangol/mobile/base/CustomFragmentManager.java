@@ -298,7 +298,7 @@ public class CustomFragmentManager {
             synchronized (lock) {
                 BaseFragment baseFragment = stack.popFragment();
                 stack.popTag();
-                if (baseFragment.getTargetFragment() != null) {
+                if (baseFragment!=null&&baseFragment.getTargetFragment() != null) {
                     baseFragment.notifyResult();
                 }
             }
