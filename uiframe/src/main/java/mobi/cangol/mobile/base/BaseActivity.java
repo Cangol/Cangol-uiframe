@@ -64,19 +64,19 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     }
     @Override
     public void showToast(int resId) {
-        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(String str) {
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(int resId, int duration) {
-        Toast.makeText(this, resId, duration).show();
+        if(!isFinishing())Toast.makeText(this, resId, duration).show();
     }
     @Override
     public void showToast(String str, int duration) {
-        Toast.makeText(this, str, duration).show();
+        if(!isFinishing())Toast.makeText(this, str, duration).show();
     }
 
     @Override
