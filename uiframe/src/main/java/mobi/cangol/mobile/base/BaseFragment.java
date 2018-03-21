@@ -371,7 +371,10 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public final View findViewById(int id) {
-        return this.getView().findViewById(id);
+        if(getView()!=null)
+            return null;
+        else
+            return this.getView().findViewById(id);
     }
 
     /**
