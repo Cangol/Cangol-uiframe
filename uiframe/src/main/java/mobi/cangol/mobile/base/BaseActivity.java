@@ -172,11 +172,6 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         editText.setText(null);
     }
     @Override
-    public void hideSoftInput(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-    }
-    @Override
     public void hideSoftInput() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (this.getCurrentFocus() != null) {

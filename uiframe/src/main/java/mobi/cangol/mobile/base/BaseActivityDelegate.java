@@ -117,13 +117,6 @@ public interface BaseActivityDelegate {
     /**
      * 隐藏软键盘
      *
-     * @param editText
-     */
-    void hideSoftInput(EditText editText);
-
-    /**
-     * 隐藏软键盘
-     *
      */
      void hideSoftInput();
     /**

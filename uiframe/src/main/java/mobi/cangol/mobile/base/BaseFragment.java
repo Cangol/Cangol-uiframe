@@ -449,19 +449,17 @@ public abstract class BaseFragment extends Fragment {
 
     public void showSoftInput(EditText editText) {
         if (isEnable()) {
-            editText.requestFocus();
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(editText, 0);
-            editText.setText(null);
+            BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
+            bfActivity.showSoftInput(editText);
         } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }
     }
 
-    public void hideSoftInput(EditText editText) {
+    public void hideSoftInput() {
         if (isEnable()) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+            BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
+            bfActivity.hideSoftInput();
         } else {
             Log.e("IllegalStateException  Fragment isEnable=false");
         }

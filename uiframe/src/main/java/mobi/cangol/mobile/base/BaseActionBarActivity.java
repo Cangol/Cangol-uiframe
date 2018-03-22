@@ -159,11 +159,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         editText.setText(null);
     }
     @Override
-    public void hideSoftInput(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-    @Override
     public void hideSoftInput() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (this.getCurrentFocus() != null) {
