@@ -10,15 +10,15 @@ apply plugin: 'com.jakewharton.hugo'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'mobi.cangol.mobile:actionbar:[1.0.27,)@aar'
-    compile 'mobi.cangol.mobile:appcore:[1.1.18,)@aar'
-    compile 'com.android.support:support-fragment:[25.0.0,)'
-    compile 'com.android.support:appcompat-v7:[25.0.0,)'
+    compile 'mobi.cangol.mobile:appcore:[1.1.23,)@aar'
+    compile 'com.android.support:support-fragment:26.0.0'
+    compile 'com.android.support:appcompat-v7:26.0.0'
     compile 'com.isanwenyu.highlight:highlight:1.8.0'
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 14
