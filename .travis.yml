@@ -2,15 +2,13 @@ language: android
 jdk:
   - oraclejdk8
 sudo: false
-group: deprecated-2017Q4
 android:
   components:
     - tools
     - platform-tools
-    - tools
-    - build-tools-25.0.0
+    - build-tools-26.0.2
+    - android-26
     - android-22
-    - android-25
     - extra-android-m2repository
     - extra-android-support
     - sys-img-armeabi-v7a-android-22
@@ -20,9 +18,9 @@ android:
     - 'google-gdk-license-.+'
 before_install:
     # Gradle
-    - wget -q http://services.gradle.org/distributions/gradle-3.3-all.zip
-    - unzip -q gradle-3.3-all.zip
-    - export GRADLE_HOME=$PWD/gradle-3.3
+    - wget -q http://services.gradle.org/distributions/gradle-4.4-all.zip
+    - unzip -q gradle-4.4-all.zip
+    - export GRADLE_HOME=$PWD/gradle-4.4
     - export PATH=$GRADLE_HOME/bin:$PATH
     - mkdir "$ANDROID_HOME/licenses" || true
     - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
