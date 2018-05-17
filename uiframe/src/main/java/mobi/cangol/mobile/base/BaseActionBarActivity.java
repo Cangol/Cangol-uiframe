@@ -17,11 +17,14 @@ package mobi.cangol.mobile.base;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -332,6 +335,16 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             if (context != null) {
                 ((BaseActionBarActivity)context).handleMessage(msg);
             }
+        }
+    }
+
+    @ColorInt
+    public  int getThemeAttrColor(@AttrRes int colorAttr) {
+        TypedArray array = this.obtainStyledAttributes(null, new int[]{colorAttr});
+        try {
+            return array.getColor(0, 0);
+        } finally {
+            array.recycle();
         }
     }
 }

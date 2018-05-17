@@ -17,9 +17,10 @@ package mobi.cangol.mobile.base;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.widget.EditText;
 
-import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.session.SessionService;
 
@@ -123,5 +124,9 @@ public interface BaseActivityDelegate {
      * 获取一个主线程的Handler
      */
     Handler getHandler();
+
+
+    @ColorInt
+    int getThemeAttrColor(@AttrRes int colorAttr);
 
 }
