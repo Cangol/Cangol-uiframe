@@ -318,4 +318,9 @@ public abstract class BaseContentFragment extends BaseFragment {
         return (BaseContentFragment) getParentFragment();
     }
 
+    @Override
+    public void onDestroyView() {
+        hideSoftInput();
+        super.onDestroyView();
+    }
 }

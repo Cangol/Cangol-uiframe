@@ -342,7 +342,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public boolean onSupportNavigateUp() {
-
+        hideSoftInput();
         return false;
     }
 
