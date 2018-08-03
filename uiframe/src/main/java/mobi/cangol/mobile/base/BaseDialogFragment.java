@@ -15,6 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -87,11 +88,12 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public void dismiss() {
-        this.dismissInternal(false);
+        if(!isStateSaved())
+            this.dismissInternal(false);
     }
 
     public void dismissAllowingStateLoss() {
-        this.dismissInternal(true);
+        if(!isStateSaved())this.dismissInternal(true);
     }
 
     void dismissInternal(boolean allowStateLoss) {
@@ -177,6 +179,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
     }
 
+    @SuppressLint("RestrictedApi")
     public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
         if (!this.mShowsDialog) {
             return super.getLayoutInflater(savedInstanceState);

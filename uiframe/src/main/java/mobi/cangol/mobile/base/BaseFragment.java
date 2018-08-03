@@ -28,6 +28,7 @@ import android.os.Message;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -742,11 +743,25 @@ public abstract class BaseFragment extends Fragment {
 
     @ColorInt
     public  int getThemeAttrColor(@AttrRes int colorAttr) {
-        TypedArray array = getContext().obtainStyledAttributes(null, new int[]{colorAttr});
-        try {
-            return array.getColor(0, 0);
-        } finally {
-            array.recycle();
+        if(getActivity()==null){
+            throw new IllegalStateException("getActivity is null");
+        }else{
+            TypedArray array = getActivity().obtainStyledAttributes(null, new int[]{colorAttr});
+            try {
+                return array.getColor(0, 0);
+            } finally {
+                array.recycle();
+            }
+        }
+    }
+
+    public TypedValue getAttrTypedValue(@AttrRes int attr){
+        if(getActivity()==null){
+            throw new IllegalStateException("getActivity is null");
+        }else{
+            TypedValue typedValue = new TypedValue();
+            getActivity().getTheme().resolveAttribute(attr, typedValue, true);
+            return typedValue;
         }
     }
 }
