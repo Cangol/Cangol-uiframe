@@ -26,6 +26,7 @@ import android.os.Message;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -254,7 +255,23 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         Log.v(TAG, "onBack");
         super.onBackPressed();
     }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return super.onKeyUp(keyCode, event);
+        }else {
+            return stack.peek().onKeyUp(keyCode, event);
+        }
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return super.onKeyDown(keyCode, event);
+        }else {
+            return stack.peek().onKeyDown(keyCode, event);
+        }
+    }
     @Override
     public void showSoftInput(EditText editText) {
         editText.requestFocus();

@@ -25,6 +25,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -151,6 +152,24 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             return true;
         }else {
             return false;
+        }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return super.onKeyUp(keyCode, event);
+        }else {
+           return stack.peek().onKeyUp(keyCode, event);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return super.onKeyDown(keyCode, event);
+        }else {
+            return stack.peek().onKeyDown(keyCode, event);
         }
     }
 

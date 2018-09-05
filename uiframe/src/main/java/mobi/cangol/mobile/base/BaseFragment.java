@@ -29,6 +29,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -717,6 +718,22 @@ public abstract class BaseFragment extends Fragment {
     protected void postRunnable(Runnable runnable) {
         if (handler != null && runnable != null)
             handler.post(runnable);
+    }
+
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return false;
+        }else {
+            return stack.peek().onKeyUp(keyCode, event);
+        }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (null == stack||stack.size()==0||stack.peek()==null) {
+            return false;
+        }else {
+            return stack.peek().onKeyDown(keyCode, event);
+        }
     }
 
     protected static class StaticInnerRunnable implements Runnable {
