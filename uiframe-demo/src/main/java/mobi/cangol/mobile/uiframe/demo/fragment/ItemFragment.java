@@ -5,6 +5,7 @@ import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,14 @@ public class ItemFragment extends BaseContentFragment {
 	@Override
 	public boolean isCleanStack() {
 		return false;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_F4&&event.getAction()==KeyEvent.ACTION_DOWN){
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

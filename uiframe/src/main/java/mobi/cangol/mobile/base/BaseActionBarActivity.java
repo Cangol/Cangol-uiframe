@@ -160,7 +160,11 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         if (null == stack||stack.size()==0||stack.peek()==null) {
             return super.onKeyUp(keyCode, event);
         }else {
-           return stack.peek().onKeyUp(keyCode, event);
+            if(stack.peek().onKeyUp(keyCode, event)){
+                return true;
+            }else {
+                return super.onKeyUp(keyCode, event);
+            }
         }
     }
 
@@ -169,7 +173,11 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         if (null == stack||stack.size()==0||stack.peek()==null) {
             return super.onKeyDown(keyCode, event);
         }else {
-            return stack.peek().onKeyDown(keyCode, event);
+            if(stack.peek().onKeyDown(keyCode, event)){
+                return true;
+            }else {
+                return super.onKeyDown(keyCode, event);
+            }
         }
     }
 
