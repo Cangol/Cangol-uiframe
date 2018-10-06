@@ -82,7 +82,9 @@ public abstract class BaseFragment extends Fragment {
      *
      * @return
      */
-    abstract protected FragmentInfo getNavigtionUpToFragment();
+    protected FragmentInfo getNavigtionUpToFragment(){
+        return null;
+    }
 
     /**
      * 初始化子fragment管理栈
