@@ -42,7 +42,7 @@ public class DrawerMenuLayout extends DrawerLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
     private FrameLayout mMaskView;
-    private float mMenuWidth = 0.618f;
+    private float mMenuWidth = 0.75f;
     private boolean isFloatActionBarEnabled;
 
     public DrawerMenuLayout(Context context, AttributeSet attrs) {

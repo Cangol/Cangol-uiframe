@@ -55,7 +55,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 	public void onBack() {
 		if(back_pressed+2000>System.currentTimeMillis()){
 			super.onBack();
-			//app.exit();
+			app.exit();
 		}else{
 			back_pressed=System.currentTimeMillis();
             showToast("Please on back");

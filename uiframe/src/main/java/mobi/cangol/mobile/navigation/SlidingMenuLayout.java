@@ -42,7 +42,7 @@ import mobi.cangol.mobile.uiframe.R;
 public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
-    private float mMenuWidth = 0.618f;
+    private float mMenuWidth = 0.75f;
     private boolean isFloatActionBarEnabled;
     private boolean mMenuEnable = true;
 
