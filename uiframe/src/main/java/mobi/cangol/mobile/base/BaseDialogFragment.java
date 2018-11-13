@@ -71,6 +71,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public void show(FragmentManager manager, String tag) {
+        if(isStateSaved())return;
         this.mDismissed = false;
         this.mShownByMe = true;
         FragmentTransaction ft = manager.beginTransaction();
