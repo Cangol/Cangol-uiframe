@@ -68,7 +68,9 @@ public abstract class TabNavigationFragmentActivity extends BaseNavigationFragme
 
     @Override
     public boolean onSupportNavigateUp() {
-        if (stack.size() <= 1) {
+        if (stack == null||stack.size()==0||stack.peek()==null) {
+            return true;
+        }else if (stack.size() <= 1) {
             stack.peek().onSupportNavigateUp();
             return true;
         } else {
