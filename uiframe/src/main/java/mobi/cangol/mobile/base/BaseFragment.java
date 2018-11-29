@@ -394,7 +394,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("showToast IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -409,7 +409,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId, duration);
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("showToast IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -423,7 +423,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("showToast IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -438,7 +438,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("showToast IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -459,7 +459,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.showSoftInput(editText);
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("showSoftInput IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -468,7 +468,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.hideSoftInput();
         } else {
-            Log.e("IllegalStateException  Fragment isEnable=false");
+            Log.e("hideSoftInput IllegalStateException  Fragment isEnable=false");
         }
     }
 
@@ -686,7 +686,22 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
-
+    /**
+     * 立即将当前fragment弹出栈
+     */
+    final public void popBackStackImmediate() {
+        BaseFragment parent = (BaseFragment) this.getParentFragment();
+        if (parent != null) {
+            parent.getCustomFragmentManager().popBackStackImmediate();
+        } else {
+            if (getActivity() == null) {
+                throw new IllegalStateException("getActivity is null");
+            } else {
+                CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+                bfActivity.getCustomFragmentManager().popBackStackImmediate();
+            }
+        }
+    }
     /**
      * 将所有fragment弹出栈
      */

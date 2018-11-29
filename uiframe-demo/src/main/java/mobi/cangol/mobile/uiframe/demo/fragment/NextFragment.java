@@ -53,6 +53,14 @@ public class NextFragment extends BaseContentFragment {
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
+		findViewById(R.id.button0).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				popBackStackImmediate();
+			}
+
+		});
 		findViewById(R.id.button1).setOnClickListener(new OnClickListener(){
 
 			@Override
