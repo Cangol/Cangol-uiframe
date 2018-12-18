@@ -670,8 +670,34 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    final public void popBackStack(String tag,int flag) {
+        BaseFragment parent = (BaseFragment) this.getParentFragment();
+        if (parent != null) {
+            parent.getCustomFragmentManager().popBackStack(tag,flag);
+        } else {
+            if (getActivity() == null) {
+                throw new IllegalStateException("getActivity is null");
+            } else {
+                CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+                bfActivity.getCustomFragmentManager().popBackStack(tag,flag);
+            }
+        }
+    }
+    final public void popBackStackImmediate(String tag,int flag) {
+        BaseFragment parent = (BaseFragment) this.getParentFragment();
+        if (parent != null) {
+            parent.getCustomFragmentManager().popBackStackImmediate(tag,flag);
+        } else {
+            if (getActivity() == null) {
+                throw new IllegalStateException("getActivity is null");
+            } else {
+                CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+                bfActivity.getCustomFragmentManager().popBackStackImmediate(tag,flag);
+            }
+        }
+    }
     /**
-     * 将当前fragment弹出栈
+     * 立即将tag的fragment弹出栈
      */
     final public void popBackStack() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();

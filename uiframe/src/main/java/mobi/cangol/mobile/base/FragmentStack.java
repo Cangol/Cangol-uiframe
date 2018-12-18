@@ -1,5 +1,8 @@
 package mobi.cangol.mobile.base;
 
+
+import android.text.TextUtils;
+
 import java.lang.ref.WeakReference;
 import java.util.Stack;
 
@@ -39,6 +42,32 @@ public class FragmentStack {
     public BaseFragment popFragment() {
 
         return stack.isEmpty()?null:stack.pop().get();
+    }
+
+    public void popFragment(String tag,int flag) {
+        if(TextUtils.isEmpty(tag)){
+            if(flag==1){
+                while (stack.size() > 1) {
+                    stack.pop();
+                    tagStack.pop();
+                }
+            }else{
+                stack.pop();
+                tagStack.pop();
+            }
+        }else{
+            int index=tagStack.indexOf(tag);
+            if(index>0){
+                while (!tag.equals(tagStack.peek())) {
+                    tagStack.pop();
+                    stack.pop();
+                }
+                if(flag==1){
+                    tagStack.pop();
+                    stack.pop();
+                }
+            }
+        }
     }
 
     public String popTag() {
