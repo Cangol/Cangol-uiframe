@@ -58,7 +58,7 @@ public class NextFragment extends BaseContentFragment {
 			@Override
 			public void onClick(View v) {
 
-				popBackStack("NextFragment_"+(sno-1));
+				popBackStack("NextFragment_"+(sno-1),1);
 			}
 
 		});

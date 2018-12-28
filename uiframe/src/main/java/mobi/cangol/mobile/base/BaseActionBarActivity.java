@@ -135,27 +135,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void setFullScreen(boolean fullscreen) {
-        if (fullscreen) {
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-    }
-
-    @Override
-    public boolean isFullScreen() {
-        int flag = this.getWindow().getAttributes().flags;
-        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (null == stack||stack.size()==0||stack.peek()==null) {
             return super.onKeyUp(keyCode, event);
