@@ -93,6 +93,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
      *
      * @param containerId
      */
+    @Override
     public void initFragmentStack(int containerId) {
         if (containerId <= 0) {
             throw new IllegalStateException("getContainerId must return a valid  containerId");
@@ -108,6 +109,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
      * @param tag
      * @param args
      */
+    @Override
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");

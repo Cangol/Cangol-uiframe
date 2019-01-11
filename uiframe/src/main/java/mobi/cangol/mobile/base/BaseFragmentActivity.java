@@ -84,6 +84,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
      *
      * @param containerId
      */
+    @Override
     public void initFragmentStack(int containerId) {
         if (null == stack)
             stack = CustomFragmentManager.forContainer(this, containerId, this.getSupportFragmentManager());
@@ -96,6 +97,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
      * @param tag
      * @param args
      */
+    @Override
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");

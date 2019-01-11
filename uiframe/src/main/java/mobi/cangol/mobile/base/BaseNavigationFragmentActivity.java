@@ -182,7 +182,9 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     final public void setContentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         replaceFragment(fragmentClass, tag, args);
     }
-
+    final public void setContentFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
+        replaceFragment(fragmentClass, fragmentClass.getName(), args);
+    }
     public void notifyMenuOnClose() {
         if (menuFragment != null)
             menuFragment.onClosed();

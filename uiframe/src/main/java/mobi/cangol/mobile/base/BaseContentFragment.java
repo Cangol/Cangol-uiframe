@@ -285,20 +285,33 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
         return false;
     }
-
     /**
-     * 设置content fragment
+     * 设置顶级content fragment
+     *
+     * @param fragmentClass
+     * @param args
+     */
+    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,Bundle args) {
+        this.setContentFragment(fragmentClass,fragmentClass.getName(),args);
+    }
+    /**
+     * 设置顶级content fragment
      *
      * @param fragmentClass
      * @param tag
      * @param args
      */
     final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
-        replaceFragment(fragmentClass, tag, args);
+        if (this.getActivity() instanceof CustomFragmentActivityDelegate) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.replaceFragment(fragmentClass, tag, args);
+        }else{
+            replaceFragment(fragmentClass, tag, args);
+        }
     }
 
     /**
-     * 设置content fragment,并更通知menuFragment更新变更了模块
+     * 设置顶级content fragment,并更通知menuFragment更新变更了模块
      *
      * @param fragmentClass
      * @param tag
@@ -306,8 +319,8 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param moduleId
      */
     final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
+        this.setContentFragment(fragmentClass,tag,args);
         notifyMenuChange(moduleId);
-        setContentFragment(fragmentClass, tag, args);
     }
 
     /**

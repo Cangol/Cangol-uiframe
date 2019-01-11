@@ -492,26 +492,26 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      */
     final public void replaceFragment(Class<? extends BaseFragment> fragmentClass) {
-        replaceFragment(fragmentClass, fragmentClass.getSimpleName(), null);
+        replaceFragment(fragmentClass, fragmentClass.getName(), null);
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      * @param args
      */
     final public void replaceFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
-        replaceFragment(fragmentClass, fragmentClass.getSimpleName(), args);
+        replaceFragment(fragmentClass, fragmentClass.getName(), args);
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      * @param tag
@@ -522,7 +522,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换fragment,并要求请求回调
+     * 替换同级fragment,并要求请求回调
      *
      * @param fragmentClass
      * @param tag
@@ -538,7 +538,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换父类级fragment 带自定义动画
+     * 替换同级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
@@ -595,7 +595,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换父类级fragment
+     * 替换父级fragment
      *
      * @param fragmentClass
      * @param tag
@@ -622,7 +622,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换父类级fragment 带自定义动画
+     * 替换父级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
@@ -639,7 +639,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换子类级fragment
+     * 替换子级fragment
      *
      * @param fragmentClass
      * @param tag
@@ -650,7 +650,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换子fragment 带自定义动画
+     * 替换子级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
