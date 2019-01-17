@@ -80,4 +80,5 @@ public class ItemFragment extends BaseContentFragment {
 		return super.onKeyDown(keyCode, event);
 	}
 
+
 }

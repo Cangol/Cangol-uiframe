@@ -153,15 +153,27 @@ public class NextFragment extends BaseContentFragment {
 		return false;
 	}
 
+//	@Override
+//	public boolean onSupportNavigateUp() {
+//		setContentFragment(HomeFragment.class,"HomeFragment",null);
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean onBackPressed() {
+//		setContentFragment(HomeFragment.class,"HomeFragment",null);
+//		return true;
+//	}
+
 	@Override
 	public boolean onSupportNavigateUp() {
-		setContentFragment(HomeFragment.class,"HomeFragment",null);
+		popBackStack();
 		return true;
 	}
 
 	@Override
 	public boolean onBackPressed() {
-		setContentFragment(HomeFragment.class,"HomeFragment",null);
+		popBackStack();
 		return true;
 	}
 }

@@ -75,13 +75,4 @@ public class SwitchFragment extends BaseContentFragment {
 		mIsDownload = !mIsDownload;
 	}
 	
-	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		return null;
-	}
-	
-	@Override
-	public boolean isCleanStack() {
-		return true;
-	}
 }
