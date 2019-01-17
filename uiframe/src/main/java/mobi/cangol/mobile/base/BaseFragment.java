@@ -27,6 +27,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -377,7 +378,7 @@ public abstract class BaseFragment extends Fragment {
      * @param id
      * @return
      */
-    public final View findViewById(int id) {
+    public final  <T extends View> T findViewById(@IdRes int id) {
         if(getView()==null)
             return null;
         else
