@@ -6,7 +6,7 @@ Cangol-app-uiframe
 [![Build Status](https://travis-ci.org/Cangol/Cangol-uiframe.svg?branch=master)](https://travis-ci.org/Cangol/Cangol-uiframe)
 [![Coverage Status](https://coveralls.io/repos/github/Cangol/Cangol-uiframe/badge.svg?branch=master)](https://coveralls.io/github/Cangol/Cangol-uiframe?branch=master)
 [![Join the chat at https://gitter.im/Cangol/Cangol-uiframe](https://badges.gitter.im/Cangol/Cangol-uiframe.svg)](https://gitter.im/Cangol/Cangol-uiframe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bd8879911fb44f758b23ecd8e276f2b1)](https://www.codacy.com/app/wxw404/Cangol-uiframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cangol/Cangol-uiframe&amp;utm_campaign=Badge_Grade)
 ### Docs
 
 http://cangol.mobi/Cangol-uiframe/
