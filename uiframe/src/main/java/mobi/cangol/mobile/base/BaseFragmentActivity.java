@@ -64,19 +64,19 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     }
     @Override
     public void showToast(int resId) {
-        if(!isFinishing())Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(String str) {
-        if(!isFinishing())Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(int resId, int duration) {
-        if(!isFinishing())Toast.makeText(this, resId, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, duration).show();
     }
     @Override
     public void showToast(String str, int duration) {
-        if(!isFinishing())Toast.makeText(this, str, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, duration).show();
     }
 
     /**
@@ -296,6 +296,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
             imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+    @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     @Override
     public Handler getHandler() {
         return handler;

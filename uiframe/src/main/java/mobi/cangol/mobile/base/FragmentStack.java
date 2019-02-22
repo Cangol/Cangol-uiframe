@@ -11,8 +11,8 @@ import java.util.Stack;
  */
 
 public class FragmentStack {
-    Stack<WeakReference<BaseFragment>> stack = null;
-    Stack<String> tagStack = null;
+    Stack<WeakReference<BaseFragment>> stack;
+    Stack<String> tagStack;
 
     public FragmentStack() {
         stack = new Stack<>();

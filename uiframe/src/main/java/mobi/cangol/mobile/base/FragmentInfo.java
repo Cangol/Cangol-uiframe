@@ -36,8 +36,7 @@ public class FragmentInfo {
 
     @Override
     public String toString() {
-        return "FragmentInfo [tag=" + tag + ", clss=" + clss + ", args=" + args
-                + "]";
+        return "FragmentInfo [tag=" + tag + ", clss=" + clss + ", args=" + args+ "]";
     }
 
 }

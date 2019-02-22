@@ -15,6 +15,9 @@
  */
 package mobi.cangol.mobile.uiframe.demo;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+
 import hugo.weaving.DebugLog;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
@@ -38,6 +41,7 @@ public class DemoApplication  extends CoreApplication {
 		private AppStatusListener appStatusListener;
 		private DatabaseHelper databaseHelper;
 		private Singleton singleton;
+		private RefWatcher mRefWatcher;
 		@Override
 		public void onCreate() {
 			this.setDevMode(true);
@@ -57,6 +61,7 @@ public class DemoApplication  extends CoreApplication {
 				Log.v(TAG, "init");
 			initAppService();
 			initDataBase();
+			initLeak();
 		}
 
 		public void initAppService() {
@@ -77,7 +82,11 @@ public class DemoApplication  extends CoreApplication {
 //			statusService.registerStatusListener(appStatusListener);
 			
 		}
-
+	private void initLeak() {
+		if (!LeakCanary.isInAnalyzerProcess(this)) {
+			mRefWatcher = LeakCanary.install(this);
+		}
+	}
 		public void initDataBase() {
 			databaseHelper=DatabaseHelper.createDataBaseHelper(this);
 			Log.d(TAG,"Database: Name="+databaseHelper.getDataBaseName()+", Version="+databaseHelper.getDataBaseVersion());
