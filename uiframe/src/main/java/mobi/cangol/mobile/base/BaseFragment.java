@@ -473,6 +473,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    public void hideSoftInput(EditText editText) {
+        if (isEnable()) {
+            BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
+            bfActivity.hideSoftInput(editText);
+        } else {
+            Log.e("hideSoftInput IllegalStateException  Fragment isEnable=false");
+        }
+    }
     /**
      * 获取相应时间
      *
