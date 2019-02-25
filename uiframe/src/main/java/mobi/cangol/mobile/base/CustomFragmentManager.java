@@ -88,6 +88,8 @@ public class CustomFragmentManager {
     public void destroy() {
         this.stack.clear();
         this.handler.removeCallbacks(execPendingTransactions);
+        this.fActivity=null;
+        this.fragmentManager=null;
     }
 
     protected static final  class InternalHandler extends Handler {

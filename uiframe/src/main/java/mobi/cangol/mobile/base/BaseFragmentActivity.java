@@ -165,11 +165,11 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Log.v(TAG, "onDestroy");
         if (null != stack)stack.destroy();
         app.delActivityFromManager(this);
         handlerThread.quit();
+        super.onDestroy();
     }
 
     @Override

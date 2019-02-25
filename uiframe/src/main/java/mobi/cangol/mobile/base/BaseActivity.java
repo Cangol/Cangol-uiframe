@@ -148,8 +148,8 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     protected void onDestroy() {
         Log.v(TAG, "onDestroy");
         app.delActivityFromManager(this);
-        super.onDestroy();
         handlerThread.quit();
+        super.onDestroy();
     }
 
     @Override
