@@ -131,7 +131,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         return true;
     }
     private void fitDecorChild(View view){
-        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
+        ViewGroup contentView= view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
             if(decorChild!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){

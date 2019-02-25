@@ -85,8 +85,8 @@ class TabNavigationFragmentActivityDelegate extends
     public void onCreate(Bundle savedInstanceState) {
         mRootView = (ViewGroup) LayoutInflater.from(mActivity).inflate(
                 R.layout.navigation_tab_main, null);
-        mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
-        mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
+        mContentView =  mRootView.findViewById(R.id.content_view);
+        mMenuView = mRootView.findViewById(R.id.menu_view);
     }
 
     @Override
