@@ -52,11 +52,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
@@ -197,21 +192,18 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    final public void onBackPressed() {
+    public final void onBackPressed() {
         Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
-            return;
         }else {
-            if (stack.peek().onBackPressed()) {
-                return;
+            if (stack.peek().onBackPressed()){
+                //do nothings
             } else {
                 if (stack.size() == 1)  {
                     onBack();
-                    return;
                 }else{
                     stack.popBackStack();
-                    return;
                 }
             }
         }
@@ -232,7 +224,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                     FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                     if (upFragment != null) {
                         stack.popBackStack();
-                        replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
+                        replaceFragment(upFragment.clazz, upFragment.tag, upFragment.args);
                     } else {
                         stack.popBackStack();
                     }
@@ -333,14 +325,15 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            // do somethings
         }
     }
-    final static class InternalHandler extends Handler {
+    static final  class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {

@@ -35,15 +35,6 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     @Override
-    abstract public void findViews();
-
-    @Override
-    abstract public void initViews(Bundle savedInstanceState);
-
-    @Override
-    abstract public void initData(Bundle savedInstanceState);
-
-    @Override
     public boolean onSupportNavigateUp() {
         if (stack.size() <= 1) {
             stack.peek().onSupportNavigateUp();
@@ -54,8 +45,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     public void setDrawerEnable(int gravity, boolean enable) {
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawerEnable(gravity, enable);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -63,8 +53,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     public void showDrawer(int gravity, boolean show) {
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).showDrawer(gravity, show);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -72,8 +61,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     public boolean isShowDrawer(int gravity) {
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).isShowDrawer(gravity);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -82,8 +70,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
 
     public void setDrawer(int gravity, Class<? extends BaseFragment> fragmentClass, Bundle args) {
         BaseFragment drawerFragment = (BaseFragment) Fragment.instantiate(this, fragmentClass.getName(), args);
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawer(gravity, drawerFragment);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -91,8 +78,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     public BaseFragment getDrawer(int gravity) {
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).getDrawer(gravity);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -100,8 +86,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
     }
 
     public void removeDrawer(int gravity) {
-        if (getNavigationFragmentActivityDelegate() != null
-                && getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
+        if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).removeDrawer(gravity);
         } else {
             throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
@@ -132,7 +117,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment != null && fragment instanceof BaseFragment) {
+                if (fragment instanceof BaseFragment) {
                     ((BaseFragment) fragment).onDrawerSlide(slideOffset);
                 }
             }
@@ -140,7 +125,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
             @Override
             public void onDrawerOpened(View drawerView) {
                 Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment != null && fragment instanceof BaseFragment) {
+                if (fragment instanceof BaseFragment) {
                     fragment.setUserVisibleHint(true);
                     ((BaseFragment) fragment).onDrawerOpened();
                 }
@@ -149,7 +134,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
             @Override
             public void onDrawerClosed(View drawerView) {
                 Fragment fragment = mActivity.getSupportFragmentManager().findFragmentById(drawerView.getId());
-                if (fragment != null && fragment instanceof BaseFragment) {
+                if (fragment instanceof BaseFragment) {
                     fragment.setUserVisibleHint(false);
                     ((BaseFragment) fragment).onDrawerClosed();
                 }

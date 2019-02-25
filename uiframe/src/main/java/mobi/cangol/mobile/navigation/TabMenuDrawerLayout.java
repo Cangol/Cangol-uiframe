@@ -2,7 +2,6 @@ package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,11 +82,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         this.mMaskView.setVisibility(show?VISIBLE:GONE);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     public void showDrawer(int gravity, boolean show) {
         if (show) {
             if(gravity==Gravity.LEFT&&mLeftView.getChildCount()>0){
@@ -119,22 +112,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         }
         return true;
     }
-
-//    @Override
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
-//        Log.d(TAG,"onApplyWindowInsets "+insets.getSystemWindowInsetTop());
-//        if (isFloatActionBarEnabled){
-//            Rect rect = new Rect(
-//                    insets.getSystemWindowInsetLeft(),
-//                    insets.getSystemWindowInsetTop(),
-//                    insets.getSystemWindowInsetRight(),
-//                    insets.getSystemWindowInsetBottom()
-//            );
-//            setMyPadding(rect);
-//        }
-//        return insets.consumeSystemWindowInsets();
-//    }
 
     private void fitDecorChild(View view){
         ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
@@ -238,7 +215,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
                     hasNavigationBar = true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG,"checkDeviceHasNavigationBar",e);
             }
             return hasNavigationBar;
         }

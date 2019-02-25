@@ -27,9 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import mobi.cangol.mobile.uiframe.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.uiframe.R;
 
 public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFragmentActivity {
 
@@ -38,16 +38,6 @@ public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFra
         this.setNavigationFragmentActivityDelegate(new DrawerMenuNavigationFragmentActivityDelegate(this));
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    abstract public void findViews();
-
-    @Override
-    abstract public void initViews(Bundle savedInstanceState);
-
-    @Override
-    abstract public void initData(Bundle savedInstanceState);
-
 
     @Override
     public boolean onSupportNavigateUp() {

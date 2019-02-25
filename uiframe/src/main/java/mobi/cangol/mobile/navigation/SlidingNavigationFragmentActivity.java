@@ -25,8 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import mobi.cangol.mobile.uiframe.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
+import mobi.cangol.mobile.uiframe.R;
 
 public abstract class SlidingNavigationFragmentActivity extends
         BaseNavigationFragmentActivity {
@@ -35,17 +35,6 @@ public abstract class SlidingNavigationFragmentActivity extends
         this.setNavigationFragmentActivityDelegate(new SlidingMenuNavigationFragmentActivityDelegate(this));
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    abstract public void findViews();
-
-    @Override
-    abstract public void initViews(Bundle savedInstanceState);
-
-    @Override
-    abstract public void initData(Bundle savedInstanceState);
-
-
     @Override
     public boolean onSupportNavigateUp() {
         if (stack.size() <= 1) {
@@ -81,8 +70,8 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mRootView= (ViewGroup) LayoutInflater.from(mActivity).inflate(R.layout.navigation_sliding_main, null);
-        mMaskView= (FrameLayout) mRootView.findViewById(R.id.mask_view);
-        mSlidingMenuLayout= (SlidingMenuLayout) mRootView.findViewById(R.id.sidingMenuLayout);
+        mMaskView= mRootView.findViewById(R.id.mask_view);
+        mSlidingMenuLayout=  mRootView.findViewById(R.id.sidingMenuLayout);
         mSlidingMenuLayout.setPanelSlideListener(new PanelSlideListener() {
             @Override
             public void onPanelClosed(View view) {

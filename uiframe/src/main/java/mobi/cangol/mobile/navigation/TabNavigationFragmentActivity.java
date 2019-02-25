@@ -17,7 +17,6 @@ package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -58,15 +57,6 @@ public abstract class TabNavigationFragmentActivity extends BaseNavigationFragme
     }
 
     @Override
-    abstract public void findViews();
-
-    @Override
-    abstract public void initViews(Bundle savedInstanceState);
-
-    @Override
-    abstract public void initData(Bundle savedInstanceState);
-
-    @Override
     public boolean onSupportNavigateUp() {
         if (stack == null||stack.size()==0||stack.peek()==null) {
             return true;
@@ -97,36 +87,15 @@ class TabNavigationFragmentActivityDelegate extends
                 R.layout.navigation_tab_main, null);
         mContentView = (FrameLayout) mRootView.findViewById(R.id.content_view);
         mMenuView = (FrameLayout) mRootView.findViewById(R.id.menu_view);
-//        mRootView.setOnSoftKeyboardVisibilityChangeListener(new SoftKeyboardHandledLinearLayout.SoftKeyboardVisibilityChangeListener() {
-//            boolean justShowMenu = false;
-//
-//            @Override
-//            public void onSoftKeyboardShow() {
-//                if (isShowMenu()) {
-//                    justShowMenu = true;
-//                    showMenu(false);
-//                } else {
-//                    justShowMenu = false;
-//                }
-//            }
-//
-//            @Override
-//            public void onSoftKeyboardHide() {
-//                if (justShowMenu) {
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showMenu(true);
-//                        }
-//                    }, 300L);
-//                }
-//            }
-//        });
     }
 
     @Override
     public int getMenuFrameId() {
         return mMenuView.getId();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
     }
 
     @Override
@@ -147,11 +116,6 @@ class TabNavigationFragmentActivityDelegate extends
     @Override
     public void setContentView(View v) {
         mContentView.addView(v);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-
     }
 
     @Override
@@ -189,10 +153,6 @@ class TabNavigationFragmentActivityDelegate extends
 
     @Override
     public void attachToActivity(Activity activity) {
-        TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
-        int background = a.getResourceId(0, 0);
-        a.recycle();
-
         ViewGroup contentParent = (ViewGroup) getActivity().findViewById(android.R.id.content);
         ViewGroup content = (ViewGroup) contentParent.getChildAt(0);
         contentParent.removeView(content);
@@ -217,7 +177,6 @@ class TabNavigationFragmentActivityDelegate extends
     }
 
     @Override
-    public void displayMaskView(boolean show) {
-    }
+    public void displayMaskView(boolean show) {}
 
 }

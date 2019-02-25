@@ -51,13 +51,12 @@ public class PagerEnabledSlidingPaneLayout extends SlidingPaneLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
         switch (MotionEventCompat.getActionMasked(ev)) {
-            case MotionEvent.ACTION_DOWN: {
+            case MotionEvent.ACTION_DOWN:
                 mInitialMotionX = ev.getX();
                 mInitialMotionY = ev.getY();
                 break;
-            }
 
-            case MotionEvent.ACTION_MOVE: {
+            case MotionEvent.ACTION_MOVE:
                 final float x = ev.getX();
                 final float y = ev.getY();
                 // The user should always be able to "close" the pane, so we only check
@@ -72,7 +71,8 @@ public class PagerEnabledSlidingPaneLayout extends SlidingPaneLayout {
                     cancelEvent.setAction(MotionEvent.ACTION_CANCEL);
                     return super.onInterceptTouchEvent(cancelEvent);
                 }
-            }
+            default:
+                break;
         }
 
         return super.onInterceptTouchEvent(ev);

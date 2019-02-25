@@ -23,7 +23,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,6 +39,7 @@ import java.lang.reflect.Method;
 import mobi.cangol.mobile.uiframe.R;
 
 public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
+    private static final String TAG="SlidingMenuLayout";
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
     private float mMenuWidth = 0.75f;
@@ -94,11 +94,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         mContentView.addView(v);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     public void showMenu(boolean show) {
         if (show) {
             this.openPane();
@@ -115,7 +110,10 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         mMenuEnable = enable;
 
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (mMenuEnable) {
@@ -144,8 +142,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
-            if(decorChild!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(decorChild!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                     FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
                     switch (manager.getDefaultDisplay().getRotation()) {
@@ -162,7 +159,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
                             layoutParams.bottomMargin=0;
                     }
                     decorChild.setLayoutParams(layoutParams);
-                }
             }
         }
     }
@@ -221,7 +217,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
                     hasNavigationBar = true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG,"checkDeviceHasNavigationBar",e);
             }
             return hasNavigationBar;
         }
@@ -241,18 +237,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
             return 0;
         }
     }
-    @Override
-    public void setBackgroundColor(int color) {
-        super.setBackgroundColor(color);
-        //mMenuView.setBackgroundColor(color);
-    }
-
-    @Override
-    public void setBackgroundResource(int resId) {
-        super.setBackgroundResource(resId);
-        //mMenuView.setBackgroundResource(resId);
-    }
-
     public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
         // get the window background
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});

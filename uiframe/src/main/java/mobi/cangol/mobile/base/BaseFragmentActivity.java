@@ -222,29 +222,21 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     public boolean isFullScreen() {
         int flag = this.getWindow().getAttributes().flags;
-        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-            return true;
-        }else {
-            return false;
-        }
+         return (flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                    == WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }
     @Override
-    final public void onBackPressed() {
+    public final  void onBackPressed() {
         Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
-            onBack();
-            return;
+            //do nothings
         }else {
             if (stack.peek().onBackPressed()) {
-                return;
             } else {
                 if (stack.size() == 1)  {
                     onBack();
-                    return;
                 }else{
                     stack.popBackStack();
-                    return;
                 }
             }
         }
@@ -317,14 +309,15 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            //do somethings
         }
     }
-    final static class InternalHandler extends Handler {
+    static final  class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {

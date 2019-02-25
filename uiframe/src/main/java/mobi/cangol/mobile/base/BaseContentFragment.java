@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.actionbar.ActionBar;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
@@ -164,7 +163,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param enable
      */
-    final protected void setMenuEnable(boolean enable) {
+    protected final  void setMenuEnable(boolean enable) {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
@@ -180,7 +179,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
     }
 
-    final protected void notifyMenuChange(int moduleId) {
+    protected final  void notifyMenuChange(int moduleId) {
         if (getActivity() == null) {
             throw new IllegalStateException("getActivity is null");
         } else {
@@ -191,7 +190,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
     }
 
-    final private void setActionBarUpIndicator() {
+    private final  void setActionBarUpIndicator() {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
@@ -204,19 +203,14 @@ public abstract class BaseContentFragment extends BaseFragment {
                     bfActivity.getCustomActionBar().displayUpIndicator();
                 }
             }
-        } else {
-
         }
-
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setMenuVisibility(true);
-        if (savedInstanceState == null) {
-
-        } else {
+        if (savedInstanceState != null) {
             title = savedInstanceState.getCharSequence("title");
         }
     }
@@ -270,7 +264,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public boolean onMenuActionSelected(ActionMenuItem action) {
         if(this.getChildFragmentManager()!=null&&
                 this.getChildFragmentManager().getFragments()!=null&&
-                this.getChildFragmentManager().getFragments().size()>0){
+                !this.getChildFragmentManager().getFragments().isEmpty()){
             int size=getChildFragmentManager().getFragments().size();
             Fragment fragment=null;
             for (int i = size-1; i >=0; i--) {
@@ -291,7 +285,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param fragmentClass
      * @param args
      */
-    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,Bundle args) {
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,Bundle args) {
         this.setContentFragment(fragmentClass,fragmentClass.getName(),args);
     }
     /**
@@ -301,7 +295,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param tag
      * @param args
      */
-    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
         if (this.getActivity() instanceof CustomFragmentActivityDelegate) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.replaceFragment(fragmentClass, tag, args);
@@ -318,7 +312,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param args
      * @param moduleId
      */
-    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
         this.setContentFragment(fragmentClass,tag,args);
         notifyMenuChange(moduleId);
     }
@@ -327,7 +321,7 @@ public abstract class BaseContentFragment extends BaseFragment {
      * 获取父类 BaseContentFragment
      * @return
      */
-    final public BaseContentFragment getParentContentFragment() {
+    public final  BaseContentFragment getParentContentFragment() {
         return (BaseContentFragment) getParentFragment();
     }
 

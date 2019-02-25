@@ -44,7 +44,7 @@ import mobi.cangol.mobile.service.session.SessionService;
  */
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
-    public CoreApplication app;
+    private CoreApplication app;
     private long startTime;
     private HandlerThread handlerThread;
     private Handler handler;
@@ -212,20 +212,18 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         public void run() {
         }
     }
-    final static class InternalHandler extends Handler {
+    static final class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {
             Context context = mContext.get();
             if (context != null) {
-                if (context != null) {
-                    ((BaseActivity)context).handleMessage(msg);
-                }
+               ((BaseActivity)context).handleMessage(msg);
             }
         }
     }

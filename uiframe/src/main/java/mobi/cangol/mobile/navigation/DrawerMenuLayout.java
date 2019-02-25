@@ -25,6 +25,7 @@ import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Surface;
@@ -39,6 +40,7 @@ import mobi.cangol.mobile.uiframe.R;
 
 
 public class DrawerMenuLayout extends DrawerLayout {
+    private static final String TAG="DrawerMenuLayout";
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
     private FrameLayout mMaskView;
@@ -92,11 +94,6 @@ public class DrawerMenuLayout extends DrawerLayout {
         mContentView.removeAllViews();
         mContentView.addView(v);
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
     public FrameLayout getMaskView() {
         return mMaskView;
     }
@@ -121,7 +118,10 @@ public class DrawerMenuLayout extends DrawerLayout {
         this.setDrawerLockMode(enable ? DrawerLayout.LOCK_MODE_UNLOCKED
                 : DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         if (isFloatActionBarEnabled) {
@@ -134,8 +134,7 @@ public class DrawerMenuLayout extends DrawerLayout {
         ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
-            if(decorChild!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(decorChild!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                     FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
                     switch (manager.getDefaultDisplay().getRotation()) {
@@ -153,7 +152,6 @@ public class DrawerMenuLayout extends DrawerLayout {
                     }
                     decorChild.setLayoutParams(layoutParams);
                 }
-            }
         }
     }
     private void fitPadding(Rect rect) {
@@ -212,7 +210,7 @@ public class DrawerMenuLayout extends DrawerLayout {
                     hasNavigationBar = true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG,"checkDeviceHasNavigationBar",e);
             }
             return hasNavigationBar;
         }

@@ -79,12 +79,12 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         super.onSaveInstanceState(outState);
         outState.putBoolean(MENU_SHOW, isShowMenu());
     }
-
+    @Override
     public void setBackgroundColor(int color) {
         super.setBackgroundColor(color);
         mHelper.setBackgroundColor(color);
     }
-
+    @Override
     public void setBackgroundResource(int resId) {
         super.setBackgroundResource(resId);
         mHelper.setBackgroundResource(resId);
@@ -109,10 +109,6 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     }
 
     @Override
-    public void setContentView(View v, LayoutParams params) {
-        super.setContentView(v, params);
-    }
-
     public FrameLayout getMaskView() {
         if(isFloatActionBarEnabled()){
            return mHelper.getMaskView();
@@ -120,7 +116,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
            return super.getMaskView();
         }
     }
-
+    @Override
     public void displayMaskView(boolean show) {
         if(isFloatActionBarEnabled()){
             mHelper.displayMaskView(show);
@@ -167,7 +163,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         }
     }
 
-    final public void setMenuFragment(Class<? extends BaseMenuFragment> fragmentClass, Bundle args) {
+    public final void setMenuFragment(Class<? extends BaseMenuFragment> fragmentClass, Bundle args) {
         BaseMenuFragment menuFragment = (BaseMenuFragment) Fragment.instantiate(this, fragmentClass.getName(), args);
         menuFragmentReference=new WeakReference<>(menuFragment);
         FragmentTransaction t = this.getSupportFragmentManager()
@@ -177,15 +173,15 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    final public void setContentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int moduleId) {
+    public final void setContentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int moduleId) {
         replaceFragment(fragmentClass, tag, args);
         setCurrentModuleId(moduleId);
     }
 
-    final public void setContentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
+    public final void setContentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         replaceFragment(fragmentClass, tag, args);
     }
-    final public void setContentFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
+    public final void setContentFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
         replaceFragment(fragmentClass, fragmentClass.getName(), args);
     }
     public void notifyMenuOnClose() {

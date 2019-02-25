@@ -108,16 +108,16 @@ public abstract class BaseMenuFragment extends BaseFragment {
         }
     }
 
-    abstract protected void onContentChange(int moduleId);
+    protected abstract  void onContentChange(int moduleId);
 
     /**
      * 菜单打开时调用
      */
-    abstract protected void onOpen();
+    protected abstract  void onOpen();
 
     /**
      * 菜单关闭时调用
      */
-    abstract protected void onClosed();
+    protected abstract  void onClosed();
 
 }

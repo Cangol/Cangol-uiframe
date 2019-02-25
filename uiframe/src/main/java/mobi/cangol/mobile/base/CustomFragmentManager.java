@@ -90,7 +90,7 @@ public class CustomFragmentManager {
         this.handler.removeCallbacks(execPendingTransactions);
     }
 
-    protected final static class InternalHandler extends Handler {
+    protected static final  class InternalHandler extends Handler {
         private final WeakReference<FragmentActivity> mActivityRef;
 
         public InternalHandler(FragmentActivity activity) {
