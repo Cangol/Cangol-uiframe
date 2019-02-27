@@ -117,8 +117,8 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         ViewGroup contentView=  view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
-            if(decorChild!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(decorChild!=null
+                &&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                     FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
                     switch (manager.getDefaultDisplay().getRotation()) {
@@ -133,9 +133,9 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
                             break;
                         default:
                             layoutParams.bottomMargin=0;
+                            break;
                     }
                     decorChild.setLayoutParams(layoutParams);
-                }
             }
         }
     }
@@ -158,6 +158,7 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
                     break;
                 default:
                     rect.bottom += getNavBarHeight();
+                    break;
             }
         }
         mRootView.setPadding(rect.left, rect.top, rect.right, rect.bottom);

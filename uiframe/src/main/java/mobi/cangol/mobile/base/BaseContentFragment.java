@@ -266,9 +266,8 @@ public abstract class BaseContentFragment extends BaseFragment {
                 this.getChildFragmentManager().getFragments()!=null&&
                 !this.getChildFragmentManager().getFragments().isEmpty()){
             int size=getChildFragmentManager().getFragments().size();
-            Fragment fragment=null;
             for (int i = size-1; i >=0; i--) {
-                fragment=getChildFragmentManager().getFragments().get(i);
+                Fragment fragment=getChildFragmentManager().getFragments().get(i);
                 if(fragment instanceof BaseContentFragment){
                     if(((BaseContentFragment) fragment).isEnable()
                             &&fragment.isVisible()){

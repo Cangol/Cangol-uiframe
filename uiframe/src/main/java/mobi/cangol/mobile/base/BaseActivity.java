@@ -205,11 +205,12 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        // do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            // do somethings
         }
     }
     static final class InternalHandler extends Handler {

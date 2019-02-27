@@ -197,9 +197,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
         }else {
-            if (stack.peek().onBackPressed()){
-                //do nothings
-            } else {
+            if (!stack.peek().onBackPressed()){
                 if (stack.size() == 1)  {
                     onBack();
                 }else{
@@ -320,12 +318,12 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
-            // do somethings
+            //do somethings
         }
     }
     static final  class InternalHandler extends Handler {
@@ -345,6 +343,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @ColorInt
+    @Override
     public  int getThemeAttrColor(@AttrRes int colorAttr) {
         TypedArray array = this.obtainStyledAttributes(null, new int[]{colorAttr});
         try {

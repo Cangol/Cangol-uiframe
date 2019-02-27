@@ -121,6 +121,7 @@ public class DrawerMenuLayout extends DrawerLayout {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        //do nothings
     }
     @Override
     protected boolean fitSystemWindows(Rect insets) {
@@ -170,6 +171,7 @@ public class DrawerMenuLayout extends DrawerLayout {
                     break;
                 default:
                     rect.bottom += getNavBarHeight();
+                    break;
             }
         }
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);

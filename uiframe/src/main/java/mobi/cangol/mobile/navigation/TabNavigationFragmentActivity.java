@@ -96,6 +96,7 @@ class TabNavigationFragmentActivityDelegate extends
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        //do nothings
     }
 
     @Override
@@ -177,6 +178,8 @@ class TabNavigationFragmentActivityDelegate extends
     }
 
     @Override
-    public void displayMaskView(boolean show) {}
+    public void displayMaskView(boolean show) {
+        //do nothings
+    }
 
 }

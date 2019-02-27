@@ -42,11 +42,7 @@ public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFra
     @Override
     public boolean onSupportNavigateUp() {
         if (stack.size() <= 1) {
-            if (!isShowMenu()) {
-                showMenu(true);
-            } else {
-                showMenu(false);
-            }
+            showMenu(!isShowMenu());
             return true;
         } else {
             return super.onSupportNavigateUp();
@@ -106,6 +102,7 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 
             @Override
             public void onDrawerStateChanged(int arg0) {
+                //do nothings
             }
 
         });

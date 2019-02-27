@@ -18,9 +18,9 @@ package mobi.cangol.mobile.base;
 import android.os.Bundle;
 
 public class FragmentInfo {
-    final String tag;
-    final Class<? extends BaseFragment> clazz;
-    final Bundle args;
+    protected final String tag;
+    protected final Class<? extends BaseFragment> clazz;
+    protected final Bundle args;
 
     public FragmentInfo(Class<? extends BaseFragment> clazz, String tag, Bundle args) {
         this.tag = tag;

@@ -44,15 +44,15 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     private static final String SAVED_CANCELABLE = "android:cancelable";
     private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
     private static final String SAVED_BACK_STACK_ID = "android:backStackId";
-    int mStyle = 0;
-    int mTheme = 0;
-    boolean mCancelable = true;
-    boolean mShowsDialog = true;
-    int mBackStackId = -1;
-    Dialog mDialog;
-    boolean mViewDestroyed;
-    boolean mDismissed;
-    boolean mShownByMe;
+    private int mStyle = 0;
+    private int mTheme = 0;
+    private boolean mCancelable = true;
+    private boolean mShowsDialog = true;
+    private int mBackStackId = -1;
+    private Dialog mDialog;
+    private boolean mViewDestroyed;
+    private boolean mDismissed;
+    private boolean mShownByMe;
 
     public BaseDialogFragment() {
         super();
@@ -203,6 +203,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public void onCancel(DialogInterface dialog) {
+        //do somethings
     }
 
     public void onDismiss(DialogInterface dialog) {

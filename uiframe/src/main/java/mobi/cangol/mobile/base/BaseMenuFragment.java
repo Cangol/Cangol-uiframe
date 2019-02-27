@@ -20,10 +20,6 @@ import android.os.Bundle;
 public abstract class BaseMenuFragment extends BaseFragment {
     private int currentModuleId;
 
-    public BaseMenuFragment() {
-        super();
-    }
-
     /**
      * 获取当前模块Id
      *

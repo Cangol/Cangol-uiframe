@@ -38,11 +38,7 @@ public abstract class SlidingNavigationFragmentActivity extends
     @Override
     public boolean onSupportNavigateUp() {
         if (stack.size() <= 1) {
-            if (!isShowMenu()) {
-                showMenu(true);
-            } else {
-                showMenu(false);
-            }
+            showMenu(!isShowMenu());
             return true;
         } else {
             return super.onSupportNavigateUp();

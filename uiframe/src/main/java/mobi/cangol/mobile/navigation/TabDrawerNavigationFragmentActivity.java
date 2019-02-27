@@ -142,7 +142,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
 
             @Override
             public void onDrawerStateChanged(int newState) {
-
+                //do nothings
             }
         });
     }
@@ -192,7 +192,7 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-
+        //do somethings
     }
 
     @Override

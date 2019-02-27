@@ -231,8 +231,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         if (null == stack||stack.size()==0||stack.peek()==null) {
             //do nothings
         }else {
-            if (stack.peek().onBackPressed()) {
-            } else {
+            if (!stack.peek().onBackPressed()) {
                 if (stack.size() == 1)  {
                     onBack();
                 }else{
