@@ -1,7 +1,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -188,11 +187,6 @@ class TabDrawerNavigationFragmentActivityDelegate extends AbstractNavigationFrag
     @Override
     public void setContentView(View v) {
         mContentView.addView(v);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        //do somethings
     }
 
     @Override

@@ -24,7 +24,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 import mobi.cangol.mobile.logging.Log;

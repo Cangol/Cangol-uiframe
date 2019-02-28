@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -92,11 +91,6 @@ class TabNavigationFragmentActivityDelegate extends
     @Override
     public int getMenuFrameId() {
         return mMenuView.getId();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        //do nothings
     }
 
     @Override

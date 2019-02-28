@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
@@ -131,11 +130,6 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
     @Override
     public int getMenuFrameId() {
         return mDrawerMenuLayout.getMenuFrameId();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        mDrawerMenuLayout.onConfigurationChanged(newConfig);
     }
 
     @Override

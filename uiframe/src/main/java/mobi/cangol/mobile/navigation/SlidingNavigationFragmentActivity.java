@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.view.KeyEvent;
@@ -119,11 +118,6 @@ class SlidingMenuNavigationFragmentActivityDelegate extends
     @Override
     public int getMenuFrameId() {
         return mSlidingMenuLayout.getMenuFrameId();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        mSlidingMenuLayout.onConfigurationChanged(newConfig);
     }
 
     @Override
