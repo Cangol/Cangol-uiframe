@@ -547,20 +547,20 @@ public abstract class BaseFragment extends Fragment {
      */
     public final  void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
-        CustomFragmentManager stack;
+        CustomFragmentManager fragmentManager;
         if (parent != null) {
-            stack = parent.getCustomFragmentManager();
+            fragmentManager = parent.getCustomFragmentManager();
         } else {
             if (getActivity() == null) {
                 throw new IllegalStateException("getActivity is null");
             } else {
                 CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-                stack = bfActivity.getCustomFragmentManager();
+                fragmentManager = bfActivity.getCustomFragmentManager();
             }
         }
-        if (null != stack && !stack.isStateSaved()) {
-            stack.replace(fragmentClass, tag, args, customFragmentTransaction);
-            stack.commit();
+        if (null != fragmentManager && !fragmentManager.isStateSaved()) {
+            fragmentManager.replace(fragmentClass, tag, args, customFragmentTransaction);
+            fragmentManager.commit();
         } else {
             Log.e(TAG, "Can not perform this action after onSaveInstanceState");
         }
@@ -576,19 +576,19 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean isSavedState() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
-        CustomFragmentManager stack;
+        CustomFragmentManager fragmentManager;
         if (parent != null) {
-            stack = parent.getCustomFragmentManager();
+            fragmentManager = parent.getCustomFragmentManager();
         } else {
             if (getActivity() == null) {
                 return false;
             } else {
                 CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-                stack = bfActivity.getCustomFragmentManager();
+                fragmentManager = bfActivity.getCustomFragmentManager();
             }
         }
-        if (stack != null) {
-            return stack.isStateSaved();
+        if (fragmentManager != null) {
+            return fragmentManager.isStateSaved();
         } else {
             return false;
         }
