@@ -152,6 +152,7 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
                             break;
                         default:
                             layoutParams.bottomMargin=0;
+                            break;
                     }
                     decorChild.setLayoutParams(layoutParams);
             }

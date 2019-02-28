@@ -93,11 +93,8 @@ public class CustomFragmentManager {
     }
 
     protected static final  class InternalHandler extends Handler {
-        private final WeakReference<FragmentActivity> mActivityRef;
-
         public InternalHandler(FragmentActivity activity) {
             super(Looper.getMainLooper());
-            mActivityRef = new WeakReference<>(activity);
         }
     }
 
@@ -248,8 +245,6 @@ public class CustomFragmentManager {
                     beginTransaction();
                 }
             }
-        } else {
-            //
         }
 
         attachFragment(fragment, tag);

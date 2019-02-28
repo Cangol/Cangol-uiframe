@@ -173,10 +173,8 @@ public abstract class BaseFragment extends Fragment {
         handlerThread.start();
         handler = new InternalHandler(this, handlerThread.getLooper());
         app = (CoreApplication) this.getActivity().getApplication();
-        if (savedInstanceState == null) {
-
-        } else {
-            if (null != stack) stack.restoreState(savedInstanceState);
+        if (savedInstanceState != null&&null != stack) {
+           stack.restoreState(savedInstanceState);
         }
     }
 
@@ -752,7 +750,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
 
     protected void postRunnable(StaticInnerRunnable runnable) {

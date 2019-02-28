@@ -229,7 +229,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     public final  void onBackPressed() {
         Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
-            //do nothings
+            onBack();
         }else {
             if (!stack.peek().onBackPressed()) {
                 if (stack.size() == 1)  {
@@ -303,7 +303,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override

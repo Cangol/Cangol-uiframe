@@ -30,10 +30,6 @@ public abstract class BaseContentFragment extends BaseFragment {
 
     private CharSequence title;
 
-    public BaseContentFragment() {
-        super();
-    }
-
     /**
      * 获取ActionBarActivity,由于原getActivity为final，故增加此方法
      *
@@ -324,9 +320,4 @@ public abstract class BaseContentFragment extends BaseFragment {
         return (BaseContentFragment) getParentFragment();
     }
 
-    @Override
-    public void onDestroyView() {
-        hideSoftInput();
-        super.onDestroyView();
-    }
 }

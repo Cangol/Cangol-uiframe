@@ -54,10 +54,6 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     private boolean mDismissed;
     private boolean mShownByMe;
 
-    public BaseDialogFragment() {
-        super();
-    }
-
     public void setStyle(int style, int theme) {
         this.mStyle = style;
         if (this.mStyle == 2 || this.mStyle == 3) {

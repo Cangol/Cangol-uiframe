@@ -150,6 +150,7 @@ public class DrawerMenuLayout extends DrawerLayout {
                             break;
                         default:
                             layoutParams.bottomMargin=0;
+                            break;
                     }
                     decorChild.setLayoutParams(layoutParams);
                 }
