@@ -98,7 +98,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(SettingFragment.class, "SettingFragment",null,MODULE_SETTING);
+				setContentFragment(InputFragment.class, "InputFragment",null,MODULE_SETTING);
 			}
 		
 		});
