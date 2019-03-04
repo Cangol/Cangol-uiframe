@@ -19,11 +19,11 @@ import android.widget.TabWidget;
  */
 public class TabPageManager extends FragmentStatePagerAdapter implements
 		TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
-	private final Context mContext;
-	private final TabHost mTabHost;
-	private final ViewPager mViewPager;
-	private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
-	private final FragmentManager mFragmentManager;
+	private  Context mContext;
+	private  TabHost mTabHost;
+	private  ViewPager mViewPager;
+	private  ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+	private  FragmentManager mFragmentManager;
 	static final class TabInfo {
 		private final String tag;
 		private final Class<?> clss;
@@ -76,7 +76,12 @@ public class TabPageManager extends FragmentStatePagerAdapter implements
 		mTabHost.addTab(tabSpec);
 		notifyDataSetChanged();
 	}
-
+	public void destroy() {
+		mFragmentManager = null;
+		mTabs.clear();
+		mTabHost.clearAllTabs();
+		mContext=null;
+	}
 	@Override
 	public int getCount() {
 		return mTabs.size();

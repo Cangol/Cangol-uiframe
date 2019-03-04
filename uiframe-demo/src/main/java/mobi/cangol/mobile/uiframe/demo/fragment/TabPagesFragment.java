@@ -80,5 +80,10 @@ public class TabPagesFragment extends BaseContentFragment {
 	public boolean isCleanStack() {
 		return true;
 	}
-	
+
+	@Override
+	public void onDestroyView() {
+		mTabPageManager.destroy();
+		super.onDestroyView();
+	}
 }
