@@ -11,6 +11,7 @@ import mobi.cangol.mobile.uiframe.demo.activity.DrawerActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.SlidingActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.TabActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.TabDrawerActivity;
+import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 public class AllActivity extends BaseActionBarActivity {
 	@Override
@@ -71,5 +72,10 @@ public class AllActivity extends BaseActionBarActivity {
 
 	@Override
 	public void initData(Bundle savedInstanceState) {
+	}
+	@Override
+	protected void onDestroy() {
+		CleanLeakUtils.fixInputMethodManagerLeak(this);
+		super.onDestroy();
 	}
 }

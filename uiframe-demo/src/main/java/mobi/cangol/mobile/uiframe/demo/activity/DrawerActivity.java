@@ -12,6 +12,7 @@ import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
+import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
 public class DrawerActivity extends DrawerNavigationFragmentActivity {
@@ -51,21 +52,21 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		android.util.Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		android.util.Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	protected void onDestroy() {
-		android.util.Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
+		CleanLeakUtils.fixInputMethodManagerLeak(this);
+		Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
 		super.onDestroy();
 	}
-
 	@Override
 	public void onBack() {
 		if(back_pressed+2000>System.currentTimeMillis()){

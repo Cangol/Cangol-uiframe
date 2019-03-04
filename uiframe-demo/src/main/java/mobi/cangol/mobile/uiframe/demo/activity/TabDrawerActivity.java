@@ -11,6 +11,7 @@ import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
+import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
 public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
@@ -64,5 +65,10 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 
 	public int getContentFrameId() {
 		return R.id.frame_main;
+	}
+
+	protected void onDestroy() {
+		CleanLeakUtils.fixInputMethodManagerLeak(this);
+		super.onDestroy();
 	}
 }

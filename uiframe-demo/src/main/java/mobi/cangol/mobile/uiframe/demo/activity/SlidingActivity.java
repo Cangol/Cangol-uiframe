@@ -12,6 +12,7 @@ import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
+import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
 public class SlidingActivity extends SlidingNavigationFragmentActivity {
@@ -74,5 +75,10 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 
 	public int getContentFrameId() {
 		return R.id.frame_main;
+	}
+
+	protected void onDestroy() {
+		CleanLeakUtils.fixInputMethodManagerLeak(this);
+		super.onDestroy();
 	}
 }
