@@ -536,7 +536,17 @@ public abstract class BaseFragment extends Fragment {
             throw new IllegalStateException("requestCode!=-1");
         }
     }
-
+    public final  void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode,CustomFragmentTransaction customFragmentTransaction) {
+        if (requestCode != -1) {
+            if(customFragmentTransaction!=null){
+                this.replaceFragment(fragmentClass, tag, args, customFragmentTransaction.setTargetFragment(this, requestCode));
+            }else{
+                this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
+            }
+        } else {
+            throw new IllegalStateException("requestCode!=-1");
+        }
+    }
     /**
      * 替换同级fragment 带自定义动画
      *
