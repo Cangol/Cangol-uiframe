@@ -24,8 +24,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import java.lang.reflect.Field;
-
 import mobi.cangol.mobile.logging.Log;
 
 public class CustomFragmentManager {
@@ -124,6 +122,7 @@ public class CustomFragmentManager {
 
     public void restoreState(Bundle state) {
         String[] stackTags = state.getStringArray(STATE_TAG);
+        if(stackTags!=null&&stackTags.length>0)
         for (String tag : stackTags) {
             BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
             stack.addFragment(f);
@@ -379,24 +378,7 @@ public class CustomFragmentManager {
         return false;
     }
 
-    /**
-     * 判断是否执行了onSaveInstanceState
-     * Support 26.0.0-alpha1 之后才有isStateSaved方法
-     * 这里用反射直接读取mStateSaved字段，兼容旧的版本
-     *
-     * @return
-     */
     public boolean isStateSaved() {
-        Class implClass = null;
-        Field field = null;
-        try {
-            implClass = Class.forName("android.support.v4.app.FragmentManagerImpl");
-            field = implClass.getDeclaredField("mStateSaved");
-            field.setAccessible(true);
-            return (Boolean) field.get(implClass.cast(fragmentManager));
-        } catch (Exception e) {
-            Log.e("isStateSaved", "" + e.getMessage(), e);
-        }
-        return false;
+        return fragmentManager.isStateSaved();
     }
 }
