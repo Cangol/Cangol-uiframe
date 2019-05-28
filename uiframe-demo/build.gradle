@@ -4,12 +4,12 @@ dependencies {
     implementation 'com.android.support:support-fragment:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'mobi.cangol.mobile:actionbar:1.0.45@aar'
-    implementation 'mobi.cangol.mobile:appcore:1.1.36@aar'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.4@aar'
+    implementation 'mobi.cangol.mobile:appcore:1.1.39@aar'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'com.squareup.okio:okio:1.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okio:okio:1.14.0'
     //leak canary
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
