@@ -61,11 +61,6 @@ public class ResultFragment extends BaseContentFragment {
 	}
 
 	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		return null;
-	}
-
-	@Override
 	public boolean isSingleton() {
 		return false;
 	}
