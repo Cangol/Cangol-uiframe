@@ -8,8 +8,8 @@ apply from: '../config/quality.gradle'
 apply plugin: 'com.jakewharton.hugo'
 
 dependencies {
-    implementation 'mobi.cangol.mobile:appcore:[1.1.36,)@aar'
-    implementation 'mobi.cangol.mobile:actionbar:[1.0.45,)@aar'
+    implementation 'mobi.cangol.mobile:appcore:1.1.39@aar'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.5@aar'
     implementation 'com.android.support:support-fragment:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
 }
