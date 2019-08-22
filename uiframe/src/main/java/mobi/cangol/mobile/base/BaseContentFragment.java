@@ -86,6 +86,11 @@ public abstract class BaseContentFragment extends BaseFragment {
             getCustomActionBar().setTitle(title);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.setTitle("");
+    }
     /**
      * 设置状态栏颜色
      *
