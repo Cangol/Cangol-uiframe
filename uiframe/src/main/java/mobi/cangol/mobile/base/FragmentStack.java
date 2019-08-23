@@ -11,7 +11,7 @@ import java.util.Stack;
  */
 
 public class FragmentStack {
-    private Stack<WeakReference<BaseFragment>> stack;
+    private Stack<BaseFragment> stack;
     private Stack<String> tagStack;
 
     public FragmentStack() {
@@ -24,7 +24,7 @@ public class FragmentStack {
     }
 
     public void addFragment(BaseFragment fragment) {
-        stack.add(new WeakReference<>(fragment));
+        stack.add(fragment);
     }
 
     public void addTag(String tag) {
@@ -32,7 +32,7 @@ public class FragmentStack {
     }
 
     public BaseFragment peekFragment() {
-        return stack.isEmpty()?null:stack.peek().get();
+        return stack.isEmpty()?null:stack.peek();
     }
 
     public String peekTag() {
@@ -41,7 +41,7 @@ public class FragmentStack {
 
     public BaseFragment popFragment() {
 
-        return stack.isEmpty()?null:stack.pop().get();
+        return stack.isEmpty()?null:stack.pop();
     }
 
     public void popFragment(String tag,int flag) {
