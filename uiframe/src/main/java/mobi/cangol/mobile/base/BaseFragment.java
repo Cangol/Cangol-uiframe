@@ -46,6 +46,8 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
+    public static final String REQUEST_CODE_1 = "requestCode!=-1";
+    public static final String ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE = "IllegalStateException  Fragment isEnable=false";
     protected final String TAG = Log.makeLogTag(this.getClass());
     protected CoreApplication app;
     private long startTime;
@@ -389,7 +391,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -404,7 +406,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId, duration);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -418,7 +420,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -433,7 +435,7 @@ public abstract class BaseFragment extends Fragment {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str,duration);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -451,7 +453,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.showSoftInput(editText);
         } else {
-            Log.e("showSoftInput IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -460,7 +462,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.hideSoftInput();
         } else {
-            Log.e("hideSoftInput IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -469,7 +471,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.hideSoftInput(editText);
         } else {
-            Log.e("hideSoftInput IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
     /**
@@ -533,7 +535,7 @@ public abstract class BaseFragment extends Fragment {
         if (requestCode != -1) {
             this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
-            throw new IllegalStateException("requestCode!=-1");
+            throw new IllegalStateException(REQUEST_CODE_1);
         }
     }
     public final  void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode,CustomFragmentTransaction customFragmentTransaction) {
@@ -544,7 +546,7 @@ public abstract class BaseFragment extends Fragment {
                 this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
             }
         } else {
-            throw new IllegalStateException("requestCode!=-1");
+            throw new IllegalStateException(REQUEST_CODE_1);
         }
     }
     /**
@@ -627,7 +629,7 @@ public abstract class BaseFragment extends Fragment {
         if (requestCode != -1) {
             this.replaceParentFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
-            throw new IllegalStateException("requestCode!=-1");
+            throw new IllegalStateException(REQUEST_CODE_1);
         }
     }
 

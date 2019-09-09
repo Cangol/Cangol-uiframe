@@ -21,6 +21,9 @@ import mobi.cangol.mobile.uiframe.R;
  */
 
 public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigationFragmentActivity {
+
+    public static final String GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE = "getActivity is TabDrawerNavigationFragmentActivityDelegate";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setNavigationFragmentActivityDelegate(new TabDrawerNavigationFragmentActivityDelegate(
@@ -47,7 +50,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawerEnable(gravity, enable);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 
@@ -55,7 +58,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).showDrawer(gravity, show);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 
@@ -63,7 +66,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).isShowDrawer(gravity);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 
@@ -72,7 +75,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).setDrawer(gravity, drawerFragment);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 
@@ -80,7 +83,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             return ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).getDrawer(gravity);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 
@@ -88,7 +91,7 @@ public abstract class TabDrawerNavigationFragmentActivity extends BaseNavigation
         if (getNavigationFragmentActivityDelegate() instanceof TabDrawerNavigationFragmentActivityDelegate) {
             ((TabDrawerNavigationFragmentActivityDelegate) getNavigationFragmentActivityDelegate()).removeDrawer(gravity);
         } else {
-            throw new IllegalStateException("getActivity is TabDrawerNavigationFragmentActivityDelegate");
+            throw new IllegalStateException(GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE);
         }
     }
 }

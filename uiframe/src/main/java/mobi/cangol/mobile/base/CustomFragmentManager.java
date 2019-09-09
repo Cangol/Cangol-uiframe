@@ -122,11 +122,12 @@ public class CustomFragmentManager {
 
     public void restoreState(Bundle state) {
         String[] stackTags = state.getStringArray(STATE_TAG);
-        if(stackTags!=null&&stackTags.length>0)
-        for (String tag : stackTags) {
-            BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
-            stack.addFragment(f);
-            stack.addTag(tag);
+        if(stackTags!=null){
+            for (String tag : stackTags) {
+                BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
+                stack.addFragment(f);
+                stack.addTag(tag);
+            }
         }
     }
 

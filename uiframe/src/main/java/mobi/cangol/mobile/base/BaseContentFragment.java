@@ -28,6 +28,7 @@ import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
 
+    public static final String GET_ACTIVITY_IS_NULL = "get activity is null";
     private CharSequence title;
 
     /**
@@ -47,7 +48,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public ActionBar getCustomActionBar() {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             return abActivity.getCustomActionBar();
         }
@@ -99,7 +100,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void setStatusBarColor(int color) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.setStatusBarTintColor(color);
         }
@@ -113,7 +114,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void setNavigationBarTintColor(int color) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.setNavigationBarTintColor(color);
         }
@@ -125,7 +126,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void enableRefresh(boolean enable) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.getCustomActionBar().enableRefresh(enable);
         }
@@ -137,7 +138,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void refreshing(boolean refreshing) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.getCustomActionBar().refreshing(refreshing);
         }
@@ -152,7 +153,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public ActionMode startCustomActionMode(ActionMode.Callback callback) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             return abActivity.startCustomActionMode(callback);
         }
@@ -168,7 +169,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
-                throw new IllegalStateException("getActivity is null");
+                throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
             } else if (this.getParentFragment() == null) {
                 if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
@@ -182,7 +183,7 @@ public abstract class BaseContentFragment extends BaseFragment {
 
     protected final  void notifyMenuChange(int moduleId) {
         if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                 BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
@@ -195,7 +196,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
-                throw new IllegalStateException("getActivity is null");
+                throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
             } else {
                 ActionBarActivity bfActivity = (ActionBarActivity) this.getActivity();
                 if (isCleanStack()) {
@@ -239,7 +240,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             this.onMenuActionCreated(abActivity.getCustomActionBar().getActionMenu());
         }

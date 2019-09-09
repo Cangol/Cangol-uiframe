@@ -244,6 +244,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     /**
      * 处理back事件
      */
+    @Override
     public void onBack() {
         Log.v(TAG, "onBack");
         super.onBackPressed();

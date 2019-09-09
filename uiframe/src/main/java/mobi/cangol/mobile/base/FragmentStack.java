@@ -3,7 +3,6 @@ package mobi.cangol.mobile.base;
 
 import android.text.TextUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.Stack;
 
 /**

@@ -18,6 +18,7 @@ package mobi.cangol.mobile.base;
 import android.os.Bundle;
 
 public abstract class BaseMenuFragment extends BaseFragment {
+    public static final String GET_ACTIVITY_IS_NULL = "getActivity is null";
     private int currentModuleId;
 
     /**
@@ -64,7 +65,7 @@ public abstract class BaseMenuFragment extends BaseFragment {
     public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
 
         if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
             bfActivity.setContentFragment(fragmentClass, tag, args);
@@ -82,7 +83,7 @@ public abstract class BaseMenuFragment extends BaseFragment {
     public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
 
         if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
             bfActivity.setContentFragment(fragmentClass, tag, args, moduleId);
@@ -97,7 +98,7 @@ public abstract class BaseMenuFragment extends BaseFragment {
     public void showMenu(boolean show) {
 
         if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
             bfActivity.showMenu(show);
