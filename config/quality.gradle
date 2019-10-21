@@ -64,14 +64,6 @@ task pmd(type: Pmd) {
         html.enabled = true
     }
 }
-//
-task jdepend(type: JDepend, dependsOn: 'compileDebugSources') {
-    classesDir file("build/intermediates/classes")
-    reports {
-        xml.enabled = false
-        text.enabled=true
-    }
-}
 android {
     lintOptions {
         abortOnError false
