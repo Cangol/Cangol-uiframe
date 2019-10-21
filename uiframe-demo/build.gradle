@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    implementation 'com.android.support:support-fragment:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'mobi.cangol.mobile:appcore:1.1.39@aar'
-    implementation 'mobi.cangol.mobile:actionbar:1.1.5@aar'
+    implementation "com.android.support:support-fragment:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-v4:$support_version"
+    implementation 'mobi.cangol.mobile:appcore:1.1.49@aar'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.6@aar'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.okio:okio:1.14.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okio:okio:1.15.0'
     //leak canary
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
@@ -17,11 +17,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion Integer.decode("$sdk_version")
+    buildToolsVersion "$build_version"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion Integer.decode("$min_version")
+        targetSdkVersion Integer.decode("$target_version")
         versionCode Integer.decode("${POM_VERSION_CODE}")
         versionName "${POM_VERSION}"
     }
