@@ -18,12 +18,12 @@ Maven
      <dependency>
          <groupId>mobi.cangol.mobile</groupId>
          <artifactId>uiframe</artifactId>
-         <version>1.0.82</version>
+         <version>1.0.83</version>
          <type>aar</type>
      </dependency>
 Gradle
  
-    compile 'mobi.cangol.mobile:uiframe:1.0.82@aar'
+    compile 'mobi.cangol.mobile:uiframe:1.0.83@aar'
 
 ### License
 
