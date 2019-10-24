@@ -17,6 +17,7 @@ public class SingletonFragment extends BaseContentFragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null)
         sno = getArguments().getInt("sno", 1);
     }
 

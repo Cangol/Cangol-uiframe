@@ -1,15 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/common_background">
-
-    <mobi.cangol.mobile.uiframe.demo.view.PromptView
-        android:id="@+id/promptView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </mobi.cangol.mobile.uiframe.demo.view.PromptView>
 
     <ListView
         android:id="@+id/listView"

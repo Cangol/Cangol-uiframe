@@ -1,12 +1,12 @@
-/** 
+/**
  * Copyright (c) 2013 Cangol.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,75 +25,66 @@ import mobi.cangol.mobile.service.AppService;
 import mobi.cangol.mobile.service.ServiceProperty;
 import mobi.cangol.mobile.service.conf.ConfigService;
 import mobi.cangol.mobile.service.status.StatusService;
-import mobi.cangol.mobile.uiframe.demo.db.DatabaseHelper;
 import mobi.cangol.mobile.uiframe.demo.utils.Constants;
 
 
 /**
- * @Description MobileApplication.java 
+ * @Description MobileApplication.java
  * @author Cangol
  * @date 2013-9-8
  */
 @DebugLog
-public class DemoApplication  extends CoreApplication {
-		public final String TAG=Constants.makeLogTag(DemoApplication.class);
-		private StatusService statusService;
-		private AppStatusListener appStatusListener;
-		private DatabaseHelper databaseHelper;
-		private Singleton singleton;
-		private RefWatcher mRefWatcher;
-		@Override
-		public void onCreate() {
-			this.setDevMode(true);
-			super.onCreate();
-			//init();
+public class DemoApplication extends CoreApplication {
+    public final String TAG = Constants.makeLogTag(DemoApplication.class);
+    private StatusService statusService;
+    private AppStatusListener appStatusListener;
+    private Singleton singleton;
+    private RefWatcher mRefWatcher;
+
+    @Override
+    public void onCreate() {
+        this.setDevMode(true);
+        super.onCreate();
+        //init();
 //			if (LeakCanary.isInAnalyzerProcess(this)) {
 //				// This process is dedicated to LeakCanary for heap analysis.
 //				// You should not init your app in this process.
 //				return;
 //			}
 //			LeakCanary.install(this);
-			Log.setLogLevelFormat(android.util.Log.VERBOSE,false);
-			singleton=Singleton.getInstance();
-		}
-		public void init() {
-			if (isDevMode())
-				Log.v(TAG, "init");
-			initAppService();
-			initDataBase();
-			initLeak();
-		}
+        Log.setLogLevelFormat(android.util.Log.VERBOSE, false);
+        singleton = Singleton.getInstance();
+    }
 
-		public void initAppService() {
-			if (isDevMode())
-				Log.v(TAG, "initAppService");
-			
-			Log.d(TAG,"初始化ConfigService");
-			ConfigService configService = (ConfigService) getAppService(AppService.CONFIG_SERVICE);
-			ServiceProperty p=configService.getServiceProperty();
-			p.putString(ConfigService.APP_DIR, Constants.APP_DIR);
-			p.putString(ConfigService.SHARED_NAME, Constants.SHARED);
-			
-			Log.v(TAG, "getAppDir:" + configService.getAppDir());
-			
-			Log.d(TAG,"初始化StatusService");
+    public void init() {
+        if (isDevMode())
+            Log.v(TAG, "init");
+        initAppService();
+        initLeak();
+    }
+
+    public void initAppService() {
+        if (isDevMode())
+            Log.v(TAG, "initAppService");
+
+        Log.d(TAG, "初始化ConfigService");
+        ConfigService configService = (ConfigService) getAppService(AppService.CONFIG_SERVICE);
+        ServiceProperty p = configService.getServiceProperty();
+        p.putString(ConfigService.APP_DIR, Constants.APP_DIR);
+        p.putString(ConfigService.SHARED_NAME, Constants.SHARED);
+
+        Log.v(TAG, "getAppDir:" + configService.getAppDir());
+
+        Log.d(TAG, "初始化StatusService");
 //			statusService = (StatusService) getAppService(AppService.STATUS_SERVICE);
 //			appStatusListener = new AppStatusListener();
 //			statusService.registerStatusListener(appStatusListener);
-			
-		}
-	private void initLeak() {
-		if (!LeakCanary.isInAnalyzerProcess(this)) {
-			mRefWatcher = LeakCanary.install(this);
-		}
-	}
-		public void initDataBase() {
-			databaseHelper=DatabaseHelper.createDataBaseHelper(this);
-			Log.d(TAG,"Database: Name="+databaseHelper.getDataBaseName()+", Version="+databaseHelper.getDataBaseVersion());
-		}
 
-		@Override
-		public void exit() {
-			super.exit();
-		}
+    }
+
+    private void initLeak() {
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            mRefWatcher = LeakCanary.install(this);
+        }
+    }
 }

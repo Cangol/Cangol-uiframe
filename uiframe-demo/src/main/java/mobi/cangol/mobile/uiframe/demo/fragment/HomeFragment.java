@@ -1,12 +1,14 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,28 +52,29 @@ public class HomeFragment extends BaseContentFragment {
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
         List<String> list = new ArrayList<>();
-        list.add(ActionMenuFragment.class.getSimpleName());
-        list.add(TabsFragment.class.getSimpleName());
-        list.add(TabPagesFragment.class.getSimpleName());
-        list.add(SwitchFragment.class.getSimpleName());
-        list.add(DialogFragment.class.getSimpleName());
-        list.add(MaskViewFragment.class.getSimpleName());
-        list.add(HighLightFragment.class.getSimpleName());
-        list.add(InputFragment.class.getSimpleName());
-        list.add(ResultFragment.class.getSimpleName());
-        list.add(SingletonFragment.class.getSimpleName());
-        list.add(PopBackFragment.class.getSimpleName());
-        list.add(WebFragment.class.getSimpleName());
+        list.add(ActionMenuFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(TabsFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(TabPagesFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(SwitchFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(ResultFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(SingletonFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(PopBackFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
-            list.add(DrawerFragment.class.getSimpleName());
+            list.add(DrawerFragment.class.getSimpleName().replace("Fragment", ""));
 
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String className = (String) parent.getItemAtPosition(position);
+                String name = (String) parent.getItemAtPosition(position);
+                String className = "mobi.cangol.mobile.uiframe.demo.fragment." + name + "Fragment";
                 try {
-                    setContentFragment((Class<? extends BaseContentFragment>) Class.forName("mobi.cangol.mobile.uiframe.demo.fragment." + className), className, null);
+                    setContentFragment((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
