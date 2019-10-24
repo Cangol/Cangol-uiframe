@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
 
-public class InputFragment extends BaseContentFragment {
+public class CleanFragment extends BaseContentFragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_input, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -30,18 +30,23 @@ public class InputFragment extends BaseContentFragment {
         initData(savedInstanceState);
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-    }
 
     @Override
     protected void findViews(View view) {
-        this.setTitle(this.getClass().getSimpleName());
-
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        this.setTitle(this.getClass().getSimpleName());
+    }
 
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public boolean isCleanStack() {
+        return true;
     }
 }

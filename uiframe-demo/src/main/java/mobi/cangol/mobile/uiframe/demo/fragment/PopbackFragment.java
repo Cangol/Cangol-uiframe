@@ -1,20 +1,20 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.logging.Log;
-import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.activity.SecondActivity;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 
-public class NextFragment extends BaseContentFragment {
+import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.uiframe.demo.Singleton;
+import mobi.cangol.mobile.uiframe.demo.activity.SecondActivity;
+
+public class PopbackFragment extends BaseContentFragment {
 	protected  final String TAG = Log.makeLogTag(this.getClass());
 	private int sno=1;
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class NextFragment extends BaseContentFragment {
 			public void onClick(View v) {
 					Bundle bundle=new Bundle();
 					bundle.putInt("sno",sno+1);
-					setContentFragment(NextFragment.class,"NextFragment_"+(sno+1),bundle);
+					setContentFragment(PopbackFragment.class,"NextFragment_"+(sno+1),bundle);
 
 			}
 
@@ -130,50 +130,10 @@ public class NextFragment extends BaseContentFragment {
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(HomeFragment.class,"HomeFragment",null);
+				//setContentFragment(TestFragment.class,"TestFragment",null);
 
 			}
 
 		});
-	}
-
-	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		//return new FragmentInfo(ItemFragment.class,"ItemFragment",null);
-		return null;
-	}
-
-	@Override
-	public boolean isSingleton() {
-		return false;
-	}
-
-	@Override
-	public boolean isCleanStack() {
-		return false;
-	}
-
-//	@Override
-//	public boolean onSupportNavigateUp() {
-//		setContentFragment(HomeFragment.class,"HomeFragment",null);
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean onBackPressed() {
-//		setContentFragment(HomeFragment.class,"HomeFragment",null);
-//		return true;
-//	}
-
-	@Override
-	public boolean onSupportNavigateUp() {
-		popBackStack();
-		return true;
-	}
-
-	@Override
-	public boolean onBackPressed() {
-		popBackStack();
-		return true;
 	}
 }

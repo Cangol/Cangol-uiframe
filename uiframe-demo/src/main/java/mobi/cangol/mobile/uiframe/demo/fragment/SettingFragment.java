@@ -1,13 +1,13 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.demo.R;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.FragmentInfo;
+import mobi.cangol.mobile.uiframe.demo.R;
 
 public class SettingFragment extends BaseContentFragment {
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,8 @@ public class SettingFragment extends BaseContentFragment {
 			@Override
 			public void onClick(View v) {
 				Bundle bundle=new Bundle();
-				bundle.putInt("sno",1);
-				setContentFragment(NextFragment.class,"NextFragment_"+1,bundle);
+				bundle.putInt("flag",1);
+				setContentFragment(ItemFragment.class,"ItemFragment_"+1,bundle);
 
 			}
 

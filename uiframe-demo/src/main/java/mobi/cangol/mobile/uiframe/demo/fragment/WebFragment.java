@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.BuildConfig;
 import mobi.cangol.mobile.uiframe.demo.R;
 
@@ -110,17 +108,6 @@ public class WebFragment extends BaseContentFragment {
         webSettings.setUserAgentString(webSettings.getUserAgentString() + " fdzq");
 
         webView.requestFocus();
-    }
-
-    @Override
-    protected FragmentInfo getNavigtionUpToFragment() {
-        return null;
-    }
-
-
-    @Override
-    public boolean isCleanStack() {
-        return true;
     }
 
 }

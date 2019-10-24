@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.view.TabPageManager;
 
@@ -16,10 +15,7 @@ public class TabPagesFragment extends BaseContentFragment {
 	private TabPageManager  mTabPageManager;
 	private TabHost mTabHost;
 	private ViewPager mViewPager;
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -41,8 +37,7 @@ public class TabPagesFragment extends BaseContentFragment {
 	}
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-				
+
 	}
 
 	@Override
@@ -65,20 +60,7 @@ public class TabPagesFragment extends BaseContentFragment {
 	}
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public boolean isCleanStack() {
-		return true;
 	}
 
 	@Override

@@ -10,16 +10,11 @@ import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
 
 public class ListFragment extends BaseContentFragment {
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_list, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override
@@ -36,29 +31,16 @@ public class ListFragment extends BaseContentFragment {
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-    }
-
-    @Override
     protected void findViews(View view) {
         this.setTitle(this.getClass().getSimpleName());
-
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-
     }
 
     @Override
-    protected FragmentInfo getNavigtionUpToFragment() {
-        return null;
-    }
-
-
-    @Override
-    public boolean isCleanStack() {
-        return true;
+    protected void initData(Bundle savedInstanceState) {
     }
 
 }

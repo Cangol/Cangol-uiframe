@@ -32,7 +32,7 @@ public class CommonDialogFragment extends BaseDialogFragment {
     private LinearLayout contentView;
 
      Builder builder;
-    private CommonDialogFragment() {
+    public CommonDialogFragment() {
 
     }
 

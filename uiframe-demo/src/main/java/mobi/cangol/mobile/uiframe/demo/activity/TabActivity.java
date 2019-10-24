@@ -9,6 +9,7 @@ import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
 import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
@@ -24,22 +25,23 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
+		this.getCustomFragmentManager().setAddMode(false);
 		this.getCustomFragmentManager().setFirstUseAnim(false);
 		this.getCustomFragmentManager().setDefaultAnimation(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuBottomFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null,MenuBottomFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 		//this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
-        //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
+        //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(SettingFragment.class, "SettingFragment", null,MenuBottomFragment.MODULE_SETTING);
+				setContentFragment(ListFragment.class, "ListFragment", null,MenuBottomFragment.MODULE_CLEAN);
 			}
 		});
 	}

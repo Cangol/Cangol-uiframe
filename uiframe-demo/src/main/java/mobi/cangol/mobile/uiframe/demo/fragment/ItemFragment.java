@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,11 +46,13 @@ public class ItemFragment extends BaseContentFragment {
     protected void findViews(View view) {
         this.setTitle(this.getClass().getSimpleName());
         TextView mTextView1 = (TextView) view.findViewById(R.id.textView1);
-        mTextView1.setText("" + mFlag);
+        mTextView1.setText("flag=" + mFlag);
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        if (TextUtils.isEmpty(mFlag))
+            setTitle("flag=" + mFlag);
     }
 
     @Override

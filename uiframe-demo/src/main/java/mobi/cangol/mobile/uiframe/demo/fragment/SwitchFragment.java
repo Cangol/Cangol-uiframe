@@ -14,16 +14,12 @@ import android.widget.Button;
 public class SwitchFragment extends BaseContentFragment {
 	
 	private Button mButton1;
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_switch, container,false);
-		return v;
+		return inflater.inflate(R.layout.fragment_switch, container,false);
 	}
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -41,7 +37,6 @@ public class SwitchFragment extends BaseContentFragment {
 	}
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-
 	}
 
 	@Override

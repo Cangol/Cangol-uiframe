@@ -1,9 +1,5 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import mobi.cangol.mobile.base.BaseMenuFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.uiframe.demo.R;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +7,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import mobi.cangol.mobile.base.BaseMenuFragment;
+import mobi.cangol.mobile.uiframe.demo.R;
+
 public class MenuBottomFragment extends BaseMenuFragment{
 	public static final int MODULE_HOME=0;
+	public static final int MODULE_CLEAN=1;
 
-	public static final int MODULE_LIST=1;
-
-	public static final int MODULE_SETTING=2;
-
-	public static final int MODULE_SWITCH=4;
-
-	public static final int MODULE_TABS=5;
-
-	public static final int MODULE_PAGES=6;
-	
 	public TextView textView1;
 	public TextView textView2;
-	public TextView textView3;
-	public TextView textView4;
-	public TextView textView5;
-	public TextView textView6;
-	
+
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,11 +55,6 @@ public class MenuBottomFragment extends BaseMenuFragment{
 	protected void findViews(View v) {
 		textView1=(TextView) v.findViewById(R.id.textView1);
 		textView2=(TextView) v.findViewById(R.id.textView2);
-		textView3=(TextView) v.findViewById(R.id.textView3);
-		textView4=(TextView) v.findViewById(R.id.textView4);
-		textView5=(TextView) v.findViewById(R.id.textView5);
-		textView6=(TextView) v.findViewById(R.id.textView6);
-		
 	}
 
 	@Override
@@ -82,7 +63,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(HomeFragment.class, "HomeFragment",null,MODULE_HOME);
+				setContentFragment(HomeFragment.class, "TestFragment",null,MODULE_HOME);
 			}
 		
 		});
@@ -90,39 +71,7 @@ public class MenuBottomFragment extends BaseMenuFragment{
 
 			@Override
 			public void onClick(View v) {
-				setContentFragment(ListFragment.class, "ListFragment",null,MODULE_LIST);
-			}
-		
-		});
-		textView3.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				setContentFragment(InputFragment.class, "InputFragment",null,MODULE_SETTING);
-			}
-		
-		});
-		textView4.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				setContentFragment(SwitchFragment.class, "SwitchFragment",null,MODULE_SWITCH);
-			}
-		
-		});
-		textView5.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				setContentFragment(TabsFragment.class, "TabsFragment",null,MODULE_TABS);
-			}
-		
-		});
-		textView6.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				setContentFragment(TabPagesFragment.class, "TabPagesFragment",null,MODULE_PAGES);
+				setContentFragment(CleanFragment.class, "CleanFragment",null,MODULE_CLEAN);
 			}
 		
 		});
@@ -135,30 +84,18 @@ public class MenuBottomFragment extends BaseMenuFragment{
 		}
 	}
 
-	private void updateFocus(int moduleId) {
-		textView1.setSelected(MODULE_HOME==moduleId);
-		textView2.setSelected(MODULE_LIST==moduleId);
-		textView3.setSelected(MODULE_SETTING==moduleId);
-		textView4.setSelected(MODULE_SWITCH==moduleId);
-		textView5.setSelected(MODULE_TABS==moduleId);
-		textView6.setSelected(MODULE_PAGES==moduleId);
-	}
 	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void onOpen() {
+
 	}
 
 	@Override
 	protected void onClosed() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
-	protected void onOpen() {
-		// TODO Auto-generated method stub
-		
+	private void updateFocus(int moduleId) {
+		textView1.setSelected(MODULE_HOME==moduleId);
+		textView2.setSelected(MODULE_CLEAN==moduleId);
 	}
-
 }

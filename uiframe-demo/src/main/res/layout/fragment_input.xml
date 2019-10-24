@@ -12,12 +12,12 @@
         <View
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="1000dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="100dp"
+            android:background="@android:color/darker_gray" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="test"/>
+            android:hint="test" />
     </LinearLayout>
 </ScrollView>

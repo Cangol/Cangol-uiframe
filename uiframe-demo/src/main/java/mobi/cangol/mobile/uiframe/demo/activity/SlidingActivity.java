@@ -9,6 +9,7 @@ import mobi.cangol.mobile.navigation.SlidingNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ItemFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
@@ -25,20 +26,21 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(false);
+		this.getCustomFragmentManager().setAddMode(false);
 		if (savedInstanceState == null) {
 			this.setMenuFragment(MenuLeftFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null,MenuBottomFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 		this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
-        //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
+        //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(SettingFragment.class, "SettingFragment", null,MenuBottomFragment.MODULE_SETTING);
+				setContentFragment(ItemFragment.class, "ItemFragment", null,MenuBottomFragment.MODULE_CLEAN);
 			}
 		});
 	}
