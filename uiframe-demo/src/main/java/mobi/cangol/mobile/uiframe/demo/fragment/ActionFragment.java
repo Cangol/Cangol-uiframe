@@ -16,7 +16,7 @@ public class ActionFragment extends BaseContentFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_dialog, container, false);
+        return inflater.inflate(R.layout.fragment_action, container, false);
     }
 
     @Override
@@ -39,6 +39,13 @@ public class ActionFragment extends BaseContentFragment {
 
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
+        findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCustomActionBar().getActionMenu()
+                        .addMenu(3, R.string.action_add, R.drawable.ic_action_delete, 1);
+            }
+        });
     }
 
     @Override
@@ -62,6 +69,9 @@ public class ActionFragment extends BaseContentFragment {
                 break;
             case 2:
                 getActionBarActivity().startSearchMode();
+                break;
+            case 3:
+                showToast("add");
                 break;
         }
         return super.onMenuActionSelected(action);

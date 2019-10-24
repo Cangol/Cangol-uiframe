@@ -60,7 +60,7 @@ public class HomeFragment extends BaseContentFragment {
         list.add(InputFragment.class.getSimpleName());
         list.add(ResultFragment.class.getSimpleName());
         list.add(SingletonFragment.class.getSimpleName());
-        list.add(PopbackFragment.class.getSimpleName());
+        list.add(PopBackFragment.class.getSimpleName());
         list.add(WebFragment.class.getSimpleName());
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
             list.add(DrawerFragment.class.getSimpleName());

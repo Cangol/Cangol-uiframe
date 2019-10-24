@@ -11,6 +11,7 @@
     <string name="common_network_to3g">连接到网络3G,提醒您流量会产生费用.</string>
     <string name="common_storage_remove">存储卡被移除，下载等功能可能无法使用！</string>
 
+    <string name="action_add">删除</string>
     <string name="action_delete">删除</string>
     <string name="action_selectAll">全选</string>
     <string name="action_invert">反选</string>

@@ -9,11 +9,9 @@ import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.ItemFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
 import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")

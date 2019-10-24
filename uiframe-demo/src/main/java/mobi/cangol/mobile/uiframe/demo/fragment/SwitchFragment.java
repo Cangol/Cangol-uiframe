@@ -47,6 +47,7 @@ public class SwitchFragment extends BaseContentFragment {
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
+		this.setTitle(this.getClass().getSimpleName());
 		mButton1.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -59,11 +60,12 @@ public class SwitchFragment extends BaseContentFragment {
 	}
 	private boolean mIsDownload=true;
 	protected void switchFragment() {
-		Bundle args=new Bundle();
 		if(!mIsDownload){
+			Bundle args=new Bundle();
 			args.putString("flag", "Up");
 			replaceChildFragment(ItemFragment.class, "ItemFragment1", args);
 		}else{
+			Bundle args=new Bundle();
 			args.putString("flag", "Down");
 			replaceChildFragment(ItemFragment.class, "ItemFragment2", args);
 		}
