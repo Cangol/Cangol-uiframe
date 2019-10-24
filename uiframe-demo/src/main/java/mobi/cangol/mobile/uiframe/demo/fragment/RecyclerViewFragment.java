@@ -31,12 +31,12 @@ public class RecyclerViewFragment extends BaseContentFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViews(view);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        findViews(getView());
         initViews(savedInstanceState);
         initData(savedInstanceState);
     }
@@ -53,6 +53,7 @@ public class RecyclerViewFragment extends BaseContentFragment {
         mDataAdapter = new DataAdapter(Arrays.asList(getResources().getStringArray(R.array.sts)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mDataAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mDataAdapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
