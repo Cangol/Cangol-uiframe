@@ -24,7 +24,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.logging.Log;
 
 public class CustomFragmentManager {
