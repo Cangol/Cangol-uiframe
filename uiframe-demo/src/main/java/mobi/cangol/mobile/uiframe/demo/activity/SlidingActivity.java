@@ -24,7 +24,6 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(false);
-		this.getCustomFragmentManager().setAddMode(false);
 		if (savedInstanceState == null) {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",false);

@@ -24,7 +24,6 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
-		this.getCustomFragmentManager().setAddMode(false);
 		if (savedInstanceState == null) {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",false);

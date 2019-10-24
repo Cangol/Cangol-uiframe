@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.logging.Log;
 
 public class CustomFragmentManager {
@@ -34,16 +35,6 @@ public class CustomFragmentManager {
     private FragmentTransaction fragmentTransaction;
     private int containerId;
     private FragmentActivity fActivity;
-    private boolean isAddMode;
-
-    public void setAddMode(boolean addMode) {
-        isAddMode = addMode;
-    }
-
-    public boolean isAddMode() {
-        return isAddMode;
-    }
-
     private final Runnable execPendingTransactions = new Runnable() {
         @Override
         public void run() {
@@ -277,11 +268,7 @@ public class CustomFragmentManager {
                 }
             } else if (!fragment.isAdded()) {
                 Log.i(STATE_TAG, "replaceFragment tag=" + tag);
-                if(isAddMode()){
-                    beginTransaction().add(containerId, fragment, tag);
-                }else {
-                    beginTransaction().replace(containerId, fragment, tag);
-                }
+                beginTransaction().replace(containerId, fragment, tag);
                 if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag);
                 }
