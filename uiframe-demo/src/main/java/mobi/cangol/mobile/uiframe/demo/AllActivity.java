@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import mobi.cangol.mobile.base.BaseActionBarActivity;
-import mobi.cangol.mobile.base.BaseFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.DrawerActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.SlidingActivity;
 import mobi.cangol.mobile.uiframe.demo.activity.TabActivity;
