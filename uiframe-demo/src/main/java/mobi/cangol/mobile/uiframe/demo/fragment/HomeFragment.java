@@ -19,6 +19,10 @@ import mobi.cangol.mobile.uiframe.demo.R;
 public class HomeFragment extends BaseContentFragment {
     private ListView mListView;
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,7 +47,6 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     protected void findViews(View view) {
         mListView = findViewById(R.id.listView);
-
     }
 
     @Override
@@ -59,12 +62,12 @@ public class HomeFragment extends BaseContentFragment {
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(ResultFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(SingletonFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(LeakFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(PopBackFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
             list.add(DrawerFragment.class.getSimpleName().replace("Fragment", ""));
-
+        list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

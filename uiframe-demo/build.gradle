@@ -14,6 +14,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     implementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+    implementation "com.android.support:recyclerview-v7:$support_version"
 }
 
 android {

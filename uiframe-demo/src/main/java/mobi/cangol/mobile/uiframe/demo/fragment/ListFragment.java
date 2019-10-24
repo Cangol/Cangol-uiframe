@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
@@ -33,6 +35,15 @@ public class ListFragment extends BaseContentFragment {
     @Override
     protected void findViews(View view) {
         this.setTitle(this.getClass().getSimpleName());
+        ((ListView)findViewById(R.id.listView)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) parent.getItemAtPosition(position);
+                Bundle bundle=new Bundle();
+                bundle.putString("flag",name);
+                setContentFragment(ItemFragment.class,"ItemFragment_"+name,bundle);
+            }
+        });
     }
 
     @Override
