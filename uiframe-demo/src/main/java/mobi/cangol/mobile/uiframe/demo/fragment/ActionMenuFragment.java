@@ -11,7 +11,7 @@ import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.uiframe.demo.R;
 
-public class ActionFragment extends BaseContentFragment {
+public class ActionMenuFragment extends BaseContentFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class ActionFragment extends BaseContentFragment {
         findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCustomActionBar().getActionMenu()
-                        .addMenu(3, R.string.action_add, R.drawable.ic_action_delete, 1);
+//                getCustomActionBar().getActionMenu()
+//                        .addMenu(3, R.string.action_add, R.drawable.ic_action_delete, 1);
             }
         });
     }

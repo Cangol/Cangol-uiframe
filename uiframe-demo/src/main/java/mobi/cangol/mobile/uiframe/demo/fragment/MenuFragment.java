@@ -1,9 +1,5 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
-import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.BaseMenuFragment;
-import mobi.cangol.mobile.uiframe.demo.R;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +7,30 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MenuLeftFragment extends BaseMenuFragment {
+import mobi.cangol.mobile.base.BaseMenuFragment;
+import mobi.cangol.mobile.uiframe.demo.R;
+
+public class MenuFragment extends BaseMenuFragment {
     public static final int MODULE_HOME = 0;
     public static final int MODULE_CLEAN = 1;
+
     public TextView textView1;
     public TextView textView2;
+
+    private boolean isBottom=true;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            isBottom = getArguments().getBoolean("isBottom");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_menu_left, container, false);
+        return inflater.inflate(isBottom ? R.layout.fragment_menu_bottom : R.layout.fragment_menu_left, container, false);
     }
 
     @Override
@@ -41,6 +50,8 @@ public class MenuLeftFragment extends BaseMenuFragment {
     protected void initData(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             updateFocus(this.getCurrentModuleId());
+        } else {
+            this.setCurrentModuleId(this.getCurrentModuleId());
         }
     }
 
@@ -70,11 +81,6 @@ public class MenuLeftFragment extends BaseMenuFragment {
         });
     }
 
-    public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
-        super.setContentFragment(fragmentClass, tag, args, moduleId);
-        showMenu(false);
-    }
-
     @Override
     protected void onContentChange(int moduleId) {
         if (this.getView() != null) {
@@ -82,9 +88,9 @@ public class MenuLeftFragment extends BaseMenuFragment {
         }
     }
 
-    private void updateFocus(int moduleId) {
-        textView1.setSelected(MODULE_HOME == moduleId);
-        textView2.setSelected(MODULE_CLEAN == moduleId);
+    @Override
+    protected void onOpen() {
+
     }
 
     @Override
@@ -92,9 +98,8 @@ public class MenuLeftFragment extends BaseMenuFragment {
 
     }
 
-    @Override
-    protected void onOpen() {
-
+    private void updateFocus(int moduleId) {
+        textView1.setSelected(MODULE_HOME == moduleId);
+        textView2.setSelected(MODULE_CLEAN == moduleId);
     }
-
 }

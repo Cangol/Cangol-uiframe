@@ -60,4 +60,9 @@ public class MaskViewFragment extends BaseContentFragment {
     @Override
     protected void initData(Bundle savedInstanceState) {
     }
+    @Override
+    public void onDestroyView() {
+        ((BaseNavigationFragmentActivity)getActivity()).displayMaskView(false);
+        super.onDestroyView();
+    }
 }

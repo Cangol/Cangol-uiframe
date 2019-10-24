@@ -10,8 +10,7 @@ import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.Singleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
 import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
@@ -27,8 +26,10 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		this.setFloatActionBarEnabled(true);
 		this.getCustomFragmentManager().setAddMode(false);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuLeftFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "TestFragment", null,MenuBottomFragment.MODULE_HOME);
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("isBottom",false);
+			this.setMenuFragment(MenuFragment.class,bundle);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
@@ -38,7 +39,7 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(ListFragment.class, "ListFragment", null,MenuBottomFragment.MODULE_CLEAN);
+				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}

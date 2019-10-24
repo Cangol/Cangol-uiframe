@@ -50,7 +50,7 @@ public class HomeFragment extends BaseContentFragment {
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
         List<String> list = new ArrayList<>();
-        list.add(ActionFragment.class.getSimpleName());
+        list.add(ActionMenuFragment.class.getSimpleName());
         list.add(TabsFragment.class.getSimpleName());
         list.add(TabPagesFragment.class.getSimpleName());
         list.add(SwitchFragment.class.getSimpleName());

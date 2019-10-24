@@ -9,7 +9,7 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
 import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
@@ -25,8 +25,10 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 		this.setFloatActionBarEnabled(true);
 		this.getCustomFragmentManager().setAddMode(false);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuBottomFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "TestFragment", null,MenuBottomFragment.MODULE_HOME);
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("isBottom",true);
+			this.setMenuFragment(MenuFragment.class,bundle);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
