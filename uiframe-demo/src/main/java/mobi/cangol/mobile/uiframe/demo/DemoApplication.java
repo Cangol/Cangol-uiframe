@@ -15,10 +15,9 @@
  */
 package mobi.cangol.mobile.uiframe.demo;
 
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import hugo.weaving.DebugLog;
+import leakcanary.LeakCanary;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
@@ -39,19 +38,12 @@ public class DemoApplication extends CoreApplication {
     private StatusService statusService;
     private AppStatusListener appStatusListener;
     private Singleton singleton;
-    private RefWatcher mRefWatcher;
 
     @Override
     public void onCreate() {
         this.setDevMode(true);
         super.onCreate();
-        //init();
-//			if (LeakCanary.isInAnalyzerProcess(this)) {
-//				// This process is dedicated to LeakCanary for heap analysis.
-//				// You should not init your app in this process.
-//				return;
-//			}
-//			LeakCanary.install(this);
+        init();
         Log.setLogLevelFormat(android.util.Log.VERBOSE, false);
         singleton = Singleton.getInstance();
     }
@@ -60,7 +52,6 @@ public class DemoApplication extends CoreApplication {
         if (isDevMode())
             Log.v(TAG, "init");
         initAppService();
-        initLeak();
     }
 
     public void initAppService() {
@@ -72,19 +63,6 @@ public class DemoApplication extends CoreApplication {
         ServiceProperty p = configService.getServiceProperty();
         p.putString(ConfigService.APP_DIR, Constants.APP_DIR);
         p.putString(ConfigService.SHARED_NAME, Constants.SHARED);
-
         Log.v(TAG, "getAppDir:" + configService.getAppDir());
-
-        Log.d(TAG, "初始化StatusService");
-//			statusService = (StatusService) getAppService(AppService.STATUS_SERVICE);
-//			appStatusListener = new AppStatusListener();
-//			statusService.registerStatusListener(appStatusListener);
-
-    }
-
-    private void initLeak() {
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            mRefWatcher = LeakCanary.install(this);
-        }
     }
 }
