@@ -67,7 +67,7 @@ public class TagFragment extends BaseContentFragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sno", sno + 1);
-                setContentFragment(TagFragment.class, "Tag", bundle);
+                setContentFragment(TagFragment.class, "TagFragment", bundle);
             }
 
         });

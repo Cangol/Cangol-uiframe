@@ -24,7 +24,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
 		this.getCustomFragmentManager().setFirstUseAnim(false);
-		this.getCustomFragmentManager().setDefaultAnimation(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right);
+		//this.getCustomFragmentManager().setDefaultAnimation(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right);
 		if (savedInstanceState == null) {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",true);
