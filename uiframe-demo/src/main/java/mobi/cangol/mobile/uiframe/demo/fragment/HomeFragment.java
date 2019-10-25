@@ -54,16 +54,16 @@ public class HomeFragment extends BaseContentFragment {
         this.setTitle(this.getClass().getSimpleName());
         List<String> list = new ArrayList<>();
         list.add(ActionMenuFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(TabsFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(TabPagesFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(SwitchAnimFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(SingletonFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(TagFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(ResultFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(PopBackFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(SwitchAnimFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(TabsFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(TabPagesFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
             list.add(DrawerFragment.class.getSimpleName().replace("Fragment", ""));
