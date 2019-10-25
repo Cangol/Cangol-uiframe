@@ -4,8 +4,8 @@ dependencies {
     implementation "com.android.support:support-fragment:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:support-v4:$support_version"
-    implementation 'mobi.cangol.mobile:appcore:1.1.49@aar'
-    implementation 'mobi.cangol.mobile:actionbar:1.1.6@aar'
+    implementation 'mobi.cangol.mobile:appcore:1.1.50'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.8'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
