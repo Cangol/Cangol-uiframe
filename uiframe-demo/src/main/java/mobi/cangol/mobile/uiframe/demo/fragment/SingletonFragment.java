@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.uiframe.demo.R;
 
-public class PopBackFragment extends BaseContentFragment {
+public class SingletonFragment extends BaseContentFragment {
     private int sno;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class PopBackFragment extends BaseContentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_pop, container, false);
+        return inflater.inflate(R.layout.fragment_single, container, false);
     }
 
     @Override
@@ -45,63 +45,36 @@ public class PopBackFragment extends BaseContentFragment {
 
     @Override
     protected void findViews(View view) {
-
-        this.setTitle("PopBack_" + sno);
+        this.setTitle("Single_" + sno);
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        findViewById(R.id.button).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sno", sno + 1);
-                setContentFragment(PopBackFragment.class, "PopBack_" + (sno + 1), bundle);
+                setContentFragment(SingletonFragment.class, "Singleton_" + (sno + 1), bundle);
             }
 
         });
 
-        findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                popBackStackImmediate();
-            }
-
-        });
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                popBackStack();
+                Bundle bundle = new Bundle();
+                bundle.putInt("sno", sno + 1);
+                setContentFragment(SingletonFragment.class, "Singleton", bundle);
             }
 
         });
-        findViewById(R.id.button2).setOnClickListener(new OnClickListener() {
+    }
 
-            @Override
-            public void onClick(View v) {
-                popBackStackAll();
-            }
-
-        });
-
-        findViewById(R.id.button3).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                popBackStack("PopBackFragment", -1);
-            }
-
-        });
-        findViewById(R.id.button4).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                popBackStackImmediate("PopBackFragment", -1);
-            }
-
-        });
+    @Override
+    public boolean isSingleton() {
+        return true;
     }
 }

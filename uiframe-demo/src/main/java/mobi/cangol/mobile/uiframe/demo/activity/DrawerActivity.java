@@ -7,11 +7,10 @@ import android.os.Bundle;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
+import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
-import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
 public class DrawerActivity extends DrawerNavigationFragmentActivity {
@@ -35,7 +34,7 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		initData(savedInstanceState);
         //this.initFragmentStack(R.id.content_frame);
         //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
-		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
+		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
 				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
@@ -64,7 +63,6 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 
 	@Override
 	protected void onDestroy() {
-		CleanLeakUtils.fixInputMethodManagerLeak(this);
 		Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
 		super.onDestroy();
 	}

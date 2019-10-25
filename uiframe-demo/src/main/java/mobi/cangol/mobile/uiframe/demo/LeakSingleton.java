@@ -4,14 +4,14 @@ package mobi.cangol.mobile.uiframe.demo;
  * Created by xuewu.wei on 2017/7/3.
  */
 
-public class Singleton {
-    private static final Singleton ourInstance = new Singleton();
+public class LeakSingleton {
+    private static final LeakSingleton ourInstance = new LeakSingleton();
 
-    public  static Singleton getInstance() {
+    public  static LeakSingleton getInstance() {
         return ourInstance;
     }
 
-    private Singleton() {
+    private LeakSingleton() {
     }
     private OnTestListener onListener;
 

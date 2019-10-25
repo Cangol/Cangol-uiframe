@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.CustomFragmentActivityDelegate;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
@@ -61,7 +60,8 @@ public class HomeFragment extends BaseContentFragment {
         list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
-        //list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(SingletonFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(TagFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(ResultFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(PopBackFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
@@ -75,7 +75,6 @@ public class HomeFragment extends BaseContentFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) parent.getItemAtPosition(position);
                 String className = "mobi.cangol.mobile.uiframe.demo.fragment." + name + "Fragment";
-                Log.d("name:"+name);
                 try {
                     if("Result".equals(name))
                         replaceFragmentForResult((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null,1);

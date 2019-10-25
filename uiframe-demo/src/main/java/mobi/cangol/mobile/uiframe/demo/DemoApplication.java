@@ -17,14 +17,8 @@ package mobi.cangol.mobile.uiframe.demo;
 
 
 import hugo.weaving.DebugLog;
-import leakcanary.LeakCanary;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
-import mobi.cangol.mobile.service.AppService;
-import mobi.cangol.mobile.service.ServiceProperty;
-import mobi.cangol.mobile.service.conf.ConfigService;
-import mobi.cangol.mobile.service.status.StatusService;
-import mobi.cangol.mobile.uiframe.demo.utils.Constants;
 
 
 /**
@@ -34,33 +28,11 @@ import mobi.cangol.mobile.uiframe.demo.utils.Constants;
  */
 @DebugLog
 public class DemoApplication extends CoreApplication {
-    public final String TAG = Constants.makeLogTag(DemoApplication.class);
-    private StatusService statusService;
-    private AppStatusListener appStatusListener;
-
     @Override
     public void onCreate() {
-        this.setDevMode(true);
+        this.setDevMode(BuildConfig.DEBUG);
         super.onCreate();
-        init();
         Log.setLogLevelFormat(android.util.Log.VERBOSE, false);
     }
 
-    public void init() {
-        if (isDevMode())
-            Log.v(TAG, "init");
-        initAppService();
-    }
-
-    public void initAppService() {
-        if (isDevMode())
-            Log.v(TAG, "initAppService");
-
-        Log.d(TAG, "初始化ConfigService");
-        ConfigService configService = (ConfigService) getAppService(AppService.CONFIG_SERVICE);
-        ServiceProperty p = configService.getServiceProperty();
-        p.putString(ConfigService.APP_DIR, Constants.APP_DIR);
-        p.putString(ConfigService.SHARED_NAME, Constants.SHARED);
-        Log.v(TAG, "getAppDir:" + configService.getAppDir());
-    }
 }

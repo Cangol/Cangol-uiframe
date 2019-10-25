@@ -7,11 +7,10 @@ import android.os.Bundle;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
+import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
-import mobi.cangol.mobile.uiframe.demo.utils.CleanLeakUtils;
 
 @SuppressLint("ResourceAsColor")
 public class TabActivity extends TabNavigationFragmentActivity {
@@ -38,7 +37,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		//this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
         //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
-		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
+		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
 				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
@@ -79,8 +78,4 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		return R.id.frame_main;
 	}
 
-	protected void onDestroy() {
-		CleanLeakUtils.fixInputMethodManagerLeak(this);
-		super.onDestroy();
-	}
 }
