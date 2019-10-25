@@ -64,7 +64,7 @@ public class SingletonFragment extends BaseContentFragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("flag", sno + 1);
+                bundle.putString("flag",""+ sno + 1);
                 setContentFragment(ItemFragment.class, "ItemFragment_" + (sno + 1), bundle);
 
             }
@@ -75,7 +75,7 @@ public class SingletonFragment extends BaseContentFragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("flag", sno + 1);
+                bundle.putString("flag", ""+sno + 1);
                 setContentFragment(SingletonFragment.class, "SingletonFragment", bundle);
 
             }

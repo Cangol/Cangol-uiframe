@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.CustomFragmentActivityDelegate;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
@@ -56,7 +57,7 @@ public class HomeFragment extends BaseContentFragment {
         list.add(ActionMenuFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(TabsFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(TabPagesFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(SwitchFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(SwitchAnimFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
@@ -75,8 +76,12 @@ public class HomeFragment extends BaseContentFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) parent.getItemAtPosition(position);
                 String className = "mobi.cangol.mobile.uiframe.demo.fragment." + name + "Fragment";
+                Log.d("name:"+name);
                 try {
-                    setContentFragment((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null);
+                    if("Result".equals(name))
+                        replaceFragmentForResult((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null,1);
+                    else
+                        setContentFragment((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
 
 public class ResultFragment extends BaseContentFragment {
 	
@@ -58,16 +56,6 @@ public class ResultFragment extends BaseContentFragment {
 				popBackStack();
 			}
 		});
-	}
-
-	@Override
-	public boolean isSingleton() {
-		return false;
-	}
-
-	@Override
-	public boolean isCleanStack() {
-		return false;
 	}
 
 }

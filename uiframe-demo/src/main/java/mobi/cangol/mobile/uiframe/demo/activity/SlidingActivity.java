@@ -39,7 +39,7 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(ItemFragment.class, "ItemFragment", null, MenuFragment.MODULE_CLEAN);
+				setContentFragment(ItemFragment.class, "ItemFragment", new Bundle(), MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}

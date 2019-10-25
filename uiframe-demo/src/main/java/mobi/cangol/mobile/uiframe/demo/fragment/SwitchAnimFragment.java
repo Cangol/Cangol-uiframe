@@ -1,6 +1,7 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.CustomFragmentTransaction;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
 
@@ -11,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class SwitchFragment extends BaseContentFragment {
+public class SwitchAnimFragment extends BaseContentFragment {
 	
 	private Button mButton1;
 
@@ -63,11 +64,15 @@ public class SwitchFragment extends BaseContentFragment {
 		if(!mIsDownload){
 			Bundle args=new Bundle();
 			args.putString("flag", "Up");
-			replaceChildFragment(ItemFragment.class, "ItemFragment1", args);
+			CustomFragmentTransaction transaction=new CustomFragmentTransaction();
+			transaction.setCustomAnimations(R.anim.slide_in_top,R.anim.slide_out_bottom);
+			replaceChildFragment(ItemFragment.class, "ItemFragment1", args,transaction);
 		}else{
 			Bundle args=new Bundle();
 			args.putString("flag", "Down");
-			replaceChildFragment(ItemFragment.class, "ItemFragment2", args);
+			CustomFragmentTransaction transaction=new CustomFragmentTransaction();
+			transaction.setCustomAnimations(R.anim.slide_in_bottom,R.anim.slide_out_top);
+			replaceChildFragment(ItemFragment.class, "ItemFragment2", args,transaction);
 		}
 		mIsDownload = !mIsDownload;
 	}

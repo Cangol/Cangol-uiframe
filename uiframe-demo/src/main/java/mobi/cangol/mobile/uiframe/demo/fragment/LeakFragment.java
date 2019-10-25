@@ -107,7 +107,7 @@ public class LeakFragment extends BaseContentFragment {
 			@Override
 			public void onClick(View v) {
 				Bundle bundle = new Bundle();
-				bundle.putInt("flag", 1);
+				bundle.putString("flag", "1");
 				setContentFragment(ItemFragment.class, "ItemFragment_" + 1, bundle);
 			}
 		});

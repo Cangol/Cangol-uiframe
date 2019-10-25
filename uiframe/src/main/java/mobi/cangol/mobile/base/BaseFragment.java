@@ -387,7 +387,7 @@ public abstract class BaseFragment extends Fragment {
      * @param resId
      */
     public void showToast(int resId) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
         } else {
@@ -402,7 +402,7 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(int resId, int duration) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId, duration);
         } else {
@@ -416,7 +416,7 @@ public abstract class BaseFragment extends Fragment {
      * @param str
      */
     public void showToast(String str) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
         } else {
@@ -431,7 +431,7 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(String str, int duration) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str,duration);
         } else {

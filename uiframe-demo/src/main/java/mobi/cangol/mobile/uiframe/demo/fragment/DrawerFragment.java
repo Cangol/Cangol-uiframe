@@ -18,7 +18,7 @@ public class DrawerFragment extends BaseContentFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_maskview, container, false);
+        return inflater.inflate(R.layout.fragment_drawer, container, false);
     }
 
     @Override
