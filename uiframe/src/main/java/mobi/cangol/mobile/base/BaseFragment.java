@@ -381,63 +381,63 @@ public abstract class BaseFragment extends Fragment {
             return this.getView().findViewById(id);
     }
 
-//    /**
-//     * 显示toast
-//     *
-//     * @param resId
-//     */
-//    public void showToast(int resId) {
-//        if (isEnable()) {
-//            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-//            bfActivity.showToast(resId);
-//        } else {
-//            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
-//        }
-//    }
-//
-//    /**
-//     * 显示toast
-//     *
-//     * @param resId
-//     * @param duration
-//     */
-//    public void showToast(int resId, int duration) {
-//        if (isEnable()) {
-//            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-//            bfActivity.showToast(resId, duration);
-//        } else {
-//            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
-//        }
-//    }
-//
-//    /**
-//     * 显示toast
-//     *
-//     * @param str
-//     */
-//    public void showToast(String str) {
-//        if (isEnable()) {
-//            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-//            bfActivity.showToast(str);
-//        } else {
-//            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
-//        }
-//    }
-//
-//    /**
-//     * 显示toast
-//     *
-//     * @param str
-//     * @param duration
-//     */
-//    public void showToast(String str, int duration) {
-//        if (isEnable()) {
-//            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-//            bfActivity.showToast(str,duration);
-//        } else {
-//            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
-//        }
-//    }
+    /**
+     * 显示toast
+     *
+     * @param resId
+     */
+    public void showToast(int resId) {
+        if (isEnable()) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(resId);
+        } else {
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
+        }
+    }
+
+    /**
+     * 显示toast
+     *
+     * @param resId
+     * @param duration
+     */
+    public void showToast(int resId, int duration) {
+        if (isEnable()) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(resId, duration);
+        } else {
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
+        }
+    }
+
+    /**
+     * 显示toast
+     *
+     * @param str
+     */
+    public void showToast(String str) {
+        if (isEnable()) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(str);
+        } else {
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
+        }
+    }
+
+    /**
+     * 显示toast
+     *
+     * @param str
+     * @param duration
+     */
+    public void showToast(String str, int duration) {
+        if (isEnable()) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.showToast(str,duration);
+        } else {
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
+        }
+    }
 
     /**
      * 返回当前fragment是否有效
