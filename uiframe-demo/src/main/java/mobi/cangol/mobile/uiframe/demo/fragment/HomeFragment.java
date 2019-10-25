@@ -65,11 +65,11 @@ public class HomeFragment extends BaseContentFragment {
         list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
             list.add(DrawerFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(ListFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
+        //list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
+        //list.add(ListFragment.class.getSimpleName().replace("Fragment", ""));
+        //list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

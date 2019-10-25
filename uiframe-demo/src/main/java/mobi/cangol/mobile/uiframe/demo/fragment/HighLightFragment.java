@@ -78,13 +78,15 @@ public class HighLightFragment extends BaseContentFragment {
                 .setOnShowCallback(new HighLightInterface.OnShowCallback() {
                     @Override
                     public void onShow(HightLightView hightLightView) {
-                        ((BaseNavigationFragmentActivity) getActivity()).displayMaskView(true);
+                        if(getActivity()!=null)
+                            ((BaseNavigationFragmentActivity) getActivity()).displayMaskView(true);
                     }
                 })
                 .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {
                     @Override
                     public void onRemove() {
-                        ((BaseNavigationFragmentActivity) getActivity()).displayMaskView(false);
+                        if(getActivity()!=null)
+                            ((BaseNavigationFragmentActivity) getActivity()).displayMaskView(false);
                     }
                 })
                 .addHighLight(R.id.button0, R.layout.hight_layout, new OnLeftPosCallback(45), new RectLightShape());

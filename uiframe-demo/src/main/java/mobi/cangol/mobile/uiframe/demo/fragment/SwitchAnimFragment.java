@@ -76,5 +76,16 @@ public class SwitchAnimFragment extends BaseContentFragment {
 		}
 		mIsDownload = !mIsDownload;
 	}
-	
+
+	@Override
+	public boolean onSupportNavigateUp() {
+		popBackStack();
+		return true;
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		popBackStack();
+		return true;
+	}
 }
