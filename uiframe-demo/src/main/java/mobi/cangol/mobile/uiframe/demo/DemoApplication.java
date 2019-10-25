@@ -37,7 +37,6 @@ public class DemoApplication extends CoreApplication {
     public final String TAG = Constants.makeLogTag(DemoApplication.class);
     private StatusService statusService;
     private AppStatusListener appStatusListener;
-    private Singleton singleton;
 
     @Override
     public void onCreate() {
@@ -45,7 +44,6 @@ public class DemoApplication extends CoreApplication {
         super.onCreate();
         init();
         Log.setLogLevelFormat(android.util.Log.VERBOSE, false);
-        singleton = Singleton.getInstance();
     }
 
     public void init() {

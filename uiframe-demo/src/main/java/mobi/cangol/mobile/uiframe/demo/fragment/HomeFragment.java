@@ -61,9 +61,8 @@ public class HomeFragment extends BaseContentFragment {
         list.add(DialogFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(MaskViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
+        //list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(ResultFragment.class.getSimpleName().replace("Fragment", ""));
-        list.add(LeakFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(PopBackFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)

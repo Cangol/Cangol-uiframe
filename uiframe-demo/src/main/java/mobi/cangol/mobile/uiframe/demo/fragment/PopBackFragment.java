@@ -70,5 +70,22 @@ public class PopBackFragment extends BaseContentFragment {
             }
 
         });
+
+        findViewById(R.id.button3).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+               popBackStack("PopBackFragment",-1);
+            }
+
+        });
+        findViewById(R.id.button4).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                popBackStackImmediate("PopBackFragment",-1);
+            }
+
+        });
     }
 }
