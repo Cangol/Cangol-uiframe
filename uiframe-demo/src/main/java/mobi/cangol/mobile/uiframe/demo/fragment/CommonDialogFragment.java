@@ -38,7 +38,7 @@ public class CommonDialogFragment extends BaseDialogFragment {
 
 
     @Override
-    protected FragmentInfo getNavigtionUpToFragment() {
+    public FragmentInfo getNavigtionUpToFragment() {
         return null;
     }
 

@@ -101,7 +101,7 @@ public class HomeFragment extends BaseContentFragment {
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        Log.d(TAG, "requestCode=" + requestCode + ",resultCode=" + requestCode + ",data=" + data);
+        Log.d("requestCode=" + requestCode + ",resultCode=" + requestCode + ",data=" + data);
         switch (requestCode) {
             case 1:
                 showToast("onFragmentResult resultCode=" + resultCode);

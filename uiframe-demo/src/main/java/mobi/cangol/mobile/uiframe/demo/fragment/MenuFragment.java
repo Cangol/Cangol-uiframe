@@ -89,12 +89,12 @@ public class MenuFragment extends BaseMenuFragment {
     }
 
     @Override
-    protected void onOpen() {
+    public void onOpen() {
 
     }
 
     @Override
-    protected void onClosed() {
+    public void onClosed() {
 
     }
 

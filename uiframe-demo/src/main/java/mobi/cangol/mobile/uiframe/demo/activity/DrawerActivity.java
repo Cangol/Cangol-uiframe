@@ -6,8 +6,8 @@ import android.os.Bundle;
 
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
-import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
+import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
@@ -52,18 +52,18 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d("initData isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d("onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	protected void onDestroy() {
-		Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d("onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
 		super.onDestroy();
 	}
 	@Override

@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.kt3k.coveralls'
@@ -12,12 +15,18 @@ dependencies {
     implementation 'mobi.cangol.mobile:actionbar:1.1.8'
     implementation "com.android.support:support-fragment:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 android {
     compileSdkVersion Integer.decode("$sdk_version")
     buildToolsVersion "$build_version"
-
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+            java.srcDirs = ['src/main/kotlin']
+        }
+    }
     defaultConfig {
         minSdkVersion Integer.decode("$min_version")
         targetSdkVersion Integer.decode("$target_version")
@@ -66,4 +75,7 @@ cobertura.coverageFormats = ['html', 'xml']
 
 tasks.coveralls {
     dependsOn 'check'
+}
+repositories {
+    mavenCentral()
 }
