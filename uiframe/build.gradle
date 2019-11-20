@@ -8,18 +8,19 @@ apply from: '../config/quality.gradle'
 apply plugin: 'com.jakewharton.hugo'
 
 dependencies {
-    implementation 'mobi.cangol.mobile:actionbar:[1.0.30,)@aar'
-    implementation 'mobi.cangol.mobile:appcore:[1.1.26,)@aar'
-    implementation 'com.android.support:support-fragment:26.0.2'
-    implementation 'com.android.support:appcompat-v7:26.0.2'
+    implementation 'mobi.cangol.mobile:appcore:1.1.50'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.8'
+    implementation "com.android.support:support-fragment:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion Integer.decode("$sdk_version")
+    buildToolsVersion "$build_version"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion Integer.decode("$min_version")
+        targetSdkVersion Integer.decode("$target_version")
         multiDexEnabled true
         versionCode Integer.decode("${POM_VERSION_CODE}")
         versionName "${POM_VERSION}"
@@ -28,8 +29,13 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
     }
 }
 

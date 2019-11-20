@@ -7,11 +7,10 @@ import android.os.Bundle;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.DrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
+import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuLeftFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
 
 @SuppressLint("ResourceAsColor")
 public class DrawerActivity extends DrawerNavigationFragmentActivity {
@@ -25,18 +24,20 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuLeftFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("isBottom",false);
+			this.setMenuFragment(MenuFragment.class,bundle);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
         //this.initFragmentStack(R.id.content_frame);
-        //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
-		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
+        //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
+		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(SettingFragment.class, "SettingFragment", null,MenuBottomFragment.MODULE_SETTING);
+				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}
@@ -51,21 +52,20 @@ public class DrawerActivity extends DrawerNavigationFragmentActivity {
 		
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		android.util.Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d(TAG,"initData isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		android.util.Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d(TAG,"onSaveInstanceState isStateSaved="+getCustomFragmentManager().isStateSaved());
 	}
 
 	@Override
 	protected void onDestroy() {
-		android.util.Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
+		Log.d(TAG,"onDestroy isStateSaved="+getCustomFragmentManager().isStateSaved());
 		super.onDestroy();
 	}
-
 	@Override
 	public void onBack() {
 		if(back_pressed+2000>System.currentTimeMillis()){

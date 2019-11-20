@@ -13,16 +13,12 @@ import android.widget.TabHost;
 public class TabsFragment extends BaseContentFragment {
 	private TabManager  mTabManager;
 	private TabHost mTabHost;
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_tabs, container,false);
-		return v;
+		return inflater.inflate(R.layout.fragment_tabs, container,false);
 	}
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -38,8 +34,6 @@ public class TabsFragment extends BaseContentFragment {
 	}
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-				
 	}
 
 	@Override
@@ -63,15 +57,8 @@ public class TabsFragment extends BaseContentFragment {
 	}
 
 	@Override
-	protected FragmentInfo getNavigtionUpToFragment() {
-		// TODO Auto-generated method stub
-		return null;
+	public void onDestroyView() {
+		mTabManager.destroy();
+		super.onDestroyView();
 	}
-
-
-	@Override
-	public boolean isCleanStack() {
-		return true;
-	}
-	
 }

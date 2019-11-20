@@ -24,9 +24,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-
 import mobi.cangol.mobile.logging.Log;
 
 public class CustomFragmentManager {
@@ -88,14 +85,13 @@ public class CustomFragmentManager {
     public void destroy() {
         this.stack.clear();
         this.handler.removeCallbacks(execPendingTransactions);
+        this.fActivity=null;
+        this.fragmentManager=null;
     }
 
-    protected final static class InternalHandler extends Handler {
-        private final WeakReference<FragmentActivity> mActivityRef;
-
+    protected static final  class InternalHandler extends Handler {
         public InternalHandler(FragmentActivity activity) {
             super(Looper.getMainLooper());
-            mActivityRef = new WeakReference<>(activity);
         }
     }
 
@@ -126,10 +122,12 @@ public class CustomFragmentManager {
 
     public void restoreState(Bundle state) {
         String[] stackTags = state.getStringArray(STATE_TAG);
-        for (String tag : stackTags) {
-            BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
-            stack.addFragment(f);
-            stack.addTag(tag);
+        if(stackTags!=null){
+            for (String tag : stackTags) {
+                BaseFragment f = (BaseFragment) fragmentManager.findFragmentByTag(tag);
+                stack.addFragment(f);
+                stack.addTag(tag);
+            }
         }
     }
 
@@ -246,8 +244,6 @@ public class CustomFragmentManager {
                     beginTransaction();
                 }
             }
-        } else {
-            //
         }
 
         attachFragment(fragment, tag);
@@ -383,24 +379,7 @@ public class CustomFragmentManager {
         return false;
     }
 
-    /**
-     * 判断是否执行了onSaveInstanceState
-     * Support 26.0.0-alpha1 之后才有isStateSaved方法
-     * 这里用反射直接读取mStateSaved字段，兼容旧的版本
-     *
-     * @return
-     */
     public boolean isStateSaved() {
-        Class implClass = null;
-        Field field = null;
-        try {
-            implClass = Class.forName("android.support.v4.app.FragmentManagerImpl");
-            field = implClass.getDeclaredField("mStateSaved");
-            field.setAccessible(true);
-            return (Boolean) field.get(implClass.cast(fragmentManager));
-        } catch (Exception e) {
-            Log.e("isStateSaved", "" + e.getMessage(), e);
-        }
-        return false;
+        return fragmentManager.isStateSaved();
     }
 }

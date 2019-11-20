@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
@@ -27,9 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import mobi.cangol.mobile.uiframe.R;
 import mobi.cangol.mobile.base.BaseNavigationFragmentActivity;
 import mobi.cangol.mobile.logging.Log;
+import mobi.cangol.mobile.uiframe.R;
 
 public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFragmentActivity {
 
@@ -40,23 +39,9 @@ public abstract class DrawerNavigationFragmentActivity extends BaseNavigationFra
     }
 
     @Override
-    abstract public void findViews();
-
-    @Override
-    abstract public void initViews(Bundle savedInstanceState);
-
-    @Override
-    abstract public void initData(Bundle savedInstanceState);
-
-
-    @Override
     public boolean onSupportNavigateUp() {
         if (stack.size() <= 1) {
-            if (!isShowMenu()) {
-                showMenu(true);
-            } else {
-                showMenu(false);
-            }
+            showMenu(!isShowMenu());
             return true;
         } else {
             return super.onSupportNavigateUp();
@@ -116,6 +101,7 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
 
             @Override
             public void onDrawerStateChanged(int arg0) {
+                //do nothings
             }
 
         });
@@ -144,11 +130,6 @@ class DrawerMenuNavigationFragmentActivityDelegate extends
     @Override
     public int getMenuFrameId() {
         return mDrawerMenuLayout.getMenuFrameId();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        mDrawerMenuLayout.onConfigurationChanged(newConfig);
     }
 
     @Override

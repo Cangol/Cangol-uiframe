@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.actionbar.ActionBar;
 import mobi.cangol.mobile.actionbar.ActionBarActivity;
 import mobi.cangol.mobile.actionbar.ActionMenu;
@@ -29,11 +28,8 @@ import mobi.cangol.mobile.logging.Log;
 
 public abstract class BaseContentFragment extends BaseFragment {
 
+    public static final String GET_ACTIVITY_IS_NULL = "get activity is null";
     private CharSequence title;
-
-    public BaseContentFragment() {
-        super();
-    }
 
     /**
      * 获取ActionBarActivity,由于原getActivity为final，故增加此方法
@@ -52,7 +48,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public ActionBar getCustomActionBar() {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             return abActivity.getCustomActionBar();
         }
@@ -91,6 +87,11 @@ public abstract class BaseContentFragment extends BaseFragment {
             getCustomActionBar().setTitle(title);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.setTitle("");
+    }
     /**
      * 设置状态栏颜色
      *
@@ -99,7 +100,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void setStatusBarColor(int color) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.setStatusBarTintColor(color);
         }
@@ -113,7 +114,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void setNavigationBarTintColor(int color) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.setNavigationBarTintColor(color);
         }
@@ -125,7 +126,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void enableRefresh(boolean enable) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.getCustomActionBar().enableRefresh(enable);
         }
@@ -137,7 +138,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void refreshing(boolean refreshing) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             abActivity.getCustomActionBar().refreshing(refreshing);
         }
@@ -152,7 +153,7 @@ public abstract class BaseContentFragment extends BaseFragment {
     public ActionMode startCustomActionMode(ActionMode.Callback callback) {
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             return abActivity.startCustomActionMode(callback);
         }
@@ -164,11 +165,11 @@ public abstract class BaseContentFragment extends BaseFragment {
      *
      * @param enable
      */
-    final protected void setMenuEnable(boolean enable) {
+    protected final  void setMenuEnable(boolean enable) {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
-                throw new IllegalStateException("getActivity is null");
+                throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
             } else if (this.getParentFragment() == null) {
                 if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                     BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
@@ -180,9 +181,9 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
     }
 
-    final protected void notifyMenuChange(int moduleId) {
+    protected final  void notifyMenuChange(int moduleId) {
         if (getActivity() == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             if (this.getActivity() instanceof BaseNavigationFragmentActivity) {
                 BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
@@ -191,11 +192,11 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
     }
 
-    final private void setActionBarUpIndicator() {
+    private final  void setActionBarUpIndicator() {
         BaseContentFragment parent = (BaseContentFragment) this.getParentFragment();
         if (parent == null) {
             if (getActivity() == null) {
-                throw new IllegalStateException("getActivity is null");
+                throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
             } else {
                 ActionBarActivity bfActivity = (ActionBarActivity) this.getActivity();
                 if (isCleanStack()) {
@@ -204,19 +205,14 @@ public abstract class BaseContentFragment extends BaseFragment {
                     bfActivity.getCustomActionBar().displayUpIndicator();
                 }
             }
-        } else {
-
         }
-
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setMenuVisibility(true);
-        if (savedInstanceState == null) {
-
-        } else {
+        if (savedInstanceState != null) {
             title = savedInstanceState.getCharSequence("title");
         }
     }
@@ -244,7 +240,7 @@ public abstract class BaseContentFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         ActionBarActivity abActivity = (ActionBarActivity) this.getActivity();
         if (abActivity == null) {
-            throw new IllegalStateException("getActivity is null");
+            throw new IllegalStateException(GET_ACTIVITY_IS_NULL);
         } else {
             this.onMenuActionCreated(abActivity.getCustomActionBar().getActionMenu());
         }
@@ -270,11 +266,10 @@ public abstract class BaseContentFragment extends BaseFragment {
     public boolean onMenuActionSelected(ActionMenuItem action) {
         if(this.getChildFragmentManager()!=null&&
                 this.getChildFragmentManager().getFragments()!=null&&
-                this.getChildFragmentManager().getFragments().size()>0){
+                !this.getChildFragmentManager().getFragments().isEmpty()){
             int size=getChildFragmentManager().getFragments().size();
-            Fragment fragment=null;
             for (int i = size-1; i >=0; i--) {
-                fragment=getChildFragmentManager().getFragments().get(i);
+                Fragment fragment=getChildFragmentManager().getFragments().get(i);
                 if(fragment instanceof BaseContentFragment){
                     if(((BaseContentFragment) fragment).isEnable()
                             &&fragment.isVisible()){
@@ -285,42 +280,50 @@ public abstract class BaseContentFragment extends BaseFragment {
         }
         return false;
     }
-
     /**
-     * 设置content fragment
+     * 设置顶级content fragment
+     *
+     * @param fragmentClass
+     * @param args
+     */
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass,Bundle args) {
+        this.setContentFragment(fragmentClass,fragmentClass.getName(),args);
+    }
+    /**
+     * 设置顶级content fragment
      *
      * @param fragmentClass
      * @param tag
      * @param args
      */
-    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
-        replaceFragment(fragmentClass, tag, args);
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args) {
+        if (this.getActivity() instanceof CustomFragmentActivityDelegate) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.replaceFragment(fragmentClass, tag, args);
+        }else{
+            replaceFragment(fragmentClass, tag, args);
+        }
     }
 
     /**
-     * 设置content fragment,并更通知menuFragment更新变更了模块
+     * 设置顶级content fragment,并更通知menuFragment更新变更了模块
      *
      * @param fragmentClass
      * @param tag
      * @param args
      * @param moduleId
      */
-    final public void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
+    public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
+        this.setContentFragment(fragmentClass,tag,args);
         notifyMenuChange(moduleId);
-        setContentFragment(fragmentClass, tag, args);
     }
 
     /**
      * 获取父类 BaseContentFragment
      * @return
      */
-    final public BaseContentFragment getParentContentFragment() {
+    public final  BaseContentFragment getParentContentFragment() {
         return (BaseContentFragment) getParentFragment();
     }
 
-    @Override
-    public void onDestroyView() {
-        hideSoftInput();
-        super.onDestroyView();
-    }
 }

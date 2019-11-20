@@ -7,25 +7,22 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
-import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.R;
 
 public class SingletonFragment extends BaseContentFragment {
-    protected final String TAG = Log.makeLogTag(this.getClass());
-    private int sno = 1;
+    private int sno;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sno = getArguments().getInt("sno", 1);
+        if (getArguments() != null)
+            sno = this.getArguments().getInt("sno", 0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_singleton, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_single, container, false);
     }
 
     @Override
@@ -47,36 +44,30 @@ public class SingletonFragment extends BaseContentFragment {
     }
 
     @Override
-    protected FragmentInfo getNavigtionUpToFragment() {
-        return null;
-    }
-
-    @Override
     protected void findViews(View view) {
-        this.setTitle(this.getClass().getSimpleName() + sno);
+        this.setTitle("Single_" + sno);
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("sno", sno + 1);
+                setContentFragment(SingletonFragment.class, "Singleton_" + (sno + 1), bundle);
+            }
+
+        });
+
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sno", sno + 1);
-                setContentFragment(NextFragment.class, "NextFragment_" + (sno + 1), bundle);
-
-            }
-
-        });
-        findViewById(R.id.button2).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("sno", sno + 1);
-                setContentFragment(SingletonFragment.class, "SingletonFragment", bundle);
-
+                setContentFragment(SingletonFragment.class, "Singleton", bundle);
             }
 
         });
@@ -86,10 +77,4 @@ public class SingletonFragment extends BaseContentFragment {
     public boolean isSingleton() {
         return true;
     }
-
-    @Override
-    public boolean isCleanStack() {
-        return false;
-    }
-
 }

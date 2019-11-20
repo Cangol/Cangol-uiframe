@@ -3,7 +3,6 @@ package mobi.cangol.mobile.base;
 
 import android.text.TextUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.Stack;
 
 /**
@@ -11,8 +10,8 @@ import java.util.Stack;
  */
 
 public class FragmentStack {
-    Stack<WeakReference<BaseFragment>> stack = null;
-    Stack<String> tagStack = null;
+    private Stack<BaseFragment> stack;
+    private Stack<String> tagStack;
 
     public FragmentStack() {
         stack = new Stack<>();
@@ -24,7 +23,7 @@ public class FragmentStack {
     }
 
     public void addFragment(BaseFragment fragment) {
-        stack.add(new WeakReference<>(fragment));
+        stack.add(fragment);
     }
 
     public void addTag(String tag) {
@@ -32,7 +31,7 @@ public class FragmentStack {
     }
 
     public BaseFragment peekFragment() {
-        return stack.isEmpty()?null:stack.peek().get();
+        return stack.isEmpty()?null:stack.peek();
     }
 
     public String peekTag() {
@@ -41,7 +40,7 @@ public class FragmentStack {
 
     public BaseFragment popFragment() {
 
-        return stack.isEmpty()?null:stack.pop().get();
+        return stack.isEmpty()?null:stack.pop();
     }
 
     public void popFragment(String tag,int flag) {

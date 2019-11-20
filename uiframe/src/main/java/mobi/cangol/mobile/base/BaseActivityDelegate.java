@@ -120,6 +120,13 @@ public interface BaseActivityDelegate {
      *
      */
      void hideSoftInput();
+
+    /**
+     * 隐藏软键盘
+     *
+     */
+    void hideSoftInput(EditText editText);
+
     /**
      * 获取一个主线程的Handler
      */

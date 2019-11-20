@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -67,13 +66,6 @@ public abstract class AbstractNavigationFragmentActivityDelegate {
      * @return menuFrame的id
      */
     public abstract int getMenuFrameId();
-
-    /**
-     * onConfigurationChanged
-     *
-     * @param newConfig
-     */
-    public abstract void onConfigurationChanged(Configuration newConfig);
 
     /**
      * 显示menu

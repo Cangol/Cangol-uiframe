@@ -44,19 +44,15 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     private static final String SAVED_CANCELABLE = "android:cancelable";
     private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
     private static final String SAVED_BACK_STACK_ID = "android:backStackId";
-    int mStyle = 0;
-    int mTheme = 0;
-    boolean mCancelable = true;
-    boolean mShowsDialog = true;
-    int mBackStackId = -1;
-    Dialog mDialog;
-    boolean mViewDestroyed;
-    boolean mDismissed;
-    boolean mShownByMe;
-
-    public BaseDialogFragment() {
-        super();
-    }
+    private int mStyle = 0;
+    private int mTheme = 0;
+    private boolean mCancelable = true;
+    private boolean mShowsDialog = true;
+    private int mBackStackId = -1;
+    private Dialog mDialog;
+    private boolean mViewDestroyed;
+    private boolean mDismissed;
+    private boolean mShownByMe;
 
     public void setStyle(int style, int theme) {
         this.mStyle = style;
@@ -158,7 +154,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         }
 
     }
-
+    @Override
     public void onDetach() {
         super.onDetach();
         if (!this.mShownByMe && !this.mDismissed) {
@@ -171,11 +167,11 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         super.onCreate(savedInstanceState);
         this.mShowsDialog = true;
         if (savedInstanceState != null) {
-            this.mStyle = savedInstanceState.getInt("android:style", 0);
-            this.mTheme = savedInstanceState.getInt("android:theme", 0);
-            this.mCancelable = savedInstanceState.getBoolean("android:cancelable", true);
-            this.mShowsDialog = savedInstanceState.getBoolean("android:showsDialog", this.mShowsDialog);
-            this.mBackStackId = savedInstanceState.getInt("android:backStackId", -1);
+            this.mStyle = savedInstanceState.getInt(SAVED_STYLE, 0);
+            this.mTheme = savedInstanceState.getInt(SAVED_THEME, 0);
+            this.mCancelable = savedInstanceState.getBoolean(SAVED_CANCELABLE, true);
+            this.mShowsDialog = savedInstanceState.getBoolean(SAVED_SHOWS_DIALOG, this.mShowsDialog);
+            this.mBackStackId = savedInstanceState.getInt(SAVED_BACK_STACK_ID, -1);
         }
 
     }
@@ -203,6 +199,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
     }
 
     public void onCancel(DialogInterface dialog) {
+        //do somethings
     }
 
     public void onDismiss(DialogInterface dialog) {
@@ -228,7 +225,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
             this.mDialog.setOnCancelListener(this);
             this.mDialog.setOnDismissListener(this);
             if (savedInstanceState != null) {
-                Bundle dialogState = savedInstanceState.getBundle("android:savedDialogState");
+                Bundle dialogState = savedInstanceState.getBundle(SAVED_DIALOG_STATE_TAG);
                 if (dialogState != null) {
                     this.mDialog.onRestoreInstanceState(dialogState);
                 }
@@ -236,7 +233,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
         }
     }
-
+    @Override
     public void onStart() {
         super.onStart();
         if (this.mDialog != null) {
@@ -251,32 +248,32 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         if (this.mDialog != null) {
             Bundle dialogState = this.mDialog.onSaveInstanceState();
             if (dialogState != null) {
-                outState.putBundle("android:savedDialogState", dialogState);
+                outState.putBundle(SAVED_DIALOG_STATE_TAG, dialogState);
             }
         }
 
         if (this.mStyle != 0) {
-            outState.putInt("android:style", this.mStyle);
+            outState.putInt(SAVED_STYLE, this.mStyle);
         }
 
         if (this.mTheme != 0) {
-            outState.putInt("android:theme", this.mTheme);
+            outState.putInt(SAVED_THEME, this.mTheme);
         }
 
         if (!this.mCancelable) {
-            outState.putBoolean("android:cancelable", this.mCancelable);
+            outState.putBoolean(SAVED_CANCELABLE, this.mCancelable);
         }
 
         if (!this.mShowsDialog) {
-            outState.putBoolean("android:showsDialog", this.mShowsDialog);
+            outState.putBoolean(SAVED_SHOWS_DIALOG, this.mShowsDialog);
         }
 
         if (this.mBackStackId != -1) {
-            outState.putInt("android:backStackId", this.mBackStackId);
+            outState.putInt(SAVED_BACK_STACK_ID, this.mBackStackId);
         }
 
     }
-
+    @Override
     public void onStop() {
         super.onStop();
         if (this.mDialog != null) {
@@ -284,7 +281,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         }
 
     }
-
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (this.mDialog != null) {
@@ -297,6 +294,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
 
 
     @ColorInt
+    @Override
     public  int getThemeAttrColor(@AttrRes int colorAttr) {
         TypedArray array = getContext().obtainStyledAttributes(null, new int[]{colorAttr});
         try {

@@ -17,7 +17,6 @@ package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -25,6 +24,7 @@ import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Surface;
@@ -39,6 +39,7 @@ import mobi.cangol.mobile.uiframe.R;
 
 
 public class DrawerMenuLayout extends DrawerLayout {
+    private static final String TAG="DrawerMenuLayout";
     private FrameLayout mContentView;
     private FrameLayout mMenuView;
     private FrameLayout mMaskView;
@@ -92,11 +93,6 @@ public class DrawerMenuLayout extends DrawerLayout {
         mContentView.removeAllViews();
         mContentView.addView(v);
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
     public FrameLayout getMaskView() {
         return mMaskView;
     }
@@ -131,11 +127,10 @@ public class DrawerMenuLayout extends DrawerLayout {
         return true;
     }
     private void fitDecorChild(View view){
-        ViewGroup contentView= (ViewGroup) view.findViewById(R.id.actionbar_content_view);
+        ViewGroup contentView= view.findViewById(R.id.actionbar_content_view);
         if(contentView!=null){
             ViewGroup decorChild= (ViewGroup)contentView.getChildAt(0);
-            if(decorChild!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(decorChild!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                     FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)decorChild.getLayoutParams();
                     switch (manager.getDefaultDisplay().getRotation()) {
@@ -150,10 +145,10 @@ public class DrawerMenuLayout extends DrawerLayout {
                             break;
                         default:
                             layoutParams.bottomMargin=0;
+                            break;
                     }
                     decorChild.setLayoutParams(layoutParams);
                 }
-            }
         }
     }
     private void fitPadding(Rect rect) {
@@ -172,6 +167,7 @@ public class DrawerMenuLayout extends DrawerLayout {
                     break;
                 default:
                     rect.bottom += getNavBarHeight();
+                    break;
             }
         }
         mContentView.setPadding(rect.left, rect.top, rect.right, rect.bottom);
@@ -212,7 +208,7 @@ public class DrawerMenuLayout extends DrawerLayout {
                     hasNavigationBar = true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG,"checkDeviceHasNavigationBar",e);
             }
             return hasNavigationBar;
         }

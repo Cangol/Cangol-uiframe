@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.base;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -27,6 +26,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -34,7 +34,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.lang.ref.WeakReference;
@@ -47,6 +46,8 @@ import mobi.cangol.mobile.service.session.SessionService;
 public abstract class BaseFragment extends Fragment {
     public static final int RESULT_CANCELED = 0;
     public static final int RESULT_OK = -1;
+    public static final String REQUEST_CODE_1 = "requestCode!=-1";
+    public static final String ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE = "IllegalStateException  Fragment isEnable=false";
     protected final String TAG = Log.makeLogTag(this.getClass());
     protected CoreApplication app;
     private long startTime;
@@ -61,21 +62,21 @@ public abstract class BaseFragment extends Fragment {
      *
      * @param view
      */
-    abstract protected void findViews(View view);
+    protected abstract  void findViews(View view);
 
     /**
      * 初始化view
      *
      * @param savedInstanceState
      */
-    abstract protected void initViews(Bundle savedInstanceState);
+    protected abstract  void initViews(Bundle savedInstanceState);
 
     /**
      * 初始化数据
      *
      * @param savedInstanceState
      */
-    abstract protected void initData(Bundle savedInstanceState);
+    protected abstract  void initData(Bundle savedInstanceState);
 
     /**
      * 返回上级导航fragment
@@ -101,7 +102,7 @@ public abstract class BaseFragment extends Fragment {
      *
      * @return
      */
-    final public CustomFragmentManager getCustomFragmentManager() {
+    public final  CustomFragmentManager getCustomFragmentManager() {
         return stack;
     }
 
@@ -174,19 +175,15 @@ public abstract class BaseFragment extends Fragment {
         handlerThread.start();
         handler = new InternalHandler(this, handlerThread.getLooper());
         app = (CoreApplication) this.getActivity().getApplication();
-        if (savedInstanceState == null) {
-
-        } else {
-            if (null != stack) stack.restoreState(savedInstanceState);
+        if (savedInstanceState != null&&null != stack) {
+           stack.restoreState(savedInstanceState);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        {
-            Log.v(TAG, "onCreateView");
-            startTime = System.currentTimeMillis();
-        }
+        Log.v(TAG, "onCreateView");
+        startTime = System.currentTimeMillis();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -248,7 +245,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void onDrawerSlide(float slideOffset) {
-        Log.v(TAG, "onDrawerSlide");
+        Log.v(TAG, "onDrawerSlide "+slideOffset);
     }
 
     public void onDrawerOpened() {
@@ -305,7 +302,7 @@ public abstract class BaseFragment extends Fragment {
      * @param data
      */
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        Log.v(TAG, "onFragmentResult");
+        Log.v(TAG, "onFragmentResult requestCode="+requestCode+",resultCode="+resultCode+",data="+data);
     }
 
     /**
@@ -313,7 +310,7 @@ public abstract class BaseFragment extends Fragment {
      *
      * @param resultCode
      */
-    final public void setResult(int resultCode) {
+    public final  void setResult(int resultCode) {
         this.setResult(resultCode, null);
     }
 
@@ -323,7 +320,7 @@ public abstract class BaseFragment extends Fragment {
      * @param resultCode
      * @param resultData
      */
-    final public void setResult(int resultCode, Bundle resultData) {
+    public final  void setResult(int resultCode, Bundle resultData) {
         this.resultCode = resultCode;
         this.resultData = resultData;
     }
@@ -331,7 +328,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 通知返回回调
      */
-    final public void notifyResult() {
+    public final  void notifyResult() {
         BaseFragment target = (BaseFragment) getTargetFragment();
         if (target != null) {
             target.onFragmentResult(getTargetRequestCode(), resultCode, resultData);
@@ -377,7 +374,7 @@ public abstract class BaseFragment extends Fragment {
      * @param id
      * @return
      */
-    public final View findViewById(int id) {
+    public final  <T extends View> T findViewById(@IdRes int id) {
         if(getView()==null)
             return null;
         else
@@ -390,11 +387,11 @@ public abstract class BaseFragment extends Fragment {
      * @param resId
      */
     public void showToast(int resId) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -405,11 +402,11 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(int resId, int duration) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(resId, duration);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -419,11 +416,11 @@ public abstract class BaseFragment extends Fragment {
      * @param str
      */
     public void showToast(String str) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
             bfActivity.showToast(str);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -434,11 +431,11 @@ public abstract class BaseFragment extends Fragment {
      * @param duration
      */
     public void showToast(String str, int duration) {
-        if (isEnable()) {
+        if (getActivity()!=null) {
             CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-            bfActivity.showToast(str);
+            bfActivity.showToast(str,duration);
         } else {
-            Log.e("showToast IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -448,10 +445,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public boolean isEnable() {
-        if (null == getActivity() || !isAdded() || isRemoving() || isDetached()) {
-            return false;
-        }
-        return true;
+        return  !(null == getActivity() || !isAdded() || isRemoving() || isDetached());
     }
 
     public void showSoftInput(EditText editText) {
@@ -459,7 +453,7 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.showSoftInput(editText);
         } else {
-            Log.e("showSoftInput IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
@@ -468,10 +462,18 @@ public abstract class BaseFragment extends Fragment {
             BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
             bfActivity.hideSoftInput();
         } else {
-            Log.e("hideSoftInput IllegalStateException  Fragment isEnable=false");
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
         }
     }
 
+    public void hideSoftInput(EditText editText) {
+        if (isEnable()) {
+            BaseActivityDelegate bfActivity = (BaseActivityDelegate) this.getActivity();
+            bfActivity.hideSoftInput(editText);
+        } else {
+            Log.e(ILLEGAL_STATE_EXCEPTION_FRAGMENT_IS_ENABLE_FALSE);
+        }
+    }
     /**
      * 获取相应时间
      *
@@ -492,75 +494,85 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      */
-    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass) {
-        replaceFragment(fragmentClass, fragmentClass.getSimpleName(), null);
+    public final  void replaceFragment(Class<? extends BaseFragment> fragmentClass) {
+        replaceFragment(fragmentClass, fragmentClass.getName(), null);
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      * @param args
      */
-    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
-        replaceFragment(fragmentClass, fragmentClass.getSimpleName(), args);
+    public final  void replaceFragment(Class<? extends BaseFragment> fragmentClass, Bundle args) {
+        replaceFragment(fragmentClass, fragmentClass.getName(), args);
     }
 
     /**
-     * 替换fragment
+     * 替换同级fragment
      *
      * @param fragmentClass
      * @param tag
      * @param args
      */
-    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
+    public final  void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         this.replaceFragment(fragmentClass, tag, args, null);
     }
 
     /**
-     * 替换fragment,并要求请求回调
+     * 替换同级fragment,并要求请求回调
      *
      * @param fragmentClass
      * @param tag
      * @param args
      * @param args
      */
-    final public void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
+    public final  void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
         if (requestCode != -1) {
             this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
-            throw new IllegalStateException("requestCode!=-1");
+            throw new IllegalStateException(REQUEST_CODE_1);
         }
     }
-
+    public final  void replaceFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode,CustomFragmentTransaction customFragmentTransaction) {
+        if (requestCode != -1) {
+            if(customFragmentTransaction!=null){
+                this.replaceFragment(fragmentClass, tag, args, customFragmentTransaction.setTargetFragment(this, requestCode));
+            }else{
+                this.replaceFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
+            }
+        } else {
+            throw new IllegalStateException(REQUEST_CODE_1);
+        }
+    }
     /**
-     * 替换父类级fragment 带自定义动画
+     * 替换同级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
      * @param args
      * @param customFragmentTransaction
      */
-    final public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+    public final  void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
-        CustomFragmentManager stack = null;
+        CustomFragmentManager fragmentManager;
         if (parent != null) {
-            stack = parent.getCustomFragmentManager();
+            fragmentManager = parent.getCustomFragmentManager();
         } else {
             if (getActivity() == null) {
                 throw new IllegalStateException("getActivity is null");
             } else {
                 CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-                stack = bfActivity.getCustomFragmentManager();
+                fragmentManager = bfActivity.getCustomFragmentManager();
             }
         }
-        if (null != stack && !stack.isStateSaved()) {
-            stack.replace(fragmentClass, tag, args, customFragmentTransaction);
-            stack.commit();
+        if (null != fragmentManager && !fragmentManager.isStateSaved()) {
+            fragmentManager.replace(fragmentClass, tag, args, customFragmentTransaction);
+            fragmentManager.commit();
         } else {
             Log.e(TAG, "Can not perform this action after onSaveInstanceState");
         }
@@ -576,32 +588,32 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean isSavedState() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
-        CustomFragmentManager stack = null;
+        CustomFragmentManager fragmentManager;
         if (parent != null) {
-            stack = parent.getCustomFragmentManager();
+            fragmentManager = parent.getCustomFragmentManager();
         } else {
             if (getActivity() == null) {
                 return false;
             } else {
                 CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
-                stack = bfActivity.getCustomFragmentManager();
+                fragmentManager = bfActivity.getCustomFragmentManager();
             }
         }
-        if (stack != null) {
-            return stack.isStateSaved();
+        if (fragmentManager != null) {
+            return fragmentManager.isStateSaved();
         } else {
             return false;
         }
     }
 
     /**
-     * 替换父类级fragment
+     * 替换父级fragment
      *
      * @param fragmentClass
      * @param tag
      * @param args
      */
-    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
+    public final  void replaceParentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         replaceParentFragment(fragmentClass, tag, args, null);
     }
 
@@ -613,23 +625,23 @@ public abstract class BaseFragment extends Fragment {
      * @param args
      * @param requestCode
      */
-    final public void replaceParentFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
+    public final  void replaceParentFragmentForResult(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, int requestCode) {
         if (requestCode != -1) {
             this.replaceParentFragment(fragmentClass, tag, args, new CustomFragmentTransaction().setTargetFragment(this, requestCode));
         } else {
-            throw new IllegalStateException("requestCode!=-1");
+            throw new IllegalStateException(REQUEST_CODE_1);
         }
     }
 
     /**
-     * 替换父类级fragment 带自定义动画
+     * 替换父级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
      * @param args
      * @param customFragmentTransaction
      */
-    final public void replaceParentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+    public final  void replaceParentFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.replaceFragment(fragmentClass, tag, args, customFragmentTransaction);
@@ -639,25 +651,25 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 替换子类级fragment
+     * 替换子级fragment
      *
      * @param fragmentClass
      * @param tag
      * @param args
      */
-    final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
+    public final  void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         replaceChildFragment(fragmentClass, tag, args, null);
     }
 
     /**
-     * 替换子fragment 带自定义动画
+     * 替换子级fragment 带自定义动画
      *
      * @param fragmentClass
      * @param tag
      * @param args
      * @param customFragmentTransaction
      */
-    final public void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+    public final  void replaceChildFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
         if (stack != null) {
             if (!stack.isStateSaved()) {
                 stack.replace(fragmentClass, tag, args, customFragmentTransaction);
@@ -670,7 +682,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    final public void popBackStack(String tag,int flag) {
+    public final  void popBackStack(String tag,int flag) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.getCustomFragmentManager().popBackStack(tag,flag);
@@ -683,7 +695,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
-    final public void popBackStackImmediate(String tag,int flag) {
+    public final  void popBackStackImmediate(String tag,int flag) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.getCustomFragmentManager().popBackStackImmediate(tag,flag);
@@ -699,7 +711,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 立即将tag的fragment弹出栈
      */
-    final public void popBackStack() {
+    public final  void popBackStack() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.getCustomFragmentManager().popBackStack();
@@ -715,7 +727,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 立即将当前fragment弹出栈
      */
-    final public void popBackStackImmediate() {
+    public final  void popBackStackImmediate() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.getCustomFragmentManager().popBackStackImmediate();
@@ -731,7 +743,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 将所有fragment弹出栈
      */
-    final public void popBackStackAll() {
+    public final  void popBackStackAll() {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
             parent.getCustomFragmentManager().popBackStackAll();
@@ -750,7 +762,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
 
     protected void postRunnable(StaticInnerRunnable runnable) {
@@ -782,10 +794,11 @@ public abstract class BaseFragment extends Fragment {
     protected static class StaticInnerRunnable implements Runnable {
         @Override
         public void run() {
+            //do somethings
         }
     }
 
-    protected final static class InternalHandler extends Handler {
+    protected static final  class InternalHandler extends Handler {
         private final WeakReference<BaseFragment> mFragmentRef;
 
         public InternalHandler(BaseFragment fragment, Looper looper) {

@@ -44,7 +44,7 @@ import mobi.cangol.mobile.service.session.SessionService;
  */
 public abstract class BaseActivity extends Activity implements BaseActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
-    public CoreApplication app;
+    private CoreApplication app;
     private long startTime;
     private HandlerThread handlerThread;
     private Handler handler;
@@ -67,19 +67,19 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     }
     @Override
     public void showToast(int resId) {
-        if(!isFinishing())Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(String str) {
-        if(!isFinishing())Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(int resId, int duration) {
-        if(!isFinishing())Toast.makeText(this, resId, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, duration).show();
     }
     @Override
     public void showToast(String str, int duration) {
-        if(!isFinishing())Toast.makeText(this, str, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, duration).show();
     }
 
     @Override
@@ -148,8 +148,8 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     protected void onDestroy() {
         Log.v(TAG, "onDestroy");
         app.delActivityFromManager(this);
-        super.onDestroy();
         handlerThread.quit();
+        super.onDestroy();
     }
 
     @Override
@@ -181,6 +181,11 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
             imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+    @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
     /**
      * 处理back事件
      */
@@ -200,27 +205,26 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        // do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            // do somethings
         }
     }
-    final static class InternalHandler extends Handler {
+    static final class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {
             Context context = mContext.get();
             if (context != null) {
-                if (context != null) {
-                    ((BaseActivity)context).handleMessage(msg);
-                }
+               ((BaseActivity)context).handleMessage(msg);
             }
         }
     }

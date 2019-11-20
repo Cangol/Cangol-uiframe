@@ -64,19 +64,19 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     }
     @Override
     public void showToast(int resId) {
-        if(!isFinishing())Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(String str) {
-        if(!isFinishing())Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(int resId, int duration) {
-        if(!isFinishing())Toast.makeText(this, resId, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, duration).show();
     }
     @Override
     public void showToast(String str, int duration) {
-        if(!isFinishing())Toast.makeText(this, str, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, duration).show();
     }
 
     /**
@@ -84,6 +84,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
      *
      * @param containerId
      */
+    @Override
     public void initFragmentStack(int containerId) {
         if (null == stack)
             stack = CustomFragmentManager.forContainer(this, containerId, this.getSupportFragmentManager());
@@ -96,6 +97,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
      * @param tag
      * @param args
      */
+    @Override
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");
@@ -163,11 +165,11 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Log.v(TAG, "onDestroy");
         if (null != stack)stack.destroy();
         app.delActivityFromManager(this);
         handlerThread.quit();
+        super.onDestroy();
     }
 
     @Override
@@ -220,29 +222,20 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     @Override
     public boolean isFullScreen() {
         int flag = this.getWindow().getAttributes().flags;
-        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-            return true;
-        }else {
-            return false;
-        }
+         return (flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                    == WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }
     @Override
-    final public void onBackPressed() {
+    public final  void onBackPressed() {
         Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
-            return;
         }else {
-            if (stack.peek().onBackPressed()) {
-                return;
-            } else {
+            if (!stack.peek().onBackPressed()) {
                 if (stack.size() == 1)  {
                     onBack();
-                    return;
                 }else{
                     stack.popBackStack();
-                    return;
                 }
             }
         }
@@ -251,6 +244,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     /**
      * 处理back事件
      */
+    @Override
     public void onBack() {
         Log.v(TAG, "onBack");
         super.onBackPressed();
@@ -295,6 +289,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
         }
     }
     @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
     public Handler getHandler() {
         return handler;
     }
@@ -304,19 +304,20 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            //do somethings
         }
     }
-    final static class InternalHandler extends Handler {
+    static final  class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {

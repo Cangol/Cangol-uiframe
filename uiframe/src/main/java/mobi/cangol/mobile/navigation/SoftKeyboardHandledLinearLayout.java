@@ -47,12 +47,10 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
 
     @Override
     public boolean dispatchKeyEventPreIme(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                &&isKeyboardShown) {
             // Keyboard is hidden <<< RIGHT
-            if (isKeyboardShown) {
                 isKeyboardShown = false;
-                listener.onSoftKeyboardHide();
-            }
         }
         return super.dispatchKeyEventPreIme(event);
     }
@@ -68,7 +66,7 @@ public class SoftKeyboardHandledLinearLayout extends LinearLayout {
                 isKeyboardShown = true;
                 listener.onSoftKeyboardShow();
             }
-        } else if (actualHeight <= proposedHeight) {
+        } else  {
             if (isKeyboardShown) {
                 isKeyboardShown = false;
                 listener.onSoftKeyboardHide();

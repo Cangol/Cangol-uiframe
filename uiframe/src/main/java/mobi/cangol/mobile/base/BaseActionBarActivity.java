@@ -52,11 +52,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(
@@ -73,19 +68,19 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     public void showToast(int resId) {
-        if(!isFinishing())Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(String str) {
-        if(!isFinishing())Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showToast(int resId, int duration) {
-        if(!isFinishing())Toast.makeText(this, resId, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), resId, duration).show();
     }
     @Override
     public void showToast(String str, int duration) {
-        if(!isFinishing())Toast.makeText(this, str, duration).show();
+        if(!isFinishing())Toast.makeText(this.getApplicationContext(), str, duration).show();
     }
 
     /**
@@ -93,6 +88,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
      *
      * @param containerId
      */
+    @Override
     public void initFragmentStack(int containerId) {
         if (containerId <= 0) {
             throw new IllegalStateException("getContainerId must return a valid  containerId");
@@ -108,6 +104,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
      * @param tag
      * @param args
      */
+    @Override
     public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args) {
         if (null == stack) {
             throw new IllegalStateException("stack is null");
@@ -132,27 +129,6 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     @Override
     public SessionService getSession() {
         return app.getSession();
-    }
-
-    @Override
-    public void setFullScreen(boolean fullscreen) {
-        if (fullscreen) {
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-    }
-
-    @Override
-    public boolean isFullScreen() {
-        int flag = this.getWindow().getAttributes().flags;
-        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-            return true;
-        }else {
-            return false;
-        }
     }
 
     @Override
@@ -196,6 +172,11 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         }
     }
     @Override
+    public void hideSoftInput(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+    @Override
     public void onMenuActionCreated(ActionMenu actionMenu) {
         if (stack != null && stack.size() > 0&&stack.peek().isEnable()) {
             ((BaseContentFragment) stack.peek()).onMenuActionCreated(actionMenu);
@@ -211,21 +192,16 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    final public void onBackPressed() {
+    public final void onBackPressed() {
         Log.v(TAG, "onBackPressed ");
         if (null == stack||stack.size()==0||stack.peek()==null) {
             onBack();
-            return;
         }else {
-            if (stack.peek().onBackPressed()) {
-                return;
-            } else {
+            if (!stack.peek().onBackPressed()){
                 if (stack.size() == 1)  {
                     onBack();
-                    return;
                 }else{
                     stack.popBackStack();
-                    return;
                 }
             }
         }
@@ -246,7 +222,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
                     FragmentInfo upFragment = stack.peek().getNavigtionUpToFragment();
                     if (upFragment != null) {
                         stack.popBackStack();
-                        replaceFragment(upFragment.clss, upFragment.tag, upFragment.args);
+                        replaceFragment(upFragment.clazz, upFragment.tag, upFragment.args);
                     } else {
                         stack.popBackStack();
                     }
@@ -288,11 +264,11 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Log.v(TAG, "onDestroy" );
         if (null != stack)stack.destroy();
         app.delActivityFromManager(this);
         handlerThread.quit();
+        super.onDestroy();
     }
 
     public void onBack() {
@@ -342,19 +318,20 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             handler.post(runnable);
     }
     protected void handleMessage(Message msg) {
-
+        //do somethings
     }
     protected  static class StaticInnerRunnable implements Runnable{
         @Override
         public void run() {
+            //do somethings
         }
     }
-    final static class InternalHandler extends Handler {
+    static final  class InternalHandler extends Handler {
         private final WeakReference<Context> mContext;
 
         public InternalHandler(Context context,Looper looper) {
             super(looper);
-            mContext = new WeakReference<Context>(context);
+            mContext = new WeakReference<>(context);
         }
 
         public void handleMessage(Message msg) {
@@ -366,6 +343,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @ColorInt
+    @Override
     public  int getThemeAttrColor(@AttrRes int colorAttr) {
         TypedArray array = this.obtainStyledAttributes(null, new int[]{colorAttr});
         try {

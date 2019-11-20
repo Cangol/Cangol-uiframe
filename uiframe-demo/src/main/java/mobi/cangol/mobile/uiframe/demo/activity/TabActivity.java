@@ -7,10 +7,10 @@ import android.os.Bundle;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.uiframe.demo.Singleton;
+import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.MenuBottomFragment;
-import mobi.cangol.mobile.uiframe.demo.fragment.SettingFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
 
 @SuppressLint("ResourceAsColor")
 public class TabActivity extends TabNavigationFragmentActivity {
@@ -23,20 +23,24 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		this.setNavigationBarTintColor(Color.DKGRAY);
 		this.getCustomActionBar().setBackgroundColor(Color.DKGRAY);
 		this.setFloatActionBarEnabled(true);
+		this.getCustomFragmentManager().setFirstUseAnim(false);
+		//this.getCustomFragmentManager().setDefaultAnimation(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right);
 		if (savedInstanceState == null) {
-			this.setMenuFragment(MenuBottomFragment.class,null);
-			this.setContentFragment(HomeFragment.class, "HomeFragment", null,MenuBottomFragment.MODULE_HOME);
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("isBottom",true);
+			this.setMenuFragment(MenuFragment.class,bundle);
+			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
 		initData(savedInstanceState);
 		//this.setFloatActionBarEnabled(true);
         //this.initFragmentStack(R.id.content_frame);
-        //if(savedInstanceState==null)this.replaceFragment(HomeFragment.class, "Home", null);
-		Singleton.getInstance().setOnTestListener(new Singleton.OnTestListener() {
+        //if(savedInstanceState==null)this.replaceFragment(TestFragment.class, "Home", null);
+		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(SettingFragment.class, "SettingFragment", null,MenuBottomFragment.MODULE_SETTING);
+				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}
@@ -73,4 +77,5 @@ public class TabActivity extends TabNavigationFragmentActivity {
 	public int getContentFrameId() {
 		return R.id.frame_main;
 	}
+
 }
