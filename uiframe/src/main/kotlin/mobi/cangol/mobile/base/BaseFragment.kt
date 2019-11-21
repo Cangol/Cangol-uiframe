@@ -126,12 +126,6 @@ abstract class BaseFragment : Fragment() {
         return app!!.session
     }
 
-
-    override fun onAttach(activity: Activity?) {
-        super.onAttach(activity)
-        Log.v(TAG, "onAttach")
-    }
-
     override fun onAttachFragment(childFragment: Fragment?) {
         super.onAttachFragment(childFragment)
         Log.v(TAG, "onAttachFragment")
@@ -525,9 +519,9 @@ abstract class BaseFragment : Fragment() {
             checkNotNull(activity) { "getActivity is null" }
             fragmentManager = (this.activity as CustomFragmentActivityDelegate).getCustomFragmentManager()
         }
-        if (null != fragmentManager && !fragmentManager!!.isStateSaved()) {
-            fragmentManager!!.replace(fragmentClass, tag, args, customFragmentTransaction)
-            fragmentManager!!.commit()
+        if (null != fragmentManager && !fragmentManager.isStateSaved()) {
+            fragmentManager.replace(fragmentClass, tag, args, customFragmentTransaction)
+            fragmentManager.commit()
         } else {
             Log.e(TAG, "Can not perform this action after onSaveInstanceState")
         }
@@ -553,11 +547,7 @@ abstract class BaseFragment : Fragment() {
                 fragmentManager = (this.activity as CustomFragmentActivityDelegate).getCustomFragmentManager()
             }
         }
-        return if (fragmentManager != null) {
-            fragmentManager!!.isStateSaved()
-        } else {
-            false
-        }
+        return fragmentManager?.isStateSaved() ?: false
     }
 
     /**
@@ -714,7 +704,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        return if (null == stack || stack?.size() === 0 || stack?.peek() == null) {
+        return if (null == stack || stack?.size() == 0 || stack?.peek() == null) {
             false
         } else {
             stack?.peek()!!.onKeyUp(keyCode, event)
@@ -722,7 +712,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return if (null == stack || stack?.size() === 0 || stack?.peek() == null) {
+        return if (null == stack || stack?.size() == 0 || stack?.peek() == null) {
             false
         } else {
             stack?.peek()!!.onKeyDown(keyCode, event)
@@ -740,8 +730,8 @@ abstract class BaseFragment : Fragment() {
 
         override fun handleMessage(msg: Message) {
             val fragment = mFragmentRef.get()
-            if (fragment != null && fragment!!.isEnable()) {
-                fragment!!.handleMessage(msg)
+            if (fragment != null && fragment.isEnable()) {
+                fragment.handleMessage(msg)
             }
         }
     }

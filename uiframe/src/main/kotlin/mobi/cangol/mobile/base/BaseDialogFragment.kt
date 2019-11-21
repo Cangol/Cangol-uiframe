@@ -148,15 +148,15 @@ abstract class BaseDialogFragment : BaseFragment(), DialogInterface.OnCancelList
             this.mDialog = this.onCreateDialog(savedInstanceState)
             when (this.mStyle) {
                 3 -> {
-                    this.mDialog!!.window.addFlags(24)
+                    this.mDialog!!.window?.addFlags(24)
                     this.mDialog!!.requestWindowFeature(1)
-                    return if (this.mDialog != null) this.mDialog!!.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                    return if (this.mDialog != null) this.mDialog!!.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 }
                 1, 2 -> {
                     this.mDialog!!.requestWindowFeature(1)
-                    return if (this.mDialog != null) this.mDialog!!.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                    return if (this.mDialog != null) this.mDialog!!.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 }
-                else -> return if (this.mDialog != null) this.mDialog!!.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                else -> return if (this.mDialog != null) this.mDialog!!.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater else this.activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             }
         }
     }
@@ -211,10 +211,7 @@ abstract class BaseDialogFragment : BaseFragment(), DialogInterface.OnCancelList
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (this.mDialog != null) {
-            val dialogState = this.mDialog!!.onSaveInstanceState()
-            if (dialogState != null) {
-                outState.putBundle(SAVED_DIALOG_STATE_TAG, dialogState)
-            }
+            outState.putBundle(SAVED_DIALOG_STATE_TAG, this.mDialog!!.onSaveInstanceState())
         }
 
         if (this.mStyle != 0) {

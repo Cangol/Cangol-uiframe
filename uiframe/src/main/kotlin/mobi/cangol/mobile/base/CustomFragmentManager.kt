@@ -16,9 +16,9 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
     private val lock = Any()
     private var fragmentTransaction: FragmentTransaction? = null
     private val execPendingTransactions = Runnable {
-        if (fragmentTransaction != null && fActivity != null) {
+        if (fragmentTransaction != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                if (!fActivity!!.isFinishing && !fActivity!!.isDestroyed) {
+                if (!fActivity.isFinishing && !fActivity.isDestroyed) {
                     try {
                         fragmentTransaction!!.commitAllowingStateLoss()
                         fragmentManager!!.executePendingTransactions()
@@ -29,7 +29,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
                 }
             } else {
-                if (!fActivity!!.isFinishing) {
+                if (!fActivity.isFinishing) {
                     try {
                         fragmentTransaction!!.commitAllowingStateLoss()
                         fragmentManager!!.executePendingTransactions()
@@ -42,24 +42,20 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
             }
         }
     }
-    private val handler: InternalHandler
+    private val handler=Handler(Looper.getMainLooper())
     private var enterAnimation: Int = 0
     private var exitAnimation: Int = 0
     private var popStackEnterAnimation: Int = 0
     private var popStackExitAnimation: Int = 0
     private var firstUseAnim = false
 
-    init {
-        this.handler = InternalHandler(fActivity)
-    }
+
 
     fun destroy() {
-        this.stack!!.clear()
+        this.stack.clear()
         this.handler.removeCallbacks(execPendingTransactions)
         this.fragmentManager = null
     }
-
-    private class InternalHandler(activity: FragmentActivity) : Handler(Looper.getMainLooper())
 
     fun setDefaultAnimation(enter: Int, exit: Int, popEnter: Int, popExit: Int) {
         enterAnimation = enter
@@ -70,11 +66,11 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     fun saveState(outState: Bundle) {
         executePendingTransactions()
-        val stackSize = stack!!.size()
+        val stackSize = stack.size()
         val stackTags = arrayOfNulls<String>(stackSize)
 
         var i = 0
-        for (tag in stack!!.getTags()) {
+        for (tag in stack.getTags()) {
             Log.i(STATE_TAG, "tag =$tag")
             stackTags[i++] = tag
         }
@@ -87,7 +83,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
         if (stackTags != null) {
             for (tag in stackTags) {
                 val f = fragmentManager!!.findFragmentByTag(tag) as BaseFragment
-                stack!!.addFragment(f)
+                stack.addFragment(f)
                 stack.addTag(tag)
             }
         }
@@ -100,20 +96,20 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
     }
 
     fun replace(clazz: Class<out BaseFragment>, tag: String, args: Bundle?) {
-        check(!clazz.isAssignableFrom(BaseDialogFragment::class.java!!)) { "DialogFragment can not be attached to a container view" }
+        check(!clazz.isAssignableFrom(BaseDialogFragment::class.java)) { "DialogFragment can not be attached to a container view" }
         this.replace(clazz, tag, args, null)
     }
 
     fun replace(clazz: Class<out BaseFragment>, tag: String, args: Bundle?, customFragmentTransaction: CustomFragmentTransaction?) {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return
-        check(!clazz.isAssignableFrom(BaseDialogFragment::class.java!!)) { "DialogFragment can not be attached to a container view" }
+        check(!clazz.isAssignableFrom(BaseDialogFragment::class.java)) { "DialogFragment can not be attached to a container view" }
         var fragment: BaseFragment? = fragmentManager!!.findFragmentByTag(tag) as BaseFragment?
         if (fragment == null) {
             Log.i(STATE_TAG, "fragment=null newInstance")
             fragment = Fragment.instantiate(fActivity, clazz.name, args)as BaseFragment?
             if (fragment!!.isCleanStack()) {
                 Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all")
-                while (stack!!.size() > 0) {
+                while (stack.size() > 0) {
                     synchronized(lock) {
                         stack.popFragment()
                         stack.popTag()
@@ -122,7 +118,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
                 }
             } else {
                 Log.i(STATE_TAG, "fragment isCleanStack=false")
-                if (fragment!!.isSingleton() && stack!!.containsTag(tag)) {
+                if (fragment.isSingleton() && stack.containsTag(tag)) {
                     Log.i(STATE_TAG, "fragment isSingleton=true,while pop all")
                     while (tag != stack.peekTag()) {
                         synchronized(lock) {
@@ -143,7 +139,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
         } else {
             Log.i(STATE_TAG, "fragment is exist")
             if (fragment.isCleanStack()) {
-                if (stack!!.size() == 1) {
+                if (stack.size() == 1) {
                     if (stack.peekTag() == tag) {
                         return
                     } else {
@@ -172,7 +168,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
                     fragment = Fragment.instantiate(fActivity, clazz.name, args)as BaseFragment?
                 } else {
                     Log.i(STATE_TAG, "fragment isSingleton=true,while pop all")
-                    while (tag != stack!!.peekTag()) {
+                    while (tag != stack.peekTag()) {
                         synchronized(lock) {
                             stack.popFragment()
                             stack.popTag()
@@ -190,7 +186,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
         }
         customFragmentTransaction?.fillTargetFragment(fragment!!)
 
-        if (firstUseAnim || stack!!.size() > 0) {
+        if (firstUseAnim || stack.size() > 0) {
             //保证第一个填充不适用动画
             if (customFragmentTransaction == null || !customFragmentTransaction.fillCustomAnimations(beginTransaction())) {
                 if (enterAnimation > 0 && exitAnimation > 0 && popStackEnterAnimation > 0 && popStackExitAnimation > 0) {
@@ -205,8 +201,8 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
         attachFragment(fragment, tag)
         synchronized(lock) {
-            stack!!.addFragment(fragment!!)
-            stack.addTag(tag!!)
+            stack.addFragment(fragment!!)
+            stack.addTag(tag)
         }
     }
 
@@ -216,20 +212,20 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     private fun attachFragment(fragment: Fragment?, tag: String?) {
         if (fragment != null) {
-            if (fragment!!.isDetached) {
+            if (fragment.isDetached) {
                 Log.i(STATE_TAG, "attachFragment tag=$tag")
                 beginTransaction().attach(fragment)
-                if (stack!!.size() > 0) {
+                if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag)
                 }
-            } else if (!fragment!!.isAdded) {
+            } else if (!fragment.isAdded) {
                 Log.i(STATE_TAG, "replaceFragment tag=$tag")
                 beginTransaction().replace(containerId, fragment, tag)
-                if (stack!!.size() > 0) {
+                if (stack.size() > 0) {
                     beginTransaction().addToBackStack(tag)
                 }
             } else {
-                Log.i(STATE_TAG, "fragment state illegal " + fragment!!)
+                Log.i(STATE_TAG, "fragment state illegal " + fragment)
             }
         } else {
             Log.i(STATE_TAG, "fragment is null")
@@ -237,17 +233,17 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
     }
 
     fun peek(): BaseFragment? {
-        return stack!!.peekFragment()
+        return stack.peekFragment()
     }
 
     fun size(): Int {
-        return stack!!.size()
+        return stack.size()
     }
 
 
     fun popBackStack(): Boolean {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return false
-        if (stack!!.size() > 1) {
+        if (stack.size() > 1) {
             fragmentManager!!.popBackStack()
             synchronized(lock) {
                 val baseFragment = stack.popFragment()
@@ -263,7 +259,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     fun popBackStack(tag: String, flag: Int): Boolean {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return false
-        if (stack!!.size() > 1) {
+        if (stack.size() > 1) {
             fragmentManager!!.popBackStack(tag, flag)
             synchronized(lock) {
                 stack.popFragment(tag, flag)
@@ -275,7 +271,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     fun popBackStackImmediate(tag: String, flag: Int): Boolean {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return false
-        if (stack!!.size() > 1) {
+        if (stack.size() > 1) {
             fragmentManager!!.popBackStackImmediate(tag, flag)
             synchronized(lock) {
                 stack.popFragment(tag, flag)
@@ -287,7 +283,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     fun popBackStackImmediate(): Boolean {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return false
-        if (stack!!.size() > 1) {
+        if (stack.size() > 1) {
             fragmentManager!!.popBackStackImmediate()
             synchronized(lock) {
                 val baseFragment = stack.popFragment()
@@ -303,7 +299,7 @@ class CustomFragmentManager private constructor(private var fActivity: FragmentA
 
     fun popBackStackAll(): Boolean {
         if (fragmentManager!!.isDestroyed || isStateSaved()) return false
-        if (stack!!.size() > 1) {
+        if (stack.size() > 1) {
             while (stack.size() > 1) {
                 synchronized(lock) {
                     stack.popFragment()

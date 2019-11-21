@@ -87,7 +87,7 @@ abstract class TabDrawerNavigationFragmentActivity : BaseNavigationFragmentActiv
     }
 
     companion object {
-        val GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE = "getActivity is TabDrawerNavigationFragmentActivityDelegate"
+        const val GET_ACTIVITY_IS_TAB_DRAWER_NAVIGATION_FRAGMENT_ACTIVITY_DELEGATE = "getActivity is TabDrawerNavigationFragmentActivityDelegate"
     }
 }
 
@@ -103,7 +103,7 @@ internal class TabDrawerNavigationFragmentActivityDelegate(
 
         mContentView = mDrawerLayout!!.findViewById(R.id.content_view)
         mMenuView = mDrawerLayout!!.findViewById(R.id.menu_view)
-        mDrawerLayout!!.setDrawerListener(object : DrawerLayout.DrawerListener {
+        mDrawerLayout?.setDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 val fragment = mActivity.supportFragmentManager.findFragmentById(drawerView.id)
                 if (fragment is BaseFragment) {

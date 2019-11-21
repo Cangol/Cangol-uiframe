@@ -210,9 +210,7 @@ abstract class BaseContentFragment : BaseFragment() {
      * @return
      */
     open fun onMenuActionSelected(action: ActionMenuItem): Boolean {
-        if (this.childFragmentManager != null &&
-                this.childFragmentManager.fragments != null &&
-                this.childFragmentManager.fragments.isNotEmpty()) {
+        if (this.childFragmentManager.fragments.isNotEmpty()) {
             val size = childFragmentManager.fragments.size
             for (i in size - 1 downTo 0) {
                 val fragment = childFragmentManager.fragments[i]

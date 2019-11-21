@@ -101,7 +101,7 @@ class TabMenuDrawerLayout(context: Context, attrs: AttributeSet) : DrawerLayout(
         val contentView = view.findViewById<ViewGroup>(R.id.actionbar_content_view)
         if (contentView != null) {
             val decorChild = contentView.getChildAt(0) as ViewGroup
-            if (decorChild != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 val layoutParams = decorChild.layoutParams as FrameLayout.LayoutParams
                 when (manager.defaultDisplay.rotation) {
@@ -217,8 +217,8 @@ class TabMenuDrawerLayout(context: Context, attrs: AttributeSet) : DrawerLayout(
             val decor = activity.window.decorView as ViewGroup
             val decorChild = decor.getChildAt(0) as ViewGroup
             if (decorChild.background != null) {
-                this.setBackgroundDrawable(decorChild.background)
-                decorChild.setBackgroundDrawable(null)
+                this.background=decorChild.background
+                decorChild.background=null
             } else {
                 if (this.background == null)
                     this.setBackgroundResource(background)

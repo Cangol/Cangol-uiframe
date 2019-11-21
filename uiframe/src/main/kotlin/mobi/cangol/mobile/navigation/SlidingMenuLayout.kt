@@ -30,7 +30,7 @@ class SlidingMenuLayout(context: Context, attrs: AttributeSet) : PagerEnabledSli
         mContentView.id = R.id.content_view
         this.addView(mContentView, lp2)
 
-        mContentView.setOnTouchListener { v, event -> true }
+        mContentView.setOnTouchListener { _, _ -> true }
 
         this.sliderFadeColor = Color.TRANSPARENT
 
@@ -95,19 +95,17 @@ class SlidingMenuLayout(context: Context, attrs: AttributeSet) : PagerEnabledSli
 
     private fun fitDecorChild(view: View) {
         val contentView = view.findViewById<View>(R.id.actionbar_content_view) as ViewGroup
-        if (contentView != null) {
-            val decorChild = contentView.getChildAt(0) as ViewGroup
-            if (decorChild != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                val layoutParams = decorChild.layoutParams as FrameLayout.LayoutParams
-                when (manager.defaultDisplay.rotation) {
-                    Surface.ROTATION_90 -> layoutParams.rightMargin = 0
-                    Surface.ROTATION_180 -> layoutParams.topMargin = 0
-                    Surface.ROTATION_270 -> layoutParams.leftMargin = 0
-                    else -> layoutParams.bottomMargin = 0
-                }
-                decorChild.layoutParams = layoutParams
+        val decorChild = contentView.getChildAt(0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val layoutParams = decorChild.layoutParams as FrameLayout.LayoutParams
+            when (manager.defaultDisplay.rotation) {
+                Surface.ROTATION_90 -> layoutParams.rightMargin = 0
+                Surface.ROTATION_180 -> layoutParams.topMargin = 0
+                Surface.ROTATION_270 -> layoutParams.leftMargin = 0
+                else -> layoutParams.bottomMargin = 0
             }
+            decorChild.layoutParams = layoutParams
         }
     }
 
@@ -194,8 +192,8 @@ class SlidingMenuLayout(context: Context, attrs: AttributeSet) : PagerEnabledSli
             val decor = activity.window.decorView as ViewGroup
             val decorChild = decor.getChildAt(0) as ViewGroup
             if (decorChild.background != null) {
-                this.setBackgroundDrawable(decorChild.background)
-                decorChild.setBackgroundDrawable(null)
+                this.background=decorChild.background
+                decorChild.background=null
             } else {
                 if (this.background == null)
                     this.setBackgroundResource(background)
