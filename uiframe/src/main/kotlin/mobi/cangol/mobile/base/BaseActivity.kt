@@ -21,7 +21,9 @@ import java.lang.ref.WeakReference
  * @author Cangol
  */
 abstract class BaseActivity:Activity(), BaseActivityDelegate {
-    var TAG:String = Log.makeLogTag(this.javaClass)
+    companion object {
+        const val TAG = "BaseActivity"
+    }
     private var app: CoreApplication? = null
     private var startTime: Long = 0
     private var handlerThread: HandlerThread? = null

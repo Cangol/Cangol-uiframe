@@ -1,6 +1,5 @@
 package mobi.cangol.mobile.base
 
-import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.*
@@ -24,6 +23,7 @@ import java.lang.ref.WeakReference
 
 abstract class BaseFragment : Fragment() {
     companion object {
+        const val TAG ="BaseFragment"
         const val RESULT_CANCELED = 0
         const val RESULT_OK = -1
         const val REQUEST_CODE_1 = "requestCode!=-1"
@@ -31,7 +31,6 @@ abstract class BaseFragment : Fragment() {
         const val GET_ACTIVITY_IS_NULL = "getActivity is null"
     }
 
-    var TAG: String = Log.makeLogTag(this.javaClass)
     protected var app: CoreApplication? = null
     private var startTime: Long = 0
     private var resultCode = RESULT_CANCELED

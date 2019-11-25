@@ -255,11 +255,10 @@ abstract class BaseDialogFragment : BaseFragment(), DialogInterface.OnCancelList
     }
 
     companion object {
-
-        val STYLE_NORMAL = 0
-        val STYLE_NO_TITLE = 1
-        val STYLE_NO_FRAME = 2
-        val STYLE_NO_INPUT = 3
+        const val STYLE_NORMAL = 0
+        const val STYLE_NO_TITLE = 1
+        const val STYLE_NO_FRAME = 2
+        const val STYLE_NO_INPUT = 3
         private val SAVED_DIALOG_STATE_TAG = "android:savedDialogState"
         private val SAVED_STYLE = "android:style"
         private val SAVED_THEME = "android:theme"

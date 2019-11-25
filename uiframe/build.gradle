@@ -13,8 +13,8 @@ apply from: '../config/quality.gradle'
 apply plugin: 'com.jakewharton.hugo'
 
 dependencies {
-    implementation 'mobi.cangol.mobile:appcore:1.1.50'
-    implementation 'mobi.cangol.mobile:actionbar:1.1.8'
+    implementation 'mobi.cangol.mobile:appcore:1.1.54'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.10'
     implementation "com.android.support:support-fragment:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

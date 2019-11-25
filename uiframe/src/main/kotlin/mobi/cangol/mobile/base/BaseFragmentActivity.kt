@@ -18,7 +18,9 @@ import mobi.cangol.mobile.service.session.SessionService
 import java.lang.ref.WeakReference
 
 abstract class BaseFragmentActivity : FragmentActivity(), BaseActivityDelegate, CustomFragmentActivityDelegate {
-    var TAG:String = Log.makeLogTag(this.javaClass)
+    companion object {
+        const val TAG = "BaseFragmentActivity"
+    }
     protected lateinit var app: CoreApplication
     private var stack: CustomFragmentManager? = null
     private var startTime: Long = 0

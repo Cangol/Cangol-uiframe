@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
+import mobi.cangol.mobile.base.BaseFragment;
+import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.uiframe.demo.R;
+
 
 public class CleanFragment extends BaseContentFragment {
 
@@ -28,6 +31,7 @@ public class CleanFragment extends BaseContentFragment {
         super.onActivityCreated(savedInstanceState);
         initViews(savedInstanceState);
         initData(savedInstanceState);
+        Log.d(TAG,""+getApp());
     }
 
 
