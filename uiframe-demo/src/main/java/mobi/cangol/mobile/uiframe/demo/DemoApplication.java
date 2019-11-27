@@ -16,7 +16,6 @@
 package mobi.cangol.mobile.uiframe.demo;
 
 
-import hugo.weaving.DebugLog;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
 
@@ -26,7 +25,6 @@ import mobi.cangol.mobile.logging.Log;
  * @author Cangol
  * @date 2013-9-8
  */
-@DebugLog
 public class DemoApplication extends CoreApplication {
     @Override
     public void onCreate() {
