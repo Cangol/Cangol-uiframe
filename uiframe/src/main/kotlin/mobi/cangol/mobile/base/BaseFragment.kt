@@ -113,7 +113,7 @@ abstract class BaseFragment : Fragment() {
      * @return
      */
     fun getAppService(name: String): AppService {
-        return app!!.getAppService(name)
+        return app!!.getAppService(name)!!
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class BaseFragment : Fragment() {
      * @return
      */
     fun getSession(): SessionService {
-        return app!!.session
+        return app!!.getSession()
     }
 
     override fun onAttachFragment(childFragment: Fragment?) {

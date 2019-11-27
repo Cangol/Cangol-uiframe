@@ -98,7 +98,7 @@ abstract class BaseFragmentActivity : FragmentActivity(), BaseActivityDelegate, 
      * @return
      */
     override fun getAppService(name: String): AppService {
-        return app.getAppService(name)
+        return app.getAppService(name)!!
     }
 
     /**
@@ -107,7 +107,7 @@ abstract class BaseFragmentActivity : FragmentActivity(), BaseActivityDelegate, 
      * @return
      */
     override fun getSession(): SessionService {
-        return app.session
+        return app.getSession()
     }
 
     override fun onStart() {

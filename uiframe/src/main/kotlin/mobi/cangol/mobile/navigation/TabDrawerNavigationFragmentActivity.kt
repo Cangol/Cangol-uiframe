@@ -21,8 +21,8 @@ abstract class TabDrawerNavigationFragmentActivity : BaseNavigationFragmentActiv
         this.setNavigationFragmentActivityDelegate(TabDrawerNavigationFragmentActivityDelegate(
                 this))
         super.onCreate(savedInstanceState)
-        this.customActionBar.titleGravity = Gravity.CENTER
-        this.customActionBar.setDisplayShowHomeEnabled(false)
+        this.getCustomActionBar().setTitleGravity(Gravity.CENTER)
+        this.getCustomActionBar().setDisplayShowHomeEnabled(false)
         //默认是不能滑动的
         this.setDrawerEnable(Gravity.LEFT, false)
         this.setDrawerEnable(Gravity.RIGHT, false)

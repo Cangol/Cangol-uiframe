@@ -28,7 +28,7 @@ abstract class BaseContentFragment : BaseFragment() {
         return if (abActivity == null) {
             throw IllegalStateException(GET_ACTIVITY_IS_NULL)
         } else {
-            abActivity.customActionBar
+            abActivity.getCustomActionBar()
         }
     }
 
@@ -50,7 +50,7 @@ abstract class BaseContentFragment : BaseFragment() {
     fun setTitle(title: String) {
         if (this.parentFragment != null) return
         this.title = title
-        getCustomActionBar().title = title
+        getCustomActionBar().setTitle(title)
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class BaseContentFragment : BaseFragment() {
      */
     fun enableRefresh(enable: Boolean) {
         checkNotNull(activity) { GET_ACTIVITY_IS_NULL }
-        (this.activity as ActionBarActivity).customActionBar.enableRefresh(enable)
+        (this.activity as ActionBarActivity).getCustomActionBar().enableRefresh(enable)
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class BaseContentFragment : BaseFragment() {
      */
     fun refreshing(refreshing: Boolean) {
         checkNotNull(activity) { GET_ACTIVITY_IS_NULL }
-        (this.activity as ActionBarActivity).customActionBar.refreshing(refreshing)
+        (this.activity as ActionBarActivity).getCustomActionBar().refreshing(refreshing)
     }
 
 
@@ -154,9 +154,9 @@ abstract class BaseContentFragment : BaseFragment() {
         if (parent == null) {
             checkNotNull(activity) { GET_ACTIVITY_IS_NULL }
             if (isCleanStack()) {
-                (this.activity as ActionBarActivity).customActionBar.displayHomeIndicator()
+                (this.activity as ActionBarActivity).getCustomActionBar().displayHomeIndicator()
             } else {
-                (this.activity as ActionBarActivity).customActionBar.displayUpIndicator()
+                (this.activity as ActionBarActivity).getCustomActionBar().displayUpIndicator()
             }
         }
     }
@@ -189,7 +189,7 @@ abstract class BaseContentFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         checkNotNull(this.activity) { GET_ACTIVITY_IS_NULL }
-        this.onMenuActionCreated((this.activity as ActionBarActivity).customActionBar.actionMenu)
+        this.onMenuActionCreated((this.activity as ActionBarActivity).getCustomActionBar().getActionMenu())
     }
 
     /**

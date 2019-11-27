@@ -48,9 +48,9 @@ internal class SlidingMenuNavigationFragmentActivityDelegate(
                 // 通知menu onClose
                 mActivity.notifyMenuOnClose()
                 if (mActivity.getCustomFragmentManager()!!.size() <= 1) {
-                    mActivity.customActionBar.displayHomeIndicator()
+                    mActivity.getCustomActionBar().displayHomeIndicator()
                 } else {
-                    mActivity.customActionBar.displayUpIndicator()
+                    mActivity.getCustomActionBar().displayUpIndicator()
                 }
 
             }
@@ -58,11 +58,11 @@ internal class SlidingMenuNavigationFragmentActivityDelegate(
             override fun onPanelOpened(view: View) {
                 // 通知menu onClose
                 mActivity.notifyMenuOnClose()
-                mActivity.customActionBar.displayUpIndicator()
+                mActivity.getCustomActionBar().displayUpIndicator()
             }
 
             override fun onPanelSlide(view: View, slideOffset: Float) {
-                mActivity.customActionBar.displayIndicator(slideOffset)
+                mActivity.getCustomActionBar().displayIndicator(slideOffset)
             }
 
         })

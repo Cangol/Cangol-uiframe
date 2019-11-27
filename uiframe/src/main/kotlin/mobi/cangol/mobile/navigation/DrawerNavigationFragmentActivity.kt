@@ -44,10 +44,10 @@ internal class DrawerMenuNavigationFragmentActivityDelegate(
                 Log.d("onDrawerClosed")
                 if (mActivity.getCustomFragmentManager()!!.size() <= 1) {
                     mDrawerMenuLayout!!.setDrawerLockMode(Gravity.LEFT, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    mActivity.customActionBar.displayHomeIndicator()
+                    mActivity.getCustomActionBar().displayHomeIndicator()
                 } else {
                     mDrawerMenuLayout!!.setDrawerLockMode(Gravity.LEFT, DrawerLayout.LOCK_MODE_UNLOCKED)
-                    mActivity.customActionBar.displayUpIndicator()
+                    mActivity.getCustomActionBar().displayUpIndicator()
                 }
                 // 通知menu onClose
                 mActivity.notifyMenuOnClose()
@@ -57,11 +57,11 @@ internal class DrawerMenuNavigationFragmentActivityDelegate(
                 Log.d("onDrawerOpened")
                 // 通知menu onOpen
                 mActivity.notifyMenuOnOpen()
-                mActivity.customActionBar.displayUpIndicator()
+                mActivity.getCustomActionBar().displayUpIndicator()
             }
 
             override fun onDrawerSlide(view: View, slideOffset: Float) {
-                mActivity.customActionBar.displayIndicator(slideOffset)
+                mActivity.getCustomActionBar().displayIndicator(slideOffset)
             }
 
             override fun onDrawerStateChanged(arg0: Int) {

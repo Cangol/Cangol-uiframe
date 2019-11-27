@@ -34,8 +34,8 @@ abstract class TabNavigationFragmentActivity : BaseNavigationFragmentActivity() 
         this.setNavigationFragmentActivityDelegate(TabNavigationFragmentActivityDelegate(
                 this))
         super.onCreate(savedInstanceState)
-        this.customActionBar.titleGravity = Gravity.CENTER
-        this.customActionBar.setDisplayShowHomeEnabled(false)
+        this.getCustomActionBar().setTitleGravity(Gravity.CENTER)
+        this.getCustomActionBar().setDisplayShowHomeEnabled(false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -86,21 +86,21 @@ internal class TabNavigationFragmentActivityDelegate(
 
     override fun showMenu(show: Boolean) {
         if (show) {
-            mMenuView!!.visibility = View.VISIBLE
+            mMenuView?.visibility = View.VISIBLE
         } else {
-            mMenuView!!.visibility = View.GONE
+            mMenuView?.visibility = View.GONE
         }
     }
 
     override fun isShowMenu(): Boolean {
-        return mMenuView!!.visibility == View.VISIBLE
+        return mMenuView?.visibility == View.VISIBLE
     }
 
     override fun setMenuEnable(enable: Boolean) {
         if (enable) {
-            mMenuView!!.visibility = View.VISIBLE
+            mMenuView?.visibility = View.VISIBLE
         } else {
-            mMenuView!!.visibility = View.GONE
+            mMenuView?.visibility = View.GONE
         }
     }
 
@@ -113,8 +113,8 @@ internal class TabNavigationFragmentActivityDelegate(
     }
 
     override fun attachToActivity(activity: Activity) {
-        val contentParent = getActivity().findViewById(android.R.id.content) as ViewGroup
-        val content = contentParent.getChildAt(0) as ViewGroup
+        val contentParent = getActivity().findViewById<ViewGroup>(android.R.id.content)
+        val content = contentParent?.getChildAt(0) as ViewGroup
         contentParent.removeView(content)
         contentParent.addView(mRootView, 0)
         getContentView().addView(content)
@@ -122,11 +122,11 @@ internal class TabNavigationFragmentActivityDelegate(
     }
 
     override fun setBackgroundColor(color: Int) {
-        mRootView!!.setBackgroundColor(color)
+        mRootView?.setBackgroundColor(color)
     }
 
     override fun setBackgroundResource(resId: Int) {
-        mRootView!!.setBackgroundResource(resId)
+        mRootView?.setBackgroundResource(resId)
     }
 
     override fun getMaskView(): FrameLayout {

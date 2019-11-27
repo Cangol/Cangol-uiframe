@@ -104,11 +104,11 @@ abstract class BaseActivity:Activity(), BaseActivityDelegate {
     }
 
     override fun getSession(): SessionService {
-        return app!!.session
+        return app!!.getSession()
     }
 
     override fun getAppService(name: String): AppService {
-        return app!!.getAppService(name)
+        return app?.getAppService(name)!!
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

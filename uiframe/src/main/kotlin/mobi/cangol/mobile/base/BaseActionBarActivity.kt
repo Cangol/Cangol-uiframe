@@ -44,7 +44,7 @@ abstract class BaseActionBarActivity : ActionBarActivity(), BaseActivityDelegate
         handler = InternalHandler(this, handlerThread!!.looper)
         app = this.application as CoreApplication
         app.addActivityToManager(this)
-        customActionBar.setDisplayShowHomeEnabled(true)
+        getCustomActionBar().setDisplayShowHomeEnabled(true)
     }
 
     override fun showToast(resId: Int) {
@@ -96,11 +96,11 @@ abstract class BaseActionBarActivity : ActionBarActivity(), BaseActivityDelegate
     }
 
     override fun getAppService(name: String): AppService {
-        return app.getAppService(name)
+        return app.getAppService(name)!!
     }
 
     override fun getSession(): SessionService {
-        return app.session
+        return app.getSession()
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
@@ -146,15 +146,15 @@ abstract class BaseActionBarActivity : ActionBarActivity(), BaseActivityDelegate
         imm.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
-    override fun onMenuActionCreated(actionMenu: ActionMenu?) {
+    override fun onMenuActionCreated(actionMenu: ActionMenu) {
         if (stack != null && stack!!.size() > 0 && stack!!.peek()!!.isEnable()) {
-            (stack!!.peek() as BaseContentFragment).onMenuActionCreated(actionMenu!!)
+            (stack!!.peek() as BaseContentFragment).onMenuActionCreated(actionMenu)
         }
     }
 
-    override fun onMenuActionSelected(action: ActionMenuItem?): Boolean {
+    override fun onMenuActionSelected(action: ActionMenuItem): Boolean {
         return if (null != stack && null != stack!!.peek() && stack!!.peek()!!.isEnable() && stack!!.peek()!!.isVisible) {
-            (stack!!.peek() as BaseContentFragment).onMenuActionSelected(action!!)
+            (stack!!.peek() as BaseContentFragment).onMenuActionSelected(action)
         } else false
     }
 

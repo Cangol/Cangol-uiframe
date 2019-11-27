@@ -43,16 +43,16 @@ abstract class BaseNavigationFragmentActivity : BaseActionBarActivity() {
         super.onCreate(savedInstanceState)
         this.window.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        mHelper!!.onCreate(savedInstanceState)
+        mHelper?.onCreate(savedInstanceState)
         this.initFragmentStack(getContentFrameId())
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        mHelper!!.attachToActivity(this)
+        mHelper?.attachToActivity(this)
         if (savedInstanceState != null) {
             val show = savedInstanceState.getBoolean(MENU_SHOW)
-            mHelper!!.showMenu(show)
+            mHelper?.showMenu(show)
         }
     }
 
@@ -63,16 +63,16 @@ abstract class BaseNavigationFragmentActivity : BaseActionBarActivity() {
 
     override fun setBackgroundColor(color: Int) {
         super.setBackgroundColor(color)
-        mHelper!!.setBackgroundColor(color)
+        mHelper?.setBackgroundColor(color)
     }
 
     override fun setBackgroundResource(resId: Int) {
         super.setBackgroundResource(resId)
-        mHelper!!.setBackgroundResource(resId)
+        mHelper?.setBackgroundResource(resId)
     }
 
-    override fun findViewById(id: Int): View? {
-        val v = super.findViewById(id)
+    override fun <T : View> findViewById(id: Int): T? {
+        val v = super.findViewById<T>(id)
         return v ?: mHelper!!.getRootView().findViewById(id)
     }
 
@@ -158,13 +158,12 @@ abstract class BaseNavigationFragmentActivity : BaseActionBarActivity() {
     }
 
     fun notifyMenuOnClose() {
-        if (menuFragmentReference != null && menuFragmentReference!!.get() != null)
-            menuFragmentReference!!.get()?.onClosed()
+            menuFragmentReference?.get()?.onClosed()
     }
 
     fun notifyMenuOnOpen() {
         if (menuFragmentReference != null && menuFragmentReference!!.get() != null)
-            menuFragmentReference!!.get()?.onOpen()
+            menuFragmentReference?.get()?.onOpen()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -176,7 +175,7 @@ abstract class BaseNavigationFragmentActivity : BaseActionBarActivity() {
     }
 
     companion object {
-        val MENU_SHOW = "MENU_SHOW"
-        private val MENU_TAG = "MenuFragment"
+        private const  val MENU_SHOW = "MENU_SHOW"
+        private const val MENU_TAG = "MenuFragment"
     }
 }
