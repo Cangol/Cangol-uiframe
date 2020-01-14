@@ -46,6 +46,12 @@ public class ActionMenuFragment extends BaseContentFragment {
 //                        .addMenu(3, R.string.action_add, R.drawable.ic_action_delete, 1);
             }
         });
+        getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setContentFragment(CleanFragment.class,null);
+            }
+        },2000L);
     }
 
     @Override
