@@ -47,7 +47,8 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     private CoreApplication app;
     private long startTime;
     private HandlerThread handlerThread;
-    private Handler handler;
+    private Handler threadHandler;
+    private Handler uiHandler;
     public float getIdleTime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
@@ -61,7 +62,8 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         startTime = System.currentTimeMillis();
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
-        handler = new InternalHandler(this,handlerThread.getLooper());
+        threadHandler = new InternalHandler(this,handlerThread.getLooper());
+        uiHandler= new InternalHandler(this,Looper.getMainLooper());
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
     }
@@ -196,14 +198,21 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
     }
 
     @Override
-    public Handler getHandler() {
-        return handler;
+    public Handler getUiHandler() {
+        return uiHandler;
     }
 
-    protected void postRunnable(StaticInnerRunnable runnable) {
-        if (handler!= null && runnable != null)
-            handler.post(runnable);
+    @Override
+    public Handler getThreadHandler() {
+        return threadHandler;
     }
+
+
+    protected void postRunnable(StaticInnerRunnable runnable) {
+        if (threadHandler!= null && runnable != null)
+            threadHandler.post(runnable);
+    }
+
     protected void handleMessage(Message msg) {
         // do somethings
     }

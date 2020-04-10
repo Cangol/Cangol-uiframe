@@ -128,10 +128,14 @@ public interface BaseActivityDelegate {
     void hideSoftInput(EditText editText);
 
     /**
-     * 获取一个主线程的Handler
+     * 获取主线程的Handler
      */
-    Handler getHandler();
+    Handler getUiHandler();
 
+    /**
+     * 获取共享线程的Handler
+     */
+    Handler getThreadHandler();
 
     @ColorInt
     int getThemeAttrColor(@AttrRes int colorAttr);

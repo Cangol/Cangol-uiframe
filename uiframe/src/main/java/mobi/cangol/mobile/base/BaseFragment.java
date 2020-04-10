@@ -54,9 +54,9 @@ public abstract class BaseFragment extends Fragment {
     private int resultCode = RESULT_CANCELED;
     private Bundle resultData;
     private CustomFragmentManager stack;
-    private InternalHandler handler;
     protected HandlerThread handlerThread;
-
+    private Handler threadHandler;
+    private Handler uiHandler;
     /**
      * 查找view
      *
@@ -173,7 +173,8 @@ public abstract class BaseFragment extends Fragment {
         Log.v(TAG, "onCreate");
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
-        handler = new InternalHandler(this, handlerThread.getLooper());
+        threadHandler = new BaseActionBarActivity.InternalHandler(getContext(),handlerThread.getLooper());
+        uiHandler= new BaseActionBarActivity.InternalHandler(getContext(),Looper.getMainLooper());
         app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState != null&&null != stack) {
            stack.restoreState(savedInstanceState);
@@ -237,7 +238,6 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        getHandler().getLooper().quit();
         handlerThread.quit();
         if (null != stack)stack.destroy();
         super.onDestroy();
@@ -757,8 +757,11 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    protected Handler getHandler() {
-        return handler;
+    protected Handler getUiHandler() {
+        return uiHandler;
+    }
+    protected Handler getThreadHandler() {
+        return threadHandler;
     }
 
     protected void handleMessage(Message msg) {
@@ -766,13 +769,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void postRunnable(StaticInnerRunnable runnable) {
-        if (handler != null && runnable != null)
-            handler.post(runnable);
+        if (threadHandler != null && runnable != null)
+            threadHandler.post(runnable);
     }
 
     protected void postRunnable(Runnable runnable) {
-        if (handler != null && runnable != null)
-            handler.post(runnable);
+        if (threadHandler != null && runnable != null)
+            threadHandler.post(runnable);
     }
 
     public boolean onKeyUp(int keyCode, KeyEvent event) {

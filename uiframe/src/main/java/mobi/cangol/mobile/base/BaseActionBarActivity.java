@@ -47,7 +47,8 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     protected CustomFragmentManager stack;
     private long startTime;
     private HandlerThread handlerThread;
-    private Handler handler;
+    private Handler threadHandler;
+    private Handler uiHandler;
     public float getIdleTime() {
         return (System.currentTimeMillis() - startTime) / 1000.0f;
     }
@@ -60,7 +61,8 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
         startTime = System.currentTimeMillis();
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
-        handler = new InternalHandler(this,handlerThread.getLooper());
+        threadHandler = new InternalHandler(this,handlerThread.getLooper());
+        uiHandler= new InternalHandler(this,Looper.getMainLooper());
         app = (CoreApplication) this.getApplication();
         app.addActivityToManager(this);
         getCustomActionBar().setDisplayShowHomeEnabled(true);
@@ -309,13 +311,18 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    public Handler getHandler() {
-        return handler;
+    public Handler getUiHandler() {
+        return uiHandler;
+    }
+
+    @Override
+    public Handler getThreadHandler() {
+        return threadHandler;
     }
 
     protected void postRunnable(StaticInnerRunnable runnable) {
-        if (handler!= null && runnable != null)
-            handler.post(runnable);
+        if (threadHandler!= null && runnable != null)
+            threadHandler.post(runnable);
     }
     protected void handleMessage(Message msg) {
         //do somethings
