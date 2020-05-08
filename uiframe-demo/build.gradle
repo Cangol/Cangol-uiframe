@@ -7,11 +7,11 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:design:$support_version"
 
-    implementation 'mobi.cangol.mobile:appcore:1.1.50'
-    implementation 'mobi.cangol.mobile:actionbar:1.1.8'
+    implementation 'mobi.cangol.mobile:appcore:1.1.61'
+    implementation 'mobi.cangol.mobile:actionbar:1.1.14'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.2'
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
 
