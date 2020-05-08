@@ -24,14 +24,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 
 import mobi.cangol.mobile.navigation.AbstractNavigationFragmentActivityDelegate;
 
 public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivity {
     public static final String MENU_SHOW = "MENU_SHOW";
     private static final String MENU_TAG = "MenuFragment";
-    private WeakReference<BaseMenuFragment> menuFragmentReference;
+    private SoftReference<BaseMenuFragment> menuFragmentReference;
     private AbstractNavigationFragmentActivityDelegate mHelper;
     protected boolean mFloatActionBarEnabled;
 
@@ -156,16 +156,14 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
     }
 
     public void setCurrentModuleId(int moduleId) {
-        if (menuFragmentReference == null||menuFragmentReference.get()==null) {
-            throw new IllegalStateException("menuFragment is null");
-        } else {
+        if (menuFragmentReference != null&&menuFragmentReference.get()!=null) {
             menuFragmentReference.get().setCurrentModuleId(moduleId);
         }
     }
 
     public final void setMenuFragment(Class<? extends BaseMenuFragment> fragmentClass, Bundle args) {
         BaseMenuFragment menuFragment = (BaseMenuFragment) Fragment.instantiate(this, fragmentClass.getName(), args);
-        menuFragmentReference=new WeakReference<>(menuFragment);
+        menuFragmentReference=new SoftReference<>(menuFragment);
         FragmentTransaction t = this.getSupportFragmentManager()
                 .beginTransaction();
         t.replace(mHelper.getMenuFrameId(), menuFragment, MENU_TAG);
@@ -199,7 +197,7 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         super.onRestoreInstanceState(savedInstanceState);
         BaseMenuFragment menuFragment = (BaseMenuFragment) getSupportFragmentManager().findFragmentByTag(MENU_TAG);
         if(menuFragment!=null){
-            menuFragmentReference=new WeakReference<>(menuFragment);
+            menuFragmentReference=new SoftReference<>(menuFragment);
         }
     }
 }
