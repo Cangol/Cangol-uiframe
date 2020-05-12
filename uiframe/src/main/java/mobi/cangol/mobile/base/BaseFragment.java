@@ -173,8 +173,8 @@ public abstract class BaseFragment extends Fragment {
         Log.v(TAG, "onCreate");
         handlerThread = new HandlerThread(TAG);
         handlerThread.start();
-        threadHandler = new BaseActionBarActivity.InternalHandler(getContext(),handlerThread.getLooper());
-        uiHandler= new BaseActionBarActivity.InternalHandler(getContext(),Looper.getMainLooper());
+        threadHandler = new InternalHandler(this,handlerThread.getLooper());
+        uiHandler= new InternalHandler(this,Looper.getMainLooper());
         app = (CoreApplication) this.getActivity().getApplication();
         if (savedInstanceState != null&&null != stack) {
            stack.restoreState(savedInstanceState);
