@@ -18,6 +18,7 @@ import java.util.List;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
+import mobi.cangol.mobile.utils.DeviceInfo;
 
 public class ListFragment extends BaseContentFragment {
     private ListView mListView;
@@ -119,9 +120,9 @@ public class ListFragment extends BaseContentFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextView textView=new TextView(parent.getContext());
+            View view=LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+            TextView textView=view.findViewById(android.R.id.text1);
             textView.setText(String.valueOf(getItem(position)));
-            textView.setPadding(24,24,24,24);
             return textView;
         }
     }

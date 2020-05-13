@@ -58,15 +58,6 @@ public abstract class BaseFragment extends Fragment {
     private Handler threadHandler;
     private Handler uiHandler;
     private View retainView;
-
-    public View getRetainView() {
-        return retainView;
-    }
-
-    public void setRetainView(View retainView) {
-        this.retainView = retainView;
-    }
-
     /**
      * 查找view
      *
@@ -193,10 +184,10 @@ public abstract class BaseFragment extends Fragment {
 
     public View onRetainView(int resource, ViewGroup container, boolean attachToRoot) {
         Log.v(TAG, "onRetainView");
-        if(getRetainView()==null){
-            setRetainView(getLayoutInflater().inflate(resource, container, attachToRoot));
+        if(retainView==null){
+            retainView=getLayoutInflater().inflate(resource, container, attachToRoot);
         }
-        return getRetainView();
+        return retainView;
     }
 
     @Override
@@ -256,6 +247,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        retainView=null;
         handlerThread.quit();
         if (null != stack)stack.destroy();
         super.onDestroy();
