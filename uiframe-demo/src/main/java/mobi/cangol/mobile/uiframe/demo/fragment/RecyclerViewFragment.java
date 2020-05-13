@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
@@ -21,11 +21,16 @@ public class RecyclerViewFragment extends BaseContentFragment {
     private RecyclerView mRecyclerView;
     private DataAdapter mDataAdapter;
     private NestedScrollView mScrollView;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDataAdapter=new DataAdapter();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_recyleview, container, false);
+        return onRetainView(R.layout.fragment_recyleview, container, false);
     }
 
     @Override
@@ -44,13 +49,12 @@ public class RecyclerViewFragment extends BaseContentFragment {
     @Override
     protected void findViews(View view) {
         mRecyclerView = findViewById(R.id.recyclerView);
-        //mScrollView=findViewById(R.id.scrollView);
+        mScrollView=findViewById(R.id.scrollView);
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
-        mDataAdapter = new DataAdapter(Arrays.asList(getResources().getStringArray(R.array.sts)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mDataAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -67,14 +71,34 @@ public class RecyclerViewFragment extends BaseContentFragment {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        getUiHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!isEnable())return;
+                String[] array=getResources().getStringArray(R.array.sts);
+                List<String> temp=new ArrayList<>();
+                for (int i = 0; i <array.length ; i++) {
+                    temp.add(array[i]);
+                }
+                mDataAdapter.cleanAddAll(temp);
+                Log.d(TAG,"cleanAddAll "+temp.size());
+            }
+        },3000L);
     }
 
     private static class DataAdapter extends RecyclerView.Adapter {
         private List<String> items;
-
+        DataAdapter() {
+            items=new ArrayList<>();
+        }
         DataAdapter(List<String> items) {
             super();
             this.items = items;
+        }
+        void cleanAddAll(List<String> list){
+            items.clear();
+            items.addAll(list);
+            this.notifyDataSetChanged();
         }
 
         @Override

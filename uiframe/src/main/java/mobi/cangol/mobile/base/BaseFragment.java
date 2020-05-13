@@ -57,6 +57,16 @@ public abstract class BaseFragment extends Fragment {
     protected HandlerThread handlerThread;
     private Handler threadHandler;
     private Handler uiHandler;
+    private View retainView;
+
+    public View getRetainView() {
+        return retainView;
+    }
+
+    public void setRetainView(View retainView) {
+        this.retainView = retainView;
+    }
+
     /**
      * 查找view
      *
@@ -179,6 +189,14 @@ public abstract class BaseFragment extends Fragment {
         if (savedInstanceState != null&&null != stack) {
            stack.restoreState(savedInstanceState);
         }
+    }
+
+    public View onRetainView(int resource, ViewGroup container, boolean attachToRoot) {
+        Log.v(TAG, "onRetainView");
+        if(getRetainView()==null){
+            setRetainView(getLayoutInflater().inflate(resource, container, attachToRoot));
+        }
+        return getRetainView();
     }
 
     @Override

@@ -21,14 +21,13 @@ public class HomeFragment extends BaseContentFragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return onRetainView(R.layout.fragment_home, container,false);
     }
 
     @Override
@@ -67,9 +66,10 @@ public class HomeFragment extends BaseContentFragment {
         list.add(HighLightFragment.class.getSimpleName().replace("Fragment", ""));
         if (getActivity() instanceof TabDrawerNavigationFragmentActivity)
             list.add(DrawerFragment.class.getSimpleName().replace("Fragment", ""));
-        //list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
-        //list.add(ListFragment.class.getSimpleName().replace("Fragment", ""));
-        //list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(WebFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(ListFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
