@@ -180,7 +180,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
     @Override
     public void onMenuActionCreated(ActionMenu actionMenu) {
-        if (stack != null && stack.size() > 0&&stack.peek().isEnable()) {
+        if (stack != null && stack.size() > 0&&null!=stack.peek()&&stack.peek().isEnable()) {
             ((BaseContentFragment) stack.peek()).onMenuActionCreated(actionMenu);
         }
     }
