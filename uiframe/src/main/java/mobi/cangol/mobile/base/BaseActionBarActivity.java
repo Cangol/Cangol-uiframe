@@ -117,6 +117,10 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
             Log.e(TAG,"Can not perform this action after onSaveInstanceState");
         }
     }
+    @Override
+    public void replaceFragment(Class<? extends BaseFragment> fragmentClass, String tag, Bundle args,int moduleId) {
+        this.replaceFragment(fragmentClass,tag,args);
+    }
 
     @Override
     public CustomFragmentManager getCustomFragmentManager() {

@@ -144,13 +144,14 @@ public abstract class BaseNavigationFragmentActivity extends BaseActionBarActivi
         return super.onKeyUp(keyCode, event);
     }
 
-    public int getCurrentMoudleId() {
+    public int getCurrentModuleId() {
         if (menuFragmentReference == null||menuFragmentReference.get()==null) {
             throw new IllegalStateException("menuFragment is null");
         } else {
             return menuFragmentReference.get().getCurrentModuleId();
         }
     }
+
     public BaseMenuFragment getMenuFragment() {
         if(menuFragmentReference!=null)
             return menuFragmentReference.get();

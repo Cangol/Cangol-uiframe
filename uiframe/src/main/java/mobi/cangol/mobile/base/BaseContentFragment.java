@@ -321,7 +321,12 @@ public abstract class BaseContentFragment extends BaseFragment {
      * @param moduleId
      */
     public final  void setContentFragment(Class<? extends BaseContentFragment> fragmentClass, String tag, Bundle args, int moduleId) {
-        this.setContentFragment(fragmentClass,tag,args);
+        if (this.getActivity() instanceof CustomFragmentActivityDelegate) {
+            CustomFragmentActivityDelegate bfActivity = (CustomFragmentActivityDelegate) this.getActivity();
+            bfActivity.replaceFragment(fragmentClass, tag, args,moduleId);
+        }else{
+            replaceFragment(fragmentClass, tag, args);
+        }
         notifyMenuChange(moduleId);
     }
 
