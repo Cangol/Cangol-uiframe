@@ -192,8 +192,6 @@ public abstract class BaseContentFragment extends BaseFragment {
         } else if(getActivity() instanceof BaseNavigationFragmentActivity ){
             BaseNavigationFragmentActivity bfActivity = (BaseNavigationFragmentActivity) this.getActivity();
             bfActivity.setCurrentModuleId(moduleId);
-        }else{
-            throw new IllegalStateException(GET_ACTIVITY_IS_NOT);
         }
     }
 
