@@ -37,28 +37,36 @@ public class CustomFragmentManager {
     private final Runnable execPendingTransactions = new Runnable() {
         @Override
         public void run() {
-            if (fragmentTransaction != null && fActivity != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    if (!fActivity.isFinishing() && !fActivity.isDestroyed()) {
-                        try {
-                            fragmentTransaction.commitAllowingStateLoss();
-                            fragmentManager.executePendingTransactions();
-                            fragmentTransaction = null;
-                        } catch (IllegalStateException e) {
-                            Log.e(STATE_TAG, "execPendingTransactions", e);
+            try {
+                if (fragmentTransaction != null && fActivity != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (!fActivity.isFinishing() && !fActivity.isDestroyed()) {
+                            try {
+                                fragmentTransaction.commitAllowingStateLoss();
+                                fragmentManager.executePendingTransactions();
+                                fragmentTransaction = null;
+                            } catch (IllegalStateException e) {
+                                Log.e(STATE_TAG, "execPendingTransactions", e);
+                            }
                         }
-                    }
-                } else {
-                    if (!fActivity.isFinishing()) {
-                        try {
-                            fragmentTransaction.commitAllowingStateLoss();
-                            fragmentManager.executePendingTransactions();
-                            fragmentTransaction = null;
-                        } catch (IllegalStateException e) {
-                            Log.e(STATE_TAG, "execPendingTransactions", e);
+                    } else {
+                        if (!fActivity.isFinishing()) {
+                            try {
+                                fragmentTransaction.commitAllowingStateLoss();
+                                fragmentManager.executePendingTransactions();
+                                fragmentTransaction = null;
+                            } catch (IllegalStateException e) {
+                                Log.e(STATE_TAG, "execPendingTransactions", e);
+                            }
                         }
                     }
                 }
+            }catch (OutOfMemoryError error){
+                if (!fActivity.isFinishing())
+                    fActivity.finish();
+            }catch (Exception e){
+                if (!fActivity.isFinishing())
+                    fActivity.finish();
             }
         }
     };
