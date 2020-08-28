@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    implementation "com.android.support:support-fragment:$support_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:support-v4:$support_version"
-    implementation "com.android.support:recyclerview-v7:$support_version"
-    implementation "com.android.support:design:$support_version"
+    implementation 'androidx.fragment:fragment:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     implementation 'mobi.cangol.mobile:appcore:1.1.61'
     implementation 'mobi.cangol.mobile:actionbar:1.1.14'

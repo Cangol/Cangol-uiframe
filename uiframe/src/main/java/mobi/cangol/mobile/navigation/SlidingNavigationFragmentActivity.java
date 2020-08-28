@@ -17,7 +17,7 @@ package mobi.cangol.mobile.navigation;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
+import androidx.slidingpanelayout.widget.SlidingPaneLayout.PanelSlideListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;

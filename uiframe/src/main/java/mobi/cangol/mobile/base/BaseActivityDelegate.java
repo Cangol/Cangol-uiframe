@@ -17,8 +17,8 @@ package mobi.cangol.mobile.base;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
 import android.widget.EditText;
 
 import mobi.cangol.mobile.service.AppService;

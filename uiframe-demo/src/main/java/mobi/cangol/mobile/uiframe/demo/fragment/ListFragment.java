@@ -1,13 +1,11 @@
 package mobi.cangol.mobile.uiframe.demo.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
-import mobi.cangol.mobile.base.FragmentInfo;
 import mobi.cangol.mobile.uiframe.demo.R;
-import mobi.cangol.mobile.utils.DeviceInfo;
 
 public class ListFragment extends BaseContentFragment {
     private ListView mListView;

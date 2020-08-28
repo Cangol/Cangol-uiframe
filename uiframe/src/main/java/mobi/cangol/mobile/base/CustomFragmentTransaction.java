@@ -15,7 +15,7 @@
  */
 package mobi.cangol.mobile.base;
 
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class CustomFragmentTransaction {
