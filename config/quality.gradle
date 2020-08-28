@@ -1,5 +1,4 @@
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
 apply plugin: 'pmd'
 /*
  *
@@ -33,27 +32,7 @@ task checkstyle(type: Checkstyle, dependsOn: 'compileDebugSources') {
     classpath = files()
 }
 
-task findbugs(type: FindBugs, dependsOn: 'compileDebugSources') {
 
-    ignoreFailures = true
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = new File("${project.rootDir}/config/quality/findbugs/findbugs-filter.xml")
-    classes = files("${project.rootDir}/app/build/intermediates/classes")
-
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-        xml.setDestination(new File("$project.buildDir/reports/findbugs/findbugs.xml"))
-        html.setDestination(new File("$project.buildDir/reports/findbugs/findbugs.html"))
-    }
-
-    classpath = files()
-}
 
 task pmd(type: Pmd, dependsOn: 'compileDebugSources') {
     ignoreFailures = true
