@@ -72,7 +72,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         this.mShownByMe = true;
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(this, tag);
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     public int show(FragmentTransaction transaction, String tag) {
@@ -80,7 +80,7 @@ public abstract class BaseDialogFragment extends BaseFragment implements DialogI
         this.mShownByMe = true;
         transaction.add(this, tag);
         this.mViewDestroyed = false;
-        this.mBackStackId = transaction.commit();
+        this.mBackStackId = transaction.commitAllowingStateLoss();
         return this.mBackStackId;
     }
 
