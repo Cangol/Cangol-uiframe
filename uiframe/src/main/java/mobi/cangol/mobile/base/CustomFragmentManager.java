@@ -299,13 +299,14 @@ public class CustomFragmentManager {
     public boolean popBackStack() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            fragmentManager.popBackStack();
+            BaseFragment baseFragment=null;
             synchronized (lock) {
-                BaseFragment baseFragment = stack.popFragment();
+                baseFragment = stack.popFragment();
                 stack.popTag();
-                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
-                    baseFragment.notifyResult();
-                }
+            }
+            fragmentManager.popBackStack();
+            if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                baseFragment.notifyResult();
             }
             return true;
         }
@@ -315,10 +316,10 @@ public class CustomFragmentManager {
     public boolean popBackStack(String tag, int flag) {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            fragmentManager.popBackStack(tag, flag);
             synchronized (lock) {
                 stack.popFragment(tag, flag);
             }
+            fragmentManager.popBackStack(tag, flag);
             return true;
         }
         return false;
@@ -327,10 +328,10 @@ public class CustomFragmentManager {
     public boolean popBackStackImmediate(String tag, int flag) {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            fragmentManager.popBackStackImmediate(tag, flag);
             synchronized (lock) {
                 stack.popFragment(tag, flag);
             }
+            fragmentManager.popBackStackImmediate(tag, flag);
             return true;
         }
         return false;
@@ -339,13 +340,14 @@ public class CustomFragmentManager {
     public boolean popBackStackImmediate() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            fragmentManager.popBackStackImmediate();
+            BaseFragment baseFragment=null;
             synchronized (lock) {
-                BaseFragment baseFragment = stack.popFragment();
+                baseFragment = stack.popFragment();
                 stack.popTag();
-                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
-                    baseFragment.notifyResult();
-                }
+            }
+            fragmentManager.popBackStackImmediate();
+            if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                baseFragment.notifyResult();
             }
             return true;
         }
