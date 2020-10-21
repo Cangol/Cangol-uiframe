@@ -57,7 +57,6 @@ public abstract class BaseFragment extends Fragment {
     protected HandlerThread handlerThread;
     private Handler threadHandler;
     private Handler uiHandler;
-    private View retainView;
     /**
      * 查找view
      *
@@ -182,14 +181,6 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public View onRetainView(int resource, ViewGroup container, boolean attachToRoot) {
-        Log.v(TAG, "onRetainView");
-        if(retainView==null){
-            retainView=getLayoutInflater().inflate(resource, container, attachToRoot);
-        }
-        return retainView;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView");
@@ -247,7 +238,6 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        retainView=null;
         handlerThread.quit();
         if (null != stack)stack.destroy();
         super.onDestroy();

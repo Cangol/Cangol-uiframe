@@ -5,9 +5,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
-    implementation 'mobi.cangol.mobile:appcore:1.2.0'
+    implementation 'mobi.cangol.mobile:appcore:1.2.1'
     implementation 'mobi.cangol.mobile:actionbar:1.2.0'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
@@ -16,7 +16,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
 
     //leak canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }
 
 android {
