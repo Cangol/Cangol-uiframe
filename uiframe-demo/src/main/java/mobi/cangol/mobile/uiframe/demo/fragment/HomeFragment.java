@@ -27,7 +27,8 @@ public class HomeFragment extends BaseContentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return onRetainView(R.layout.fragment_home, container,false);
+        //return onRetainView(R.layout.fragment_home, container,false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
