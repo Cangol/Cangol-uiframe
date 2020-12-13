@@ -299,15 +299,14 @@ public class CustomFragmentManager {
     public boolean popBackStack() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            BaseFragment baseFragment=null;
             synchronized (lock) {
-                baseFragment = stack.popFragment();
+                BaseFragment baseFragment = stack.popFragment();
+                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                    baseFragment.notifyResult();
+                }
                 stack.popTag();
             }
             fragmentManager.popBackStack();
-            if (baseFragment != null && baseFragment.getTargetFragment() != null) {
-                baseFragment.notifyResult();
-            }
             return true;
         }
         return false;
@@ -340,15 +339,14 @@ public class CustomFragmentManager {
     public boolean popBackStackImmediate() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
-            BaseFragment baseFragment=null;
             synchronized (lock) {
-                baseFragment = stack.popFragment();
+                BaseFragment baseFragment = stack.popFragment();
+                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                    baseFragment.notifyResult();
+                }
                 stack.popTag();
             }
             fragmentManager.popBackStackImmediate();
-            if (baseFragment != null && baseFragment.getTargetFragment() != null) {
-                baseFragment.notifyResult();
-            }
             return true;
         }
         return false;
