@@ -7,7 +7,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'
 
-    implementation 'mobi.cangol.mobile:appcore:1.2.1'
+    implementation 'mobi.cangol.mobile:appcore:1.2.0'
     implementation 'mobi.cangol.mobile:actionbar:1.2.0'
     implementation project(':uiframe')
     implementation 'com.isanwenyu.highlight:highlight:1.8.0'
