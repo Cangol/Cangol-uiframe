@@ -312,6 +312,21 @@ public class CustomFragmentManager {
         return false;
     }
 
+    public boolean popBackStack(boolean cleanFirst) {
+        if (fragmentManager.isDestroyed() || isStateSaved()) return false;
+        if (cleanFirst||stack.size() > 1) {
+            fragmentManager.popBackStack();
+            synchronized (lock) {
+                BaseFragment baseFragment = stack.popFragment();
+                stack.popTag();
+                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                    baseFragment.notifyResult();
+                }
+            }
+            return true;
+        }
+        return false;
+    }
     public boolean popBackStack(String tag, int flag) {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
