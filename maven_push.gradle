@@ -36,42 +36,42 @@ bintray (){
     }
 }
 
-install {
-    repositories.mavenInstaller {
-        //This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging POM_PACKAGING
-                groupId POM_GROUP_ID
-                artifactId POM_ARTIFACT_ID
-
-                // Add your description here
-                name POM_NAME
-                description POM_DESCRIPTION
-                url POM_URL
-
-                // Set your license
-                licenses {
-                    license {
-                        name POM_LICENSE_NAME
-                        url POM_LICENSE_URL
-                        distribution POM_LICENCE_DIST
-                    }
-                }
-                developers {
-                    developer {
-                        id POM_DEVELOPER_ID
-                        name POM_DEVELOPER_NAME
-                        email POM_DEVELOPER_EMAIL
-                    }
-                }
-                scm {
-                    connection POM_SCM_CONNECTION
-                    developerConnection POM_SCM_DEV_CONNECTION
-                    url POM_SCM_URL
-
-                }
-            }
-        }
-    }
-}
+//install {
+//    repositories.mavenInstaller {
+//        //This generates POM.xml with proper parameters
+//        pom {
+//            project {
+//                packaging POM_PACKAGING
+//                groupId POM_GROUP_ID
+//                artifactId POM_ARTIFACT_ID
+//
+//                // Add your description here
+//                name POM_NAME
+//                description POM_DESCRIPTION
+//                url POM_URL
+//
+//                // Set your license
+//                licenses {
+//                    license {
+//                        name POM_LICENSE_NAME
+//                        url POM_LICENSE_URL
+//                        distribution POM_LICENCE_DIST
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id POM_DEVELOPER_ID
+//                        name POM_DEVELOPER_NAME
+//                        email POM_DEVELOPER_EMAIL
+//                    }
+//                }
+//                scm {
+//                    connection POM_SCM_CONNECTION
+//                    developerConnection POM_SCM_DEV_CONNECTION
+//                    url POM_SCM_URL
+//
+//                }
+//            }
+//        }
+//    }
+//}
