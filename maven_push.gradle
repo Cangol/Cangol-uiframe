@@ -1,87 +1,9 @@
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 version = POM_VERSION
 group= POM_GROUP_ID
 
-bintray (){
-
-    user = 'cangol'
-    key = '60f11531c76078139c54e6bb10af74b3f2965bef'
-
-
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = POM_NAME
-        desc = POM_DESCRIPTION
-        websiteUrl = POM_URL
-        issueTrackerUrl = POM_URL+'/issues'
-        vcsUrl = POM_SCM_CONNECTION
-        licenses = ["Apache-2.0"]
-        labels = ['android']
-        publish = true
-        publicDownloadNumbers = true
-
-        version {
-            vcsTag = POM_VERSION
-            desc = POM_DESCRIPTION
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = 'wxw3606266'
-                //Optional. The passphrase for GPG signing'
-            }
-        }
-    }
-}
-
-install {
-    repositories.mavenInstaller {
-        //This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging POM_PACKAGING
-                groupId POM_GROUP_ID
-                artifactId POM_ARTIFACT_ID
-
-                // Add your description here
-                name POM_NAME
-                description POM_DESCRIPTION
-                url POM_URL
-
-                // Set your license
-                licenses {
-                    license {
-                        name POM_LICENSE_NAME
-                        url POM_LICENSE_URL
-                        distribution POM_LICENCE_DIST
-                    }
-                }
-                developers {
-                    developer {
-                        id POM_DEVELOPER_ID
-                        name POM_DEVELOPER_NAME
-                        email POM_DEVELOPER_EMAIL
-                    }
-                }
-                scm {
-                    connection POM_SCM_CONNECTION
-                    developerConnection POM_SCM_DEV_CONNECTION
-                    url POM_SCM_URL
-
-                }
-            }
-        }
-    }
-}
-signing {
-    def signingKey = "YKgNBwgt"
-    def signingPassword = "UJQdJS4LNg8UWIJ3yNKxQKQBqLlTuM/vmVpu93dPuM2m"
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign configurations.archives
-}
 afterEvaluate {
     publishing {
         repositories {
@@ -93,14 +15,15 @@ afterEvaluate {
                 url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
             }
         }
-//        artifacts {
-//            archives sourcesJar
-//            archives javadocJar
-//        }
+        signing {
+            sign publishing.publications
+        }
         publications {
-            maven(MavenPublication) {
+            mavenJava(MavenPublication) {
                 artifactId = POM_ARTIFACT_ID
-                artifact(bundleReleaseAar)
+                artifact bundleReleaseAar
+                artifact javadocJar
+                artifact sourcesJar
                 pom {
                     name = POM_NAME
                     description = POM_DESCRIPTION

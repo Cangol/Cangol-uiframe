@@ -1,12 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'net.saliman.cobertura'
 apply from: '../maven_push.gradle'
 apply from: '../config/quality.gradle'
 apply plugin: 'com.jakewharton.hugo'
-
 dependencies {
     implementation 'mobi.cangol.mobile:appcore:1.1.80'
     implementation 'mobi.cangol.mobile:actionbar:1.1.20'
