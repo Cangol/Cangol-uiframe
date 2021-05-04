@@ -17,7 +17,7 @@ public class MenuFragment extends BaseMenuFragment {
     public TextView textView1;
     public TextView textView2;
 
-    private boolean isBottom=true;
+    private boolean isBottom = true;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(HomeFragment.class, "TestFragment", null, MODULE_HOME);
+                setContentFragment(HomeFragment.class, HomeFragment.class.getName(), null, MODULE_HOME);
             }
 
         });
@@ -75,7 +75,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(CleanFragment.class, "CleanFragment", null, MODULE_CLEAN);
+                setContentFragment(CleanFragment.class, CleanFragment.class.getName(), null, MODULE_CLEAN);
             }
 
         });

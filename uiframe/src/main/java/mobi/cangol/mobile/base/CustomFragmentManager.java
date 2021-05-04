@@ -154,6 +154,7 @@ public class CustomFragmentManager {
     }
 
     public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+        Log.v(STATE_TAG, "replace clazz="+clazz+",tag="+tag+",args="+args);
         if (fragmentManager.isDestroyed() || isStateSaved()) return;
         if (clazz.isAssignableFrom(BaseDialogFragment.class))
             throw new IllegalStateException("DialogFragment can not be attached to a container view");
@@ -168,7 +169,12 @@ public class CustomFragmentManager {
                         stack.popFragment();
                         stack.popTag();
                     }
-                    fragmentManager.popBackStack();
+                    if(stack.size()>1)
+                        fragmentManager.popBackStack();
+                    else{
+                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                        beginTransaction().detach(top);
+                    }
                 }
             } else {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");
@@ -193,6 +199,7 @@ public class CustomFragmentManager {
         } else {
             Log.i(STATE_TAG, "fragment is exist");
             if (fragment.isCleanStack()) {
+                Log.i(STATE_TAG, "stack size="+stack.size());
                 if (stack.size() == 1) {
                     if (stack.peekTag().equals(tag)) {
                         return;
@@ -201,8 +208,8 @@ public class CustomFragmentManager {
                             stack.popFragment();
                             stack.popTag();
                         }
-                        fragmentManager.popBackStack();
-                        fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                        beginTransaction().detach(top);
                     }
                 } else {
                     Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all");
@@ -211,9 +218,13 @@ public class CustomFragmentManager {
                             stack.popFragment();
                             stack.popTag();
                         }
-                        fragmentManager.popBackStack();
+                        if(stack.size()>1)
+                            fragmentManager.popBackStack();
+                        else{
+                            BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                            beginTransaction().detach(top);
+                        }
                     }
-                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }
             } else {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");

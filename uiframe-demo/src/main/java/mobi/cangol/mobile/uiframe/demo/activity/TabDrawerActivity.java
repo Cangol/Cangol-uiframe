@@ -26,7 +26,7 @@ public class TabDrawerActivity extends TabDrawerNavigationFragmentActivity {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",true);
 			this.setMenuFragment(MenuFragment.class,bundle);
-			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
+			this.setContentFragment(HomeFragment.class, HomeFragment.class.getName(), null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);

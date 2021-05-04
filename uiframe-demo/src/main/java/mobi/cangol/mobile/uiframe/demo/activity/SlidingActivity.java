@@ -10,6 +10,7 @@ import mobi.cangol.mobile.uiframe.demo.R;
 import mobi.cangol.mobile.uiframe.demo.LeakSingleton;
 import mobi.cangol.mobile.uiframe.demo.fragment.HomeFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.ItemFragment;
+import mobi.cangol.mobile.uiframe.demo.fragment.ListFragment;
 import mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment;
 
 @SuppressLint("ResourceAsColor")
@@ -27,7 +28,7 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",false);
 			this.setMenuFragment(MenuFragment.class,bundle);
-			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
+			this.setContentFragment(HomeFragment.class, HomeFragment.class.getName(), null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
@@ -38,7 +39,7 @@ public class SlidingActivity extends SlidingNavigationFragmentActivity {
 		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(ItemFragment.class, "ItemFragment", new Bundle(), MenuFragment.MODULE_CLEAN);
+				setContentFragment(ItemFragment.class, ItemFragment.class.getName(), new Bundle(), MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}

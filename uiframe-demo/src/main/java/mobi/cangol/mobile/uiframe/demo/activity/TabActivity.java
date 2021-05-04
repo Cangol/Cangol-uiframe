@@ -29,7 +29,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 			Bundle bundle=new Bundle();
 			bundle.putBoolean("isBottom",true);
 			this.setMenuFragment(MenuFragment.class,bundle);
-			this.setContentFragment(HomeFragment.class, "TestFragment", null, MenuFragment.MODULE_HOME);
+			this.setContentFragment(HomeFragment.class, HomeFragment.class.getName(), null, MenuFragment.MODULE_HOME);
 		}
 		findViews();
 		initViews(savedInstanceState);
@@ -40,7 +40,7 @@ public class TabActivity extends TabNavigationFragmentActivity {
 		LeakSingleton.getInstance().setOnTestListener(new LeakSingleton.OnTestListener() {
 			@Override
 			public void onTest() {
-				setContentFragment(ListFragment.class, "ListFragment", null, MenuFragment.MODULE_CLEAN);
+				setContentFragment(ListFragment.class,ListFragment.class.getName(), null, MenuFragment.MODULE_CLEAN);
 			}
 		});
 	}
