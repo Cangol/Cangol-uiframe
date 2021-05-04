@@ -25,6 +25,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -32,6 +33,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import androidx.annotation.RequiresApi;
 
 import java.lang.reflect.Method;
 
@@ -234,11 +237,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
         }
     }
     public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
-        // get the window background
-        TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
-        int background = a.getResourceId(0, 0);
-        a.recycle();
-
         this.isFloatActionBarEnabled = isFloatActionBarEnabled;
 
         if (isFloatActionBarEnabled) {
@@ -247,9 +245,6 @@ public class SlidingMenuLayout extends PagerEnabledSlidingPaneLayout {
             if (decorChild.getBackground() != null) {
                 this.setBackgroundDrawable(decorChild.getBackground());
                 decorChild.setBackgroundDrawable(null);
-            } else {
-                if (this.getBackground() == null)
-                    this.setBackgroundResource(background);
             }
             decor.removeView(decorChild);
             decor.addView(this.getRootView(), 0);

@@ -6,10 +6,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -235,11 +238,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
         mLeftView.setBackgroundResource(resId);
     }
     public void attachToActivity(Activity activity, boolean isFloatActionBarEnabled) {
-        // get the window background
-        TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
-        int background = a.getResourceId(0, 0);
-        a.recycle();
-
         this.isFloatActionBarEnabled = isFloatActionBarEnabled;
 
         if (isFloatActionBarEnabled) {
@@ -248,9 +246,6 @@ public class TabMenuDrawerLayout extends DrawerLayout  {
             if (decorChild.getBackground() != null) {
                 this.setBackgroundDrawable(decorChild.getBackground());
                 decorChild.setBackgroundDrawable(null);
-            } else {
-                if (this.getBackground() == null)
-                    this.setBackgroundResource(background);
             }
             decor.removeView(decorChild);
             decor.addView(this, 0);
