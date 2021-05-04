@@ -169,7 +169,7 @@ public class CustomFragmentManager {
                         stack.popFragment();
                         stack.popTag();
                     }
-                    if(stack.size()>1)
+                    if(fragmentManager.getBackStackEntryCount() > 1)
                         fragmentManager.popBackStack();
                     else{
                         BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
@@ -218,7 +218,7 @@ public class CustomFragmentManager {
                             stack.popFragment();
                             stack.popTag();
                         }
-                        if(stack.size()>1)
+                        if(fragmentManager.getBackStackEntryCount() > 1)
                             fragmentManager.popBackStack();
                         else{
                             BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
