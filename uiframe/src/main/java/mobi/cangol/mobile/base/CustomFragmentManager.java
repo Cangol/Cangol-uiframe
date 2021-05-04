@@ -168,7 +168,12 @@ public class CustomFragmentManager {
                         stack.popFragment();
                         stack.popTag();
                     }
-                    fragmentManager.popBackStack();
+                    if(fragmentManager.getBackStackEntryCount() > 1)
+                        fragmentManager.popBackStack();
+                    else{
+                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                        beginTransaction().detach(top);
+                    }
                 }
             } else {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");
@@ -201,8 +206,8 @@ public class CustomFragmentManager {
                             stack.popFragment();
                             stack.popTag();
                         }
-                        fragmentManager.popBackStack();
-                        fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                        beginTransaction().detach(top);
                     }
                 } else {
                     Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all");
@@ -211,9 +216,13 @@ public class CustomFragmentManager {
                             stack.popFragment();
                             stack.popTag();
                         }
-                        fragmentManager.popBackStack();
+                        if(fragmentManager.getBackStackEntryCount() > 1)
+                            fragmentManager.popBackStack();
+                        else{
+                            BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                            beginTransaction().detach(top);
+                        }
                     }
-                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }
             } else {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");
