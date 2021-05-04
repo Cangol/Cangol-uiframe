@@ -24,4 +24,23 @@
         android:padding="8dp"
         android:text="Clean"
         android:textColor="@color/menu_text_selector" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Tab"
+        android:textColor="@color/menu_text_selector" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="TabPage"
+        android:textColor="@color/menu_text_selector" />
 </LinearLayout>

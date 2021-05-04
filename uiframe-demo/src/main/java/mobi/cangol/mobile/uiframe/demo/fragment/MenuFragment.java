@@ -13,10 +13,8 @@ import mobi.cangol.mobile.uiframe.demo.R;
 public class MenuFragment extends BaseMenuFragment {
     public static final int MODULE_HOME = 0;
     public static final int MODULE_CLEAN = 1;
-
-    public TextView textView1;
-    public TextView textView2;
-
+    public static final int MODULE_TAB = 2;
+    public static final int MODULE_TABPAGES = 3;
     private boolean isBottom = true;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -57,13 +55,11 @@ public class MenuFragment extends BaseMenuFragment {
 
     @Override
     protected void findViews(View v) {
-        textView1 = (TextView) v.findViewById(R.id.textView1);
-        textView2 = (TextView) v.findViewById(R.id.textView2);
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        textView1.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.textView1).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -71,11 +67,27 @@ public class MenuFragment extends BaseMenuFragment {
             }
 
         });
-        textView2.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.textView2).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 setContentFragment(CleanFragment.class, CleanFragment.class.getName(), null, MODULE_CLEAN);
+            }
+
+        });
+        findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setContentFragment(TabsFragment.class, TabsFragment.class.getName(), null, MODULE_TAB);
+            }
+
+        });
+        findViewById(R.id.textView4).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setContentFragment(TabPagesFragment.class, TabPagesFragment.class.getName(), null, MODULE_TABPAGES);
             }
 
         });
@@ -99,7 +111,9 @@ public class MenuFragment extends BaseMenuFragment {
     }
 
     private void updateFocus(int moduleId) {
-        textView1.setSelected(MODULE_HOME == moduleId);
-        textView2.setSelected(MODULE_CLEAN == moduleId);
+        findViewById(R.id.textView1).setSelected(MODULE_HOME == moduleId);
+        findViewById(R.id.textView2).setSelected(MODULE_CLEAN == moduleId);
+        findViewById(R.id.textView3).setSelected(MODULE_TAB == moduleId);
+        findViewById(R.id.textView4).setSelected(MODULE_TABPAGES == moduleId);
     }
 }
