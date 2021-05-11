@@ -9,6 +9,8 @@ import android.widget.TextView;
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.uiframe.demo.R;
 
+import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_CLEAN;
+
 public class ResultFragment extends BaseContentFragment {
 	
 	private TextView mTextView1;
@@ -52,8 +54,11 @@ public class ResultFragment extends BaseContentFragment {
 		mTextView1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setResult(RESULT_OK);
-				popBackStack();
+
+				setContentFragment(CleanFragment.class, CleanFragment.class.getName(), null, MODULE_CLEAN);
+//
+//				setResult(RESULT_OK);
+//				popBackStack();
 			}
 		});
 	}

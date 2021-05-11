@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import mobi.cangol.mobile.base.BaseContentFragment;
 import mobi.cangol.mobile.uiframe.demo.R;
+
+import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_CLEAN;
+import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_HOME;
 
 public class CleanFragment extends BaseContentFragment {
 
@@ -14,7 +18,7 @@ public class CleanFragment extends BaseContentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_result, container, false);
     }
 
     @Override
@@ -38,6 +42,13 @@ public class CleanFragment extends BaseContentFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
+        ((TextView)findViewById(R.id.textView1)).setText("Click me");
+        findViewById(R.id.textView1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentFragment(ResultFragment.class, ResultFragment.class.getName(), null);
+            }
+        });
     }
 
     @Override
