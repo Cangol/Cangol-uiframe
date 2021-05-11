@@ -154,6 +154,7 @@ public class CustomFragmentManager {
     }
 
     public void replace(Class<? extends BaseFragment> clazz, String tag, Bundle args, CustomFragmentTransaction customFragmentTransaction) {
+        Log.v(STATE_TAG, "replace clazz="+clazz+",tag="+tag+",args="+args);
         if (fragmentManager.isDestroyed() || isStateSaved()) return;
         if (clazz.isAssignableFrom(BaseDialogFragment.class))
             throw new IllegalStateException("DialogFragment can not be attached to a container view");
@@ -164,15 +165,18 @@ public class CustomFragmentManager {
             if (fragment.isCleanStack()) {
                 Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all");
                 while (stack.size() > 0) {
+                    BaseFragment temp;
                     synchronized (lock) {
-                        stack.popFragment();
+                        temp=stack.popFragment();
                         stack.popTag();
                     }
-                    if(fragmentManager.getBackStackEntryCount() > 1)
+                    Log.v(STATE_TAG, "FragmentStackSize="+stack.size()+" backStackEntryCount="+fragmentManager.getBackStackEntryCount());
+                    if(stack.size() > 0)
                         fragmentManager.popBackStack();
                     else{
-                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
-                        beginTransaction().detach(top);
+                        BaseFragment top = temp;
+                        Log.v(STATE_TAG, "detach="+top);
+                        if(top!=null)beginTransaction().detach(top);
                     }
                 }
             } else {
@@ -198,6 +202,7 @@ public class CustomFragmentManager {
         } else {
             Log.i(STATE_TAG, "fragment is exist");
             if (fragment.isCleanStack()) {
+                Log.i(STATE_TAG, "stack size="+stack.size());
                 if (stack.size() == 1) {
                     if (stack.peekTag().equals(tag)) {
                         return;
@@ -207,20 +212,27 @@ public class CustomFragmentManager {
                             stack.popTag();
                         }
                         BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
-                        beginTransaction().detach(top);
+                        Log.v(STATE_TAG, "detach="+top);
+                        if(top!=null)beginTransaction().detach(top);
                     }
                 } else {
                     Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all");
                     while (stack.size() > 0) {
+                        if (stack.peekTag().equals(tag)) {
+                            return;
+                        }
+                        BaseFragment temp;
                         synchronized (lock) {
-                            stack.popFragment();
+                            temp=stack.popFragment();
                             stack.popTag();
                         }
-                        if(fragmentManager.getBackStackEntryCount() > 1)
+                        Log.v(STATE_TAG, "FragmentStackSize="+stack.size()+" backStackEntryCount="+fragmentManager.getBackStackEntryCount());
+                        if(stack.size() > 0)
                             fragmentManager.popBackStack();
                         else{
-                            BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
-                            beginTransaction().detach(top);
+                            BaseFragment top = temp;
+                            Log.v(STATE_TAG, "detach="+top);
+                            if(top!=null)beginTransaction().detach(top);
                         }
                     }
                 }
@@ -262,7 +274,6 @@ public class CustomFragmentManager {
                 }
             }
         }
-
         attachFragment(fragment, tag);
         synchronized (lock) {
             stack.addFragment(fragment);
@@ -308,26 +319,41 @@ public class CustomFragmentManager {
     public boolean popBackStack() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
+            fragmentManager.popBackStack();
             synchronized (lock) {
                 BaseFragment baseFragment = stack.popFragment();
+                stack.popTag();
                 if (baseFragment != null && baseFragment.getTargetFragment() != null) {
                     baseFragment.notifyResult();
                 }
-                stack.popTag();
             }
-            fragmentManager.popBackStack();
             return true;
         }
         return false;
     }
 
+    public boolean popBackStack(boolean cleanFirst) {
+        if (fragmentManager.isDestroyed() || isStateSaved()) return false;
+        if (cleanFirst||stack.size() > 1) {
+            fragmentManager.popBackStack();
+            synchronized (lock) {
+                BaseFragment baseFragment = stack.popFragment();
+                stack.popTag();
+                if (baseFragment != null && baseFragment.getTargetFragment() != null) {
+                    baseFragment.notifyResult();
+                }
+            }
+            return true;
+        }
+        return false;
+    }
     public boolean popBackStack(String tag, int flag) {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
+            fragmentManager.popBackStack(tag, flag);
             synchronized (lock) {
                 stack.popFragment(tag, flag);
             }
-            fragmentManager.popBackStack(tag, flag);
             return true;
         }
         return false;
@@ -336,10 +362,10 @@ public class CustomFragmentManager {
     public boolean popBackStackImmediate(String tag, int flag) {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
+            fragmentManager.popBackStackImmediate(tag, flag);
             synchronized (lock) {
                 stack.popFragment(tag, flag);
             }
-            fragmentManager.popBackStackImmediate(tag, flag);
             return true;
         }
         return false;
@@ -348,14 +374,14 @@ public class CustomFragmentManager {
     public boolean popBackStackImmediate() {
         if (fragmentManager.isDestroyed() || isStateSaved()) return false;
         if (stack.size() > 1) {
+            fragmentManager.popBackStackImmediate();
             synchronized (lock) {
                 BaseFragment baseFragment = stack.popFragment();
+                stack.popTag();
                 if (baseFragment != null && baseFragment.getTargetFragment() != null) {
                     baseFragment.notifyResult();
                 }
-                stack.popTag();
             }
-            fragmentManager.popBackStackImmediate();
             return true;
         }
         return false;
