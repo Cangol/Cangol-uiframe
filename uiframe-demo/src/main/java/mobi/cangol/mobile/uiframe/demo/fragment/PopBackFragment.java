@@ -91,7 +91,15 @@ public class PopBackFragment extends BaseContentFragment {
 
             @Override
             public void onClick(View v) {
-                popBackStack("PopBackFragment", -1);
+                popBackStack(null, 0);
+            }
+
+        });
+        findViewById(R.id.button31).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                popBackStack(null, 1);
             }
 
         });
@@ -99,7 +107,15 @@ public class PopBackFragment extends BaseContentFragment {
 
             @Override
             public void onClick(View v) {
-                popBackStackImmediate("PopBackFragment", -1);
+                popBackStack("PopBackFragment", 0);
+            }
+
+        });
+        findViewById(R.id.button41).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                popBackStack("PopBackFragment", 1);
             }
 
         });

@@ -692,6 +692,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * tag为null,flag=0:弹出回退栈中最上层的那个Fragment
+     * tag为null,flag=1:弹出回退栈中所有Fragment
+     * tag不为空,flag=0:弹出该Fragment以上的Fragment
+     * tag不为空,flag=1:弹出该Fragment（包括该Fragment）以上的Fragment
+     * @param tag 目标Fragment的tag
+     * @param flag 是否弹出（包含）当前fragment，值为1或0
+     */
     public final  void popBackStack(String tag,int flag) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {
@@ -705,6 +713,14 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+    /**
+     * tag为null,flag=0:弹出回退栈中最上层的那个Fragment
+     * tag为null,flag=1:弹出回退栈中所有Fragment
+     * tag不为空,flag=0:弹出该Fragment以上的Fragment
+     * tag不为空,flag=1:弹出该Fragment（包括该Fragment）以上的Fragment
+     * @param tag 目标Fragment的tag
+     * @param flag 是否弹出（包含）当前fragment，值为1或0
+     */
     public final  void popBackStackImmediate(String tag,int flag) {
         BaseFragment parent = (BaseFragment) this.getParentFragment();
         if (parent != null) {

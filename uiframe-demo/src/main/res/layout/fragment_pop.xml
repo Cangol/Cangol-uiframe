@@ -8,25 +8,28 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="next" />
-
 
     <Button
         android:id="@+id/button0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="popBackStackImmediate" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="popBackStack" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="popBackStackAll" />
 
 
@@ -34,12 +37,30 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="popBackStack(-1)" />
+        android:gravity="left"
+        android:textAllCaps="false"
+        android:text="popBackStack(null,0)\n弹出回退栈中最上层的那个Fragment" />
 
+    <Button
+        android:id="@+id/button31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAllCaps="false"
+        android:text="popBackStack(null,1)\n弹出回退栈中所有Fragment" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="popBackStackImmediate(-1)" />
+        android:gravity="left"
+        android:textAllCaps="false"
+        android:text="popBackStack(tag,0)\n弹出该Fragment以上的Fragment" />
+    <Button
+        android:id="@+id/button41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAllCaps="false"
+        android:text="popBackStack(tag,1)\n弹出该Fragment（包括该Fragment）以上的Fragment" />
 </LinearLayout>
