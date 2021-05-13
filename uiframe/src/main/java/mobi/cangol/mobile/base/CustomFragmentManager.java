@@ -171,7 +171,7 @@ public class CustomFragmentManager {
                         stack.popTag();
                     }
                     Log.v(STATE_TAG, "FragmentStackSize="+stack.size()+" backStackEntryCount="+fragmentManager.getBackStackEntryCount());
-                    if(stack.size() > 0)
+                    if(stack.size() > 0||!temp.isCleanStack())
                         fragmentManager.popBackStack();
                     else{
                         BaseFragment top = temp;
@@ -183,7 +183,7 @@ public class CustomFragmentManager {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");
                 if (fragment.isSingleton() && stack.containsTag(tag)) {
                     Log.i(STATE_TAG, "fragment isSingleton=true,while pop all");
-                    while (!tag.equals(stack.peekTag())) {
+                    while (stack.size() > 0&&!tag.equals(stack.peekTag())) {
                         synchronized (lock) {
                             stack.popFragment();
                             stack.popTag();
@@ -207,8 +207,9 @@ public class CustomFragmentManager {
                     if (stack.peekTag().equals(tag)) {
                         return;
                     } else {
+                        BaseFragment temp;
                         synchronized (lock) {
-                            stack.popFragment();
+                            temp=stack.popFragment();
                             stack.popTag();
                         }
                         BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
@@ -227,7 +228,7 @@ public class CustomFragmentManager {
                             stack.popTag();
                         }
                         Log.v(STATE_TAG, "FragmentStackSize="+stack.size()+" backStackEntryCount="+fragmentManager.getBackStackEntryCount());
-                        if(stack.size() > 0)
+                        if(stack.size() > 0&&!temp.isCleanStack())
                             fragmentManager.popBackStack();
                         else{
                             BaseFragment top = temp;
@@ -243,7 +244,7 @@ public class CustomFragmentManager {
                     fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 } else {
                     Log.i(STATE_TAG, "fragment isSingleton=true,while pop all");
-                    while (!tag.equals(stack.peekTag())) {
+                    while (stack.size() > 0&&!tag.equals(stack.peekTag())) {
                         synchronized (lock) {
                             stack.popFragment();
                             stack.popTag();
