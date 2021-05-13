@@ -70,6 +70,9 @@ public class HomeFragment extends BaseContentFragment {
         list.add(ListFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(ScrollFragment.class.getSimpleName().replace("Fragment", ""));
+
+
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
