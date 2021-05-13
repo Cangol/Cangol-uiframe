@@ -13,10 +13,7 @@ public class ScrollFragment extends BaseContentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        /**
-         * 这里可以在回退时 保持位置
-         */
-        return onRetainView(R.layout.fragment_scroll, container, false);
+        return inflater.inflate(R.layout.fragment_scroll,container,false);
     }
 
     @Override
