@@ -51,6 +51,7 @@ public class ListFragment extends BaseContentFragment {
     protected void findViews(View view) {
         this.setTitle(this.getClass().getSimpleName());
         mListView=findViewById(R.id.listView);
+        mListView.addHeaderView(getLayoutInflater().inflate(R.layout.fragment_menu_bottom,null));
         mListView.setAdapter(mDataAdapter);
         mListView .setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
