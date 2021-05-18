@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 
 import mobi.cangol.mobile.logging.Log;
 
@@ -212,16 +213,13 @@ public class CustomFragmentManager {
                             temp=stack.popFragment();
                             stack.popTag();
                         }
-                        BaseFragment top = (BaseFragment)  fragmentManager.findFragmentById(containerId);
+                        BaseFragment top = temp;
                         Log.v(STATE_TAG, "detach="+top);
                         if(top!=null)beginTransaction().detach(top);
                     }
                 } else {
                     Log.i(STATE_TAG, "fragment isCleanStack=true,while pop all");
                     while (stack.size() > 0) {
-                        if (stack.peekTag().equals(tag)) {
-                            return;
-                        }
                         BaseFragment temp;
                         synchronized (lock) {
                             temp=stack.popFragment();
@@ -234,6 +232,10 @@ public class CustomFragmentManager {
                             BaseFragment top = temp;
                             Log.v(STATE_TAG, "detach="+top);
                             if(top!=null)beginTransaction().detach(top);
+                            if (top!=null&&TextUtils.equals(top.getClass().getName(),tag)) {
+                                Log.v(STATE_TAG, "isCleanStack=true,same tag,new instance"+tag);
+                                fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
+                            }
                         }
                     }
                 }
@@ -241,7 +243,6 @@ public class CustomFragmentManager {
                 Log.i(STATE_TAG, "fragment isCleanStack=false");
                 if (!fragment.isSingleton()) {
                     Log.i(STATE_TAG, "fragment isSingleton=false,newInstance");
-                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 } else {
                     Log.i(STATE_TAG, "fragment isSingleton=true,while pop all");
                     while (stack.size() > 0&&!tag.equals(stack.peekTag())) {
@@ -256,8 +257,8 @@ public class CustomFragmentManager {
                         stack.popTag();
                     }
                     fragmentManager.popBackStack();
-                    fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
                 }
+                fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
             }
         }
         if (customFragmentTransaction != null)
