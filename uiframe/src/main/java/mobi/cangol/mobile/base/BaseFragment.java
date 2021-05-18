@@ -78,6 +78,11 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract  void initData(Bundle savedInstanceState);
 
+
+    public void onNewBundle(Bundle bundle) {
+        Log.v(TAG, "onNewBundle");
+    }
+
     /**
      * 返回上级导航fragment
      *
