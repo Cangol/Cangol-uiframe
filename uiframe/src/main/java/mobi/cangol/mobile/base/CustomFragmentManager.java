@@ -233,7 +233,7 @@ public class CustomFragmentManager {
                             BaseFragment top = temp;
                             Log.v(STATE_TAG, "detach="+top);
                             if(top!=null)beginTransaction().detach(top);
-                            fragment.setArguments(args);
+                            fragment.onNewBundle(args);
                             if (top!=null&&TextUtils.equals(top.getClass().getName(),tag)) {
                                 Log.v(STATE_TAG, "isCleanStack=true,same tag,new instance"+tag);
                                 fragment = (BaseFragment) Fragment.instantiate(fActivity, clazz.getName(), args);
