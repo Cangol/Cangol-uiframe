@@ -206,6 +206,7 @@ public class CustomFragmentManager {
                 Log.i(STATE_TAG, "stack size="+stack.size());
                 if (stack.size() == 1) {
                     if (stack.peekTag().equals(tag)) {
+                        fragment.onNewBundle(args);
                         return;
                     } else {
                         BaseFragment temp;
