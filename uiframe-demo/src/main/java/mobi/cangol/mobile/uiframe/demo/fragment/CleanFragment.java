@@ -13,6 +13,22 @@ import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_CLEAN
 import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_HOME;
 
 public class CleanFragment extends BaseContentFragment {
+    private int sno;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+           sno=getArguments().getInt("sno") ;
+        }
+    }
+
+    @Override
+    public void onNewBundle(Bundle bundle) {
+        super.onNewBundle(bundle);
+        if(bundle!=null){
+            sno=bundle.getInt("sno") ;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +58,7 @@ public class CleanFragment extends BaseContentFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.setTitle(this.getClass().getSimpleName());
-        ((TextView)findViewById(R.id.textView1)).setText("Click me");
+        ((TextView)findViewById(R.id.textView1)).setText("Click me "+sno);
         findViewById(R.id.textView1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

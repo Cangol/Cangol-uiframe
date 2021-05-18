@@ -54,8 +54,9 @@ public class ResultFragment extends BaseContentFragment {
 		mTextView1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				setContentFragment(CleanFragment.class, CleanFragment.class.getName(), null, MODULE_CLEAN);
+				Bundle bundle=new Bundle();
+				bundle.putInt("sno",11);
+				setContentFragment(CleanFragment.class, CleanFragment.class.getName(), bundle, MODULE_CLEAN);
 //
 //				setResult(RESULT_OK);
 //				popBackStack();

@@ -63,7 +63,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(HomeFragment.class, HomeFragment.class.getName(), null, MODULE_HOME);
+                setContentFragment(HomeFragment.class, HomeFragment.class.getName(), new Bundle(), MODULE_HOME);
             }
 
         });
@@ -71,7 +71,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(CleanFragment.class, CleanFragment.class.getName(), null, MODULE_CLEAN);
+                setContentFragment(CleanFragment.class, CleanFragment.class.getName(), new Bundle(), MODULE_CLEAN);
             }
 
         });
@@ -79,7 +79,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(TabsFragment.class, TabsFragment.class.getName(), null, MODULE_TAB);
+                setContentFragment(TabsFragment.class, TabsFragment.class.getName(), new Bundle(), MODULE_TAB);
             }
 
         });
@@ -87,7 +87,7 @@ public class MenuFragment extends BaseMenuFragment {
 
             @Override
             public void onClick(View v) {
-                setContentFragment(TabPagesFragment.class, TabPagesFragment.class.getName(), null, MODULE_TABPAGES);
+                setContentFragment(TabPagesFragment.class, TabPagesFragment.class.getName(), new Bundle(), MODULE_TABPAGES);
             }
 
         });

@@ -16,6 +16,8 @@ import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.navigation.TabDrawerNavigationFragmentActivity;
 import mobi.cangol.mobile.uiframe.demo.R;
 
+import static mobi.cangol.mobile.uiframe.demo.fragment.MenuFragment.MODULE_CLEAN;
+
 public class HomeFragment extends BaseContentFragment {
     private ListView mListView;
 
@@ -71,6 +73,7 @@ public class HomeFragment extends BaseContentFragment {
         list.add(RecyclerViewFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(InputFragment.class.getSimpleName().replace("Fragment", ""));
         list.add(ScrollFragment.class.getSimpleName().replace("Fragment", ""));
+        list.add(CleanFragment.class.getSimpleName().replace("Fragment", ""));
 
 
         mListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list));
@@ -82,7 +85,11 @@ public class HomeFragment extends BaseContentFragment {
                 try {
                     if("Result".equals(name))
                         replaceFragmentForResult((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null,1);
-                    else
+                    else if("Clean".equals(name)){
+                        Bundle bundle=new Bundle();
+                        bundle.putInt("sno",12);
+                        setContentFragment(CleanFragment.class, CleanFragment.class.getName(), bundle, MODULE_CLEAN);
+                    }else
                         setContentFragment((Class<? extends BaseContentFragment>) Class.forName(className), name + "Fragment", null);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
