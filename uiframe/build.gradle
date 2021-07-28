@@ -8,8 +8,8 @@ apply from: '../config/quality.gradle'
 apply plugin: 'com.jakewharton.hugo'
 
 dependencies {
-    implementation 'mobi.cangol.mobile:appcore:1.2.2'
-    implementation 'mobi.cangol.mobile:actionbar:1.2.1'
+    implementation 'mobi.cangol.mobile:appcore:1.2.5'
+    implementation 'mobi.cangol.mobile:actionbar:1.2.3'
     implementation 'androidx.fragment:fragment:1.2.5'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.slidingpanelayout:slidingpanelayout:1.1.0'

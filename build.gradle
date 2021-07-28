@@ -5,6 +5,7 @@ buildscript {
     ext.target_version = 30
     ext.build_version = '30.0.2'
     repositories {
+        mavenCentral()
         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
         google()
@@ -20,6 +21,7 @@ buildscript {
 }
 allprojects {
     repositories {
+        mavenCentral()
         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
         google()

@@ -37,6 +37,7 @@ import java.lang.ref.WeakReference;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
+import mobi.cangol.mobile.service.session.Session;
 import mobi.cangol.mobile.service.session.SessionService;
 
 public abstract class BaseFragmentActivity extends FragmentActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
@@ -134,7 +135,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
      *
      * @return
      */
-    public SessionService getSession() {
+    public Session getSession() {
         return app.getSession();
     }
 

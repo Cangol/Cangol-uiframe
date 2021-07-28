@@ -39,7 +39,7 @@ import mobi.cangol.mobile.actionbar.ActionMenu;
 import mobi.cangol.mobile.actionbar.ActionMenuItem;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
-import mobi.cangol.mobile.service.session.SessionService;
+import mobi.cangol.mobile.service.session.Session;
 
 public abstract class BaseActionBarActivity extends ActionBarActivity implements BaseActivityDelegate, CustomFragmentActivityDelegate {
     protected final String TAG = Log.makeLogTag(this.getClass());
@@ -133,7 +133,7 @@ public abstract class BaseActionBarActivity extends ActionBarActivity implements
     }
 
     @Override
-    public SessionService getSession() {
+    public Session getSession() {
         return app.getSession();
     }
 

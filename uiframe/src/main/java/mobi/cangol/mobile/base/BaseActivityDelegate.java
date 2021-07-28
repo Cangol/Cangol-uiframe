@@ -22,7 +22,7 @@ import androidx.annotation.ColorInt;
 import android.widget.EditText;
 
 import mobi.cangol.mobile.service.AppService;
-import mobi.cangol.mobile.service.session.SessionService;
+import mobi.cangol.mobile.service.session.Session;
 
 public interface BaseActivityDelegate {
 
@@ -89,7 +89,7 @@ public interface BaseActivityDelegate {
      *
      * @return
      */
-    SessionService getSession();
+    Session getSession();
 
     /**
      * 设置全屏

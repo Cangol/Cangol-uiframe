@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
 import mobi.cangol.mobile.CoreApplication;
 import mobi.cangol.mobile.logging.Log;
 import mobi.cangol.mobile.service.AppService;
-import mobi.cangol.mobile.service.session.SessionService;
+import mobi.cangol.mobile.service.session.Session;
 
 /**
  * @author Cangol
@@ -132,7 +132,7 @@ public abstract class BaseActivity extends Activity implements BaseActivityDeleg
         super.onSaveInstanceState(outState);
     }
 
-    public SessionService getSession() {
+    public Session getSession() {
         return app.getSession();
     }
 
